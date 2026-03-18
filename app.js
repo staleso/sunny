@@ -1,124 +1,463 @@
-// ========== Car Database ==========
+// ========== Norwegian Electric Car Database ==========
+// Prices in NOK (approximate Norwegian market prices 2025/2026)
+// Range: WLTP km | 0-100 km/h times | Power in hp
 const CARS = [
+    // ===== BMW =====
     {
-        id: 1, make: "Tesla", model: "Model 3", year: 2025, price: 38990,
-        type: "electric", hp: 271, mpg: 132, zeroToSixty: 5.8, seats: 5,
-        drivetrain: "RWD", engine: "Electric Motor", range: "272 mi",
-        emoji: "⚡", color: "#1a1a2e"
+        id: 1, make: "BMW", model: "iX1 xDrive30", year: 2025, price: 529900,
+        type: "suv", hp: 313, kwh: 64.7, zeroToHundred: 5.6, seats: 5,
+        drivetrain: "AWD", battery: "64.7 kWh", range: 440,
+        emoji: "⚡", color: "#1a1a2e", segment: "Compact SUV"
     },
     {
-        id: 2, make: "Tesla", model: "Model Y", year: 2025, price: 44990,
-        type: "electric", hp: 310, mpg: 125, zeroToSixty: 5.0, seats: 5,
-        drivetrain: "AWD", engine: "Dual Motor", range: "310 mi",
-        emoji: "⚡", color: "#16213e"
+        id: 2, make: "BMW", model: "iX3", year: 2025, price: 599900,
+        type: "suv", hp: 286, kwh: 80, zeroToHundred: 6.8, seats: 5,
+        drivetrain: "RWD", battery: "80 kWh", range: 460,
+        emoji: "⚡", color: "#16213e", segment: "Mid-size SUV"
     },
     {
-        id: 3, make: "Toyota", model: "Camry", year: 2025, price: 28855,
-        type: "sedan", hp: 203, mpg: 39, zeroToSixty: 7.6, seats: 5,
-        drivetrain: "FWD", engine: "2.5L 4-Cyl", range: "N/A",
-        emoji: "🚗", color: "#1b2838"
+        id: 3, make: "BMW", model: "iX xDrive40", year: 2025, price: 799900,
+        type: "suv", hp: 326, kwh: 76.6, zeroToHundred: 6.1, seats: 5,
+        drivetrain: "AWD", battery: "76.6 kWh", range: 425,
+        emoji: "⚡", color: "#1b2838", segment: "Large SUV"
     },
     {
-        id: 4, make: "Honda", model: "Civic", year: 2025, price: 24950,
-        type: "sedan", hp: 150, mpg: 36, zeroToSixty: 8.2, seats: 5,
-        drivetrain: "FWD", engine: "2.0L 4-Cyl", range: "N/A",
-        emoji: "🚗", color: "#1a1a2e"
+        id: 4, make: "BMW", model: "iX xDrive50", year: 2025, price: 999900,
+        type: "suv", hp: 523, kwh: 111.5, zeroToHundred: 4.6, seats: 5,
+        drivetrain: "AWD", battery: "111.5 kWh", range: 630,
+        emoji: "⚡", color: "#1a2e2e", segment: "Large SUV"
     },
     {
-        id: 5, make: "Ford", model: "Mustang", year: 2025, price: 32515,
-        type: "sports", hp: 315, mpg: 27, zeroToSixty: 5.1, seats: 4,
-        drivetrain: "RWD", engine: "2.3L Turbo 4-Cyl", range: "N/A",
-        emoji: "🏎️", color: "#2d1b2e"
+        id: 5, make: "BMW", model: "i4 eDrive40", year: 2025, price: 569900,
+        type: "sedan", hp: 340, kwh: 83.9, zeroToHundred: 5.7, seats: 5,
+        drivetrain: "RWD", battery: "83.9 kWh", range: 590,
+        emoji: "⚡", color: "#1a1a2e", segment: "Mid-size Sedan"
     },
     {
-        id: 6, make: "Chevrolet", model: "Corvette", year: 2025, price: 66300,
-        type: "sports", hp: 490, mpg: 19, zeroToSixty: 2.9, seats: 2,
-        drivetrain: "RWD", engine: "6.2L V8", range: "N/A",
-        emoji: "🏎️", color: "#2e1a1a"
+        id: 6, make: "BMW", model: "i4 M50", year: 2025, price: 729900,
+        type: "sedan", hp: 544, kwh: 83.9, zeroToHundred: 3.9, seats: 5,
+        drivetrain: "AWD", battery: "83.9 kWh", range: 520,
+        emoji: "⚡", color: "#2d1b2e", segment: "Performance Sedan"
     },
     {
-        id: 7, make: "Toyota", model: "RAV4", year: 2025, price: 31275,
-        type: "suv", hp: 203, mpg: 30, zeroToSixty: 8.3, seats: 5,
-        drivetrain: "AWD", engine: "2.5L 4-Cyl", range: "N/A",
-        emoji: "🚙", color: "#1b2e1b"
+        id: 7, make: "BMW", model: "i5 eDrive40", year: 2025, price: 659900,
+        type: "sedan", hp: 340, kwh: 83.9, zeroToHundred: 6.0, seats: 5,
+        drivetrain: "RWD", battery: "83.9 kWh", range: 580,
+        emoji: "⚡", color: "#1b2e1b", segment: "Executive Sedan"
     },
     {
-        id: 8, make: "Honda", model: "CR-V", year: 2025, price: 31450,
-        type: "suv", hp: 190, mpg: 32, zeroToSixty: 8.0, seats: 5,
-        drivetrain: "AWD", engine: "1.5L Turbo 4-Cyl", range: "N/A",
-        emoji: "🚙", color: "#1b2838"
+        id: 8, make: "BMW", model: "i7 xDrive60", year: 2025, price: 1299900,
+        type: "sedan", hp: 544, kwh: 101.7, zeroToHundred: 4.7, seats: 5,
+        drivetrain: "AWD", battery: "101.7 kWh", range: 590,
+        emoji: "⚡", color: "#2e2e1a", segment: "Luxury Sedan"
+    },
+
+    // ===== AUDI =====
+    {
+        id: 9, make: "Audi", model: "Q4 e-tron 40", year: 2025, price: 479900,
+        type: "suv", hp: 204, kwh: 77, zeroToHundred: 8.5, seats: 5,
+        drivetrain: "RWD", battery: "77 kWh", range: 520,
+        emoji: "⚡", color: "#1a1a2e", segment: "Compact SUV"
     },
     {
-        id: 9, make: "Ford", model: "F-150", year: 2025, price: 36965,
-        type: "truck", hp: 400, mpg: 24, zeroToSixty: 5.6, seats: 6,
-        drivetrain: "4WD", engine: "3.5L V6 Turbo", range: "N/A",
-        emoji: "🛻", color: "#2e2e1a"
+        id: 10, make: "Audi", model: "Q4 e-tron 50 quattro", year: 2025, price: 559900,
+        type: "suv", hp: 299, kwh: 77, zeroToHundred: 6.2, seats: 5,
+        drivetrain: "AWD", battery: "77 kWh", range: 490,
+        emoji: "⚡", color: "#16213e", segment: "Compact SUV"
     },
     {
-        id: 10, make: "RAM", model: "1500", year: 2025, price: 39590,
-        type: "truck", hp: 395, mpg: 22, zeroToSixty: 6.3, seats: 6,
-        drivetrain: "4WD", engine: "5.7L V8 HEMI", range: "N/A",
-        emoji: "🛻", color: "#2e1a1a"
+        id: 11, make: "Audi", model: "Q6 e-tron quattro", year: 2025, price: 699900,
+        type: "suv", hp: 387, kwh: 100, zeroToHundred: 5.9, seats: 5,
+        drivetrain: "AWD", battery: "100 kWh", range: 625,
+        emoji: "⚡", color: "#1b2838", segment: "Mid-size SUV"
     },
     {
-        id: 11, make: "BMW", model: "3 Series", year: 2025, price: 44450,
-        type: "sedan", hp: 255, mpg: 30, zeroToSixty: 5.6, seats: 5,
-        drivetrain: "RWD", engine: "2.0L Turbo 4-Cyl", range: "N/A",
-        emoji: "🚗", color: "#1a1a2e"
+        id: 12, make: "Audi", model: "Q8 e-tron 55 quattro", year: 2025, price: 849900,
+        type: "suv", hp: 408, kwh: 114, zeroToHundred: 5.6, seats: 5,
+        drivetrain: "AWD", battery: "114 kWh", range: 580,
+        emoji: "⚡", color: "#1a2e2e", segment: "Large SUV"
     },
     {
-        id: 12, make: "Mercedes", model: "C-Class", year: 2025, price: 46150,
-        type: "sedan", hp: 255, mpg: 29, zeroToSixty: 5.9, seats: 5,
-        drivetrain: "RWD", engine: "2.0L Turbo 4-Cyl", range: "N/A",
-        emoji: "🚗", color: "#1a2e2e"
+        id: 13, make: "Audi", model: "e-tron GT quattro", year: 2025, price: 1099900,
+        type: "sedan", hp: 530, kwh: 97, zeroToHundred: 3.6, seats: 4,
+        drivetrain: "AWD", battery: "97 kWh", range: 490,
+        emoji: "⚡", color: "#2d1b2e", segment: "Performance Sedan"
     },
     {
-        id: 13, make: "Porsche", model: "911", year: 2025, price: 116550,
-        type: "sports", hp: 394, mpg: 22, zeroToSixty: 4.0, seats: 4,
-        drivetrain: "RWD", engine: "3.0L Twin-Turbo H6", range: "N/A",
-        emoji: "🏎️", color: "#2e2e1a"
+        id: 14, make: "Audi", model: "A6 e-tron", year: 2026, price: 649900,
+        type: "sedan", hp: 381, kwh: 100, zeroToHundred: 5.4, seats: 5,
+        drivetrain: "AWD", battery: "100 kWh", range: 700,
+        emoji: "⚡", color: "#1b2e1b", segment: "Executive Sedan"
+    },
+
+    // ===== MERCEDES-BENZ =====
+    {
+        id: 15, make: "Mercedes", model: "EQA 250+", year: 2025, price: 499900,
+        type: "suv", hp: 190, kwh: 70.5, zeroToHundred: 8.6, seats: 5,
+        drivetrain: "FWD", battery: "70.5 kWh", range: 528,
+        emoji: "⚡", color: "#1a1a2e", segment: "Compact SUV"
     },
     {
-        id: 14, make: "Toyota", model: "Prius", year: 2025, price: 29345,
-        type: "hybrid", hp: 196, mpg: 57, zeroToSixty: 7.0, seats: 5,
-        drivetrain: "FWD", engine: "2.0L Hybrid", range: "N/A",
-        emoji: "🌿", color: "#1b2e1b"
+        id: 16, make: "Mercedes", model: "EQB 250+", year: 2025, price: 539900,
+        type: "suv", hp: 190, kwh: 70.5, zeroToHundred: 8.9, seats: 7,
+        drivetrain: "FWD", battery: "70.5 kWh", range: 505,
+        emoji: "⚡", color: "#16213e", segment: "Compact SUV"
     },
     {
-        id: 15, make: "Hyundai", model: "Ioniq 5", year: 2025, price: 43875,
-        type: "electric", hp: 225, mpg: 114, zeroToSixty: 7.4, seats: 5,
-        drivetrain: "RWD", engine: "Electric Motor", range: "303 mi",
-        emoji: "⚡", color: "#16213e"
+        id: 17, make: "Mercedes", model: "EQC 400 4MATIC", year: 2025, price: 649900,
+        type: "suv", hp: 408, kwh: 80, zeroToHundred: 5.1, seats: 5,
+        drivetrain: "AWD", battery: "80 kWh", range: 430,
+        emoji: "⚡", color: "#1b2838", segment: "Mid-size SUV"
     },
     {
-        id: 16, make: "Jeep", model: "Wrangler", year: 2025, price: 33690,
-        type: "suv", hp: 285, mpg: 22, zeroToSixty: 7.5, seats: 5,
-        drivetrain: "4WD", engine: "3.6L V6", range: "N/A",
-        emoji: "🚙", color: "#2e2e1a"
+        id: 18, make: "Mercedes", model: "EQE 350+", year: 2025, price: 749900,
+        type: "sedan", hp: 292, kwh: 96, zeroToHundred: 6.4, seats: 5,
+        drivetrain: "RWD", battery: "96 kWh", range: 620,
+        emoji: "⚡", color: "#1a2e2e", segment: "Executive Sedan"
     },
     {
-        id: 17, make: "Mazda", model: "MX-5 Miata", year: 2025, price: 28985,
-        type: "sports", hp: 181, mpg: 30, zeroToSixty: 5.8, seats: 2,
-        drivetrain: "RWD", engine: "2.0L 4-Cyl", range: "N/A",
-        emoji: "🏎️", color: "#2e1a1a"
+        id: 19, make: "Mercedes", model: "EQE SUV 350+", year: 2025, price: 819900,
+        type: "suv", hp: 292, kwh: 96, zeroToHundred: 6.6, seats: 5,
+        drivetrain: "RWD", battery: "96 kWh", range: 590,
+        emoji: "⚡", color: "#2d1b2e", segment: "Large SUV"
     },
     {
-        id: 18, make: "Rivian", model: "R1T", year: 2025, price: 69900,
-        type: "truck", hp: 835, mpg: 70, zeroToSixty: 3.0, seats: 5,
-        drivetrain: "AWD", engine: "Quad Motor", range: "328 mi",
-        emoji: "🛻", color: "#1b2e1b"
+        id: 20, make: "Mercedes", model: "EQS 450+", year: 2025, price: 1099900,
+        type: "sedan", hp: 360, kwh: 118, zeroToHundred: 5.8, seats: 5,
+        drivetrain: "RWD", battery: "118 kWh", range: 770,
+        emoji: "⚡", color: "#1b2e1b", segment: "Luxury Sedan"
     },
     {
-        id: 19, make: "Honda", model: "Accord Hybrid", year: 2025, price: 33990,
-        type: "hybrid", hp: 204, mpg: 48, zeroToSixty: 7.2, seats: 5,
-        drivetrain: "FWD", engine: "2.0L Hybrid", range: "N/A",
-        emoji: "🌿", color: "#1a2e2e"
+        id: 21, make: "Mercedes", model: "EQS SUV 450+", year: 2025, price: 1199900,
+        type: "suv", hp: 360, kwh: 118, zeroToHundred: 6.0, seats: 7,
+        drivetrain: "RWD", battery: "118 kWh", range: 670,
+        emoji: "⚡", color: "#2e2e1a", segment: "Luxury SUV"
+    },
+
+    // ===== PORSCHE =====
+    {
+        id: 22, make: "Porsche", model: "Taycan", year: 2025, price: 899900,
+        type: "sedan", hp: 408, kwh: 93.4, zeroToHundred: 4.8, seats: 4,
+        drivetrain: "RWD", battery: "93.4 kWh", range: 590,
+        emoji: "⚡", color: "#2e1a1a", segment: "Performance Sedan"
     },
     {
-        id: 20, make: "Chevrolet", model: "Equinox EV", year: 2025, price: 34995,
-        type: "electric", hp: 215, mpg: 119, zeroToSixty: 6.0, seats: 5,
-        drivetrain: "FWD", engine: "Electric Motor", range: "315 mi",
-        emoji: "⚡", color: "#1a1a2e"
+        id: 23, make: "Porsche", model: "Taycan 4S", year: 2025, price: 1049900,
+        type: "sedan", hp: 530, kwh: 93.4, zeroToHundred: 3.7, seats: 4,
+        drivetrain: "AWD", battery: "93.4 kWh", range: 560,
+        emoji: "⚡", color: "#2d1b2e", segment: "Performance Sedan"
+    },
+    {
+        id: 24, make: "Porsche", model: "Taycan Turbo", year: 2025, price: 1449900,
+        type: "sedan", hp: 680, kwh: 97, zeroToHundred: 3.2, seats: 4,
+        drivetrain: "AWD", battery: "97 kWh", range: 550,
+        emoji: "⚡", color: "#1a1a2e", segment: "Performance Sedan"
+    },
+    {
+        id: 25, make: "Porsche", model: "Macan Electric", year: 2025, price: 849900,
+        type: "suv", hp: 408, kwh: 100, zeroToHundred: 5.2, seats: 5,
+        drivetrain: "AWD", battery: "100 kWh", range: 613,
+        emoji: "⚡", color: "#16213e", segment: "Mid-size SUV"
+    },
+    {
+        id: 26, make: "Porsche", model: "Macan Electric 4S", year: 2025, price: 999900,
+        type: "suv", hp: 516, kwh: 100, zeroToHundred: 4.1, seats: 5,
+        drivetrain: "AWD", battery: "100 kWh", range: 590,
+        emoji: "⚡", color: "#1b2838", segment: "Performance SUV"
+    },
+
+    // ===== TESLA =====
+    {
+        id: 27, make: "Tesla", model: "Model 3 Long Range", year: 2025, price: 449900,
+        type: "sedan", hp: 366, kwh: 75, zeroToHundred: 4.4, seats: 5,
+        drivetrain: "AWD", battery: "75 kWh", range: 629,
+        emoji: "⚡", color: "#1a1a2e", segment: "Mid-size Sedan"
+    },
+    {
+        id: 28, make: "Tesla", model: "Model 3 Performance", year: 2025, price: 529900,
+        type: "sedan", hp: 460, kwh: 75, zeroToHundred: 3.1, seats: 5,
+        drivetrain: "AWD", battery: "75 kWh", range: 528,
+        emoji: "⚡", color: "#2d1b2e", segment: "Performance Sedan"
+    },
+    {
+        id: 29, make: "Tesla", model: "Model Y Long Range", year: 2025, price: 479900,
+        type: "suv", hp: 366, kwh: 75, zeroToHundred: 5.0, seats: 5,
+        drivetrain: "AWD", battery: "75 kWh", range: 533,
+        emoji: "⚡", color: "#16213e", segment: "Mid-size SUV"
+    },
+    {
+        id: 30, make: "Tesla", model: "Model Y Performance", year: 2025, price: 559900,
+        type: "suv", hp: 460, kwh: 75, zeroToHundred: 3.7, seats: 5,
+        drivetrain: "AWD", battery: "75 kWh", range: 514,
+        emoji: "⚡", color: "#1b2838", segment: "Performance SUV"
+    },
+    {
+        id: 31, make: "Tesla", model: "Model S Long Range", year: 2025, price: 899900,
+        type: "sedan", hp: 670, kwh: 100, zeroToHundred: 3.2, seats: 5,
+        drivetrain: "AWD", battery: "100 kWh", range: 634,
+        emoji: "⚡", color: "#1b2e1b", segment: "Luxury Sedan"
+    },
+    {
+        id: 32, make: "Tesla", model: "Model X Long Range", year: 2025, price: 1049900,
+        type: "suv", hp: 670, kwh: 100, zeroToHundred: 3.9, seats: 7,
+        drivetrain: "AWD", battery: "100 kWh", range: 576,
+        emoji: "⚡", color: "#2e2e1a", segment: "Luxury SUV"
+    },
+
+    // ===== VOLKSWAGEN =====
+    {
+        id: 33, make: "Volkswagen", model: "ID.3 Pro S", year: 2025, price: 389900,
+        type: "hatchback", hp: 204, kwh: 77, zeroToHundred: 7.9, seats: 5,
+        drivetrain: "RWD", battery: "77 kWh", range: 560,
+        emoji: "⚡", color: "#1a1a2e", segment: "Compact"
+    },
+    {
+        id: 34, make: "Volkswagen", model: "ID.4 Pro S", year: 2025, price: 469900,
+        type: "suv", hp: 286, kwh: 77, zeroToHundred: 6.7, seats: 5,
+        drivetrain: "RWD", battery: "77 kWh", range: 540,
+        emoji: "⚡", color: "#16213e", segment: "Compact SUV"
+    },
+    {
+        id: 35, make: "Volkswagen", model: "ID.5 GTX", year: 2025, price: 549900,
+        type: "suv", hp: 340, kwh: 77, zeroToHundred: 5.4, seats: 5,
+        drivetrain: "AWD", battery: "77 kWh", range: 500,
+        emoji: "⚡", color: "#1b2838", segment: "Coupe SUV"
+    },
+    {
+        id: 36, make: "Volkswagen", model: "ID.7 Pro S", year: 2025, price: 569900,
+        type: "sedan", hp: 286, kwh: 86, zeroToHundred: 6.5, seats: 5,
+        drivetrain: "RWD", battery: "86 kWh", range: 700,
+        emoji: "⚡", color: "#1a2e2e", segment: "Mid-size Sedan"
+    },
+    {
+        id: 37, make: "Volkswagen", model: "ID. Buzz Pro", year: 2025, price: 599900,
+        type: "van", hp: 286, kwh: 86, zeroToHundred: 7.9, seats: 7,
+        drivetrain: "RWD", battery: "86 kWh", range: 460,
+        emoji: "⚡", color: "#2e2e1a", segment: "MPV"
+    },
+
+    // ===== VOLVO =====
+    {
+        id: 38, make: "Volvo", model: "EX30 Single Motor", year: 2025, price: 369900,
+        type: "suv", hp: 272, kwh: 69, zeroToHundred: 5.3, seats: 5,
+        drivetrain: "RWD", battery: "69 kWh", range: 476,
+        emoji: "⚡", color: "#1a1a2e", segment: "Small SUV"
+    },
+    {
+        id: 39, make: "Volvo", model: "EX30 Twin Motor", year: 2025, price: 439900,
+        type: "suv", hp: 428, kwh: 69, zeroToHundred: 3.6, seats: 5,
+        drivetrain: "AWD", battery: "69 kWh", range: 450,
+        emoji: "⚡", color: "#16213e", segment: "Small SUV"
+    },
+    {
+        id: 40, make: "Volvo", model: "EC40 Recharge", year: 2025, price: 499900,
+        type: "suv", hp: 252, kwh: 78, zeroToHundred: 7.4, seats: 5,
+        drivetrain: "RWD", battery: "78 kWh", range: 478,
+        emoji: "⚡", color: "#1b2838", segment: "Coupe SUV"
+    },
+    {
+        id: 41, make: "Volvo", model: "EX40 Recharge", year: 2025, price: 479900,
+        type: "suv", hp: 252, kwh: 78, zeroToHundred: 7.4, seats: 5,
+        drivetrain: "RWD", battery: "78 kWh", range: 476,
+        emoji: "⚡", color: "#1a2e2e", segment: "Compact SUV"
+    },
+    {
+        id: 42, make: "Volvo", model: "EX90 Twin Motor", year: 2025, price: 899900,
+        type: "suv", hp: 408, kwh: 111, zeroToHundred: 5.9, seats: 7,
+        drivetrain: "AWD", battery: "111 kWh", range: 580,
+        emoji: "⚡", color: "#1b2e1b", segment: "Large SUV"
+    },
+
+    // ===== HYUNDAI =====
+    {
+        id: 43, make: "Hyundai", model: "Kona Electric 65 kWh", year: 2025, price: 369900,
+        type: "suv", hp: 218, kwh: 65.4, zeroToHundred: 7.8, seats: 5,
+        drivetrain: "FWD", battery: "65.4 kWh", range: 490,
+        emoji: "⚡", color: "#1a1a2e", segment: "Small SUV"
+    },
+    {
+        id: 44, make: "Hyundai", model: "IONIQ 5 Long Range AWD", year: 2025, price: 499900,
+        type: "suv", hp: 325, kwh: 84, zeroToHundred: 5.1, seats: 5,
+        drivetrain: "AWD", battery: "84 kWh", range: 507,
+        emoji: "⚡", color: "#16213e", segment: "Mid-size SUV"
+    },
+    {
+        id: 45, make: "Hyundai", model: "IONIQ 6 Long Range AWD", year: 2025, price: 519900,
+        type: "sedan", hp: 325, kwh: 77.4, zeroToHundred: 5.1, seats: 5,
+        drivetrain: "AWD", battery: "77.4 kWh", range: 583,
+        emoji: "⚡", color: "#1b2838", segment: "Mid-size Sedan"
+    },
+
+    // ===== KIA =====
+    {
+        id: 46, make: "Kia", model: "Niro EV", year: 2025, price: 399900,
+        type: "suv", hp: 204, kwh: 64.8, zeroToHundred: 7.8, seats: 5,
+        drivetrain: "FWD", battery: "64.8 kWh", range: 463,
+        emoji: "⚡", color: "#1a1a2e", segment: "Compact SUV"
+    },
+    {
+        id: 47, make: "Kia", model: "EV6 Long Range AWD", year: 2025, price: 529900,
+        type: "suv", hp: 325, kwh: 77.4, zeroToHundred: 5.2, seats: 5,
+        drivetrain: "AWD", battery: "77.4 kWh", range: 506,
+        emoji: "⚡", color: "#16213e", segment: "Mid-size SUV"
+    },
+    {
+        id: 48, make: "Kia", model: "EV9 Long Range AWD", year: 2025, price: 699900,
+        type: "suv", hp: 384, kwh: 99.8, zeroToHundred: 5.3, seats: 7,
+        drivetrain: "AWD", battery: "99.8 kWh", range: 501,
+        emoji: "⚡", color: "#1b2838", segment: "Large SUV"
+    },
+
+    // ===== SKODA =====
+    {
+        id: 49, make: "Skoda", model: "Enyaq iV 80", year: 2025, price: 449900,
+        type: "suv", hp: 204, kwh: 77, zeroToHundred: 8.5, seats: 5,
+        drivetrain: "RWD", battery: "77 kWh", range: 545,
+        emoji: "⚡", color: "#1a2e2e", segment: "Compact SUV"
+    },
+    {
+        id: 50, make: "Skoda", model: "Enyaq Coupe RS", year: 2025, price: 579900,
+        type: "suv", hp: 340, kwh: 77, zeroToHundred: 5.5, seats: 5,
+        drivetrain: "AWD", battery: "77 kWh", range: 505,
+        emoji: "⚡", color: "#2d1b2e", segment: "Coupe SUV"
+    },
+
+    // ===== POLESTAR =====
+    {
+        id: 51, make: "Polestar", model: "2 Long Range Dual Motor", year: 2025, price: 499900,
+        type: "sedan", hp: 421, kwh: 78, zeroToHundred: 4.2, seats: 5,
+        drivetrain: "AWD", battery: "78 kWh", range: 487,
+        emoji: "⚡", color: "#1a1a2e", segment: "Mid-size Sedan"
+    },
+    {
+        id: 52, make: "Polestar", model: "3 Long Range Dual Motor", year: 2025, price: 799900,
+        type: "suv", hp: 489, kwh: 111, zeroToHundred: 4.7, seats: 5,
+        drivetrain: "AWD", battery: "111 kWh", range: 560,
+        emoji: "⚡", color: "#16213e", segment: "Large SUV"
+    },
+    {
+        id: 53, make: "Polestar", model: "4 Long Range Dual Motor", year: 2025, price: 649900,
+        type: "suv", hp: 544, kwh: 100, zeroToHundred: 3.8, seats: 5,
+        drivetrain: "AWD", battery: "100 kWh", range: 560,
+        emoji: "⚡", color: "#1b2838", segment: "Coupe SUV"
+    },
+
+    // ===== NIO =====
+    {
+        id: 54, make: "NIO", model: "ET5 Touring", year: 2025, price: 449900,
+        type: "wagon", hp: 490, kwh: 100, zeroToHundred: 4.0, seats: 5,
+        drivetrain: "AWD", battery: "100 kWh", range: 560,
+        emoji: "⚡", color: "#1b2e1b", segment: "Mid-size Wagon"
+    },
+    {
+        id: 55, make: "NIO", model: "EL6", year: 2025, price: 539900,
+        type: "suv", hp: 490, kwh: 100, zeroToHundred: 4.5, seats: 5,
+        drivetrain: "AWD", battery: "100 kWh", range: 510,
+        emoji: "⚡", color: "#2e2e1a", segment: "Mid-size SUV"
+    },
+    {
+        id: 56, make: "NIO", model: "EL7", year: 2025, price: 639900,
+        type: "suv", hp: 653, kwh: 100, zeroToHundred: 3.9, seats: 5,
+        drivetrain: "AWD", battery: "100 kWh", range: 485,
+        emoji: "⚡", color: "#2e1a1a", segment: "Mid-size SUV"
+    },
+
+    // ===== TOYOTA =====
+    {
+        id: 57, make: "Toyota", model: "bZ4X AWD", year: 2025, price: 449900,
+        type: "suv", hp: 218, kwh: 71.4, zeroToHundred: 6.9, seats: 5,
+        drivetrain: "AWD", battery: "71.4 kWh", range: 411,
+        emoji: "⚡", color: "#1a1a2e", segment: "Mid-size SUV"
+    },
+
+    // ===== FORD =====
+    {
+        id: 58, make: "Ford", model: "Mustang Mach-E Extended AWD", year: 2025, price: 529900,
+        type: "suv", hp: 351, kwh: 91, zeroToHundred: 5.4, seats: 5,
+        drivetrain: "AWD", battery: "91 kWh", range: 540,
+        emoji: "⚡", color: "#2e1a1a", segment: "Mid-size SUV"
+    },
+    {
+        id: 59, make: "Ford", model: "Explorer Electric AWD", year: 2025, price: 499900,
+        type: "suv", hp: 340, kwh: 79, zeroToHundred: 5.3, seats: 5,
+        drivetrain: "AWD", battery: "79 kWh", range: 530,
+        emoji: "⚡", color: "#1b2838", segment: "Mid-size SUV"
+    },
+
+    // ===== XPENG =====
+    {
+        id: 60, make: "Xpeng", model: "G6", year: 2025, price: 449900,
+        type: "suv", hp: 296, kwh: 87.5, zeroToHundred: 5.9, seats: 5,
+        drivetrain: "RWD", battery: "87.5 kWh", range: 570,
+        emoji: "⚡", color: "#1a2e2e", segment: "Mid-size SUV"
+    },
+    {
+        id: 61, make: "Xpeng", model: "G9", year: 2025, price: 569900,
+        type: "suv", hp: 551, kwh: 98, zeroToHundred: 3.9, seats: 5,
+        drivetrain: "AWD", battery: "98 kWh", range: 520,
+        emoji: "⚡", color: "#2d1b2e", segment: "Large SUV"
+    },
+
+    // ===== BYD =====
+    {
+        id: 62, make: "BYD", model: "Atto 3", year: 2025, price: 349900,
+        type: "suv", hp: 204, kwh: 60.5, zeroToHundred: 7.3, seats: 5,
+        drivetrain: "FWD", battery: "60.5 kWh", range: 420,
+        emoji: "⚡", color: "#1a1a2e", segment: "Compact SUV"
+    },
+    {
+        id: 63, make: "BYD", model: "Tang EV600", year: 2025, price: 569900,
+        type: "suv", hp: 517, kwh: 108.8, zeroToHundred: 4.6, seats: 7,
+        drivetrain: "AWD", battery: "108.8 kWh", range: 530,
+        emoji: "⚡", color: "#16213e", segment: "Large SUV"
+    },
+    {
+        id: 64, make: "BYD", model: "Seal", year: 2025, price: 439900,
+        type: "sedan", hp: 313, kwh: 82.5, zeroToHundred: 5.9, seats: 5,
+        drivetrain: "RWD", battery: "82.5 kWh", range: 570,
+        emoji: "⚡", color: "#1b2838", segment: "Mid-size Sedan"
+    },
+
+    // ===== CUPRA =====
+    {
+        id: 65, make: "Cupra", model: "Born 77 kWh", year: 2025, price: 419900,
+        type: "hatchback", hp: 231, kwh: 77, zeroToHundred: 7.0, seats: 5,
+        drivetrain: "RWD", battery: "77 kWh", range: 540,
+        emoji: "⚡", color: "#2e1a1a", segment: "Compact"
+    },
+    {
+        id: 66, make: "Cupra", model: "Tavascan VZ", year: 2025, price: 559900,
+        type: "suv", hp: 340, kwh: 77, zeroToHundred: 5.5, seats: 5,
+        drivetrain: "AWD", battery: "77 kWh", range: 500,
+        emoji: "⚡", color: "#2d1b2e", segment: "Coupe SUV"
+    },
+
+    // ===== RENAULT =====
+    {
+        id: 67, make: "Renault", model: "Megane E-Tech 60", year: 2025, price: 369900,
+        type: "hatchback", hp: 220, kwh: 60, zeroToHundred: 7.4, seats: 5,
+        drivetrain: "FWD", battery: "60 kWh", range: 450,
+        emoji: "⚡", color: "#1b2e1b", segment: "Compact"
+    },
+    {
+        id: 68, make: "Renault", model: "Scenic E-Tech 87", year: 2025, price: 449900,
+        type: "suv", hp: 220, kwh: 87, zeroToHundred: 7.9, seats: 5,
+        drivetrain: "FWD", battery: "87 kWh", range: 620,
+        emoji: "⚡", color: "#2e2e1a", segment: "Compact SUV"
+    },
+
+    // ===== SMART =====
+    {
+        id: 69, make: "Smart", model: "#1 Pro+", year: 2025, price: 349900,
+        type: "suv", hp: 272, kwh: 66, zeroToHundred: 6.7, seats: 5,
+        drivetrain: "RWD", battery: "66 kWh", range: 420,
+        emoji: "⚡", color: "#1a1a2e", segment: "Small SUV"
+    },
+    {
+        id: 70, make: "Smart", model: "#3 BRABUS", year: 2025, price: 469900,
+        type: "suv", hp: 428, kwh: 66, zeroToHundred: 3.7, seats: 5,
+        drivetrain: "AWD", battery: "66 kWh", range: 400,
+        emoji: "⚡", color: "#2e1a1a", segment: "Coupe SUV"
     }
 ];
 
@@ -136,7 +475,7 @@ function saveState() {
 
 // ========== Utility ==========
 function formatPrice(price) {
-    return "$" + price.toLocaleString();
+    return price.toLocaleString("nb-NO") + " kr";
 }
 
 function getCarById(id) {
@@ -158,7 +497,7 @@ function toggleCompare(id, e) {
         state.compareList.splice(idx, 1);
     } else {
         if (state.compareList.length >= 4) {
-            showToast("Max 4 cars to compare");
+            showToast("Maks 4 biler kan sammenlignes");
             return;
         }
         state.compareList.push(id);
@@ -205,33 +544,30 @@ function renderCarCard(car) {
     div.className = "car-card";
     div.onclick = () => openModal(car.id);
 
-    const isElectric = car.type === "electric";
-    const mpgLabel = isElectric ? "MPGe" : (car.type === "hybrid" ? "MPG" : "MPG");
-
     div.innerHTML = `
         <div class="car-card-image" style="background: linear-gradient(135deg, ${car.color}, #0a0a0a)">
             <span>${car.emoji}</span>
-            <span class="type-badge">${car.type}</span>
+            <span class="type-badge">${car.segment}</span>
         </div>
         <div class="car-card-body">
             <div class="car-card-title">${car.make} ${car.model}</div>
             <div class="car-card-year">${car.year}</div>
             <div class="car-card-specs">
-                <span class="spec-pill"><span class="val">${car.hp}</span> hp</span>
-                <span class="spec-pill"><span class="val">${car.mpg}</span> ${mpgLabel}</span>
-                <span class="spec-pill"><span class="val">${car.zeroToSixty}s</span> 0-60</span>
+                <span class="spec-pill"><span class="val">${car.range}</span> km</span>
+                <span class="spec-pill"><span class="val">${car.hp}</span> hk</span>
+                <span class="spec-pill"><span class="val">${car.zeroToHundred}s</span> 0-100</span>
             </div>
             <div class="car-card-footer">
                 <span class="car-price">${formatPrice(car.price)}</span>
                 <div class="car-actions">
                     <button class="btn-icon ${isFavorite(car.id) ? 'active-fav' : ''}"
                             onclick="toggleFavorite(${car.id}, event)"
-                            aria-label="Favorite">
+                            aria-label="Favoritt">
                         ${isFavorite(car.id) ? '❤️' : '🤍'}
                     </button>
                     <button class="btn-icon ${isInCompare(car.id) ? 'active-compare' : ''}"
                             onclick="toggleCompare(${car.id}, event)"
-                            aria-label="Compare">
+                            aria-label="Sammenlign">
                         ${isInCompare(car.id) ? '✓' : '+'}
                     </button>
                 </div>
@@ -245,26 +581,29 @@ function renderCarCard(car) {
 function renderBrowse() {
     const list = document.getElementById("car-list");
     const search = document.getElementById("search-input").value.toLowerCase();
+    const brandFilter = document.getElementById("filter-brand").value;
     const typeFilter = document.getElementById("filter-type").value;
     const sort = document.getElementById("filter-sort").value;
 
     let cars = CARS.filter(car => {
-        const matchSearch = `${car.make} ${car.model} ${car.year}`.toLowerCase().includes(search);
+        const matchSearch = `${car.make} ${car.model} ${car.year} ${car.segment}`.toLowerCase().includes(search);
+        const matchBrand = brandFilter === "all" || car.make === brandFilter;
         const matchType = typeFilter === "all" || car.type === typeFilter;
-        return matchSearch && matchType;
+        return matchSearch && matchBrand && matchType;
     });
 
     switch (sort) {
         case "price-low": cars.sort((a, b) => a.price - b.price); break;
         case "price-high": cars.sort((a, b) => b.price - a.price); break;
-        case "mpg": cars.sort((a, b) => b.mpg - a.mpg); break;
+        case "range": cars.sort((a, b) => b.range - a.range); break;
         case "hp": cars.sort((a, b) => b.hp - a.hp); break;
+        case "fast": cars.sort((a, b) => a.zeroToHundred - b.zeroToHundred); break;
         default: cars.sort((a, b) => `${a.make} ${a.model}`.localeCompare(`${b.make} ${b.model}`));
     }
 
     list.innerHTML = "";
     if (cars.length === 0) {
-        list.innerHTML = '<div class="no-results">No cars found</div>';
+        list.innerHTML = '<div class="no-results">Ingen biler funnet</div>';
         return;
     }
     cars.forEach(car => list.appendChild(renderCarCard(car)));
@@ -305,14 +644,14 @@ function renderCompare() {
 
     // Comparison rows
     const specs = [
-        { label: "Price", key: "price", format: v => formatPrice(v), best: "low" },
-        { label: "Horsepower", key: "hp", format: v => v + " hp", best: "high" },
-        { label: "MPG", key: "mpg", format: v => v + (cars.find(c => c.type === "electric") ? " MPGe" : ""), best: "high" },
-        { label: "0-60 mph", key: "zeroToSixty", format: v => v + "s", best: "low" },
-        { label: "Seats", key: "seats", format: v => v, best: null },
-        { label: "Drivetrain", key: "drivetrain", format: v => v, best: null },
-        { label: "Engine", key: "engine", format: v => v, best: null },
-        { label: "Type", key: "type", format: v => v.charAt(0).toUpperCase() + v.slice(1), best: null }
+        { label: "Pris", key: "price", format: v => formatPrice(v), best: "low" },
+        { label: "Rekkevidde", key: "range", format: v => v + " km", best: "high" },
+        { label: "Effekt", key: "hp", format: v => v + " hk", best: "high" },
+        { label: "0-100 km/t", key: "zeroToHundred", format: v => v + "s", best: "low" },
+        { label: "Batteri", key: "kwh", format: v => v + " kWh", best: "high" },
+        { label: "Seter", key: "seats", format: v => v, best: null },
+        { label: "Drivlinje", key: "drivetrain", format: v => v, best: null },
+        { label: "Segment", key: "segment", format: v => v, best: null }
     ];
 
     const table = document.getElementById("compare-table");
@@ -368,58 +707,59 @@ function openModal(id) {
     image.style.background = `linear-gradient(135deg, ${car.color}, #0a0a0a)`;
     image.innerHTML = `<span>${car.emoji}</span>`;
 
-    const isElectric = car.type === "electric";
-
     body.innerHTML = `
         <div class="modal-title">${car.make} ${car.model}</div>
-        <div class="modal-year">${car.year} · ${car.type.charAt(0).toUpperCase() + car.type.slice(1)}</div>
+        <div class="modal-year">${car.year} · ${car.segment}</div>
         <div class="modal-price">${formatPrice(car.price)}</div>
 
-        <div class="modal-section-title">Performance</div>
+        <div class="modal-section-title">Ytelse</div>
         <div class="modal-specs-grid">
             <div class="modal-spec">
-                <div class="modal-spec-label">Horsepower</div>
-                <div class="modal-spec-value">${car.hp} hp</div>
+                <div class="modal-spec-label">Effekt</div>
+                <div class="modal-spec-value">${car.hp} hk</div>
             </div>
             <div class="modal-spec">
-                <div class="modal-spec-label">0-60 mph</div>
-                <div class="modal-spec-value">${car.zeroToSixty}s</div>
+                <div class="modal-spec-label">0-100 km/t</div>
+                <div class="modal-spec-value">${car.zeroToHundred}s</div>
             </div>
             <div class="modal-spec">
-                <div class="modal-spec-label">${isElectric ? 'MPGe' : 'MPG'}</div>
-                <div class="modal-spec-value">${car.mpg}</div>
+                <div class="modal-spec-label">Rekkevidde</div>
+                <div class="modal-spec-value">${car.range} km</div>
             </div>
             <div class="modal-spec">
-                <div class="modal-spec-label">Drivetrain</div>
+                <div class="modal-spec-label">Drivlinje</div>
                 <div class="modal-spec-value">${car.drivetrain}</div>
             </div>
         </div>
 
-        <div class="modal-section-title">Details</div>
+        <div class="modal-section-title">Detaljer</div>
         <div class="modal-specs-grid">
             <div class="modal-spec">
-                <div class="modal-spec-label">Engine</div>
-                <div class="modal-spec-value" style="font-size:14px">${car.engine}</div>
+                <div class="modal-spec-label">Batteri</div>
+                <div class="modal-spec-value">${car.battery}</div>
             </div>
             <div class="modal-spec">
-                <div class="modal-spec-label">Seats</div>
+                <div class="modal-spec-label">Seter</div>
                 <div class="modal-spec-value">${car.seats}</div>
             </div>
-            ${isElectric || car.range !== "N/A" ? `
             <div class="modal-spec">
-                <div class="modal-spec-label">Range</div>
-                <div class="modal-spec-value">${car.range}</div>
-            </div>` : ''}
+                <div class="modal-spec-label">Type</div>
+                <div class="modal-spec-value" style="font-size:14px">${car.segment}</div>
+            </div>
+            <div class="modal-spec">
+                <div class="modal-spec-label">Pris/km</div>
+                <div class="modal-spec-value" style="font-size:14px">${(car.price / car.range).toFixed(0)} kr</div>
+            </div>
         </div>
 
         <div class="modal-actions">
             <button class="modal-btn btn-compare ${isInCompare(car.id) ? 'added' : ''}"
                     onclick="toggleCompare(${car.id}); openModal(${car.id});">
-                ${isInCompare(car.id) ? '✓ In Compare' : '+ Compare'}
+                ${isInCompare(car.id) ? '✓ Sammenlignes' : '+ Sammenlign'}
             </button>
             <button class="modal-btn btn-fav ${isFavorite(car.id) ? 'favorited' : ''}"
                     onclick="toggleFavorite(${car.id}); openModal(${car.id});">
-                ${isFavorite(car.id) ? '❤️ Favorited' : '🤍 Favorite'}
+                ${isFavorite(car.id) ? '❤️ Favoritt' : '🤍 Favoritt'}
             </button>
         </div>
     `;
@@ -455,6 +795,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Search & filter
     document.getElementById("search-input").addEventListener("input", renderBrowse);
+    document.getElementById("filter-brand").addEventListener("change", renderBrowse);
     document.getElementById("filter-type").addEventListener("change", renderBrowse);
     document.getElementById("filter-sort").addEventListener("change", renderBrowse);
 
