@@ -16,9 +16,21 @@ const CARS = [
         emoji: "⚡", color: "#16213e", segment: "Mid-size SUV"
     },
     {
-        id: 72, make: "BMW", model: "iX3", year: 2026, price: 619900,
-        type: "suv", hp: 286, kwh: 80, zeroToHundred: 6.5, seats: 5,
-        drivetrain: "RWD", battery: "80 kWh", range: 480,
+        id: 72, make: "BMW", model: "iX3 50 xDrive Fully Charged", year: 2026, price: 679900,
+        type: "suv", hp: 463, kwh: 108, zeroToHundred: 4.9, seats: 5,
+        drivetrain: "AWD", battery: "108 kWh", range: 805,
+        emoji: "⚡", color: "#16213e", segment: "Mid-size SUV"
+    },
+    {
+        id: 73, make: "BMW", model: "iX3 50 xDrive M Sport", year: 2026, price: 749900,
+        type: "suv", hp: 463, kwh: 108, zeroToHundred: 4.9, seats: 5,
+        drivetrain: "AWD", battery: "108 kWh", range: 805,
+        emoji: "⚡", color: "#16213e", segment: "Mid-size SUV"
+    },
+    {
+        id: 74, make: "BMW", model: "iX3 50 xDrive M Sport Pro", year: 2026, price: 892000,
+        type: "suv", hp: 463, kwh: 108, zeroToHundred: 4.9, seats: 5,
+        drivetrain: "AWD", battery: "108 kWh", range: 805,
         emoji: "⚡", color: "#16213e", segment: "Mid-size SUV"
     },
     {
