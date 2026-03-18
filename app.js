@@ -602,16 +602,20 @@ function setRating(carId, rating, e) {
     showToast(`Du ga ${rating} av 5 stjerner`);
 }
 
+const STAR_COLORS = ["#FF4545", "#FF8C2F", "#FFD700", "#A8D84E", "#4CC94C"];
+
 function renderStars(carId, size) {
     const current = getRating(carId);
     const sz = size || 18;
     let html = `<div class="star-rating" style="font-size:${sz}px">`;
     for (let i = 1; i <= 5; i++) {
         const filled = i <= current;
-        html += `<span class="star ${filled ? 'star-filled' : 'star-empty'}" onclick="setRating(${carId}, ${i}, event)">★</span>`;
+        const color = filled ? STAR_COLORS[i - 1] : "";
+        const style = filled ? `color:${color}; text-shadow: 0 0 4px ${color}40` : "";
+        html += `<span class="star ${filled ? 'star-filled' : 'star-empty'}" style="${style}" onclick="setRating(${carId}, ${i}, event)">★</span>`;
     }
     if (current > 0) {
-        html += `<span class="star-label">${current}/5</span>`;
+        html += `<span class="star-label" style="color:${STAR_COLORS[current - 1]}">${current}/5</span>`;
     }
     html += `</div>`;
     return html;
