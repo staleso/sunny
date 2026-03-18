@@ -461,6 +461,95 @@ const CARS = [
     }
 ];
 
+// ========== Brand Colors ==========
+const BRAND_COLORS = {
+    "BMW":        { primary: "#0066B1", gradient: "linear-gradient(135deg, #0066B1, #003366)" },
+    "Audi":       { primary: "#BB0A30", gradient: "linear-gradient(135deg, #BB0A30, #660018)" },
+    "Mercedes":   { primary: "#00ADEF", gradient: "linear-gradient(135deg, #00ADEF, #005F7F)" },
+    "Porsche":    { primary: "#C8102E", gradient: "linear-gradient(135deg, #C8102E, #6B0016)" },
+    "Tesla":      { primary: "#CC0000", gradient: "linear-gradient(135deg, #CC0000, #660000)" },
+    "Volkswagen": { primary: "#003399", gradient: "linear-gradient(135deg, #003399, #001A4D)" },
+    "Volvo":      { primary: "#003057", gradient: "linear-gradient(135deg, #003057, #001A30)" },
+    "Hyundai":    { primary: "#002C5F", gradient: "linear-gradient(135deg, #002C5F, #001633)" },
+    "Kia":        { primary: "#05141F", gradient: "linear-gradient(135deg, #BB162B, #660D18)" },
+    "Skoda":      { primary: "#4BA82E", gradient: "linear-gradient(135deg, #4BA82E, #2D6619)" },
+    "Polestar":   { primary: "#D4AA00", gradient: "linear-gradient(135deg, #1A1A1A, #333333)" },
+    "NIO":        { primary: "#0070C0", gradient: "linear-gradient(135deg, #0070C0, #003860)" },
+    "Toyota":     { primary: "#EB0A1E", gradient: "linear-gradient(135deg, #EB0A1E, #7A050F)" },
+    "Ford":       { primary: "#003478", gradient: "linear-gradient(135deg, #003478, #001A3C)" },
+    "Xpeng":      { primary: "#FF6B00", gradient: "linear-gradient(135deg, #FF6B00, #993F00)" },
+    "BYD":        { primary: "#C5002E", gradient: "linear-gradient(135deg, #C5002E, #660018)" },
+    "Cupra":      { primary: "#95614C", gradient: "linear-gradient(135deg, #95614C, #4D3228)" },
+    "Renault":    { primary: "#FFCC00", gradient: "linear-gradient(135deg, #1A1A1A, #333333)" },
+    "Smart":      { primary: "#FF7900", gradient: "linear-gradient(135deg, #FF7900, #994800)" }
+};
+
+// ========== SVG Car Silhouettes ==========
+function getCarSilhouette(type) {
+    const color = "rgba(255,255,255,0.15)";
+    const highlight = "rgba(255,255,255,0.25)";
+    switch (type) {
+        case "sedan":
+            return `<svg viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg" style="width:85%;max-width:260px;position:absolute;bottom:8px;">
+                <path d="M30,85 L45,85 Q50,65 65,65 L95,65 Q100,40 130,30 L190,28 Q220,30 230,50 L240,65 L255,65 Q270,65 270,85 L280,85" fill="none" stroke="${color}" stroke-width="3"/>
+                <path d="M130,30 L130,65" fill="none" stroke="${color}" stroke-width="1.5"/>
+                <path d="M190,28 L195,65" fill="none" stroke="${color}" stroke-width="1.5"/>
+                <ellipse cx="80" cy="88" rx="18" ry="18" fill="none" stroke="${highlight}" stroke-width="3"/>
+                <ellipse cx="240" cy="88" rx="18" ry="18" fill="none" stroke="${highlight}" stroke-width="3"/>
+                <line x1="100" y1="65" x2="235" y2="65" stroke="${color}" stroke-width="2"/>
+            </svg>`;
+        case "suv":
+            return `<svg viewBox="0 0 300 130" xmlns="http://www.w3.org/2000/svg" style="width:85%;max-width:260px;position:absolute;bottom:5px;">
+                <path d="M25,90 L45,90 Q50,65 65,65 L90,65 Q95,35 125,25 L200,23 Q225,25 235,45 L245,65 L260,65 Q275,65 275,90 L285,90" fill="none" stroke="${color}" stroke-width="3"/>
+                <path d="M125,25 L120,65" fill="none" stroke="${color}" stroke-width="1.5"/>
+                <path d="M200,23 L205,65" fill="none" stroke="${color}" stroke-width="1.5"/>
+                <ellipse cx="78" cy="95" rx="20" ry="20" fill="none" stroke="${highlight}" stroke-width="3"/>
+                <ellipse cx="248" cy="95" rx="20" ry="20" fill="none" stroke="${highlight}" stroke-width="3"/>
+                <line x1="100" y1="65" x2="240" y2="65" stroke="${color}" stroke-width="2"/>
+                <path d="M90,65 L90,90" fill="none" stroke="${color}" stroke-width="1.5" opacity="0.5"/>
+                <path d="M260,65 L260,90" fill="none" stroke="${color}" stroke-width="1.5" opacity="0.5"/>
+            </svg>`;
+        case "hatchback":
+            return `<svg viewBox="0 0 280 120" xmlns="http://www.w3.org/2000/svg" style="width:80%;max-width:240px;position:absolute;bottom:8px;">
+                <path d="M30,85 L45,85 Q50,65 65,65 L90,65 Q95,40 125,30 L190,28 Q210,30 220,45 L230,65 L240,65 Q255,65 250,85 L260,85" fill="none" stroke="${color}" stroke-width="3"/>
+                <path d="M125,30 L122,65" fill="none" stroke="${color}" stroke-width="1.5"/>
+                <path d="M190,28 L220,65" fill="none" stroke="${color}" stroke-width="1.5"/>
+                <ellipse cx="78" cy="88" rx="18" ry="18" fill="none" stroke="${highlight}" stroke-width="3"/>
+                <ellipse cx="228" cy="88" rx="18" ry="18" fill="none" stroke="${highlight}" stroke-width="3"/>
+                <line x1="96" y1="65" x2="225" y2="65" stroke="${color}" stroke-width="2"/>
+            </svg>`;
+        case "wagon":
+            return `<svg viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg" style="width:85%;max-width:260px;position:absolute;bottom:8px;">
+                <path d="M25,85 L45,85 Q50,65 65,65 L90,65 Q95,40 125,30 L210,28 L240,28 L245,65 L260,65 Q275,65 275,85 L280,85" fill="none" stroke="${color}" stroke-width="3"/>
+                <path d="M125,30 L122,65" fill="none" stroke="${color}" stroke-width="1.5"/>
+                <path d="M210,28 L210,65" fill="none" stroke="${color}" stroke-width="1.5"/>
+                <ellipse cx="78" cy="88" rx="18" ry="18" fill="none" stroke="${highlight}" stroke-width="3"/>
+                <ellipse cx="248" cy="88" rx="18" ry="18" fill="none" stroke="${highlight}" stroke-width="3"/>
+                <line x1="96" y1="65" x2="240" y2="65" stroke="${color}" stroke-width="2"/>
+            </svg>`;
+        case "van":
+            return `<svg viewBox="0 0 300 130" xmlns="http://www.w3.org/2000/svg" style="width:85%;max-width:260px;position:absolute;bottom:5px;">
+                <path d="M25,95 L40,95 Q45,70 60,70 L80,70 Q85,30 110,20 L220,18 L250,20 L255,70 L265,70 Q280,70 280,95 L285,95" fill="none" stroke="${color}" stroke-width="3"/>
+                <path d="M110,20 L108,70" fill="none" stroke="${color}" stroke-width="1.5"/>
+                <path d="M170,18 L170,70" fill="none" stroke="${color}" stroke-width="1.5"/>
+                <path d="M220,18 L222,70" fill="none" stroke="${color}" stroke-width="1.5"/>
+                <ellipse cx="75" cy="98" rx="20" ry="20" fill="none" stroke="${highlight}" stroke-width="3"/>
+                <ellipse cx="252" cy="98" rx="20" ry="20" fill="none" stroke="${highlight}" stroke-width="3"/>
+                <line x1="96" y1="70" x2="250" y2="70" stroke="${color}" stroke-width="2"/>
+            </svg>`;
+        default:
+            return getCarSilhouette("suv");
+    }
+}
+
+// ========== Brand Logo ==========
+function getBrandLogo(make) {
+    const bc = BRAND_COLORS[make] || { primary: "#888" };
+    return `<div style="position:absolute;top:10px;right:10px;background:rgba(0,0,0,0.5);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:8px;padding:4px 10px;">
+        <span style="font-size:13px;font-weight:800;color:${bc.primary};letter-spacing:0.5px;text-transform:uppercase;">${make}</span>
+    </div>`;
+}
+
 // ========== App State ==========
 const state = {
     compareList: JSON.parse(localStorage.getItem("compareList") || "[]"),
@@ -544,9 +633,11 @@ function renderCarCard(car) {
     div.className = "car-card";
     div.onclick = () => openModal(car.id);
 
+    const bc = BRAND_COLORS[car.make] || { gradient: "linear-gradient(135deg, #333, #0a0a0a)" };
     div.innerHTML = `
-        <div class="car-card-image" style="background: linear-gradient(135deg, ${car.color}, #0a0a0a)">
-            <span>${car.emoji}</span>
+        <div class="car-card-image" style="background: ${bc.gradient}">
+            ${getCarSilhouette(car.type)}
+            ${getBrandLogo(car.make)}
             <span class="type-badge">${car.segment}</span>
         </div>
         <div class="car-card-body">
@@ -631,16 +722,19 @@ function renderCompare() {
 
     // Header chips
     const headerRow = document.getElementById("compare-header-row");
-    headerRow.innerHTML = cars.map(car => `
+    headerRow.innerHTML = cars.map(car => {
+        const bc = BRAND_COLORS[car.make] || { primary: "#888" };
+        return `
         <div class="compare-car-chip">
-            <span class="chip-emoji">${car.emoji}</span>
+            <span class="chip-emoji" style="color:${bc.primary};font-size:16px;font-weight:800;">${car.make.substring(0,3).toUpperCase()}</span>
             <div class="chip-info">
                 <div class="chip-name">${car.make} ${car.model}</div>
                 <div class="chip-price">${formatPrice(car.price)}</div>
             </div>
             <button class="chip-remove" onclick="toggleCompare(${car.id})">✕</button>
         </div>
-    `).join("");
+    `;
+    }).join("");
 
     // Comparison rows
     const specs = [
@@ -704,8 +798,10 @@ function openModal(id) {
     const image = document.getElementById("modal-image");
     const body = document.getElementById("modal-body");
 
-    image.style.background = `linear-gradient(135deg, ${car.color}, #0a0a0a)`;
-    image.innerHTML = `<span>${car.emoji}</span>`;
+    const bc = BRAND_COLORS[car.make] || { gradient: "linear-gradient(135deg, #333, #0a0a0a)" };
+    image.style.background = bc.gradient;
+    image.style.position = "relative";
+    image.innerHTML = `${getCarSilhouette(car.type)}${getBrandLogo(car.make)}`;
 
     body.innerHTML = `
         <div class="modal-title">${car.make} ${car.model}</div>
