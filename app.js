@@ -40,6 +40,12 @@ const CARS = [
         emoji: "⚡", color: "#2d1b2e", segment: "Performance Sedan"
     },
     {
+        id: 71, make: "BMW", model: "i4 M60", year: 2025, price: 849900,
+        type: "sedan", hp: 619, kwh: 83.9, zeroToHundred: 3.5, seats: 5,
+        drivetrain: "AWD", battery: "83.9 kWh", range: 490,
+        emoji: "⚡", color: "#2d1b2e", segment: "Performance Sedan"
+    },
+    {
         id: 7, make: "BMW", model: "i5 eDrive40", year: 2025, price: 659900,
         type: "sedan", hp: 340, kwh: 83.9, zeroToHundred: 6.0, seats: 5,
         drivetrain: "RWD", battery: "83.9 kWh", range: 580,
