@@ -543,8 +543,11 @@ function getCarSilhouette(type) {
 }
 
 // ========== Brand Logo ==========
-function getBrandLogo(make) {
+function getBrandLogo(make, compact) {
     const bc = BRAND_COLORS[make] || { primary: "#888" };
+    if (compact) {
+        return `<span style="position:absolute;bottom:2px;font-size:9px;font-weight:800;color:${bc.primary};letter-spacing:0.3px;text-transform:uppercase;opacity:0.8;">${make}</span>`;
+    }
     return `<div style="position:absolute;top:10px;right:10px;background:rgba(0,0,0,0.5);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:8px;padding:4px 10px;">
         <span style="font-size:13px;font-weight:800;color:${bc.primary};letter-spacing:0.5px;text-transform:uppercase;">${make}</span>
     </div>`;
@@ -637,8 +640,7 @@ function renderCarCard(car) {
     div.innerHTML = `
         <div class="car-card-image" style="background: ${bc.gradient}">
             ${getCarSilhouette(car.type)}
-            ${getBrandLogo(car.make)}
-            <span class="type-badge">${car.segment}</span>
+            ${getBrandLogo(car.make, true)}
         </div>
         <div class="car-card-body">
             <div class="car-card-title">${car.make} ${car.model}</div>
