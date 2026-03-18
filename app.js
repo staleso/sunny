@@ -962,9 +962,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Modal close
     document.getElementById("modal-close").addEventListener("click", closeModal);
+    document.getElementById("modal-back").addEventListener("click", closeModal);
     document.getElementById("car-modal").addEventListener("click", (e) => {
         if (e.target === e.currentTarget) closeModal();
     });
+
+    // Swipe down to close modal
+    let touchStartY = 0;
+    const modalContent = document.querySelector(".modal-content");
+    modalContent.addEventListener("touchstart", (e) => {
+        touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+    modalContent.addEventListener("touchend", (e) => {
+        const diff = e.changedTouches[0].clientY - touchStartY;
+        if (diff > 100 && modalContent.scrollTop <= 0) closeModal();
+    }, { passive: true });
 
     updateUI();
 });
