@@ -2,13 +2,96 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Car Comparison</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="CarCompare">
+    <meta name="theme-color" content="#0a0a0a">
+    <title>CarCompare</title>
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%230a0a0a' width='100' height='100' rx='20'/><text y='68' x='50' text-anchor='middle' font-size='50'>🚗</text></svg>">
+    <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Car Comparison App</h1>
-    <div id="car-comparison"></div>
+    <div id="app">
+        <!-- Status bar spacer for iPhone notch -->
+        <div class="status-bar-spacer"></div>
+
+        <!-- Header -->
+        <header class="app-header">
+            <h1>CarCompare</h1>
+            <p class="subtitle">Find your perfect ride</p>
+        </header>
+
+        <!-- Tab Bar -->
+        <nav class="tab-bar">
+            <button class="tab active" data-tab="browse">Browse</button>
+            <button class="tab" data-tab="compare">Compare <span class="badge" id="compare-count" style="display:none">0</span></button>
+            <button class="tab" data-tab="favorites">Favorites</button>
+        </nav>
+
+        <!-- Browse Tab -->
+        <section id="browse-tab" class="tab-content active">
+            <!-- Search & Filter -->
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="Search cars..." autocomplete="off">
+            </div>
+            <div class="filter-row">
+                <select id="filter-type">
+                    <option value="all">All Types</option>
+                    <option value="sedan">Sedan</option>
+                    <option value="suv">SUV</option>
+                    <option value="truck">Truck</option>
+                    <option value="sports">Sports</option>
+                    <option value="electric">Electric</option>
+                    <option value="hybrid">Hybrid</option>
+                </select>
+                <select id="filter-sort">
+                    <option value="name">Name</option>
+                    <option value="price-low">Price: Low–High</option>
+                    <option value="price-high">Price: High–Low</option>
+                    <option value="mpg">Best MPG</option>
+                    <option value="hp">Most Power</option>
+                </select>
+            </div>
+            <div id="car-list" class="car-list"></div>
+        </section>
+
+        <!-- Compare Tab -->
+        <section id="compare-tab" class="tab-content">
+            <div id="compare-empty" class="empty-state">
+                <div class="empty-icon">⚖️</div>
+                <p>Add cars to compare</p>
+                <span class="empty-hint">Tap the + button on any car in Browse</span>
+            </div>
+            <div id="compare-view" style="display:none">
+                <div class="compare-header-row" id="compare-header-row"></div>
+                <div class="compare-table" id="compare-table"></div>
+            </div>
+        </section>
+
+        <!-- Favorites Tab -->
+        <section id="favorites-tab" class="tab-content">
+            <div id="favorites-empty" class="empty-state">
+                <div class="empty-icon">❤️</div>
+                <p>No favorites yet</p>
+                <span class="empty-hint">Tap the heart on any car to save it</span>
+            </div>
+            <div id="favorites-list" class="car-list"></div>
+        </section>
+
+        <!-- Car Detail Modal -->
+        <div id="car-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="modal-close" id="modal-close">✕</button>
+                    <div class="modal-car-image" id="modal-image"></div>
+                </div>
+                <div class="modal-body" id="modal-body"></div>
+            </div>
+        </div>
+    </div>
+
     <script src="app.js"></script>
 </body>
 </html>

@@ -1,1 +1,10 @@
-{ "name": "car-comparison-app", "version": "1.0.0", "description": "A simple car comparison application", "main": "app.js", "scripts": { "start": "node app.js" }, "dependencies": {} }
+{
+    "name": "car-comparison-app",
+    "version": "2.0.0",
+    "description": "A mobile-first car comparison PWA for iPhone",
+    "main": "app.js",
+    "scripts": {
+        "start": "npx serve ."
+    },
+    "dependencies": {}
+}

@@ -1,3 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="CarCompare">
+    <meta name="theme-color" content="#0a0a0a">
+    <title>CarCompare</title>
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%230a0a0a' width='100' height='100' rx='20'/><text y='68' x='50' text-anchor='middle' font-size='50'>🚗</text></svg>">
+    <style>
+/* ========== Reset & Base ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+    --bg: #0a0a0a;
+    --surface: #1c1c1e;
+    --surface2: #2c2c2e;
+    --surface3: #3a3a3c;
+    --text: #ffffff;
+    --text2: #8e8e93;
+    --accent: #0a84ff;
+    --accent2: #30d158;
+    --danger: #ff453a;
+    --favorite: #ff375f;
+    --border: rgba(255,255,255,0.08);
+    --radius: 14px;
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+#app {
+    max-width: 500px;
+    margin: 0 auto;
+    padding-bottom: calc(20px + var(--safe-bottom));
+}
+
+/* ========== Status Bar & Header ========== */
+.status-bar-spacer {
+    height: var(--safe-top);
+}
+
+.app-header {
+    padding: 16px 20px 8px;
+    text-align: center;
+}
+
+.app-header h1 {
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #0a84ff, #5ac8fa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.subtitle {
+    color: var(--text2);
+    font-size: 15px;
+    margin-top: 2px;
+}
+
+/* ========== Tab Bar ========== */
+.tab-bar {
+    display: flex;
+    gap: 4px;
+    padding: 4px;
+    margin: 12px 16px;
+    background: var(--surface);
+    border-radius: 12px;
+}
+
+.tab {
+    flex: 1;
+    padding: 10px 8px;
+    border: none;
+    background: transparent;
+    color: var(--text2);
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    font-family: inherit;
+}
+
+.tab.active {
+    background: var(--surface2);
+    color: var(--text);
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 9px;
+    padding: 0 5px;
+    margin-left: 4px;
+}
+
+/* ========== Tab Content ========== */
+.tab-content {
+    display: none;
+    padding: 0 16px;
+    animation: fadeIn 0.2s ease;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ========== Search & Filter ========== */
+.search-bar {
+    margin-bottom: 10px;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 12px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: var(--text);
+    font-size: 16px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.search-bar input:focus {
+    border-color: var(--accent);
+}
+
+.search-bar input::placeholder {
+    color: var(--text2);
+}
+
+.filter-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.filter-row select {
+    flex: 1;
+    padding: 10px 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%238e8e93'%3E%3Cpath d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 30px;
+}
+
+/* ========== Car List ========== */
+.car-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.car-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    border: 1px solid var(--border);
+}
+
+.car-card:active {
+    transform: scale(0.98);
+}
+
+.car-card-image {
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 64px;
+    position: relative;
+}
+
+.car-card-image .type-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+    text-transform: capitalize;
+}
+
+.car-card-body {
+    padding: 14px 16px;
+}
+
+.car-card-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.car-card-year {
+    font-size: 13px;
+    color: var(--text2);
+    margin-bottom: 10px;
+}
+
+.car-card-specs {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.spec-pill {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--surface2);
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--text2);
+    font-weight: 500;
+}
+
+.spec-pill .val {
+    color: var(--text);
+    font-weight: 600;
+}
+
+.car-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.car-price {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--accent2);
+}
+
+.car-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-icon {
+    width: 38px;
+    height: 38px;
+    border: none;
+    border-radius: 10px;
+    background: var(--surface2);
+    color: var(--text2);
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+}
+
+.btn-icon:active {
+    transform: scale(0.9);
+}
+
+.btn-icon.active-fav {
+    background: rgba(255,55,95,0.15);
+    color: var(--favorite);
+}
+
+.btn-icon.active-compare {
+    background: rgba(10,132,255,0.15);
+    color: var(--accent);
+}
+
+/* ========== Empty State ========== */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.empty-icon {
+    font-size: 56px;
+    margin-bottom: 16px;
+}
+
+.empty-state p {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.empty-hint {
+    color: var(--text2);
+    font-size: 14px;
+}
+
+/* ========== Compare View ========== */
+.compare-header-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.compare-car-chip {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 10px 14px;
+    min-width: 150px;
+}
+
+.compare-car-chip .chip-emoji {
+    font-size: 28px;
+}
+
+.compare-car-chip .chip-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.compare-car-chip .chip-name {
+    font-size: 14px;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.compare-car-chip .chip-price {
+    font-size: 12px;
+    color: var(--accent2);
+    font-weight: 600;
+}
+
+.chip-remove {
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: var(--surface2);
+    color: var(--text2);
+    border-radius: 12px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.compare-table {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.compare-row {
+    display: flex;
+    background: var(--surface);
+}
+
+.compare-row.header-row {
+    background: var(--surface2);
+}
+
+.compare-cell {
+    flex: 1;
+    padding: 12px 14px;
+    font-size: 14px;
+    text-align: center;
+    border-right: 1px solid var(--border);
+}
+
+.compare-cell:last-child {
+    border-right: none;
+}
+
+.compare-cell.label-cell {
+    flex: 0 0 100px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--text2);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.compare-cell .best {
+    color: var(--accent2);
+    font-weight: 700;
+}
+
+/* ========== Modal ========== */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 100;
+    display: none;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.modal.open {
+    display: flex;
+}
+
+.modal-content {
+    background: var(--surface);
+    width: 100%;
+    max-width: 500px;
+    max-height: 90vh;
+    border-radius: 20px 20px 0 0;
+    overflow-y: auto;
+    animation: slideUp 0.3s ease;
+    -webkit-overflow-scrolling: touch;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+
+.modal-header {
+    position: relative;
+}
+
+.modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 16px;
+    background: rgba(0,0,0,0.5);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-car-image {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 100px;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-title {
+    font-size: 26px;
+    font-weight: 800;
+    margin-bottom: 2px;
+}
+
+.modal-year {
+    color: var(--text2);
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.modal-price {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--accent2);
+    margin-bottom: 20px;
+}
+
+.modal-section-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text2);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+
+.modal-specs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.modal-spec {
+    background: var(--surface2);
+    border-radius: 12px;
+    padding: 14px;
+}
+
+.modal-spec-label {
+    font-size: 11px;
+    color: var(--text2);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.modal-spec-value {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 24px;
+    padding-bottom: calc(10px + var(--safe-bottom));
+}
+
+.modal-btn {
+    flex: 1;
+    padding: 14px;
+    border: none;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: inherit;
+    transition: transform 0.1s;
+}
+
+.modal-btn:active {
+    transform: scale(0.97);
+}
+
+.modal-btn.btn-compare {
+    background: var(--accent);
+    color: white;
+}
+
+.modal-btn.btn-compare.added {
+    background: var(--surface2);
+    color: var(--accent);
+}
+
+.modal-btn.btn-fav {
+    background: rgba(255,55,95,0.12);
+    color: var(--favorite);
+}
+
+.modal-btn.btn-fav.favorited {
+    background: var(--favorite);
+    color: white;
+}
+
+/* ========== Scrollbar ========== */
+::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+/* ========== No Results ========== */
+.no-results {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text2);
+    font-size: 15px;
+}
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- Status bar spacer for iPhone notch -->
+        <div class="status-bar-spacer"></div>
+
+        <!-- Header -->
+        <header class="app-header">
+            <h1>CarCompare</h1>
+            <p class="subtitle">Find your perfect ride</p>
+        </header>
+
+        <!-- Tab Bar -->
+        <nav class="tab-bar">
+            <button class="tab active" data-tab="browse">Browse</button>
+            <button class="tab" data-tab="compare">Compare <span class="badge" id="compare-count" style="display:none">0</span></button>
+            <button class="tab" data-tab="favorites">Favorites</button>
+        </nav>
+
+        <!-- Browse Tab -->
+        <section id="browse-tab" class="tab-content active">
+            <!-- Search & Filter -->
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="Search cars..." autocomplete="off">
+            </div>
+            <div class="filter-row">
+                <select id="filter-type">
+                    <option value="all">All Types</option>
+                    <option value="sedan">Sedan</option>
+                    <option value="suv">SUV</option>
+                    <option value="truck">Truck</option>
+                    <option value="sports">Sports</option>
+                    <option value="electric">Electric</option>
+                    <option value="hybrid">Hybrid</option>
+                </select>
+                <select id="filter-sort">
+                    <option value="name">Name</option>
+                    <option value="price-low">Price: Low–High</option>
+                    <option value="price-high">Price: High–Low</option>
+                    <option value="mpg">Best MPG</option>
+                    <option value="hp">Most Power</option>
+                </select>
+            </div>
+            <div id="car-list" class="car-list"></div>
+        </section>
+
+        <!-- Compare Tab -->
+        <section id="compare-tab" class="tab-content">
+            <div id="compare-empty" class="empty-state">
+                <div class="empty-icon">⚖️</div>
+                <p>Add cars to compare</p>
+                <span class="empty-hint">Tap the + button on any car in Browse</span>
+            </div>
+            <div id="compare-view" style="display:none">
+                <div class="compare-header-row" id="compare-header-row"></div>
+                <div class="compare-table" id="compare-table"></div>
+            </div>
+        </section>
+
+        <!-- Favorites Tab -->
+        <section id="favorites-tab" class="tab-content">
+            <div id="favorites-empty" class="empty-state">
+                <div class="empty-icon">❤️</div>
+                <p>No favorites yet</p>
+                <span class="empty-hint">Tap the heart on any car to save it</span>
+            </div>
+            <div id="favorites-list" class="car-list"></div>
+        </section>
+
+        <!-- Car Detail Modal -->
+        <div id="car-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="modal-close" id="modal-close">✕</button>
+                    <div class="modal-car-image" id="modal-image"></div>
+                </div>
+                <div class="modal-body" id="modal-body"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
 // ========== Car Database ==========
 const CARS = [
     {
@@ -466,3 +1175,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     updateUI();
 });
+    </script>
+</body>
+</html>
