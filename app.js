@@ -580,12 +580,41 @@ function getBrandLogo(make, compact) {
 const state = {
     compareList: JSON.parse(localStorage.getItem("compareList") || "[]"),
     favorites: JSON.parse(localStorage.getItem("favorites") || "[]"),
+    ratings: JSON.parse(localStorage.getItem("ratings") || "{}"),
     activeTab: "browse"
 };
 
 function saveState() {
     localStorage.setItem("compareList", JSON.stringify(state.compareList));
     localStorage.setItem("favorites", JSON.stringify(state.favorites));
+    localStorage.setItem("ratings", JSON.stringify(state.ratings));
+}
+
+function getRating(carId) {
+    return state.ratings[carId] || 0;
+}
+
+function setRating(carId, rating, e) {
+    if (e) e.stopPropagation();
+    state.ratings[carId] = rating;
+    saveState();
+    updateUI();
+    showToast(`Du ga ${rating} av 5 stjerner`);
+}
+
+function renderStars(carId, size) {
+    const current = getRating(carId);
+    const sz = size || 18;
+    let html = `<div class="star-rating" style="font-size:${sz}px">`;
+    for (let i = 1; i <= 5; i++) {
+        const filled = i <= current;
+        html += `<span class="star ${filled ? 'star-filled' : 'star-empty'}" onclick="setRating(${carId}, ${i}, event)">★</span>`;
+    }
+    if (current > 0) {
+        html += `<span class="star-label">${current}/5</span>`;
+    }
+    html += `</div>`;
+    return html;
 }
 
 // ========== Utility ==========
@@ -689,6 +718,7 @@ function renderCarCard(car) {
                     </button>
                 </div>
             </div>
+            ${renderStars(car.id, 16)}
         </div>
     `;
     return div;
@@ -715,6 +745,7 @@ function renderBrowse() {
         case "range": cars.sort((a, b) => b.range - a.range); break;
         case "hp": cars.sort((a, b) => b.hp - a.hp); break;
         case "fast": cars.sort((a, b) => a.zeroToHundred - b.zeroToHundred); break;
+        case "rating": cars.sort((a, b) => getRating(b.id) - getRating(a.id)); break;
         default: cars.sort((a, b) => `${a.make} ${a.model}`.localeCompare(`${b.make} ${b.model}`));
     }
 
@@ -874,6 +905,11 @@ function openModal(id) {
                 <div class="modal-spec-label">Pris/km</div>
                 <div class="modal-spec-value" style="font-size:14px">${(car.price / car.range).toFixed(0)} kr</div>
             </div>
+        </div>
+
+        <div class="modal-rating">
+            <div class="modal-section-title">Din vurdering</div>
+            ${renderStars(car.id, 28)}
         </div>
 
         <div class="modal-actions">
