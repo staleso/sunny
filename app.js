@@ -996,7 +996,7 @@ function openModal(id) {
             <ins class="adsbygoogle"
                  style="display:block"
                  data-ad-client="ca-pub-4678480487049419"
-                 data-ad-slot="auto"
+                 data-ad-slot="2454031921"
                  data-ad-format="auto"
                  data-full-width-responsive="true"></ins>
         </div>
