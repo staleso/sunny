@@ -1018,11 +1018,5 @@ document.addEventListener("DOMContentLoaded", () => {
         if (diff > 100 && modalContent.scrollTop <= 0) closeModal();
     }, { passive: true });
 
-    // Hide disclaimer if previously dismissed
-    if (localStorage.getItem("disclaimerClosed") === "1") {
-        const bar = document.getElementById("disclaimer-bar");
-        if (bar) bar.style.display = "none";
-    }
-
     updateUI();
 });

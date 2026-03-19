@@ -23,12 +23,6 @@
             <p class="subtitle">Sammenlign elbiler i Norge</p>
         </header>
 
-        <!-- Disclaimer -->
-        <div class="disclaimer-bar" id="disclaimer-bar">
-            <span class="disclaimer-text">Stjernevurderingene er simulerte og representerer ikke faktiske brukeranmeldelser. Priser og spesifikasjoner er veiledende.</span>
-            <button class="disclaimer-close" onclick="document.getElementById('disclaimer-bar').style.display='none'; localStorage.setItem('disclaimerClosed','1')">✕</button>
-        </div>
-
         <!-- Tab Bar -->
         <nav class="tab-bar">
             <button class="tab active" data-tab="browse">Utforsk</button>
@@ -118,6 +112,13 @@
                 </div>
             </div>
         </div>
+
+        <!-- Footer Disclaimer -->
+        <footer class="app-disclaimer">
+            <p>Informasjonen i denne appen er kun ment som veiledende og uforpliktende. Priser, spesifikasjoner, rekkevidde og andre opplysninger er innhentet etter beste evne fra offentlig tilgjengelige kilder, men det gis ingen garanti for at informasjonen er korrekt, fullstendig eller oppdatert. Faktiske verdier kan avvike.</p>
+            <p>Stjernevurderingene er simulerte og representerer ikke faktiske brukeranmeldelser.</p>
+            <p>Utvikleren av denne appen tar ikke ansvar for eventuelle feil, mangler eller tap som direkte eller indirekte kan oppstå som følge av bruk av informasjonen. Kontakt alltid forhandler for bekreftede priser og spesifikasjoner.</p>
+        </footer>
     </div>
 
     <script src="app.js?v=3"></script>
