@@ -10,7 +10,7 @@
     <title>Elbil Norge - Sammenlign elbiler</title>
     <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%230a0a0a' width='100' height='100' rx='20'/><text y='68' x='50' text-anchor='middle' font-size='50'>⚡</text></svg>">
     <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=3">
 </head>
 <body>
     <div id="app">
@@ -74,6 +74,7 @@
                     <option value="range">Rekkevidde</option>
                     <option value="hp">Effekt</option>
                     <option value="fast">0-100</option>
+                    <option value="rating">Vurdering</option>
                 </select>
             </div>
             <div id="car-list" class="car-list"></div>
@@ -105,15 +106,21 @@
         <!-- Car Detail Modal -->
         <div id="car-modal" class="modal">
             <div class="modal-content">
-                <div class="modal-header">
-                    <button class="modal-close" id="modal-close">✕</button>
-                    <div class="modal-car-image" id="modal-image"></div>
-                </div>
                 <div class="modal-body" id="modal-body"></div>
+                <div class="modal-bottom-bar">
+                    <button class="modal-back-btn" id="modal-back">← Tilbake</button>
+                </div>
             </div>
         </div>
+
+        <!-- Footer Disclaimer -->
+        <footer class="app-disclaimer">
+            <p>Informasjonen i denne appen er kun ment som veiledende og uforpliktende. Priser, spesifikasjoner, rekkevidde og andre opplysninger er innhentet etter beste evne fra offentlig tilgjengelige kilder, men det gis ingen garanti for at informasjonen er korrekt, fullstendig eller oppdatert. Faktiske verdier kan avvike.</p>
+            <p>Stjernevurderingene er simulerte og representerer ikke faktiske brukeranmeldelser.</p>
+            <p>Utvikleren av denne appen tar ikke ansvar for eventuelle feil, mangler eller tap som direkte eller indirekte kan oppstå som følge av bruk av informasjonen. Kontakt alltid forhandler for bekreftede priser og spesifikasjoner.</p>
+        </footer>
     </div>
 
-    <script src="app.js"></script>
+    <script src="app.js?v=3"></script>
 </body>
 </html>
