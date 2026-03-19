@@ -88,7 +88,6 @@
                 <span class="empty-hint">Trykk + på en bil under Utforsk</span>
             </div>
             <div id="compare-view" style="display:none">
-                <div class="compare-header-row" id="compare-header-row"></div>
                 <div class="compare-table" id="compare-table"></div>
             </div>
         </section>
@@ -113,11 +112,31 @@
             </div>
         </div>
 
+        <!-- Feedback Modal -->
+        <div class="feedback-modal" id="feedback-modal">
+            <div class="feedback-content">
+                <div class="feedback-header">Tilbakemelding</div>
+                <p class="feedback-desc">Fant du en feil, eller har du forslag til forbedringer? Send oss en melding!</p>
+                <select id="feedback-type" class="feedback-select">
+                    <option value="feil">Feil i data/pris</option>
+                    <option value="forslag">Forslag til forbedring</option>
+                    <option value="mangler">Bil som mangler</option>
+                    <option value="annet">Annet</option>
+                </select>
+                <textarea id="feedback-text" class="feedback-textarea" rows="4" placeholder="Skriv din tilbakemelding her..."></textarea>
+                <div class="feedback-actions">
+                    <button class="feedback-btn feedback-cancel" onclick="closeFeedback()">Avbryt</button>
+                    <button class="feedback-btn feedback-send" onclick="sendFeedback()">Send</button>
+                </div>
+            </div>
+        </div>
+
         <!-- Footer Disclaimer -->
         <footer class="app-disclaimer">
             <p>Informasjonen i denne appen er kun ment som veiledende og uforpliktende. Priser, spesifikasjoner, rekkevidde og andre opplysninger er innhentet etter beste evne fra offentlig tilgjengelige kilder, men det gis ingen garanti for at informasjonen er korrekt, fullstendig eller oppdatert. Faktiske verdier kan avvike.</p>
             <p>Stjernevurderingene er simulerte og representerer ikke faktiske brukeranmeldelser.</p>
             <p>Utvikleren av denne appen tar ikke ansvar for eventuelle feil, mangler eller tap som direkte eller indirekte kan oppstå som følge av bruk av informasjonen. Kontakt alltid forhandler for bekreftede priser og spesifikasjoner.</p>
+            <button class="feedback-open-btn" onclick="openFeedback()">💬 Gi tilbakemelding</button>
         </footer>
     </div>
 
