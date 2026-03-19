@@ -542,6 +542,26 @@ body {
 
 .modal-ad-banner {
     margin-top: 20px;
+    min-height: 100px;
+    background: var(--surface2);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.modal-ad-banner::before {
+    content: "Annonse";
+    position: absolute;
+    top: 6px;
+    left: 10px;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text2);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .modal-btn {
