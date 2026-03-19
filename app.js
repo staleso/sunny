@@ -959,8 +959,8 @@ function openModal(id) {
                 <div class="modal-spec-value" style="font-size:14px">${car.segment}</div>
             </div>
             <div class="modal-spec">
-                <div class="modal-spec-label">Pris/km</div>
-                <div class="modal-spec-value" style="font-size:14px">${(car.price / car.range).toFixed(0)} kr</div>
+                <div class="modal-spec-label">Forbruk</div>
+                <div class="modal-spec-value" style="font-size:14px">${(car.kwh / car.range * 100).toFixed(1)} kWh/100km</div>
             </div>
         </div>
 
@@ -984,6 +984,10 @@ function openModal(id) {
                 ${isFavorite(car.id) ? '❤️ Favoritt' : '🤍 Favoritt'}
             </button>
         </div>
+
+        <div class="modal-disclaimer">
+            Informasjonen er veiledende og kan inneholde feil. Priser og spesifikasjoner kan avvike fra faktiske verdier. Kontakt alltid forhandler for bekreftede opplysninger.
+        </div>
     `;
 
     modal.classList.add("open");
@@ -992,6 +996,34 @@ function openModal(id) {
 function closeModal() {
     document.getElementById("car-modal").classList.remove("open");
 }
+
+// ========== Feedback ==========
+function openFeedback() {
+    document.getElementById("feedback-modal").classList.add("open");
+}
+
+function closeFeedback() {
+    document.getElementById("feedback-modal").classList.remove("open");
+}
+
+function sendFeedback() {
+    const type = document.getElementById("feedback-type").value;
+    const text = document.getElementById("feedback-text").value.trim();
+    if (!text) {
+        showToast("Skriv en tilbakemelding først");
+        return;
+    }
+    const subject = encodeURIComponent(`Tilbakemelding - ${type}`);
+    const body = encodeURIComponent(`Type: ${type}\n\n${text}\n\n---\nSendt fra Elbil-appen`);
+    window.open(`mailto:tilbakemelding@example.com?subject=${subject}&body=${body}`, "_self");
+    showToast("Takk for tilbakemeldingen!");
+    document.getElementById("feedback-text").value = "";
+    closeFeedback();
+}
+
+document.getElementById("feedback-modal").addEventListener("click", function(e) {
+    if (e.target === this) closeFeedback();
+});
 
 // ========== Tabs ==========
 function switchTab(tab) {
