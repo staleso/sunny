@@ -155,6 +155,13 @@ const CARS = [
         emoji: "⚡", color: "#1b2838", segment: "Mid-size SUV"
     },
     {
+        id: 75, make: "Mercedes", model: "GLC 400 4MATIC", year: 2026, price: 699900,
+        type: "suv", hp: 483, kwh: 94.4, zeroToHundred: 4.3, seats: 5,
+        drivetrain: "AWD", battery: "94.4 kWh", range: 702,
+        length: 4845, width: 1913, height: 1644, weight: 2430,
+        emoji: "⚡", color: "#2e1a1a", segment: "Mid-size SUV"
+    },
+    {
         id: 18, make: "Mercedes", model: "EQE 350+", year: 2025, price: 749900,
         type: "sedan", hp: 292, kwh: 96, zeroToHundred: 6.4, seats: 5,
         drivetrain: "RWD", battery: "96 kWh", range: 620,
@@ -218,6 +225,20 @@ const CARS = [
         drivetrain: "AWD", battery: "100 kWh", range: 590,
         length: 4784, width: 1938, height: 1624, weight: 2405,
         emoji: "⚡", color: "#1b2838", segment: "Performance SUV"
+    },
+    {
+        id: 76, make: "Porsche", model: "Cayenne Electric", year: 2026, price: 1116400,
+        type: "suv", hp: 408, kwh: 113, zeroToHundred: 4.5, seats: 5,
+        drivetrain: "AWD", battery: "113 kWh", range: 643,
+        length: 4985, width: 1980, height: 1674, weight: 2525,
+        emoji: "⚡", color: "#2e2e1a", segment: "Large SUV"
+    },
+    {
+        id: 77, make: "Porsche", model: "Cayenne Turbo Electric", year: 2026, price: 1767100,
+        type: "suv", hp: 1156, kwh: 113, zeroToHundred: 2.5, seats: 5,
+        drivetrain: "AWD", battery: "113 kWh", range: 600,
+        length: 4985, width: 1980, height: 1674, weight: 2600,
+        emoji: "⚡", color: "#1a1a2e", segment: "Performance SUV"
     },
 
     // ===== TESLA =====
