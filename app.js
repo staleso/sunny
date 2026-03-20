@@ -1103,30 +1103,41 @@ function renderCompare() {
 
     const cars = state.compareList.map(getCarById).filter(Boolean);
 
-    // Comparison table with header row
-    const specs = [
-        { label: "Pris", key: "price", format: v => formatPrice(v), best: "low" },
-        { label: "Rekkevidde", key: "range", format: v => v + " km", best: "high" },
-        { label: "Effekt", key: "hp", format: v => v + " hk", best: "high" },
-        { label: "0-100 km/t", key: "zeroToHundred", format: v => v + "s", best: "low" },
-        { label: "Batteri", key: "kwh", format: v => v + " kWh", best: "high" },
-        { label: "Seter", key: "seats", format: v => v, best: null },
-        { label: "Drivlinje", key: "drivetrain", format: v => v, best: null },
-        { label: "Segment", key: "segment", format: v => v, best: null },
-        { label: "Lengde", key: "length", format: v => v ? v + " mm" : "—", best: null },
-        { label: "Bredde", key: "width", format: v => v ? v + " mm" : "—", best: null },
-        { label: "Høyde", key: "height", format: v => v ? v + " mm" : "—", best: null },
-        { label: "Vekt", key: "weight", format: v => v ? v + " kg" : "—", best: "low" }
+    // Grouped specs
+    const specGroups = [
+        { title: "Ytelse", specs: [
+            { label: "Pris", key: "price", format: v => formatPrice(v), best: "low" },
+            { label: "Effekt", key: "hp", format: v => v + " hk", best: "high" },
+            { label: "0-100 km/t", key: "zeroToHundred", format: v => v + "s", best: "low" },
+            { label: "Drivlinje", key: "drivetrain", format: v => v, best: null },
+        ]},
+        { title: "Batteri & rekkevidde", specs: [
+            { label: "Rekkevidde", key: "range", format: v => v + " km", best: "high" },
+            { label: "Batteri", key: "kwh", format: v => v + " kWh", best: "high" },
+            { label: "Forbruk", key: "_consumption", format: v => v, best: "low" },
+        ]},
+        { title: "Praktisk", specs: [
+            { label: "Seter", key: "seats", format: v => v, best: null },
+            { label: "Segment", key: "segment", format: v => v, best: null },
+            { label: "Årstall", key: "year", format: v => v, best: null },
+        ]},
+        { title: "Dimensjoner", specs: [
+            { label: "Lengde", key: "length", format: v => v ? (v / 1000).toFixed(2) + " m" : "—", best: null },
+            { label: "Bredde", key: "width", format: v => v ? (v / 1000).toFixed(2) + " m" : "—", best: null },
+            { label: "Høyde", key: "height", format: v => v ? (v / 1000).toFixed(2) + " m" : "—", best: null },
+            { label: "Vekt", key: "weight", format: v => v ? v.toLocaleString("nb-NO") + " kg" : "—", best: "low" },
+        ]}
     ];
 
     const table = document.getElementById("compare-table");
 
-    // Header row with car names and remove buttons
+    // Header row with car names
     const headerCells = cars.map(car => {
         const bc = BRAND_COLORS[car.make] || { primary: "#888" };
         return `<div class="compare-cell compare-header-cell">
             <div class="compare-car-name" style="color:${bc.primary}">${car.make}</div>
             <div class="compare-car-model">${car.model}</div>
+            <div class="compare-car-year">${car.year}</div>
             <button class="chip-remove" onclick="toggleCompare(${car.id})">✕</button>
         </div>`;
     }).join("");
@@ -1136,28 +1147,40 @@ function renderCompare() {
         ${headerCells}
     </div>`;
 
-    // Spec rows
-    const specRows = specs.map(spec => {
-        const values = cars.map(c => c[spec.key]);
-        let bestVal = null;
-        if (spec.best === "high") bestVal = Math.max(...values);
-        if (spec.best === "low") bestVal = Math.min(...values);
+    // Build grouped rows
+    let groupedRows = "";
+    specGroups.forEach(group => {
+        groupedRows += `<div class="compare-row section-row">
+            <div class="compare-cell label-cell section-label">${group.title}</div>
+            ${cars.map(() => '<div class="compare-cell"></div>').join("")}
+        </div>`;
 
-        const cells = cars.map(car => {
-            const val = car[spec.key];
-            const isBest = bestVal !== null && val === bestVal && cars.length > 1;
-            return `<div class="compare-cell">${isBest ? '<span class="best">' : ''}${spec.format(val)}${isBest ? '</span>' : ''}</div>`;
-        }).join("");
+        group.specs.forEach((spec, i) => {
+            let values;
+            if (spec.key === "_consumption") {
+                values = cars.map(c => parseFloat((c.kwh / c.range * 100).toFixed(1)));
+            } else {
+                values = cars.map(c => c[spec.key]);
+            }
+            let bestVal = null;
+            if (spec.best === "high") bestVal = Math.max(...values.filter(v => typeof v === "number"));
+            if (spec.best === "low") bestVal = Math.min(...values.filter(v => typeof v === "number"));
 
-        return `
-            <div class="compare-row">
-                <div class="compare-cell label-cell">${spec.label}</div>
+            const cells = cars.map((car, ci) => {
+                const val = values[ci];
+                const isBest = bestVal !== null && val === bestVal && cars.length > 1;
+                const formatted = spec.key === "_consumption" ? val + " kWh/100km" : spec.format(val);
+                return `<div class="compare-cell${i % 2 === 0 ? ' alt-row' : ''}">${isBest ? '<span class="best">' : ''}${formatted}${isBest ? '</span>' : ''}</div>`;
+            }).join("");
+
+            groupedRows += `<div class="compare-row">
+                <div class="compare-cell label-cell${i % 2 === 0 ? ' alt-row' : ''}">${spec.label}</div>
                 ${cells}
-            </div>
-        `;
-    }).join("");
+            </div>`;
+        });
+    });
 
-    table.innerHTML = headerRow + specRows;
+    table.innerHTML = headerRow + groupedRows;
 }
 
 // ========== Favorites Tab ==========
