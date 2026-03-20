@@ -213,6 +213,41 @@ const CARS = [
         emoji: "⚡", color: "#1a1a2e", segment: "Performance Sedan"
     },
     {
+        id: 78, make: "Porsche", model: "Taycan Turbo S", year: 2025, price: 1749900,
+        type: "sedan", hp: 775, kwh: 97, zeroToHundred: 2.4, seats: 4,
+        drivetrain: "AWD", battery: "97 kWh", range: 630,
+        length: 4963, width: 1966, height: 1381, weight: 2345,
+        emoji: "⚡", color: "#2e1a1a", segment: "Performance Sedan"
+    },
+    {
+        id: 79, make: "Porsche", model: "Taycan 4 Cross Turismo", year: 2025, price: 1049900,
+        type: "wagon", hp: 408, kwh: 93.4, zeroToHundred: 4.7, seats: 4,
+        drivetrain: "AWD", battery: "93.4 kWh", range: 490,
+        length: 4974, width: 1967, height: 1395, weight: 2295,
+        emoji: "⚡", color: "#1b2e1b", segment: "Performance Wagon"
+    },
+    {
+        id: 80, make: "Porsche", model: "Taycan Turbo S Cross Turismo", year: 2025, price: 1799900,
+        type: "wagon", hp: 775, kwh: 97, zeroToHundred: 2.5, seats: 4,
+        drivetrain: "AWD", battery: "97 kWh", range: 500,
+        length: 4974, width: 1967, height: 1395, weight: 2370,
+        emoji: "⚡", color: "#2e2e1a", segment: "Performance Wagon"
+    },
+    {
+        id: 81, make: "Porsche", model: "Taycan GTS Sport Turismo", year: 2025, price: 1596300,
+        type: "wagon", hp: 690, kwh: 97, zeroToHundred: 3.1, seats: 4,
+        drivetrain: "AWD", battery: "97 kWh", range: 570,
+        length: 4963, width: 1966, height: 1395, weight: 2310,
+        emoji: "⚡", color: "#16213e", segment: "Performance Wagon"
+    },
+    {
+        id: 82, make: "Porsche", model: "Taycan Turbo S Sport Turismo", year: 2025, price: 1749900,
+        type: "wagon", hp: 775, kwh: 97, zeroToHundred: 2.4, seats: 4,
+        drivetrain: "AWD", battery: "97 kWh", range: 600,
+        length: 4963, width: 1966, height: 1395, weight: 2350,
+        emoji: "⚡", color: "#2d1b2e", segment: "Performance Wagon"
+    },
+    {
         id: 25, make: "Porsche", model: "Macan Electric", year: 2025, price: 849900,
         type: "suv", hp: 408, kwh: 100, zeroToHundred: 5.2, seats: 5,
         drivetrain: "AWD", battery: "100 kWh", range: 613,
@@ -577,6 +612,126 @@ const CARS = [
         drivetrain: "AWD", battery: "66 kWh", range: 400,
         length: 4400, width: 1844, height: 1556, weight: 1910,
         emoji: "⚡", color: "#2e1a1a", segment: "Coupe SUV"
+    },
+    // ===== ELDRE MODELLER =====
+    {
+        id: 83, make: "Nissan", model: "Leaf e+ 62 kWh", year: 2022, price: 349900,
+        type: "hatchback", hp: 217, kwh: 62, zeroToHundred: 6.9, seats: 5,
+        drivetrain: "FWD", battery: "62 kWh", range: 385,
+        length: 4490, width: 1788, height: 1530, weight: 1730,
+        emoji: "⚡", color: "#c3002f", segment: "Compact"
+    },
+    {
+        id: 84, make: "Volkswagen", model: "e-Golf", year: 2020, price: 329900,
+        type: "hatchback", hp: 136, kwh: 35.8, zeroToHundred: 9.6, seats: 5,
+        drivetrain: "FWD", battery: "35.8 kWh", range: 231,
+        length: 4270, width: 1799, height: 1450, weight: 1615,
+        emoji: "⚡", color: "#003399", segment: "Compact"
+    },
+    {
+        id: 85, make: "Jaguar", model: "I-PACE EV400", year: 2023, price: 769900,
+        type: "suv", hp: 400, kwh: 90, zeroToHundred: 4.8, seats: 5,
+        drivetrain: "AWD", battery: "90 kWh", range: 470,
+        length: 4682, width: 2011, height: 1565, weight: 2208,
+        emoji: "⚡", color: "#1a472a", segment: "Mid-size SUV"
+    },
+    {
+        id: 86, make: "BMW", model: "i3 120Ah", year: 2022, price: 349900,
+        type: "hatchback", hp: 170, kwh: 42.2, zeroToHundred: 7.3, seats: 4,
+        drivetrain: "RWD", battery: "42.2 kWh", range: 310,
+        length: 4006, width: 1775, height: 1600, weight: 1345,
+        emoji: "⚡", color: "#0066B1", segment: "City Car"
+    },
+    {
+        id: 87, make: "Tesla", model: "Model 3 Standard Range Plus", year: 2021, price: 399900,
+        type: "sedan", hp: 283, kwh: 60, zeroToHundred: 5.6, seats: 5,
+        drivetrain: "RWD", battery: "60 kWh", range: 448,
+        length: 4694, width: 1849, height: 1443, weight: 1745,
+        emoji: "⚡", color: "#CC0000", segment: "Mid-size Sedan"
+    },
+    {
+        id: 88, make: "Hyundai", model: "IONIQ Electric 38 kWh", year: 2022, price: 319900,
+        type: "sedan", hp: 136, kwh: 38.3, zeroToHundred: 9.9, seats: 5,
+        drivetrain: "FWD", battery: "38.3 kWh", range: 311,
+        length: 4470, width: 1820, height: 1450, weight: 1575,
+        emoji: "⚡", color: "#002C5F", segment: "Compact Sedan"
+    },
+    {
+        id: 89, make: "Audi", model: "e-tron 55 quattro", year: 2023, price: 699900,
+        type: "suv", hp: 408, kwh: 95, zeroToHundred: 5.7, seats: 5,
+        drivetrain: "AWD", battery: "95 kWh", range: 441,
+        length: 4901, width: 1935, height: 1629, weight: 2565,
+        emoji: "⚡", color: "#BB0A30", segment: "Large SUV"
+    },
+    {
+        id: 90, make: "MG", model: "ZS EV Long Range", year: 2023, price: 299900,
+        type: "suv", hp: 177, kwh: 72.6, zeroToHundred: 8.2, seats: 5,
+        drivetrain: "FWD", battery: "72.6 kWh", range: 440,
+        length: 4323, width: 1809, height: 1649, weight: 1760,
+        emoji: "⚡", color: "#D4171E", segment: "Compact SUV"
+    },
+    {
+        id: 91, make: "Renault", model: "ZOE R135", year: 2022, price: 299900,
+        type: "hatchback", hp: 135, kwh: 52, zeroToHundred: 9.5, seats: 5,
+        drivetrain: "FWD", battery: "52 kWh", range: 395,
+        length: 4087, width: 1787, height: 1562, weight: 1502,
+        emoji: "⚡", color: "#FFCC00", segment: "City Car"
+    },
+    {
+        id: 92, make: "Tesla", model: "Model S P100D", year: 2020, price: 899900,
+        type: "sedan", hp: 762, kwh: 100, zeroToHundred: 2.6, seats: 5,
+        drivetrain: "AWD", battery: "100 kWh", range: 555,
+        length: 4979, width: 1964, height: 1445, weight: 2241,
+        emoji: "⚡", color: "#CC0000", segment: "Luxury Sedan"
+    },
+    {
+        id: 93, make: "Kia", model: "e-Niro 64 kWh", year: 2021, price: 379900,
+        type: "suv", hp: 204, kwh: 64, zeroToHundred: 7.8, seats: 5,
+        drivetrain: "FWD", battery: "64 kWh", range: 455,
+        length: 4375, width: 1805, height: 1560, weight: 1791,
+        emoji: "⚡", color: "#05141F", segment: "Compact SUV"
+    },
+    {
+        id: 94, make: "Mercedes", model: "EQC 400 4MATIC", year: 2021, price: 649900,
+        type: "suv", hp: 408, kwh: 80, zeroToHundred: 5.1, seats: 5,
+        drivetrain: "AWD", battery: "80 kWh", range: 374,
+        length: 4762, width: 1884, height: 1624, weight: 2495,
+        emoji: "⚡", color: "#00ADEF", segment: "Mid-size SUV"
+    },
+    {
+        id: 95, make: "Opel", model: "Mokka-e", year: 2023, price: 349900,
+        type: "suv", hp: 136, kwh: 50, zeroToHundred: 9.0, seats: 5,
+        drivetrain: "FWD", battery: "50 kWh", range: 338,
+        length: 4151, width: 1791, height: 1531, weight: 1598,
+        emoji: "⚡", color: "#000000", segment: "Small SUV"
+    },
+    {
+        id: 96, make: "Fiat", model: "500e La Prima", year: 2023, price: 319900,
+        type: "hatchback", hp: 118, kwh: 42, zeroToHundred: 9.0, seats: 4,
+        drivetrain: "FWD", battery: "42 kWh", range: 321,
+        length: 3631, width: 1773, height: 1527, weight: 1365,
+        emoji: "⚡", color: "#8B0000", segment: "City Car"
+    },
+    {
+        id: 97, make: "Volvo", model: "XC40 Recharge P8", year: 2022, price: 529900,
+        type: "suv", hp: 408, kwh: 78, zeroToHundred: 4.9, seats: 5,
+        drivetrain: "AWD", battery: "78 kWh", range: 418,
+        length: 4425, width: 1873, height: 1651, weight: 2188,
+        emoji: "⚡", color: "#003057", segment: "Compact SUV"
+    },
+    {
+        id: 98, make: "Ford", model: "Mustang Mach-E Standard Range", year: 2022, price: 449900,
+        type: "suv", hp: 269, kwh: 75.7, zeroToHundred: 6.2, seats: 5,
+        drivetrain: "RWD", battery: "75.7 kWh", range: 440,
+        length: 4739, width: 1881, height: 1624, weight: 2100,
+        emoji: "⚡", color: "#003478", segment: "Mid-size SUV"
+    },
+    {
+        id: 99, make: "Peugeot", model: "e-2008 GT", year: 2023, price: 379900,
+        type: "suv", hp: 136, kwh: 50, zeroToHundred: 9.0, seats: 5,
+        drivetrain: "FWD", battery: "50 kWh", range: 345,
+        length: 4300, width: 1770, height: 1550, weight: 1623,
+        emoji: "⚡", color: "#1A237E", segment: "Small SUV"
     }
 ];
 
@@ -600,7 +755,13 @@ const BRAND_COLORS = {
     "BYD":        { primary: "#C5002E", gradient: "linear-gradient(135deg, #C5002E, #660018)" },
     "Cupra":      { primary: "#95614C", gradient: "linear-gradient(135deg, #95614C, #4D3228)" },
     "Renault":    { primary: "#FFCC00", gradient: "linear-gradient(135deg, #1A1A1A, #333333)" },
-    "Smart":      { primary: "#FF7900", gradient: "linear-gradient(135deg, #FF7900, #994800)" }
+    "Smart":      { primary: "#FF7900", gradient: "linear-gradient(135deg, #FF7900, #994800)" },
+    "Nissan":     { primary: "#C3002F", gradient: "linear-gradient(135deg, #C3002F, #660018)" },
+    "Jaguar":     { primary: "#1A472A", gradient: "linear-gradient(135deg, #1A472A, #0D2415)" },
+    "MG":         { primary: "#D4171E", gradient: "linear-gradient(135deg, #D4171E, #6A0B0F)" },
+    "Opel":       { primary: "#F7FF14", gradient: "linear-gradient(135deg, #1A1A1A, #333333)" },
+    "Fiat":       { primary: "#8B0000", gradient: "linear-gradient(135deg, #8B0000, #450000)" },
+    "Peugeot":    { primary: "#1A237E", gradient: "linear-gradient(135deg, #1A237E, #0D113F)" }
 };
 
 // ========== Brand Sources ==========
@@ -623,7 +784,13 @@ const BRAND_SOURCES = {
     "BYD":        { name: "byd.com/no", url: "https://www.byd.com/no" },
     "Cupra":      { name: "cupraofficial.no", url: "https://www.cupraofficial.no/modeller.html" },
     "Renault":    { name: "renault.no", url: "https://www.renault.no/elektriske-biler.html" },
-    "Smart":      { name: "smart.com/no", url: "https://www.smart.com/no" }
+    "Smart":      { name: "smart.com/no", url: "https://www.smart.com/no" },
+    "Nissan":     { name: "nissan.no", url: "https://www.nissan.no/biler/elbiler.html" },
+    "Jaguar":     { name: "jaguar.no", url: "https://www.jaguar.no/index.html" },
+    "MG":         { name: "mg.no", url: "https://www.mg.no/modeller" },
+    "Opel":       { name: "opel.no", url: "https://www.opel.no/biler/elbiler.html" },
+    "Fiat":       { name: "fiat.no", url: "https://www.fiat.no/500e" },
+    "Peugeot":    { name: "peugeot.no", url: "https://www.peugeot.no/elbiler.html" }
 };
 
 // ========== SVG Car Silhouettes ==========
@@ -888,12 +1055,14 @@ function renderBrowse() {
     const brandFilter = document.getElementById("filter-brand").value;
     const typeFilter = document.getElementById("filter-type").value;
     const sort = document.getElementById("filter-sort").value;
+    const yearFilter = document.getElementById("filter-year").value;
 
     let cars = CARS.filter(car => {
         const matchSearch = `${car.make} ${car.model} ${car.year} ${car.segment}`.toLowerCase().includes(search);
         const matchBrand = brandFilter === "all" || car.make === brandFilter;
         const matchType = typeFilter === "all" || car.type === typeFilter;
-        return matchSearch && matchBrand && matchType;
+        const matchYear = yearFilter === "all" || car.year === parseInt(yearFilter);
+        return matchSearch && matchBrand && matchType && matchYear;
     });
 
     switch (sort) {
@@ -1185,6 +1354,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("filter-brand").addEventListener("change", renderBrowse);
     document.getElementById("filter-type").addEventListener("change", renderBrowse);
     document.getElementById("filter-sort").addEventListener("change", renderBrowse);
+    document.getElementById("filter-year").addEventListener("change", renderBrowse);
 
     // Modal close
     document.getElementById("modal-back").addEventListener("click", closeModal);
