@@ -976,8 +976,8 @@ function toggleCompare(id, e) {
     if (idx > -1) {
         state.compareList.splice(idx, 1);
     } else {
-        if (state.compareList.length >= 4) {
-            showToast("Maks 4 biler kan sammenlignes");
+        if (state.compareList.length >= 10) {
+            showToast("Maks 10 biler kan sammenlignes");
             return;
         }
         state.compareList.push(id);
