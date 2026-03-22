@@ -1041,7 +1041,7 @@ function renderCarCard(car) {
             <div class="car-card-header">
                 <div>
                     <div class="car-card-title">${car.make} ${car.model}</div>
-                    <div class="car-card-year">${car.year}${src ? ` · <a href="${src.url}" target="_blank" rel="noopener" class="source-link" onclick="event.stopPropagation()">${src.name}</a>` : ''}</div>
+                    <div class="car-card-year">${car.year}</div>
                 </div>
                 <div class="car-actions">
                     <button class="btn-icon ${isFavorite(car.id) ? 'active-fav' : ''}"
