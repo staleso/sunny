@@ -7,91 +7,91 @@ const CARS = [
         id: 1, make: "BMW", model: "iX1 xDrive30", year: 2025, price: 529900,
         type: "suv", hp: 313, kwh: 64.7, zeroToHundred: 5.6, seats: 5,
         drivetrain: "AWD", battery: "64.7 kWh", range: 440,
-        length: 4500, width: 1845, height: 1616, weight: 2060,
+        length: 4500, width: 1845, height: 1616, weight: 2060, trunk: 490,
         emoji: "⚡", color: "#1a1a2e", segment: "Compact SUV"
     },
     {
         id: 2, make: "BMW", model: "iX3", year: 2025, price: 599900,
         type: "suv", hp: 286, kwh: 80, zeroToHundred: 6.8, seats: 5,
         drivetrain: "RWD", battery: "80 kWh", range: 460,
-        length: 4734, width: 1891, height: 1668, weight: 2185,
+        length: 4734, width: 1891, height: 1668, weight: 2185, trunk: 510,
         emoji: "⚡", color: "#16213e", segment: "Mid-size SUV"
     },
     {
         id: 72, make: "BMW", model: "iX3 50 xDrive Fully Charged", year: 2026, price: 679900,
         type: "suv", hp: 463, kwh: 108, zeroToHundred: 4.9, seats: 5,
         drivetrain: "AWD", battery: "108 kWh", range: 805,
-        length: 4734, width: 1920, height: 1660, weight: 2310,
+        length: 4734, width: 1920, height: 1660, weight: 2310, trunk: 510,
         emoji: "⚡", color: "#16213e", segment: "Mid-size SUV"
     },
     {
         id: 73, make: "BMW", model: "iX3 50 xDrive M Sport", year: 2026, price: 749900,
         type: "suv", hp: 463, kwh: 108, zeroToHundred: 4.9, seats: 5,
         drivetrain: "AWD", battery: "108 kWh", range: 805,
-        length: 4734, width: 1920, height: 1660, weight: 2310,
+        length: 4734, width: 1920, height: 1660, weight: 2310, trunk: 510,
         emoji: "⚡", color: "#16213e", segment: "Mid-size SUV"
     },
     {
         id: 74, make: "BMW", model: "iX3 50 xDrive M Sport Pro", year: 2026, price: 892000,
         type: "suv", hp: 463, kwh: 108, zeroToHundred: 4.9, seats: 5,
         drivetrain: "AWD", battery: "108 kWh", range: 805,
-        length: 4734, width: 1920, height: 1660, weight: 2310,
+        length: 4734, width: 1920, height: 1660, weight: 2310, trunk: 510,
         emoji: "⚡", color: "#16213e", segment: "Mid-size SUV"
     },
     {
         id: 100, make: "BMW", model: "i3 50 xDrive Sedan", year: 2026, price: 579900,
         type: "sedan", hp: 469, kwh: 108, zeroToHundred: 4.0, seats: 5,
         drivetrain: "AWD", battery: "108 kWh", range: 900,
-        length: 4760, width: 1865, height: 1480, weight: 2150,
+        length: 4760, width: 1865, height: 1480, weight: 2150, trunk: 480,
         emoji: "⚡", color: "#2e1a1a", segment: "Mid-size Sedan"
     },
     {
         id: 3, make: "BMW", model: "iX xDrive40", year: 2025, price: 799900,
         type: "suv", hp: 326, kwh: 76.6, zeroToHundred: 6.1, seats: 5,
         drivetrain: "AWD", battery: "76.6 kWh", range: 425,
-        length: 4953, width: 1967, height: 1696, weight: 2440,
+        length: 4953, width: 1967, height: 1696, weight: 2440, trunk: 500,
         emoji: "⚡", color: "#1b2838", segment: "Large SUV"
     },
     {
         id: 4, make: "BMW", model: "iX xDrive50", year: 2025, price: 999900,
         type: "suv", hp: 523, kwh: 111.5, zeroToHundred: 4.6, seats: 5,
         drivetrain: "AWD", battery: "111.5 kWh", range: 630,
-        length: 4953, width: 1967, height: 1696, weight: 2510,
+        length: 4953, width: 1967, height: 1696, weight: 2510, trunk: 500,
         emoji: "⚡", color: "#1a2e2e", segment: "Large SUV"
     },
     {
         id: 5, make: "BMW", model: "i4 eDrive40", year: 2025, price: 569900,
         type: "sedan", hp: 340, kwh: 83.9, zeroToHundred: 5.7, seats: 5,
         drivetrain: "RWD", battery: "83.9 kWh", range: 590,
-        length: 4783, width: 1852, height: 1448, weight: 2125,
+        length: 4783, width: 1852, height: 1448, weight: 2125, trunk: 470,
         emoji: "⚡", color: "#1a1a2e", segment: "Mid-size Sedan"
     },
     {
         id: 6, make: "BMW", model: "i4 M50", year: 2025, price: 729900,
         type: "sedan", hp: 544, kwh: 83.9, zeroToHundred: 3.9, seats: 5,
         drivetrain: "AWD", battery: "83.9 kWh", range: 520,
-        length: 4783, width: 1852, height: 1448, weight: 2215,
+        length: 4783, width: 1852, height: 1448, weight: 2215, trunk: 470,
         emoji: "⚡", color: "#2d1b2e", segment: "Performance Sedan"
     },
     {
         id: 71, make: "BMW", model: "i4 M60", year: 2025, price: 849900,
         type: "sedan", hp: 619, kwh: 83.9, zeroToHundred: 3.5, seats: 5,
         drivetrain: "AWD", battery: "83.9 kWh", range: 490,
-        length: 4783, width: 1852, height: 1448, weight: 2275,
+        length: 4783, width: 1852, height: 1448, weight: 2275, trunk: 470,
         emoji: "⚡", color: "#2d1b2e", segment: "Performance Sedan"
     },
     {
         id: 7, make: "BMW", model: "i5 eDrive40", year: 2025, price: 659900,
         type: "sedan", hp: 340, kwh: 83.9, zeroToHundred: 6.0, seats: 5,
         drivetrain: "RWD", battery: "83.9 kWh", range: 580,
-        length: 5060, width: 1900, height: 1505, weight: 2210,
+        length: 5060, width: 1900, height: 1505, weight: 2210, trunk: 490,
         emoji: "⚡", color: "#1b2e1b", segment: "Executive Sedan"
     },
     {
         id: 8, make: "BMW", model: "i7 xDrive60", year: 2025, price: 1299900,
         type: "sedan", hp: 544, kwh: 101.7, zeroToHundred: 4.7, seats: 5,
         drivetrain: "AWD", battery: "101.7 kWh", range: 590,
-        length: 5391, width: 1950, height: 1544, weight: 2640,
+        length: 5391, width: 1950, height: 1544, weight: 2640, trunk: 500,
         emoji: "⚡", color: "#2e2e1a", segment: "Luxury Sedan"
     },
 
@@ -100,42 +100,42 @@ const CARS = [
         id: 9, make: "Audi", model: "Q4 e-tron 40", year: 2025, price: 479900,
         type: "suv", hp: 204, kwh: 77, zeroToHundred: 8.5, seats: 5,
         drivetrain: "RWD", battery: "77 kWh", range: 520,
-        length: 4588, width: 1865, height: 1632, weight: 2060,
+        length: 4588, width: 1865, height: 1632, weight: 2060, trunk: 520,
         emoji: "⚡", color: "#1a1a2e", segment: "Compact SUV"
     },
     {
         id: 10, make: "Audi", model: "Q4 e-tron 50 quattro", year: 2025, price: 559900,
         type: "suv", hp: 299, kwh: 77, zeroToHundred: 6.2, seats: 5,
         drivetrain: "AWD", battery: "77 kWh", range: 490,
-        length: 4588, width: 1865, height: 1632, weight: 2135,
+        length: 4588, width: 1865, height: 1632, weight: 2135, trunk: 520,
         emoji: "⚡", color: "#16213e", segment: "Compact SUV"
     },
     {
         id: 11, make: "Audi", model: "Q6 e-tron quattro", year: 2025, price: 699900,
         type: "suv", hp: 387, kwh: 100, zeroToHundred: 5.9, seats: 5,
         drivetrain: "AWD", battery: "100 kWh", range: 625,
-        length: 4771, width: 1939, height: 1648, weight: 2325,
+        length: 4771, width: 1939, height: 1648, weight: 2325, trunk: 526,
         emoji: "⚡", color: "#1b2838", segment: "Mid-size SUV"
     },
     {
         id: 12, make: "Audi", model: "Q8 e-tron 55 quattro", year: 2025, price: 849900,
         type: "suv", hp: 408, kwh: 114, zeroToHundred: 5.6, seats: 5,
         drivetrain: "AWD", battery: "114 kWh", range: 580,
-        length: 4915, width: 1937, height: 1633, weight: 2595,
+        length: 4915, width: 1937, height: 1633, weight: 2595, trunk: 569,
         emoji: "⚡", color: "#1a2e2e", segment: "Large SUV"
     },
     {
         id: 13, make: "Audi", model: "e-tron GT quattro", year: 2025, price: 1099900,
         type: "sedan", hp: 530, kwh: 97, zeroToHundred: 3.6, seats: 4,
         drivetrain: "AWD", battery: "97 kWh", range: 490,
-        length: 4989, width: 1964, height: 1414, weight: 2340,
+        length: 4989, width: 1964, height: 1414, weight: 2340, trunk: 405,
         emoji: "⚡", color: "#2d1b2e", segment: "Performance Sedan"
     },
     {
         id: 14, make: "Audi", model: "A6 e-tron", year: 2026, price: 649900,
         type: "sedan", hp: 381, kwh: 100, zeroToHundred: 5.4, seats: 5,
         drivetrain: "AWD", battery: "100 kWh", range: 700,
-        length: 4928, width: 1923, height: 1527, weight: 2270,
+        length: 4928, width: 1923, height: 1527, weight: 2270, trunk: 502,
         emoji: "⚡", color: "#1b2e1b", segment: "Executive Sedan"
     },
 
@@ -144,56 +144,56 @@ const CARS = [
         id: 15, make: "Mercedes", model: "EQA 250+", year: 2025, price: 499900,
         type: "suv", hp: 190, kwh: 70.5, zeroToHundred: 8.6, seats: 5,
         drivetrain: "FWD", battery: "70.5 kWh", range: 528,
-        length: 4463, width: 1834, height: 1620, weight: 2055,
+        length: 4463, width: 1834, height: 1620, weight: 2055, trunk: 340,
         emoji: "⚡", color: "#1a1a2e", segment: "Compact SUV"
     },
     {
         id: 16, make: "Mercedes", model: "EQB 250+", year: 2025, price: 539900,
         type: "suv", hp: 190, kwh: 70.5, zeroToHundred: 8.9, seats: 7,
         drivetrain: "FWD", battery: "70.5 kWh", range: 505,
-        length: 4684, width: 1834, height: 1701, weight: 2175,
+        length: 4684, width: 1834, height: 1701, weight: 2175, trunk: 495,
         emoji: "⚡", color: "#16213e", segment: "Compact SUV"
     },
     {
         id: 17, make: "Mercedes", model: "EQC 400 4MATIC", year: 2025, price: 649900,
         type: "suv", hp: 408, kwh: 80, zeroToHundred: 5.1, seats: 5,
         drivetrain: "AWD", battery: "80 kWh", range: 430,
-        length: 4762, width: 1884, height: 1624, weight: 2420,
+        length: 4762, width: 1884, height: 1624, weight: 2420, trunk: 500,
         emoji: "⚡", color: "#1b2838", segment: "Mid-size SUV"
     },
     {
         id: 75, make: "Mercedes", model: "GLC 400 4MATIC", year: 2026, price: 699900,
         type: "suv", hp: 483, kwh: 94.4, zeroToHundred: 4.3, seats: 5,
         drivetrain: "AWD", battery: "94.4 kWh", range: 702,
-        length: 4845, width: 1913, height: 1644, weight: 2430,
+        length: 4845, width: 1913, height: 1644, weight: 2430, trunk: 520,
         emoji: "⚡", color: "#2e1a1a", segment: "Mid-size SUV"
     },
     {
         id: 18, make: "Mercedes", model: "EQE 350+", year: 2025, price: 749900,
         type: "sedan", hp: 292, kwh: 96, zeroToHundred: 6.4, seats: 5,
         drivetrain: "RWD", battery: "96 kWh", range: 620,
-        length: 4946, width: 1906, height: 1503, weight: 2355,
+        length: 4946, width: 1906, height: 1503, weight: 2355, trunk: 430,
         emoji: "⚡", color: "#1a2e2e", segment: "Executive Sedan"
     },
     {
         id: 19, make: "Mercedes", model: "EQE SUV 350+", year: 2025, price: 819900,
         type: "suv", hp: 292, kwh: 96, zeroToHundred: 6.6, seats: 5,
         drivetrain: "RWD", battery: "96 kWh", range: 590,
-        length: 4863, width: 1940, height: 1686, weight: 2510,
+        length: 4863, width: 1940, height: 1686, weight: 2510, trunk: 520,
         emoji: "⚡", color: "#2d1b2e", segment: "Large SUV"
     },
     {
         id: 20, make: "Mercedes", model: "EQS 450+", year: 2025, price: 1099900,
         type: "sedan", hp: 360, kwh: 118, zeroToHundred: 5.8, seats: 5,
         drivetrain: "RWD", battery: "118 kWh", range: 770,
-        length: 5216, width: 1926, height: 1512, weight: 2480,
+        length: 5216, width: 1926, height: 1512, weight: 2480, trunk: 610,
         emoji: "⚡", color: "#1b2e1b", segment: "Luxury Sedan"
     },
     {
         id: 21, make: "Mercedes", model: "EQS SUV 450+", year: 2025, price: 1199900,
         type: "suv", hp: 360, kwh: 118, zeroToHundred: 6.0, seats: 7,
         drivetrain: "RWD", battery: "118 kWh", range: 670,
-        length: 5125, width: 1959, height: 1718, weight: 2710,
+        length: 5125, width: 1959, height: 1718, weight: 2710, trunk: 565,
         emoji: "⚡", color: "#2e2e1a", segment: "Luxury SUV"
     },
 
@@ -202,84 +202,84 @@ const CARS = [
         id: 22, make: "Porsche", model: "Taycan", year: 2025, price: 899900,
         type: "sedan", hp: 408, kwh: 93.4, zeroToHundred: 4.8, seats: 4,
         drivetrain: "RWD", battery: "93.4 kWh", range: 590,
-        length: 4963, width: 1966, height: 1381, weight: 2130,
+        length: 4963, width: 1966, height: 1381, weight: 2130, trunk: 407,
         emoji: "⚡", color: "#2e1a1a", segment: "Performance Sedan"
     },
     {
         id: 23, make: "Porsche", model: "Taycan 4S", year: 2025, price: 1049900,
         type: "sedan", hp: 530, kwh: 93.4, zeroToHundred: 3.7, seats: 4,
         drivetrain: "AWD", battery: "93.4 kWh", range: 560,
-        length: 4963, width: 1966, height: 1381, weight: 2215,
+        length: 4963, width: 1966, height: 1381, weight: 2215, trunk: 407,
         emoji: "⚡", color: "#2d1b2e", segment: "Performance Sedan"
     },
     {
         id: 24, make: "Porsche", model: "Taycan Turbo", year: 2025, price: 1449900,
         type: "sedan", hp: 680, kwh: 97, zeroToHundred: 3.2, seats: 4,
         drivetrain: "AWD", battery: "97 kWh", range: 550,
-        length: 4963, width: 1966, height: 1381, weight: 2290,
+        length: 4963, width: 1966, height: 1381, weight: 2290, trunk: 407,
         emoji: "⚡", color: "#1a1a2e", segment: "Performance Sedan"
     },
     {
         id: 78, make: "Porsche", model: "Taycan Turbo S", year: 2025, price: 1749900,
         type: "sedan", hp: 775, kwh: 97, zeroToHundred: 2.4, seats: 4,
         drivetrain: "AWD", battery: "97 kWh", range: 630,
-        length: 4963, width: 1966, height: 1381, weight: 2345,
+        length: 4963, width: 1966, height: 1381, weight: 2345, trunk: 407,
         emoji: "⚡", color: "#2e1a1a", segment: "Performance Sedan"
     },
     {
         id: 79, make: "Porsche", model: "Taycan 4 Cross Turismo", year: 2025, price: 1049900,
         type: "wagon", hp: 408, kwh: 93.4, zeroToHundred: 4.7, seats: 4,
         drivetrain: "AWD", battery: "93.4 kWh", range: 490,
-        length: 4974, width: 1967, height: 1395, weight: 2295,
+        length: 4974, width: 1967, height: 1395, weight: 2295, trunk: 446,
         emoji: "⚡", color: "#1b2e1b", segment: "Performance Wagon"
     },
     {
         id: 80, make: "Porsche", model: "Taycan Turbo S Cross Turismo", year: 2025, price: 1799900,
         type: "wagon", hp: 775, kwh: 97, zeroToHundred: 2.5, seats: 4,
         drivetrain: "AWD", battery: "97 kWh", range: 500,
-        length: 4974, width: 1967, height: 1395, weight: 2370,
+        length: 4974, width: 1967, height: 1395, weight: 2370, trunk: 446,
         emoji: "⚡", color: "#2e2e1a", segment: "Performance Wagon"
     },
     {
         id: 81, make: "Porsche", model: "Taycan GTS Sport Turismo", year: 2025, price: 1596300,
         type: "wagon", hp: 690, kwh: 97, zeroToHundred: 3.1, seats: 4,
         drivetrain: "AWD", battery: "97 kWh", range: 570,
-        length: 4963, width: 1966, height: 1395, weight: 2310,
+        length: 4963, width: 1966, height: 1395, weight: 2310, trunk: 446,
         emoji: "⚡", color: "#16213e", segment: "Performance Wagon"
     },
     {
         id: 82, make: "Porsche", model: "Taycan Turbo S Sport Turismo", year: 2025, price: 1749900,
         type: "wagon", hp: 775, kwh: 97, zeroToHundred: 2.4, seats: 4,
         drivetrain: "AWD", battery: "97 kWh", range: 600,
-        length: 4963, width: 1966, height: 1395, weight: 2350,
+        length: 4963, width: 1966, height: 1395, weight: 2350, trunk: 446,
         emoji: "⚡", color: "#2d1b2e", segment: "Performance Wagon"
     },
     {
         id: 25, make: "Porsche", model: "Macan Electric", year: 2025, price: 849900,
         type: "suv", hp: 408, kwh: 100, zeroToHundred: 5.2, seats: 5,
         drivetrain: "AWD", battery: "100 kWh", range: 613,
-        length: 4784, width: 1938, height: 1624, weight: 2405,
+        length: 4784, width: 1938, height: 1624, weight: 2405, trunk: 540,
         emoji: "⚡", color: "#16213e", segment: "Mid-size SUV"
     },
     {
         id: 26, make: "Porsche", model: "Macan Electric 4S", year: 2025, price: 999900,
         type: "suv", hp: 516, kwh: 100, zeroToHundred: 4.1, seats: 5,
         drivetrain: "AWD", battery: "100 kWh", range: 590,
-        length: 4784, width: 1938, height: 1624, weight: 2405,
+        length: 4784, width: 1938, height: 1624, weight: 2405, trunk: 540,
         emoji: "⚡", color: "#1b2838", segment: "Performance SUV"
     },
     {
         id: 76, make: "Porsche", model: "Cayenne Electric", year: 2026, price: 1116400,
         type: "suv", hp: 408, kwh: 113, zeroToHundred: 4.5, seats: 5,
         drivetrain: "AWD", battery: "113 kWh", range: 643,
-        length: 4985, width: 1980, height: 1674, weight: 2525,
+        length: 4985, width: 1980, height: 1674, weight: 2525, trunk: 621,
         emoji: "⚡", color: "#2e2e1a", segment: "Large SUV"
     },
     {
         id: 77, make: "Porsche", model: "Cayenne Turbo Electric", year: 2026, price: 1767100,
         type: "suv", hp: 1156, kwh: 113, zeroToHundred: 2.5, seats: 5,
         drivetrain: "AWD", battery: "113 kWh", range: 600,
-        length: 4985, width: 1980, height: 1674, weight: 2600,
+        length: 4985, width: 1980, height: 1674, weight: 2600, trunk: 621,
         emoji: "⚡", color: "#1a1a2e", segment: "Performance SUV"
     },
 
@@ -288,42 +288,42 @@ const CARS = [
         id: 27, make: "Tesla", model: "Model 3 Long Range", year: 2025, price: 449900,
         type: "sedan", hp: 366, kwh: 75, zeroToHundred: 4.4, seats: 5,
         drivetrain: "AWD", battery: "75 kWh", range: 629,
-        length: 4720, width: 1849, height: 1441, weight: 1830,
+        length: 4720, width: 1849, height: 1441, weight: 1830, trunk: 594,
         emoji: "⚡", color: "#1a1a2e", segment: "Mid-size Sedan"
     },
     {
         id: 28, make: "Tesla", model: "Model 3 Performance", year: 2025, price: 529900,
         type: "sedan", hp: 460, kwh: 75, zeroToHundred: 3.1, seats: 5,
         drivetrain: "AWD", battery: "75 kWh", range: 528,
-        length: 4720, width: 1849, height: 1441, weight: 1836,
+        length: 4720, width: 1849, height: 1441, weight: 1836, trunk: 594,
         emoji: "⚡", color: "#2d1b2e", segment: "Performance Sedan"
     },
     {
         id: 29, make: "Tesla", model: "Model Y Long Range", year: 2025, price: 479900,
         type: "suv", hp: 366, kwh: 75, zeroToHundred: 5.0, seats: 5,
         drivetrain: "AWD", battery: "75 kWh", range: 533,
-        length: 4751, width: 1921, height: 1624, weight: 1979,
+        length: 4751, width: 1921, height: 1624, weight: 1979, trunk: 854,
         emoji: "⚡", color: "#16213e", segment: "Mid-size SUV"
     },
     {
         id: 30, make: "Tesla", model: "Model Y Performance", year: 2025, price: 559900,
         type: "suv", hp: 460, kwh: 75, zeroToHundred: 3.7, seats: 5,
         drivetrain: "AWD", battery: "75 kWh", range: 514,
-        length: 4751, width: 1921, height: 1624, weight: 1979,
+        length: 4751, width: 1921, height: 1624, weight: 1979, trunk: 854,
         emoji: "⚡", color: "#1b2838", segment: "Performance SUV"
     },
     {
         id: 31, make: "Tesla", model: "Model S Long Range", year: 2025, price: 899900,
         type: "sedan", hp: 670, kwh: 100, zeroToHundred: 3.2, seats: 5,
         drivetrain: "AWD", battery: "100 kWh", range: 634,
-        length: 4970, width: 1964, height: 1445, weight: 2162,
+        length: 4970, width: 1964, height: 1445, weight: 2162, trunk: 793,
         emoji: "⚡", color: "#1b2e1b", segment: "Luxury Sedan"
     },
     {
         id: 32, make: "Tesla", model: "Model X Long Range", year: 2025, price: 1049900,
         type: "suv", hp: 670, kwh: 100, zeroToHundred: 3.9, seats: 7,
         drivetrain: "AWD", battery: "100 kWh", range: 576,
-        length: 5037, width: 1999, height: 1684, weight: 2352,
+        length: 5037, width: 1999, height: 1684, weight: 2352, trunk: 2158,
         emoji: "⚡", color: "#2e2e1a", segment: "Luxury SUV"
     },
 
@@ -332,35 +332,35 @@ const CARS = [
         id: 33, make: "Volkswagen", model: "ID.3 Pro S", year: 2025, price: 389900,
         type: "hatchback", hp: 204, kwh: 77, zeroToHundred: 7.9, seats: 5,
         drivetrain: "RWD", battery: "77 kWh", range: 560,
-        length: 4261, width: 1809, height: 1568, weight: 1870,
+        length: 4261, width: 1809, height: 1568, weight: 1870, trunk: 385,
         emoji: "⚡", color: "#1a1a2e", segment: "Compact"
     },
     {
         id: 34, make: "Volkswagen", model: "ID.4 Pro S", year: 2025, price: 469900,
         type: "suv", hp: 286, kwh: 77, zeroToHundred: 6.7, seats: 5,
         drivetrain: "RWD", battery: "77 kWh", range: 540,
-        length: 4584, width: 1852, height: 1634, weight: 2124,
+        length: 4584, width: 1852, height: 1634, weight: 2124, trunk: 543,
         emoji: "⚡", color: "#16213e", segment: "Compact SUV"
     },
     {
         id: 35, make: "Volkswagen", model: "ID.5 GTX", year: 2025, price: 549900,
         type: "suv", hp: 340, kwh: 77, zeroToHundred: 5.4, seats: 5,
         drivetrain: "AWD", battery: "77 kWh", range: 500,
-        length: 4599, width: 1852, height: 1615, weight: 2173,
+        length: 4599, width: 1852, height: 1615, weight: 2173, trunk: 549,
         emoji: "⚡", color: "#1b2838", segment: "Coupe SUV"
     },
     {
         id: 36, make: "Volkswagen", model: "ID.7 Pro S", year: 2025, price: 569900,
         type: "sedan", hp: 286, kwh: 86, zeroToHundred: 6.5, seats: 5,
         drivetrain: "RWD", battery: "86 kWh", range: 700,
-        length: 4961, width: 1862, height: 1536, weight: 2160,
+        length: 4961, width: 1862, height: 1536, weight: 2160, trunk: 532,
         emoji: "⚡", color: "#1a2e2e", segment: "Mid-size Sedan"
     },
     {
         id: 37, make: "Volkswagen", model: "ID. Buzz Pro", year: 2025, price: 599900,
         type: "van", hp: 286, kwh: 86, zeroToHundred: 7.9, seats: 7,
         drivetrain: "RWD", battery: "86 kWh", range: 460,
-        length: 4712, width: 1985, height: 1927, weight: 2469,
+        length: 4712, width: 1985, height: 1927, weight: 2469, trunk: 1121,
         emoji: "⚡", color: "#2e2e1a", segment: "MPV"
     },
 
@@ -369,35 +369,35 @@ const CARS = [
         id: 38, make: "Volvo", model: "EX30 Single Motor", year: 2025, price: 369900,
         type: "suv", hp: 272, kwh: 69, zeroToHundred: 5.3, seats: 5,
         drivetrain: "RWD", battery: "69 kWh", range: 476,
-        length: 4233, width: 1837, height: 1550, weight: 1790,
+        length: 4233, width: 1837, height: 1550, weight: 1790, trunk: 318,
         emoji: "⚡", color: "#1a1a2e", segment: "Small SUV"
     },
     {
         id: 39, make: "Volvo", model: "EX30 Twin Motor", year: 2025, price: 439900,
         type: "suv", hp: 428, kwh: 69, zeroToHundred: 3.6, seats: 5,
         drivetrain: "AWD", battery: "69 kWh", range: 450,
-        length: 4233, width: 1837, height: 1550, weight: 1830,
+        length: 4233, width: 1837, height: 1550, weight: 1830, trunk: 318,
         emoji: "⚡", color: "#16213e", segment: "Small SUV"
     },
     {
         id: 40, make: "Volvo", model: "EC40 Recharge", year: 2025, price: 499900,
         type: "suv", hp: 252, kwh: 78, zeroToHundred: 7.4, seats: 5,
         drivetrain: "RWD", battery: "78 kWh", range: 478,
-        length: 4440, width: 1873, height: 1591, weight: 2110,
+        length: 4440, width: 1873, height: 1591, weight: 2110, trunk: 413,
         emoji: "⚡", color: "#1b2838", segment: "Coupe SUV"
     },
     {
         id: 41, make: "Volvo", model: "EX40 Recharge", year: 2025, price: 479900,
         type: "suv", hp: 252, kwh: 78, zeroToHundred: 7.4, seats: 5,
         drivetrain: "RWD", battery: "78 kWh", range: 476,
-        length: 4425, width: 1873, height: 1651, weight: 2100,
+        length: 4425, width: 1873, height: 1651, weight: 2100, trunk: 452,
         emoji: "⚡", color: "#1a2e2e", segment: "Compact SUV"
     },
     {
         id: 42, make: "Volvo", model: "EX90 Twin Motor", year: 2025, price: 899900,
         type: "suv", hp: 408, kwh: 111, zeroToHundred: 5.9, seats: 7,
         drivetrain: "AWD", battery: "111 kWh", range: 580,
-        length: 5037, width: 1964, height: 1744, weight: 2818,
+        length: 5037, width: 1964, height: 1744, weight: 2818, trunk: 655,
         emoji: "⚡", color: "#1b2e1b", segment: "Large SUV"
     },
 
@@ -406,21 +406,21 @@ const CARS = [
         id: 43, make: "Hyundai", model: "Kona Electric 65 kWh", year: 2025, price: 369900,
         type: "suv", hp: 218, kwh: 65.4, zeroToHundred: 7.8, seats: 5,
         drivetrain: "FWD", battery: "65.4 kWh", range: 490,
-        length: 4355, width: 1825, height: 1575, weight: 1740,
+        length: 4355, width: 1825, height: 1575, weight: 1740, trunk: 466,
         emoji: "⚡", color: "#1a1a2e", segment: "Small SUV"
     },
     {
         id: 44, make: "Hyundai", model: "IONIQ 5 Long Range AWD", year: 2025, price: 499900,
         type: "suv", hp: 325, kwh: 84, zeroToHundred: 5.1, seats: 5,
         drivetrain: "AWD", battery: "84 kWh", range: 507,
-        length: 4635, width: 1890, height: 1605, weight: 2100,
+        length: 4635, width: 1890, height: 1605, weight: 2100, trunk: 527,
         emoji: "⚡", color: "#16213e", segment: "Mid-size SUV"
     },
     {
         id: 45, make: "Hyundai", model: "IONIQ 6 Long Range AWD", year: 2025, price: 519900,
         type: "sedan", hp: 325, kwh: 77.4, zeroToHundred: 5.1, seats: 5,
         drivetrain: "AWD", battery: "77.4 kWh", range: 583,
-        length: 4855, width: 1880, height: 1495, weight: 2060,
+        length: 4855, width: 1880, height: 1495, weight: 2060, trunk: 401,
         emoji: "⚡", color: "#1b2838", segment: "Mid-size Sedan"
     },
 
@@ -429,21 +429,21 @@ const CARS = [
         id: 46, make: "Kia", model: "Niro EV", year: 2025, price: 399900,
         type: "suv", hp: 204, kwh: 64.8, zeroToHundred: 7.8, seats: 5,
         drivetrain: "FWD", battery: "64.8 kWh", range: 463,
-        length: 4420, width: 1825, height: 1570, weight: 1791,
+        length: 4420, width: 1825, height: 1570, weight: 1791, trunk: 475,
         emoji: "⚡", color: "#1a1a2e", segment: "Compact SUV"
     },
     {
         id: 47, make: "Kia", model: "EV6 Long Range AWD", year: 2025, price: 529900,
         type: "suv", hp: 325, kwh: 77.4, zeroToHundred: 5.2, seats: 5,
         drivetrain: "AWD", battery: "77.4 kWh", range: 506,
-        length: 4695, width: 1890, height: 1550, weight: 2090,
+        length: 4695, width: 1890, height: 1550, weight: 2090, trunk: 490,
         emoji: "⚡", color: "#16213e", segment: "Mid-size SUV"
     },
     {
         id: 48, make: "Kia", model: "EV9 Long Range AWD", year: 2025, price: 699900,
         type: "suv", hp: 384, kwh: 99.8, zeroToHundred: 5.3, seats: 7,
         drivetrain: "AWD", battery: "99.8 kWh", range: 501,
-        length: 5010, width: 1980, height: 1755, weight: 2614,
+        length: 5010, width: 1980, height: 1755, weight: 2614, trunk: 828,
         emoji: "⚡", color: "#1b2838", segment: "Large SUV"
     },
 
@@ -452,14 +452,14 @@ const CARS = [
         id: 49, make: "Skoda", model: "Enyaq iV 80", year: 2025, price: 449900,
         type: "suv", hp: 204, kwh: 77, zeroToHundred: 8.5, seats: 5,
         drivetrain: "RWD", battery: "77 kWh", range: 545,
-        length: 4649, width: 1879, height: 1616, weight: 2104,
+        length: 4649, width: 1879, height: 1616, weight: 2104, trunk: 585,
         emoji: "⚡", color: "#1a2e2e", segment: "Compact SUV"
     },
     {
         id: 50, make: "Skoda", model: "Enyaq Coupe RS", year: 2025, price: 579900,
         type: "suv", hp: 340, kwh: 77, zeroToHundred: 5.5, seats: 5,
         drivetrain: "AWD", battery: "77 kWh", range: 505,
-        length: 4653, width: 1879, height: 1607, weight: 2166,
+        length: 4653, width: 1879, height: 1607, weight: 2166, trunk: 570,
         emoji: "⚡", color: "#2d1b2e", segment: "Coupe SUV"
     },
 
@@ -468,21 +468,21 @@ const CARS = [
         id: 51, make: "Polestar", model: "2 Long Range Dual Motor", year: 2025, price: 499900,
         type: "sedan", hp: 421, kwh: 78, zeroToHundred: 4.2, seats: 5,
         drivetrain: "AWD", battery: "78 kWh", range: 487,
-        length: 4606, width: 1859, height: 1482, weight: 2113,
+        length: 4606, width: 1859, height: 1482, weight: 2113, trunk: 405,
         emoji: "⚡", color: "#1a1a2e", segment: "Mid-size Sedan"
     },
     {
         id: 52, make: "Polestar", model: "3 Long Range Dual Motor", year: 2025, price: 799900,
         type: "suv", hp: 489, kwh: 111, zeroToHundred: 4.7, seats: 5,
         drivetrain: "AWD", battery: "111 kWh", range: 560,
-        length: 4900, width: 2024, height: 1614, weight: 2584,
+        length: 4900, width: 2024, height: 1614, weight: 2584, trunk: 484,
         emoji: "⚡", color: "#16213e", segment: "Large SUV"
     },
     {
         id: 53, make: "Polestar", model: "4 Long Range Dual Motor", year: 2025, price: 649900,
         type: "suv", hp: 544, kwh: 100, zeroToHundred: 3.8, seats: 5,
         drivetrain: "AWD", battery: "100 kWh", range: 560,
-        length: 4839, width: 2008, height: 1544, weight: 2435,
+        length: 4839, width: 2008, height: 1544, weight: 2435, trunk: 526,
         emoji: "⚡", color: "#1b2838", segment: "Coupe SUV"
     },
 
@@ -491,21 +491,21 @@ const CARS = [
         id: 54, make: "NIO", model: "ET5 Touring", year: 2025, price: 449900,
         type: "wagon", hp: 490, kwh: 100, zeroToHundred: 4.0, seats: 5,
         drivetrain: "AWD", battery: "100 kWh", range: 560,
-        length: 4790, width: 1960, height: 1499, weight: 2250,
+        length: 4790, width: 1960, height: 1499, weight: 2250, trunk: 450,
         emoji: "⚡", color: "#1b2e1b", segment: "Mid-size Wagon"
     },
     {
         id: 55, make: "NIO", model: "EL6", year: 2025, price: 539900,
         type: "suv", hp: 490, kwh: 100, zeroToHundred: 4.5, seats: 5,
         drivetrain: "AWD", battery: "100 kWh", range: 510,
-        length: 4854, width: 1995, height: 1703, weight: 2290,
+        length: 4854, width: 1995, height: 1703, weight: 2290, trunk: 579,
         emoji: "⚡", color: "#2e2e1a", segment: "Mid-size SUV"
     },
     {
         id: 56, make: "NIO", model: "EL7", year: 2025, price: 639900,
         type: "suv", hp: 653, kwh: 100, zeroToHundred: 3.9, seats: 5,
         drivetrain: "AWD", battery: "100 kWh", range: 485,
-        length: 4912, width: 1987, height: 1720, weight: 2379,
+        length: 4912, width: 1987, height: 1720, weight: 2379, trunk: 658,
         emoji: "⚡", color: "#2e1a1a", segment: "Mid-size SUV"
     },
 
@@ -514,7 +514,7 @@ const CARS = [
         id: 57, make: "Toyota", model: "bZ4X AWD", year: 2025, price: 449900,
         type: "suv", hp: 218, kwh: 71.4, zeroToHundred: 6.9, seats: 5,
         drivetrain: "AWD", battery: "71.4 kWh", range: 411,
-        length: 4690, width: 1860, height: 1650, weight: 2005,
+        length: 4690, width: 1860, height: 1650, weight: 2005, trunk: 452,
         emoji: "⚡", color: "#1a1a2e", segment: "Mid-size SUV"
     },
 
@@ -523,14 +523,14 @@ const CARS = [
         id: 58, make: "Ford", model: "Mustang Mach-E Extended AWD", year: 2025, price: 529900,
         type: "suv", hp: 351, kwh: 91, zeroToHundred: 5.4, seats: 5,
         drivetrain: "AWD", battery: "91 kWh", range: 540,
-        length: 4739, width: 1881, height: 1624, weight: 2198,
+        length: 4739, width: 1881, height: 1624, weight: 2198, trunk: 402,
         emoji: "⚡", color: "#2e1a1a", segment: "Mid-size SUV"
     },
     {
         id: 59, make: "Ford", model: "Explorer Electric AWD", year: 2025, price: 499900,
         type: "suv", hp: 340, kwh: 79, zeroToHundred: 5.3, seats: 5,
         drivetrain: "AWD", battery: "79 kWh", range: 530,
-        length: 4468, width: 1872, height: 1637, weight: 2128,
+        length: 4468, width: 1872, height: 1637, weight: 2128, trunk: 536,
         emoji: "⚡", color: "#1b2838", segment: "Mid-size SUV"
     },
 
@@ -539,14 +539,14 @@ const CARS = [
         id: 60, make: "Xpeng", model: "G6", year: 2025, price: 449900,
         type: "suv", hp: 296, kwh: 87.5, zeroToHundred: 5.9, seats: 5,
         drivetrain: "RWD", battery: "87.5 kWh", range: 570,
-        length: 4753, width: 1920, height: 1650, weight: 2095,
+        length: 4753, width: 1920, height: 1650, weight: 2095, trunk: 571,
         emoji: "⚡", color: "#1a2e2e", segment: "Mid-size SUV"
     },
     {
         id: 61, make: "Xpeng", model: "G9", year: 2025, price: 569900,
         type: "suv", hp: 551, kwh: 98, zeroToHundred: 3.9, seats: 5,
         drivetrain: "AWD", battery: "98 kWh", range: 520,
-        length: 4891, width: 1937, height: 1680, weight: 2320,
+        length: 4891, width: 1937, height: 1680, weight: 2320, trunk: 660,
         emoji: "⚡", color: "#2d1b2e", segment: "Large SUV"
     },
 
@@ -555,21 +555,21 @@ const CARS = [
         id: 62, make: "BYD", model: "Atto 3", year: 2025, price: 349900,
         type: "suv", hp: 204, kwh: 60.5, zeroToHundred: 7.3, seats: 5,
         drivetrain: "FWD", battery: "60.5 kWh", range: 420,
-        length: 4455, width: 1875, height: 1615, weight: 1750,
+        length: 4455, width: 1875, height: 1615, weight: 1750, trunk: 440,
         emoji: "⚡", color: "#1a1a2e", segment: "Compact SUV"
     },
     {
         id: 63, make: "BYD", model: "Tang EV600", year: 2025, price: 569900,
         type: "suv", hp: 517, kwh: 108.8, zeroToHundred: 4.6, seats: 7,
         drivetrain: "AWD", battery: "108.8 kWh", range: 530,
-        length: 4870, width: 1950, height: 1725, weight: 2489,
+        length: 4870, width: 1950, height: 1725, weight: 2489, trunk: 580,
         emoji: "⚡", color: "#16213e", segment: "Large SUV"
     },
     {
         id: 64, make: "BYD", model: "Seal", year: 2025, price: 439900,
         type: "sedan", hp: 313, kwh: 82.5, zeroToHundred: 5.9, seats: 5,
         drivetrain: "RWD", battery: "82.5 kWh", range: 570,
-        length: 4800, width: 1875, height: 1460, weight: 2150,
+        length: 4800, width: 1875, height: 1460, weight: 2150, trunk: 400,
         emoji: "⚡", color: "#1b2838", segment: "Mid-size Sedan"
     },
 
@@ -578,14 +578,14 @@ const CARS = [
         id: 65, make: "Cupra", model: "Born 77 kWh", year: 2025, price: 419900,
         type: "hatchback", hp: 231, kwh: 77, zeroToHundred: 7.0, seats: 5,
         drivetrain: "RWD", battery: "77 kWh", range: 540,
-        length: 4322, width: 1809, height: 1540, weight: 1900,
+        length: 4322, width: 1809, height: 1540, weight: 1900, trunk: 385,
         emoji: "⚡", color: "#2e1a1a", segment: "Compact"
     },
     {
         id: 66, make: "Cupra", model: "Tavascan VZ", year: 2025, price: 559900,
         type: "suv", hp: 340, kwh: 77, zeroToHundred: 5.5, seats: 5,
         drivetrain: "AWD", battery: "77 kWh", range: 500,
-        length: 4644, width: 1861, height: 1597, weight: 2188,
+        length: 4644, width: 1861, height: 1597, weight: 2188, trunk: 540,
         emoji: "⚡", color: "#2d1b2e", segment: "Coupe SUV"
     },
 
@@ -594,14 +594,14 @@ const CARS = [
         id: 67, make: "Renault", model: "Megane E-Tech 60", year: 2025, price: 369900,
         type: "hatchback", hp: 220, kwh: 60, zeroToHundred: 7.4, seats: 5,
         drivetrain: "FWD", battery: "60 kWh", range: 450,
-        length: 4200, width: 1768, height: 1505, weight: 1636,
+        length: 4200, width: 1768, height: 1505, weight: 1636, trunk: 440,
         emoji: "⚡", color: "#1b2e1b", segment: "Compact"
     },
     {
         id: 68, make: "Renault", model: "Scenic E-Tech 87", year: 2025, price: 449900,
         type: "suv", hp: 220, kwh: 87, zeroToHundred: 7.9, seats: 5,
         drivetrain: "FWD", battery: "87 kWh", range: 620,
-        length: 4470, width: 1863, height: 1571, weight: 1871,
+        length: 4470, width: 1863, height: 1571, weight: 1871, trunk: 545,
         emoji: "⚡", color: "#2e2e1a", segment: "Compact SUV"
     },
 
@@ -610,14 +610,14 @@ const CARS = [
         id: 69, make: "Smart", model: "#1 Pro+", year: 2025, price: 349900,
         type: "suv", hp: 272, kwh: 66, zeroToHundred: 6.7, seats: 5,
         drivetrain: "RWD", battery: "66 kWh", range: 420,
-        length: 4270, width: 1822, height: 1636, weight: 1820,
+        length: 4270, width: 1822, height: 1636, weight: 1820, trunk: 323,
         emoji: "⚡", color: "#1a1a2e", segment: "Small SUV"
     },
     {
         id: 70, make: "Smart", model: "#3 BRABUS", year: 2025, price: 469900,
         type: "suv", hp: 428, kwh: 66, zeroToHundred: 3.7, seats: 5,
         drivetrain: "AWD", battery: "66 kWh", range: 400,
-        length: 4400, width: 1844, height: 1556, weight: 1910,
+        length: 4400, width: 1844, height: 1556, weight: 1910, trunk: 370,
         emoji: "⚡", color: "#2e1a1a", segment: "Coupe SUV"
     },
     // ===== ELDRE MODELLER =====
@@ -625,119 +625,119 @@ const CARS = [
         id: 83, make: "Nissan", model: "Leaf e+ 62 kWh", year: 2022, price: 349900,
         type: "hatchback", hp: 217, kwh: 62, zeroToHundred: 6.9, seats: 5,
         drivetrain: "FWD", battery: "62 kWh", range: 385,
-        length: 4490, width: 1788, height: 1530, weight: 1730,
+        length: 4490, width: 1788, height: 1530, weight: 1730, trunk: 435,
         emoji: "⚡", color: "#c3002f", segment: "Compact"
     },
     {
         id: 84, make: "Volkswagen", model: "e-Golf", year: 2020, price: 329900,
         type: "hatchback", hp: 136, kwh: 35.8, zeroToHundred: 9.6, seats: 5,
         drivetrain: "FWD", battery: "35.8 kWh", range: 231,
-        length: 4270, width: 1799, height: 1450, weight: 1615,
+        length: 4270, width: 1799, height: 1450, weight: 1615, trunk: 341,
         emoji: "⚡", color: "#003399", segment: "Compact"
     },
     {
         id: 85, make: "Jaguar", model: "I-PACE EV400", year: 2023, price: 769900,
         type: "suv", hp: 400, kwh: 90, zeroToHundred: 4.8, seats: 5,
         drivetrain: "AWD", battery: "90 kWh", range: 470,
-        length: 4682, width: 2011, height: 1565, weight: 2208,
+        length: 4682, width: 2011, height: 1565, weight: 2208, trunk: 505,
         emoji: "⚡", color: "#1a472a", segment: "Mid-size SUV"
     },
     {
         id: 86, make: "BMW", model: "i3 120Ah", year: 2022, price: 349900,
         type: "hatchback", hp: 170, kwh: 42.2, zeroToHundred: 7.3, seats: 4,
         drivetrain: "RWD", battery: "42.2 kWh", range: 310,
-        length: 4006, width: 1775, height: 1600, weight: 1345,
+        length: 4006, width: 1775, height: 1600, weight: 1345, trunk: 260,
         emoji: "⚡", color: "#0066B1", segment: "City Car"
     },
     {
         id: 87, make: "Tesla", model: "Model 3 Standard Range Plus", year: 2021, price: 399900,
         type: "sedan", hp: 283, kwh: 60, zeroToHundred: 5.6, seats: 5,
         drivetrain: "RWD", battery: "60 kWh", range: 448,
-        length: 4694, width: 1849, height: 1443, weight: 1745,
+        length: 4694, width: 1849, height: 1443, weight: 1745, trunk: 425,
         emoji: "⚡", color: "#CC0000", segment: "Mid-size Sedan"
     },
     {
         id: 88, make: "Hyundai", model: "IONIQ Electric 38 kWh", year: 2022, price: 319900,
         type: "sedan", hp: 136, kwh: 38.3, zeroToHundred: 9.9, seats: 5,
         drivetrain: "FWD", battery: "38.3 kWh", range: 311,
-        length: 4470, width: 1820, height: 1450, weight: 1575,
+        length: 4470, width: 1820, height: 1450, weight: 1575, trunk: 357,
         emoji: "⚡", color: "#002C5F", segment: "Compact Sedan"
     },
     {
         id: 89, make: "Audi", model: "e-tron 55 quattro", year: 2023, price: 699900,
         type: "suv", hp: 408, kwh: 95, zeroToHundred: 5.7, seats: 5,
         drivetrain: "AWD", battery: "95 kWh", range: 441,
-        length: 4901, width: 1935, height: 1629, weight: 2565,
+        length: 4901, width: 1935, height: 1629, weight: 2565, trunk: 660,
         emoji: "⚡", color: "#BB0A30", segment: "Large SUV"
     },
     {
         id: 90, make: "MG", model: "ZS EV Long Range", year: 2023, price: 299900,
         type: "suv", hp: 177, kwh: 72.6, zeroToHundred: 8.2, seats: 5,
         drivetrain: "FWD", battery: "72.6 kWh", range: 440,
-        length: 4323, width: 1809, height: 1649, weight: 1760,
+        length: 4323, width: 1809, height: 1649, weight: 1760, trunk: 448,
         emoji: "⚡", color: "#D4171E", segment: "Compact SUV"
     },
     {
         id: 91, make: "Renault", model: "ZOE R135", year: 2022, price: 299900,
         type: "hatchback", hp: 135, kwh: 52, zeroToHundred: 9.5, seats: 5,
         drivetrain: "FWD", battery: "52 kWh", range: 395,
-        length: 4087, width: 1787, height: 1562, weight: 1502,
+        length: 4087, width: 1787, height: 1562, weight: 1502, trunk: 338,
         emoji: "⚡", color: "#FFCC00", segment: "City Car"
     },
     {
         id: 92, make: "Tesla", model: "Model S P100D", year: 2020, price: 899900,
         type: "sedan", hp: 762, kwh: 100, zeroToHundred: 2.6, seats: 5,
         drivetrain: "AWD", battery: "100 kWh", range: 555,
-        length: 4979, width: 1964, height: 1445, weight: 2241,
+        length: 4979, width: 1964, height: 1445, weight: 2241, trunk: 793,
         emoji: "⚡", color: "#CC0000", segment: "Luxury Sedan"
     },
     {
         id: 93, make: "Kia", model: "e-Niro 64 kWh", year: 2021, price: 379900,
         type: "suv", hp: 204, kwh: 64, zeroToHundred: 7.8, seats: 5,
         drivetrain: "FWD", battery: "64 kWh", range: 455,
-        length: 4375, width: 1805, height: 1560, weight: 1791,
+        length: 4375, width: 1805, height: 1560, weight: 1791, trunk: 451,
         emoji: "⚡", color: "#05141F", segment: "Compact SUV"
     },
     {
         id: 94, make: "Mercedes", model: "EQC 400 4MATIC", year: 2021, price: 649900,
         type: "suv", hp: 408, kwh: 80, zeroToHundred: 5.1, seats: 5,
         drivetrain: "AWD", battery: "80 kWh", range: 374,
-        length: 4762, width: 1884, height: 1624, weight: 2495,
+        length: 4762, width: 1884, height: 1624, weight: 2495, trunk: 500,
         emoji: "⚡", color: "#00ADEF", segment: "Mid-size SUV"
     },
     {
         id: 95, make: "Opel", model: "Mokka-e", year: 2023, price: 349900,
         type: "suv", hp: 136, kwh: 50, zeroToHundred: 9.0, seats: 5,
         drivetrain: "FWD", battery: "50 kWh", range: 338,
-        length: 4151, width: 1791, height: 1531, weight: 1598,
+        length: 4151, width: 1791, height: 1531, weight: 1598, trunk: 350,
         emoji: "⚡", color: "#000000", segment: "Small SUV"
     },
     {
         id: 96, make: "Fiat", model: "500e La Prima", year: 2023, price: 319900,
         type: "hatchback", hp: 118, kwh: 42, zeroToHundred: 9.0, seats: 4,
         drivetrain: "FWD", battery: "42 kWh", range: 321,
-        length: 3631, width: 1773, height: 1527, weight: 1365,
+        length: 3631, width: 1773, height: 1527, weight: 1365, trunk: 185,
         emoji: "⚡", color: "#8B0000", segment: "City Car"
     },
     {
         id: 97, make: "Volvo", model: "XC40 Recharge P8", year: 2022, price: 529900,
         type: "suv", hp: 408, kwh: 78, zeroToHundred: 4.9, seats: 5,
         drivetrain: "AWD", battery: "78 kWh", range: 418,
-        length: 4425, width: 1873, height: 1651, weight: 2188,
+        length: 4425, width: 1873, height: 1651, weight: 2188, trunk: 452,
         emoji: "⚡", color: "#003057", segment: "Compact SUV"
     },
     {
         id: 98, make: "Ford", model: "Mustang Mach-E Standard Range", year: 2022, price: 449900,
         type: "suv", hp: 269, kwh: 75.7, zeroToHundred: 6.2, seats: 5,
         drivetrain: "RWD", battery: "75.7 kWh", range: 440,
-        length: 4739, width: 1881, height: 1624, weight: 2100,
+        length: 4739, width: 1881, height: 1624, weight: 2100, trunk: 402,
         emoji: "⚡", color: "#003478", segment: "Mid-size SUV"
     },
     {
         id: 99, make: "Peugeot", model: "e-2008 GT", year: 2023, price: 379900,
         type: "suv", hp: 136, kwh: 50, zeroToHundred: 9.0, seats: 5,
         drivetrain: "FWD", battery: "50 kWh", range: 345,
-        length: 4300, width: 1770, height: 1550, weight: 1623,
+        length: 4300, width: 1770, height: 1550, weight: 1623, trunk: 434,
         emoji: "⚡", color: "#1A237E", segment: "Small SUV"
     }
 ];
@@ -1152,6 +1152,7 @@ function renderCompare() {
         ]},
         { title: "Praktisk", specs: [
             { label: "Seter", key: "seats", format: v => v, best: null },
+            { label: "Bagasjerom", key: "trunk", format: v => v ? v + " L" : "—", best: "high" },
             { label: "Segment", key: "segment", format: v => v, best: null },
             { label: "Årstall", key: "year", format: v => v, best: null },
         ]},
@@ -1326,6 +1327,10 @@ function openModal(id) {
             <div class="modal-spec">
                 <div class="modal-spec-label">Forbruk</div>
                 <div class="modal-spec-value" style="font-size:14px">${(car.kwh / car.range * 100).toFixed(1)} kWh/100km</div>
+            </div>
+            <div class="modal-spec">
+                <div class="modal-spec-label">Bagasjerom</div>
+                <div class="modal-spec-value">${car.trunk ? car.trunk + ' L' : '—'}</div>
             </div>
         </div>
 
