@@ -34,9 +34,17 @@ body {
 }
 
 #app {
-    max-width: 500px;
+    max-width: 600px;
     margin: 0 auto;
     padding-bottom: calc(10px + var(--safe-bottom));
+}
+
+@media (min-width: 768px) {
+    #app { max-width: 900px; }
+}
+
+@media (min-width: 1200px) {
+    #app { max-width: 1100px; }
 }
 
 /* ========== Status Bar & Header ========== */
@@ -73,29 +81,40 @@ body {
     display: flex;
     gap: 4px;
     padding: 3px;
-    margin: 6px 16px;
+    margin: 8px 16px;
     background: var(--surface);
-    border-radius: 10px;
+    border-radius: 12px;
+    position: relative;
 }
 
 .tab {
     flex: 1;
-    padding: 6px 8px;
+    padding: 8px 8px;
     border: none;
     background: transparent;
     color: var(--text2);
     font-size: 13px;
     font-weight: 600;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: color 0.25s;
     position: relative;
+    z-index: 1;
     font-family: inherit;
 }
 
 .tab.active {
-    background: var(--surface2);
     color: var(--text);
+}
+
+.tab-indicator {
+    position: absolute;
+    bottom: 3px;
+    height: calc(100% - 6px);
+    background: var(--surface2);
+    border-radius: 10px;
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 0;
 }
 
 .badge {
@@ -183,12 +202,33 @@ body {
 .car-list {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
+}
+
+@media (min-width: 768px) {
+    .car-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .car-list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.result-count {
+    font-size: 12px;
+    color: var(--text2);
+    padding: 4px 2px 6px;
+    font-weight: 500;
 }
 
 .car-card {
     background: var(--surface);
-    border-radius: 10px;
+    border-radius: 12px;
     overflow: hidden;
     cursor: pointer;
     transition: transform 0.15s, box-shadow 0.15s;
@@ -201,44 +241,58 @@ body {
     transform: scale(0.98);
 }
 
+.car-card-accent {
+    width: 4px;
+    flex-shrink: 0;
+}
 
 .car-card-body {
-    padding: 8px 10px;
+    padding: 10px 12px;
     flex: 1;
     min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.car-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
 }
 
 .car-card-title {
     font-size: 14px;
     font-weight: 700;
-    margin-bottom: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    line-height: 1.3;
 }
 
 .car-card-year {
     font-size: 11px;
     color: var(--text2);
-    margin-bottom: 4px;
 }
 
 .car-card-specs {
     display: flex;
     gap: 6px;
-    margin-bottom: 4px;
+    flex-wrap: wrap;
 }
 
 .spec-pill {
     display: flex;
     align-items: center;
-    gap: 2px;
+    gap: 3px;
     background: var(--surface2);
-    padding: 2px 6px;
-    border-radius: 4px;
+    padding: 3px 8px;
+    border-radius: 6px;
     font-size: 11px;
     color: var(--text2);
     font-weight: 500;
+}
+
+.spec-pill svg {
+    opacity: 0.6;
 }
 
 .spec-pill .val {
@@ -253,21 +307,21 @@ body {
 }
 
 .car-price {
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 800;
     color: var(--accent2);
 }
 
 .car-actions {
     display: flex;
-    gap: 4px;
+    gap: 6px;
 }
 
 .btn-icon {
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
     border: none;
-    border-radius: 7px;
+    border-radius: 8px;
     background: var(--surface2);
     color: var(--text2);
     font-size: 14px;
@@ -300,7 +354,9 @@ body {
 
 .empty-icon {
     font-size: 36px;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
+    color: var(--text2);
+    opacity: 0.5;
 }
 
 .empty-state p {
@@ -706,6 +762,12 @@ body {
     transform: scale(0.97);
 }
 
+.modal-btn svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
 .modal-btn.btn-compare {
     background: var(--accent);
     color: white;
@@ -736,8 +798,8 @@ body {
 .star-rating {
     display: flex;
     align-items: center;
-    gap: 2px;
-    padding: 4px 12px 8px;
+    gap: 1px;
+    padding: 0;
 }
 
 .star {
@@ -748,23 +810,22 @@ body {
 }
 
 .star:hover {
-    transform: scale(1.3);
+    transform: scale(1.2);
 }
 
 .star-filled {
-    color: #FFD700;
-    text-shadow: 0 0 6px #FFD70040;
+    color: var(--accent);
 }
 
 .star-empty {
-    color: #555;
+    color: var(--surface3);
 }
 
 .star-avg {
     font-size: 0.7em;
-    color: #FFD700;
-    margin-left: 6px;
-    font-weight: 700;
+    color: var(--text2);
+    margin-left: 4px;
+    font-weight: 600;
 }
 
 .star-count {

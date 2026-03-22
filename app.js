@@ -1018,6 +1018,15 @@ function showToast(msg) {
     setTimeout(() => { toast.style.opacity = "0"; }, 1800);
 }
 
+// ========== SVG Icons ==========
+const ICONS = {
+    heart: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`,
+    heartFilled: `<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`,
+    plus: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>`,
+    check: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`,
+    range: `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`,
+};
+
 // ========== Render Car Card ==========
 function renderCarCard(car) {
     const div = document.createElement("div");
@@ -1025,31 +1034,37 @@ function renderCarCard(car) {
     div.onclick = () => openModal(car.id);
 
     const src = BRAND_SOURCES[car.make];
+    const bc = BRAND_COLORS[car.make] || { primary: "#888", gradient: "linear-gradient(135deg, #888, #444)" };
     div.innerHTML = `
+        <div class="car-card-accent" style="background:${bc.gradient}"></div>
         <div class="car-card-body">
-            <div class="car-card-title">${car.make} ${car.model}</div>
-            <div class="car-card-year">${car.year}${src ? ` · <a href="${src.url}" target="_blank" rel="noopener" class="source-link" onclick="event.stopPropagation()">Kilde: ${src.name}</a>` : ''}</div>
-            <div class="car-card-specs">
-                <span class="spec-pill"><span class="val">${car.range}</span> km</span>
-                <span class="spec-pill"><span class="val">${car.hp}</span> hk</span>
-                <span class="spec-pill"><span class="val">${car.zeroToHundred}s</span> 0-100</span>
-            </div>
-            <div class="car-card-footer">
-                <span class="car-price">${formatPrice(car.price)}</span>
+            <div class="car-card-header">
+                <div>
+                    <div class="car-card-title">${car.make} ${car.model}</div>
+                    <div class="car-card-year">${car.year}${src ? ` · <a href="${src.url}" target="_blank" rel="noopener" class="source-link" onclick="event.stopPropagation()">${src.name}</a>` : ''}</div>
+                </div>
                 <div class="car-actions">
                     <button class="btn-icon ${isFavorite(car.id) ? 'active-fav' : ''}"
                             onclick="toggleFavorite(${car.id}, event)"
                             aria-label="Favoritt">
-                        ${isFavorite(car.id) ? '❤️' : '🤍'}
+                        ${isFavorite(car.id) ? ICONS.heartFilled : ICONS.heart}
                     </button>
                     <button class="btn-icon ${isInCompare(car.id) ? 'active-compare' : ''}"
                             onclick="toggleCompare(${car.id}, event)"
                             aria-label="Sammenlign">
-                        ${isInCompare(car.id) ? '✓' : '+'}
+                        ${isInCompare(car.id) ? ICONS.check : ICONS.plus}
                     </button>
                 </div>
             </div>
-            ${renderStars(car.id, 16)}
+            <div class="car-card-specs">
+                <span class="spec-pill">${ICONS.range}<span class="val">${car.range}</span> km</span>
+                <span class="spec-pill"><span class="val">${car.hp}</span> hk</span>
+                <span class="spec-pill"><span class="val">${car.zeroToHundred}s</span></span>
+            </div>
+            <div class="car-card-footer">
+                <span class="car-price">${formatPrice(car.price)}</span>
+                ${renderStars(car.id, 14)}
+            </div>
         </div>
     `;
     return div;
@@ -1081,6 +1096,18 @@ function renderBrowse() {
         case "rating": cars.sort((a, b) => getAverageRating(b.id).avg - getAverageRating(a.id).avg); break;
         default: cars.sort((a, b) => `${a.make} ${a.model}`.localeCompare(`${b.make} ${b.model}`));
     }
+
+    // Result count
+    let countEl = document.getElementById("result-count");
+    if (!countEl) {
+        countEl = document.createElement("div");
+        countEl.id = "result-count";
+        countEl.className = "result-count";
+        list.parentNode.insertBefore(countEl, list);
+    }
+    const hasFilter = search || brandFilter !== "all" || typeFilter !== "all" || yearFilter !== "all";
+    countEl.textContent = hasFilter ? `${cars.length} biler funnet` : `${cars.length} biler`;
+    countEl.style.display = "block";
 
     list.innerHTML = "";
     if (cars.length === 0) {
@@ -1335,11 +1362,11 @@ function openModal(id) {
         <div class="modal-actions">
             <button class="modal-btn btn-compare ${isInCompare(car.id) ? 'added' : ''}"
                     onclick="toggleCompare(${car.id}); openModal(${car.id});">
-                ${isInCompare(car.id) ? '✓ Sammenlignes' : '+ Sammenlign'}
+                ${isInCompare(car.id) ? ICONS.check + ' Sammenlignes' : ICONS.plus + ' Sammenlign'}
             </button>
             <button class="modal-btn btn-fav ${isFavorite(car.id) ? 'favorited' : ''}"
                     onclick="toggleFavorite(${car.id}); openModal(${car.id});">
-                ${isFavorite(car.id) ? '❤️ Favoritt' : '🤍 Favoritt'}
+                ${isFavorite(car.id) ? ICONS.heartFilled + ' Favoritt' : ICONS.heart + ' Favoritt'}
             </button>
         </div>
 
@@ -1397,8 +1424,21 @@ document.getElementById("feedback-modal").addEventListener("click", function(e) 
 // ========== Tabs ==========
 function switchTab(tab) {
     state.activeTab = tab;
-    document.querySelectorAll(".tab").forEach(t => t.classList.toggle("active", t.dataset.tab === tab));
+    const tabs = document.querySelectorAll(".tab");
+    const indicator = document.querySelector(".tab-indicator");
+    tabs.forEach(t => t.classList.toggle("active", t.dataset.tab === tab));
     document.querySelectorAll(".tab-content").forEach(t => t.classList.toggle("active", t.id === tab + "-tab"));
+    // Move indicator
+    if (indicator) {
+        const activeTab = document.querySelector(`.tab[data-tab="${tab}"]`);
+        if (activeTab) {
+            const bar = activeTab.parentElement;
+            const barRect = bar.getBoundingClientRect();
+            const tabRect = activeTab.getBoundingClientRect();
+            indicator.style.left = (tabRect.left - barRect.left) + "px";
+            indicator.style.width = tabRect.width + "px";
+        }
+    }
     updateUI();
 }
 
@@ -1411,10 +1451,19 @@ function updateUI() {
 
 // ========== Init ==========
 document.addEventListener("DOMContentLoaded", () => {
+    // Tab indicator
+    const tabBar = document.querySelector(".tab-bar");
+    const indicator = document.createElement("div");
+    indicator.className = "tab-indicator";
+    tabBar.appendChild(indicator);
+
     // Tab switching
     document.querySelectorAll(".tab").forEach(tab => {
         tab.addEventListener("click", () => switchTab(tab.dataset.tab));
     });
+
+    // Position indicator on load
+    requestAnimationFrame(() => switchTab(state.activeTab || "browse"));
 
     // Search & filter
     document.getElementById("search-input").addEventListener("input", renderBrowse);
