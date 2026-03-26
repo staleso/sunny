@@ -7,17 +7,17 @@
 }
 
 :root {
-    --bg: #f2f2f7;
-    --surface: #ffffff;
-    --surface2: #e5e5ea;
-    --surface3: #d1d1d6;
-    --text: #1c1c1e;
-    --text2: #6e6e73;
-    --accent: #007aff;
-    --accent2: #34c759;
-    --danger: #ff3b30;
-    --favorite: #ff2d55;
-    --border: rgba(0,0,0,0.08);
+    --bg: #111114;
+    --surface: #1c1c1f;
+    --surface2: #2a2a2d;
+    --surface3: #3a3a3d;
+    --text: #f0f0f5;
+    --text2: #8e8e93;
+    --accent: #0a84ff;
+    --accent2: #30d158;
+    --danger: #ff453a;
+    --favorite: #ff375f;
+    --border: rgba(255,255,255,0.08);
     --radius: 14px;
     --safe-top: env(safe-area-inset-top, 0px);
     --safe-bottom: env(safe-area-inset-bottom, 0px);
@@ -57,7 +57,7 @@ body {
     top: 0;
     z-index: 100;
     background: var(--bg);
-    padding-bottom: 4px;
+    padding-bottom: 6px;
 }
 
 /* ========== Status Bar & Header ========== */
@@ -66,7 +66,7 @@ body {
 }
 
 .app-header {
-    padding: 10px 20px 2px;
+    padding: 14px 20px 4px;
     text-align: center;
 }
 
@@ -93,12 +93,12 @@ body {
 .tab-bar {
     display: flex;
     gap: 4px;
-    padding: 3px;
-    margin: 4px 16px 0;
+    padding: 4px;
+    margin: 6px 16px 0;
     background: var(--surface);
     border-radius: 12px;
     position: relative;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
 .tab-link {
@@ -156,7 +156,7 @@ body {
 /* ========== Tab Content ========== */
 .tab-content {
     display: none;
-    padding: 0 10px;
+    padding: 0 14px;
     animation: fadeIn 0.2s ease;
 }
 
@@ -171,12 +171,13 @@ body {
 
 /* ========== Search & Filter ========== */
 .search-bar {
-    margin-bottom: 6px;
+    margin-bottom: 10px;
+    margin-top: 6px;
 }
 
 .search-bar input {
     width: 100%;
-    padding: 8px 12px;
+    padding: 10px 14px;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 8px;
@@ -225,14 +226,14 @@ body {
 .car-list {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 12px;
 }
 
 @media (min-width: 768px) {
     .car-list {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
+        gap: 14px;
     }
 }
 
@@ -271,12 +272,12 @@ body {
 }
 
 .car-card-body {
-    padding: 10px 12px;
+    padding: 14px 16px;
     flex: 1;
     min-width: 0;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
 }
 
 .car-card-header {
@@ -610,9 +611,9 @@ body {
 .modal {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.4);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     z-index: 100;
     display: none;
     align-items: flex-end;
