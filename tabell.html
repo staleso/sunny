@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#0a0a0a">
+    <meta name="theme-color" content="#f2f2f7">
     <title>Elbil Norge - Tabell</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --bg: #0a0a0a;
-            --surface: #1c1c1e;
-            --surface2: #2c2c2e;
-            --text: #ffffff;
-            --text2: #8e8e93;
-            --accent: #0a84ff;
-            --border: rgba(255,255,255,0.08);
+            --bg: #f2f2f7;
+            --surface: #ffffff;
+            --surface2: #e5e5ea;
+            --text: #1c1c1e;
+            --text2: #6e6e73;
+            --accent: #007aff;
+            --border: rgba(0,0,0,0.08);
         }
 
         html { overflow-x: auto; overflow-y: scroll; }
@@ -125,10 +125,10 @@
             border-bottom: 1px solid var(--border);
         }
 
-        tr:hover td { background: var(--surface); }
+        tr:hover td { background: var(--surface2); }
 
-        tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
-        tr:nth-child(even):hover td { background: var(--surface); }
+        tr:nth-child(even) td { background: rgba(0,0,0,0.02); }
+        tr:nth-child(even):hover td { background: var(--surface2); }
 
         .col-num { text-align: right; }
         .col-price { text-align: right; font-weight: 600; }
