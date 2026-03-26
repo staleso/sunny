@@ -27,3 +27,6 @@ https://htmlpreview.github.io/?https://github.com/staleso/Cars/blob/main/carcomp
 ---
 
 **Tips iPhone:** Åpne lenken i Safari → trykk Del-knappen → "Legg til på Hjem-skjerm" for å få appen som ikon.
+
+
+
