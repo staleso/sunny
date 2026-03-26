@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Treningsapp</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      min-height: 100vh;
+    }
+
+    #root { max-width: 480px; margin: 0 auto; padding: 16px; }
+
+    h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 4px; }
+    h2 { font-size: 1.2rem; font-weight: 600; margin-bottom: 12px; }
+    h3 { font-size: 1rem; font-weight: 600; }
+
+    .subtitle { color: #94a3b8; font-size: 0.85rem; margin-bottom: 20px; }
+
+    .card {
+      background: #1e293b;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .badge {
+      background: #334155;
+      color: #94a3b8;
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 20px;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .btn:hover { opacity: 0.85; }
+    .btn:active { opacity: 0.7; }
+
+    .btn-primary { background: #3b82f6; color: #fff; }
+    .btn-success { background: #22c55e; color: #fff; }
+    .btn-danger  { background: #ef4444; color: #fff; padding: 6px 10px; font-size: 0.8rem; }
+    .btn-ghost   { background: transparent; color: #94a3b8; padding: 6px 10px; font-size: 0.8rem; }
+    .btn-outline { background: transparent; border: 1px solid #3b82f6; color: #3b82f6; }
+    .btn-sm      { padding: 5px 10px; font-size: 0.8rem; }
+    .btn-full    { width: 100%; margin-top: 8px; }
+    .btn-icon    { background: #334155; color: #e2e8f0; padding: 6px 10px; font-size: 0.85rem; }
+
+    .input {
+      width: 100%;
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      color: #e2e8f0;
+      padding: 10px 12px;
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+    }
+    .input:focus { outline: none; border-color: #3b82f6; }
+    .input::placeholder { color: #475569; }
+
+    .input-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .actions { display: flex; gap: 6px; }
+
+    .day-item {
+      background: #0f172a;
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+    }
+
+    .exercise-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 0;
+      border-bottom: 1px solid #1e293b;
+      font-size: 0.88rem;
+    }
+    .exercise-row:last-child { border-bottom: none; }
+
+    .exercise-meta { color: #64748b; font-size: 0.8rem; margin-top: 2px; }
+
+    .nav {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .nav-btn {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: #1e293b;
+      color: #94a3b8;
+      transition: all 0.15s;
+    }
+    .nav-btn.active {
+      background: #3b82f6;
+      color: #fff;
+    }
+
+    .top-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .back-btn {
+      background: #1e293b;
+      border: none;
+      border-radius: 8px;
+      color: #94a3b8;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .empty-state {
+      text-align: center;
+      color: #475569;
+      padding: 40px 20px;
+      font-size: 0.9rem;
+    }
+    .empty-state .icon { font-size: 2.5rem; margin-bottom: 10px; }
+
+    .progress-bar {
+      background: #334155;
+      border-radius: 4px;
+      height: 6px;
+      margin-top: 10px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      background: #22c55e;
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.3s;
+    }
+
+    .set-check {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    .set-dot {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 2px solid #334155;
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: transparent;
+      transition: all 0.15s;
+    }
+    .set-dot.done {
+      background: #22c55e;
+      border-color: #22c55e;
+      color: #fff;
+    }
+
+    .session-exercise {
+      background: #0f172a;
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 10px;
+    }
+
+    .tag { color: #64748b; font-size: 0.8rem; }
+
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useCallback } = React;
+
+    // ── Storage helpers ──────────────────────────────────────────────
+    const load = (key, fallback) => {
+      try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; }
+      catch { return fallback; }
+    };
+    const save = (key, val) => localStorage.setItem(key, JSON.stringify(val));
+
+    const uid = () => Math.random().toString(36).slice(2, 9);
+
+    // ── App ──────────────────────────────────────────────────────────
+    function App() {
+      const [programs, setPrograms] = useState(() => load('programs', []));
+      const [view, setView] = useState('programs'); // programs | program | session
+      const [selected, setSelected] = useState(null); // { programId, dayId }
+      const [tab, setTab] = useState('programs'); // programs | log
+
+      useEffect(() => save('programs', programs), [programs]);
+
+      // Program CRUD
+      const addProgram = (name) => {
+        setPrograms(p => [...p, { id: uid(), name, days: [] }]);
+      };
+      const deleteProgram = (id) => {
+        setPrograms(p => p.filter(x => x.id !== id));
+      };
+      const updateProgram = useCallback((prog) => {
+        setPrograms(p => p.map(x => x.id === prog.id ? prog : x));
+      }, []);
+
+      const currentProgram = programs.find(p => p.id === selected?.programId);
+      const currentDay = currentProgram?.days.find(d => d.id === selected?.dayId);
+
+      if (view === 'session' && currentDay) {
+        return (
+          <Session
+            program={currentProgram}
+            day={currentDay}
+            onBack={() => setView('program')}
+            onSave={(log) => {
+              updateProgram({
+                ...currentProgram,
+                days: currentProgram.days.map(d =>
+                  d.id === currentDay.id
+                    ? { ...d, log: [...(d.log || []), log] }
+                    : d
+                )
+              });
+              setView('program');
+            }}
+          />
+        );
+      }
+
+      if (view === 'program' && currentProgram) {
+        return (
+          <ProgramView
+            program={currentProgram}
+            onBack={() => setView('programs')}
+            onChange={updateProgram}
+            onStartSession={(dayId) => {
+              setSelected(s => ({ ...s, dayId }));
+              setView('session');
+            }}
+          />
+        );
+      }
+
+      return (
+        <div>
+          <div style={{ marginBottom: 20 }}>
+            <h1>Treningsapp</h1>
+            <p className="subtitle">Dine treningsprogrammer</p>
+          </div>
+          <div className="nav">
+            <button className={`nav-btn ${tab === 'programs' ? 'active' : ''}`} onClick={() => setTab('programs')}>
+              Programmer
+            </button>
+            <button className={`nav-btn ${tab === 'log' ? 'active' : ''}`} onClick={() => setTab('log')}>
+              Logg
+            </button>
+          </div>
+
+          {tab === 'programs' && (
+            <ProgramList
+              programs={programs}
+              onSelect={(id) => { setSelected({ programId: id }); setView('program'); }}
+              onDelete={deleteProgram}
+              onAdd={addProgram}
+            />
+          )}
+          {tab === 'log' && <LogView programs={programs} />}
+        </div>
+      );
+    }
+
+    // ── Program List ─────────────────────────────────────────────────
+    function ProgramList({ programs, onSelect, onDelete, onAdd }) {
+      const [name, setName] = useState('');
+
+      const submit = () => {
+        if (!name.trim()) return;
+        onAdd(name.trim());
+        setName('');
+      };
+
+      return (
+        <div>
+          {programs.length === 0 && (
+            <div className="empty-state">
+              <div className="icon">🏋️</div>
+              Ingen programmer ennå.<br />Opprett ditt første program nedenfor.
+            </div>
+          )}
+          {programs.map(p => (
+            <div key={p.id} className="card">
+              <div className="card-header">
+                <div>
+                  <h3>{p.name}</h3>
+                  <span className="tag">{p.days.length} dager</span>
+                </div>
+                <div className="actions">
+                  <button className="btn btn-primary btn-sm" onClick={() => onSelect(p.id)}>Åpne</button>
+                  <button className="btn btn-danger btn-sm" onClick={() => onDelete(p.id)}>✕</button>
+                </div>
+              </div>
+            </div>
+          ))}
+          <div className="card">
+            <h3 style={{ marginBottom: 10 }}>Nytt program</h3>
+            <input
+              className="input"
+              placeholder="Programnavn (f.eks. Push/Pull/Legs)"
+              value={name}
+              onChange={e => setName(e.target.value)}
+              onKeyDown={e => e.key === 'Enter' && submit()}
+            />
+            <button className="btn btn-primary btn-full" onClick={submit}>+ Opprett program</button>
+          </div>
+        </div>
+      );
+    }
+
+    // ── Program View ─────────────────────────────────────────────────
+    function ProgramView({ program, onBack, onChange, onStartSession }) {
+      const [showAddDay, setShowAddDay] = useState(false);
+      const [dayName, setDayName] = useState('');
+      const [expandedDay, setExpandedDay] = useState(null);
+
+      const addDay = () => {
+        if (!dayName.trim()) return;
+        onChange({ ...program, days: [...program.days, { id: uid(), name: dayName.trim(), exercises: [], log: [] }] });
+        setDayName('');
+        setShowAddDay(false);
+      };
+
+      const deleteDay = (id) => {
+        onChange({ ...program, days: program.days.filter(d => d.id !== id) });
+        if (expandedDay === id) setExpandedDay(null);
+      };
+
+      const updateDay = (day) => {
+        onChange({ ...program, days: program.days.map(d => d.id === day.id ? day : d) });
+      };
+
+      return (
+        <div>
+          <div className="top-bar">
+            <button className="back-btn" onClick={onBack}>← Tilbake</button>
+            <h2 style={{ margin: 0 }}>{program.name}</h2>
+          </div>
+
+          {program.days.length === 0 && (
+            <div className="empty-state">
+              <div className="icon">📅</div>
+              Ingen treningsdager ennå.
+            </div>
+          )}
+
+          {program.days.map(day => (
+            <div key={day.id} className="card">
+              <div className="card-header">
+                <div>
+                  <h3>{day.name}</h3>
+                  <span className="tag">{day.exercises.length} øvelser</span>
+                </div>
+                <div className="actions">
+                  <button className="btn btn-success btn-sm" onClick={() => onStartSession(day.id)}>Start</button>
+                  <button className="btn btn-icon btn-sm" onClick={() => setExpandedDay(expandedDay === day.id ? null : day.id)}>
+                    {expandedDay === day.id ? '▲' : '▼'}
+                  </button>
+                  <button className="btn btn-danger btn-sm" onClick={() => deleteDay(day.id)}>✕</button>
+                </div>
+              </div>
+
+              {expandedDay === day.id && (
+                <DayEditor day={day} onChange={updateDay} />
+              )}
+            </div>
+          ))}
+
+          {showAddDay ? (
+            <div className="card">
+              <h3 style={{ marginBottom: 10 }}>Ny treningsdag</h3>
+              <input
+                className="input"
+                placeholder="Dagnavn (f.eks. Push - Bryst/Skulder/Triceps)"
+                value={dayName}
+                onChange={e => setDayName(e.target.value)}
+                onKeyDown={e => e.key === 'Enter' && addDay()}
+                autoFocus
+              />
+              <div className="actions">
+                <button className="btn btn-primary btn-sm" onClick={addDay}>Legg til</button>
+                <button className="btn btn-ghost btn-sm" onClick={() => setShowAddDay(false)}>Avbryt</button>
+              </div>
+            </div>
+          ) : (
+            <button className="btn btn-outline btn-full" onClick={() => setShowAddDay(true)}>+ Legg til treningsdag</button>
+          )}
+        </div>
+      );
+    }
+
+    // ── Day Editor ───────────────────────────────────────────────────
+    function DayEditor({ day, onChange }) {
+      const [name, setName] = useState('');
+      const [sets, setSets] = useState('3');
+      const [reps, setReps] = useState('10');
+      const [weight, setWeight] = useState('');
+
+      const addExercise = () => {
+        if (!name.trim()) return;
+        const ex = { id: uid(), name: name.trim(), sets: +sets || 3, reps: reps.trim() || '10', weight: weight.trim() };
+        onChange({ ...day, exercises: [...day.exercises, ex] });
+        setName(''); setSets('3'); setReps('10'); setWeight('');
+      };
+
+      const deleteExercise = (id) => {
+        onChange({ ...day, exercises: day.exercises.filter(e => e.id !== id) });
+      };
+
+      return (
+        <div style={{ marginTop: 10 }}>
+          {day.exercises.map(ex => (
+            <div key={ex.id} className="exercise-row">
+              <div>
+                <div>{ex.name}</div>
+                <div className="exercise-meta">{ex.sets} sett × {ex.reps} reps{ex.weight ? ` · ${ex.weight} kg` : ''}</div>
+              </div>
+              <button className="btn btn-danger" onClick={() => deleteExercise(ex.id)}>✕</button>
+            </div>
+          ))}
+          <div style={{ marginTop: 12 }}>
+            <input className="input" placeholder="Øvelsesnavn" value={name} onChange={e => setName(e.target.value)} onKeyDown={e => e.key === 'Enter' && addExercise()} />
+            <div className="input-row">
+              <input className="input" placeholder="Sett" type="number" min="1" value={sets} onChange={e => setSets(e.target.value)} />
+              <input className="input" placeholder="Reps" value={reps} onChange={e => setReps(e.target.value)} />
+              <input className="input" placeholder="Kg" type="number" min="0" value={weight} onChange={e => setWeight(e.target.value)} />
+            </div>
+            <button className="btn btn-primary btn-sm" onClick={addExercise}>+ Legg til øvelse</button>
+          </div>
+        </div>
+      );
+    }
+
+    // ── Active Session ────────────────────────────────────────────────
+    function Session({ program, day, onBack, onSave }) {
+      const [checks, setChecks] = useState(() =>
+        Object.fromEntries(day.exercises.map(ex => [ex.id, Array(ex.sets).fill(false)]))
+      );
+      const [note, setNote] = useState('');
+
+      const toggle = (exId, idx) => {
+        setChecks(c => ({ ...c, [exId]: c[exId].map((v, i) => i === idx ? !v : v) }));
+      };
+
+      const totalSets = day.exercises.reduce((s, ex) => s + ex.sets, 0);
+      const doneSets = Object.values(checks).flat().filter(Boolean).length;
+      const pct = totalSets ? Math.round((doneSets / totalSets) * 100) : 0;
+
+      const finish = () => {
+        onSave({
+          date: new Date().toISOString(),
+          dayName: day.name,
+          exercises: day.exercises.map(ex => ({
+            name: ex.name,
+            sets: checks[ex.id].filter(Boolean).length,
+            totalSets: ex.sets,
+            reps: ex.reps,
+            weight: ex.weight,
+          })),
+          note,
+          completedPct: pct,
+        });
+      };
+
+      return (
+        <div>
+          <div className="top-bar">
+            <button className="back-btn" onClick={onBack}>← Avbryt</button>
+            <div>
+              <h2 style={{ margin: 0 }}>{day.name}</h2>
+              <span className="tag">{program.name}</span>
+            </div>
+          </div>
+
+          <div className="card" style={{ marginBottom: 16 }}>
+            <div className="row">
+              <span style={{ fontSize: '0.85rem', color: '#94a3b8' }}>Fremgang</span>
+              <span style={{ fontWeight: 700, color: '#22c55e' }}>{pct}%</span>
+            </div>
+            <div className="progress-bar">
+              <div className="progress-fill" style={{ width: `${pct}%` }} />
+            </div>
+          </div>
+
+          {day.exercises.map(ex => (
+            <div key={ex.id} className="session-exercise">
+              <div className="row" style={{ marginBottom: 6 }}>
+                <h3>{ex.name}</h3>
+                <span className="tag">{ex.reps} reps{ex.weight ? ` · ${ex.weight} kg` : ''}</span>
+              </div>
+              <div className="set-check">
+                {checks[ex.id].map((done, i) => (
+                  <button
+                    key={i}
+                    className={`set-dot ${done ? 'done' : ''}`}
+                    onClick={() => toggle(ex.id, i)}
+                    title={`Sett ${i + 1}`}
+                  >
+                    {done ? '✓' : ''}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ))}
+
+          <div className="card">
+            <h3 style={{ marginBottom: 8 }}>Notater</h3>
+            <textarea
+              className="input"
+              placeholder="Hvordan gikk økten?"
+              rows={3}
+              value={note}
+              onChange={e => setNote(e.target.value)}
+              style={{ resize: 'vertical' }}
+            />
+          </div>
+
+          <button className="btn btn-success btn-full" onClick={finish}>
+            Fullfør økt ({doneSets}/{totalSets} sett)
+          </button>
+        </div>
+      );
+    }
+
+    // ── Log View ─────────────────────────────────────────────────────
+    function LogView({ programs }) {
+      const allLogs = programs.flatMap(p =>
+        p.days.flatMap(d =>
+          (d.log || []).map(l => ({ ...l, programName: p.name }))
+        )
+      ).sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      if (allLogs.length === 0) {
+        return (
+          <div className="empty-state">
+            <div className="icon">📓</div>
+            Ingen fullførte økter ennå.<br />Gå til et program og start en økt!
+          </div>
+        );
+      }
+
+      return (
+        <div>
+          {allLogs.map((log, i) => (
+            <div key={i} className="card">
+              <div className="card-header">
+                <div>
+                  <h3>{log.dayName}</h3>
+                  <span className="tag">{log.programName}</span>
+                </div>
+                <div style={{ textAlign: 'right' }}>
+                  <div style={{ color: '#22c55e', fontWeight: 700 }}>{log.completedPct}%</div>
+                  <div className="tag">{new Date(log.date).toLocaleDateString('no-NO', { day: '2-digit', month: 'short', year: 'numeric' })}</div>
+                </div>
+              </div>
+              {log.exercises.map((ex, j) => (
+                <div key={j} className="exercise-row">
+                  <span>{ex.name}</span>
+                  <span className="tag">{ex.sets}/{ex.totalSets} sett × {ex.reps} reps{ex.weight ? ` · ${ex.weight} kg` : ''}</span>
+                </div>
+              ))}
+              {log.note && <div style={{ marginTop: 8, color: '#94a3b8', fontSize: '0.85rem', fontStyle: 'italic' }}>"{log.note}"</div>}
+            </div>
+          ))}
+        </div>
+      );
+    }
+
+    // ── Mount ─────────────────────────────────────────────────────────
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

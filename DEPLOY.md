@@ -1,9 +1,29 @@
-# How to view CarCompare on your iPhone
+# Slik åpner du appene
 
-## Easiest way (no setup needed):
-1. Go to your repo: https://github.com/staleso/Cars
-2. Tap on the file called **carcompare.html**
-3. Tap the **Raw** button (top right of the file)
-4. In Safari, tap **Share** (box with arrow) → **Add to Home Screen**
+## Treningsapp (egendefinerte programmer)
 
-That's it! You now have the app on your iPhone.
+Åpne denne lenken i nettleseren:
+
+```
+https://htmlpreview.github.io/?https://github.com/staleso/Cars/blob/claude/simple-workout-app-hd0Rk/workout.html
+```
+
+## Hjemmetreningsapp (innebygde øvelser uten utstyr)
+
+Åpne denne lenken i nettleseren:
+
+```
+https://htmlpreview.github.io/?https://github.com/staleso/Cars/blob/claude/simple-workout-app-hd0Rk/home-workout.html
+```
+
+## Bilsammenligningsapp
+
+Åpne denne lenken i nettleseren:
+
+```
+https://htmlpreview.github.io/?https://github.com/staleso/Cars/blob/main/carcompare.html
+```
+
+---
+
+**Tips iPhone:** Åpne lenken i Safari → trykk Del-knappen → "Legg til på Hjem-skjerm" for å få appen som ikon.
