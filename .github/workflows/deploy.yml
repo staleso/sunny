@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main, claude/car-comparison-app-nrcQ2]
+    branches: [main]
 
 permissions:
   contents: read
