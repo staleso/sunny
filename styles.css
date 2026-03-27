@@ -917,6 +917,22 @@ body {
 }
 
 /* ========== Footer Disclaimer ========== */
+.seo-content {
+    margin: 24px 16px;
+    padding: 16px;
+    color: var(--text2);
+    font-size: 13px;
+    line-height: 1.6;
+}
+.seo-content h2 {
+    font-size: 16px;
+    color: var(--text);
+    margin-bottom: 8px;
+}
+.seo-content p {
+    margin-bottom: 8px;
+}
+
 .app-disclaimer {
     margin: 24px 16px;
     padding: 16px;
