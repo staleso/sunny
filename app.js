@@ -1297,6 +1297,15 @@ function openModal(id) {
         <div class="modal-price">${formatPrice(car.price)}</div>
         ${src ? `<a href="${src.url}" target="_blank" rel="noopener" class="modal-source-link">Kilde: ${src.name}</a>` : ''}
 
+        <div class="modal-ad-banner">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-4678480487049419"
+                 data-ad-slot="auto"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+        </div>
+
         <div class="modal-section-title">Ytelse</div>
         <div class="modal-specs-grid">
             <div class="modal-spec">
@@ -1398,7 +1407,7 @@ function openModal(id) {
 
     modal.classList.add("open");
 
-    try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
+    try { (adsbygoogle = window.adsbygoogle || []).push({}); (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
 }
 
 function closeModal() {
