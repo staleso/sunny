@@ -884,40 +884,43 @@ function saveState() {
 }
 
 function getRating(carId) {
-    return state.ratings[carId] || 0;
+    if (window._fbReady && window._fbRatings) {
+        const carData = window._fbRatings[String(carId)];
+        if (carData && carData.votes && window._fbIPHash) {
+            return carData.votes[window._fbIPHash] || 0;
+        }
+    }
+    return 0;
 }
 
-// Generate consistent community ratings per car (deterministic based on car properties)
 function getCommunityRating(carId) {
-    const car = getCarById(carId);
-    if (!car) return { avg: 0, count: 0 };
-    // Seeded pseudo-random based on car id
-    const seed = carId * 2654435761 >>> 0;
-    const baseScore = 3.2 + ((seed % 180) / 100); // 3.2 - 4.99
-    // Bonus for good value (range/price ratio), performance
-    const valueFactor = Math.min(car.range / (car.price / 100000), 1.5) * 0.15;
-    const avg = Math.min(5.0, Math.max(2.5, baseScore + valueFactor));
-    const count = 8 + (seed % 47); // 8-54 "votes"
-    return { avg: Math.round(avg * 10) / 10, count };
+    if (window._fbReady && window._fbRatings) {
+        const carData = window._fbRatings[String(carId)];
+        if (carData && carData.votes) {
+            const votes = Object.values(carData.votes);
+            if (votes.length > 0) {
+                const sum = votes.reduce((a, b) => a + b, 0);
+                return { avg: Math.round((sum / votes.length) * 10) / 10, count: votes.length };
+            }
+        }
+    }
+    return { avg: 0, count: 0 };
 }
 
 function getAverageRating(carId) {
     const community = getCommunityRating(carId);
     const userRating = getRating(carId);
-    if (userRating > 0) {
-        const totalVotes = community.count + 1;
-        const avg = (community.avg * community.count + userRating) / totalVotes;
-        return { avg: Math.round(avg * 10) / 10, count: totalVotes, userRating };
-    }
-    return { avg: community.avg, count: community.count, userRating: 0 };
+    return { avg: community.avg, count: community.count, userRating };
 }
 
 function setRating(carId, rating, e) {
     if (e) e.stopPropagation();
-    state.ratings[carId] = rating;
-    saveState();
-    updateUI();
-    showToast(`Du ga ${rating} av 5 stjerner`);
+    if (typeof window._fbSaveRating === "function") {
+        window._fbSaveRating(carId, rating).then(() => {
+            updateUI();
+            showToast(`Du ga ${rating} av 5 stjerner`);
+        });
+    }
 }
 
 function renderStars(carId, size, showDetails) {
@@ -929,8 +932,12 @@ function renderStars(carId, size, showDetails) {
         const cls = filled ? 'star star-filled' : 'star star-empty';
         html += `<span class="${cls}" onclick="setRating(${carId}, ${i}, event)">★</span>`;
     }
-    html += `<span class="star-avg">${avg.toFixed(1)}</span>`;
-    html += `<span class="star-count">(${count})</span>`;
+    if (count > 0) {
+        html += `<span class="star-avg">${avg.toFixed(1)}</span>`;
+        html += `<span class="star-count">(${count})</span>`;
+    } else {
+        html += `<span class="star-count">Ingen stemmer ennå</span>`;
+    }
     html += `</div>`;
     if (showDetails && userRating > 0) {
         html += `<div class="star-user-badge">Din: ${userRating}/5 ★</div>`;

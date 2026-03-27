@@ -190,12 +190,71 @@
         <!-- Footer Disclaimer -->
         <footer class="app-disclaimer">
             <p>Informasjonen i denne appen er kun ment som veiledende og uforpliktende. Priser, spesifikasjoner, rekkevidde og andre opplysninger er innhentet etter beste evne fra offentlig tilgjengelige kilder, men det gis ingen garanti for at informasjonen er korrekt, fullstendig eller oppdatert. Faktiske verdier kan avvike.</p>
-            <p>Stjernevurderingene er simulerte og representerer ikke faktiske brukeranmeldelser.</p>
+            <p>Stjernevurderingene er basert på ekte brukeranmeldelser.</p>
             <p>Utvikleren av denne appen tar ikke ansvar for eventuelle feil, mangler eller tap som direkte eller indirekte kan oppstå som følge av bruk av informasjonen. Kontakt alltid forhandler for bekreftede priser og spesifikasjoner.</p>
             <button class="feedback-open-btn" onclick="openFeedback()">💬 Gi tilbakemelding</button>
         </footer>
     </div>
 
-    <script src="app.js?v=3"></script>
+    <script src="app.js?v=4"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getFirestore, doc, getDoc, setDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+        const firebaseConfig = {
+            apiKey: "AIzaSyAxAbS7ohSJqcKHsRmsygGPfX36D2Upkqk",
+            authDomain: "elbilvalg.firebaseapp.com",
+            projectId: "elbilvalg",
+            storageBucket: "elbilvalg.firebasestorage.app",
+            messagingSenderId: "750901005322",
+            appId: "1:750901005322:web:1ed67fab732ff2402723f3",
+            measurementId: "G-T0R0LD2FPC"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Hash IP for privacy
+        async function hashIP(ip) {
+            const data = new TextEncoder().encode(ip);
+            const buf = await crypto.subtle.digest("SHA-256", data);
+            return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("");
+        }
+
+        // Get user IP
+        async function getIP() {
+            try {
+                const r = await fetch("https://api.ipify.org?format=json");
+                const d = await r.json();
+                return d.ip;
+            } catch { return "unknown"; }
+        }
+
+        // Load all ratings
+        async function loadRatings() {
+            const snap = await getDocs(collection(db, "ratings"));
+            const ratings = {};
+            snap.forEach(d => { ratings[d.id] = d.data(); });
+            window._fbRatings = ratings;
+        }
+
+        // Save rating
+        window._fbSaveRating = async function(carId, rating) {
+            const key = String(carId);
+            const ref = doc(db, "ratings", key);
+            const snap = await getDoc(ref);
+            const data = snap.exists() ? snap.data() : { votes: {} };
+            data.votes[window._fbIPHash] = rating;
+            await setDoc(ref, data);
+            window._fbRatings[key] = data;
+        };
+
+        // Init
+        (async () => {
+            const ip = await getIP();
+            window._fbIPHash = await hashIP(ip);
+            await loadRatings();
+            window._fbReady = true;
+            if (typeof updateUI === "function") updateUI();
+        })();
+    </script>
 </body>
 </html>
