@@ -1034,11 +1034,17 @@ const ICONS = {
     range: `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`,
 };
 
+// ========== Slug ==========
+function carSlug(car) {
+    return (car.make + '-' + car.model + '-' + car.year)
+        .toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+}
+
 // ========== Render Car Card ==========
 function renderCarCard(car) {
     const div = document.createElement("div");
     div.className = "car-card";
-    div.onclick = () => openModal(car.id);
+    div.onclick = () => { window.location.href = 'bil.html?id=' + carSlug(car); };
 
     const bc = BRAND_COLORS[car.make] || { primary: "#888", gradient: "linear-gradient(135deg, #888, #444)" };
     const efficiency = (car.kwh / car.range * 100).toFixed(1);

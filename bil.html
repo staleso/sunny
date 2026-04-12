@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#f8f8fa">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="nb_NO">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=6">
+    <meta name="google-adsense-account" content="ca-pub-4678480487049419">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4678480487049419" crossorigin="anonymous"></script>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3TDS5SGX53"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        var _cc = localStorage.getItem('cookie-consent');
+        if (_cc === 'accepted') {
+            gtag('consent', 'default', { analytics_storage: 'granted', ad_storage: 'granted', ad_personalization: 'granted', ad_user_data: 'granted' });
+        } else {
+            gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', ad_personalization: 'denied', ad_user_data: 'denied' });
+        }
+        gtag('js', new Date());
+        gtag('config', 'G-3TDS5SGX53');
+    </script>
+    <title>Laster...</title>
+</head>
+<body>
+    <div id="car-detail-page">
+        <nav class="detail-nav">
+            <a href="/" class="back-link">&larr; Alle biler</a>
+        </nav>
+        <div id="detail-content">
+            <p class="detail-loading">Laster bildata...</p>
+        </div>
+    </div>
+
+    <script src="app.js?v=6"></script>
+    <script>
+    (function() {
+        const params = new URLSearchParams(window.location.search);
+        const slug = params.get('id');
+        if (!slug) { window.location.href = '/'; return; }
+
+        // Find car by slug
+        function makeSlug(car) {
+            return (car.make + '-' + car.model + '-' + car.year)
+                .toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+        }
+        const car = CARS.find(c => makeSlug(c) === slug);
+        if (!car) {
+            document.getElementById('detail-content').innerHTML = '<p class="detail-loading">Fant ikke bilen. <a href="/">Gå tilbake</a></p>';
+            return;
+        }
+
+        // Set page title and meta
+        document.title = car.make + ' ' + car.model + ' ' + car.year + ' – Pris, rekkevidde, spesifikasjoner | Elbilvalg.no';
+        var meta = document.createElement('meta');
+        meta.name = 'description';
+        meta.content = car.make + ' ' + car.model + ' ' + car.year + ': Pris ' + formatPrice(car.price) + ', rekkevidde ' + car.range + ' km, ' + car.hp + ' hk, 0-100 på ' + car.zeroToHundred + 's. Se alle spesifikasjoner.';
+        document.head.appendChild(meta);
+
+        var og = document.createElement('meta');
+        og.setAttribute('property', 'og:title');
+        og.content = car.make + ' ' + car.model + ' ' + car.year + ' | Elbilvalg.no';
+        document.head.appendChild(og);
+
+        var src = typeof BRAND_SOURCES !== 'undefined' ? BRAND_SOURCES[car.make] : null;
+        var efficiency = (car.kwh / car.range * 100).toFixed(1);
+
+        // News links
+        var newsHtml = '';
+        if (typeof NEWS_SITES !== 'undefined') {
+            var query = encodeURIComponent(car.make + ' ' + car.model);
+            newsHtml = NEWS_SITES.map(function(site) {
+                return '<a href="' + site.searchUrl + query + '" target="_blank" rel="noopener" class="news-link">' + site.name + '</a>';
+            }).join('');
+        }
+
+        // Stars
+        var starsHtml = typeof renderStars === 'function' ? renderStars(car.id, 24, true) : '';
+
+        document.getElementById('detail-content').innerHTML = ''
+            + '<header class="detail-header">'
+            + '  <div class="detail-title-row">'
+            + '    <div>'
+            + '      <h1 class="detail-title">' + car.make + ' ' + car.model + '</h1>'
+            + '      <p class="detail-subtitle">' + car.year + ' · ' + car.segment + ' · ' + car.drivetrain + '</p>'
+            + '    </div>'
+            + '    <div class="detail-price">' + formatPrice(car.price) + '</div>'
+            + '  </div>'
+            + (src ? '  <a href="' + src.url + '" target="_blank" rel="noopener" class="detail-source">Kilde: ' + src.name + '</a>' : '')
+            + '</header>'
+
+            + '<div class="detail-ad">'
+            + '  <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4678480487049419" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>'
+            + '</div>'
+
+            + '<section class="detail-specs-hero">'
+            + '  <div class="hero-stat">'
+            + '    <span class="hero-value">' + car.range + '</span>'
+            + '    <span class="hero-label">km rekkevidde</span>'
+            + '  </div>'
+            + '  <div class="hero-stat">'
+            + '    <span class="hero-value">' + car.hp + '</span>'
+            + '    <span class="hero-label">hestekrefter</span>'
+            + '  </div>'
+            + '  <div class="hero-stat">'
+            + '    <span class="hero-value">' + car.zeroToHundred + 's</span>'
+            + '    <span class="hero-label">0-100 km/t</span>'
+            + '  </div>'
+            + '  <div class="hero-stat">'
+            + '    <span class="hero-value">' + car.kwh + '</span>'
+            + '    <span class="hero-label">kWh batteri</span>'
+            + '  </div>'
+            + '</section>'
+
+            + '<section class="detail-section">'
+            + '  <h2>Detaljer</h2>'
+            + '  <div class="detail-grid">'
+            + '    <div class="detail-row"><span class="detail-label">Drivlinje</span><span class="detail-val">' + car.drivetrain + '</span></div>'
+            + '    <div class="detail-row"><span class="detail-label">Seter</span><span class="detail-val">' + car.seats + '</span></div>'
+            + '    <div class="detail-row"><span class="detail-label">Bagasjerom</span><span class="detail-val">' + (car.trunk ? car.trunk + ' liter' : '—') + '</span></div>'
+            + '    <div class="detail-row"><span class="detail-label">Forbruk</span><span class="detail-val">' + efficiency + ' kWh/100km</span></div>'
+            + '    <div class="detail-row"><span class="detail-label">Batteri</span><span class="detail-val">' + car.battery + '</span></div>'
+            + '    <div class="detail-row"><span class="detail-label">Type</span><span class="detail-val">' + car.segment + '</span></div>'
+            + '  </div>'
+            + '</section>'
+
+            + '<section class="detail-section">'
+            + '  <h2>Dimensjoner</h2>'
+            + '  <div class="detail-grid">'
+            + '    <div class="detail-row"><span class="detail-label">Lengde</span><span class="detail-val">' + car.length + ' mm</span></div>'
+            + '    <div class="detail-row"><span class="detail-label">Bredde</span><span class="detail-val">' + car.width + ' mm</span></div>'
+            + '    <div class="detail-row"><span class="detail-label">Høyde</span><span class="detail-val">' + car.height + ' mm</span></div>'
+            + '    <div class="detail-row"><span class="detail-label">Vekt</span><span class="detail-val">' + car.weight + ' kg</span></div>'
+            + '  </div>'
+            + '</section>'
+
+            + '<section class="detail-section">'
+            + '  <h2>Nyheter og tester</h2>'
+            + '  <div class="detail-news">' + newsHtml + '</div>'
+            + '</section>'
+
+            + '<section class="detail-section">'
+            + '  <h2>Vurdering</h2>'
+            + '  <div class="detail-rating">' + starsHtml + '</div>'
+            + '</section>'
+
+            + '<div class="detail-actions">'
+            + '  <button class="detail-btn" onclick="toggleFavorite(' + car.id + '); location.reload();">'
+            + (isFavorite(car.id) ? '&#10084; Fjern favoritt' : '&#9825; Legg til favoritt')
+            + '  </button>'
+            + '  <button class="detail-btn detail-btn-primary" onclick="toggleCompare(' + car.id + '); location.reload();">'
+            + (isInCompare(car.id) ? '&#10003; Fjern fra sammenligning' : '+ Legg til sammenligning')
+            + '  </button>'
+            + '</div>'
+
+            + '<div class="detail-ad">'
+            + '  <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4678480487049419" data-ad-slot="2454031921" data-ad-format="auto" data-full-width-responsive="true"></ins>'
+            + '</div>'
+
+            + '<div class="detail-disclaimer">'
+            + '  Informasjonen er veiledende og kan inneholde feil. Priser og spesifikasjoner kan avvike fra faktiske verdier. Kontakt alltid forhandler for bekreftede opplysninger.'
+            + '</div>';
+
+        try { (adsbygoogle = window.adsbygoogle || []).push({}); (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
+    })();
+    </script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getFirestore, doc, getDoc, setDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+        const firebaseConfig = {
+            apiKey: "AIzaSyAxAbS7ohSJqcKHsRmsygGPfX36D2Upkqk",
+            authDomain: "elbilvalg.firebaseapp.com",
+            projectId: "elbilvalg",
+            storageBucket: "elbilvalg.firebasestorage.app",
+            messagingSenderId: "750901005322",
+            appId: "1:750901005322:web:1ed67fab732ff2402723f3",
+            measurementId: "G-T0R0LD2FPC"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        async function hashIP(ip) {
+            const data = new TextEncoder().encode(ip);
+            const buf = await crypto.subtle.digest("SHA-256", data);
+            return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("");
+        }
+        async function getIP() {
+            try { const r = await fetch("https://api.ipify.org?format=json"); const d = await r.json(); return d.ip; } catch { return "unknown"; }
+        }
+        async function loadRatings() {
+            const snap = await getDocs(collection(db, "ratings"));
+            const ratings = {};
+            snap.forEach(d => { ratings[d.id] = d.data(); });
+            window._fbRatings = ratings;
+        }
+        window._fbSaveRating = async function(carId, rating) {
+            const key = String(carId);
+            const ref = doc(db, "ratings", key);
+            const snap = await getDoc(ref);
+            const data = snap.exists() ? snap.data() : { votes: {} };
+            data.votes[window._fbIPHash] = rating;
+            await setDoc(ref, data);
+            window._fbRatings[key] = data;
+        };
+        (async () => {
+            const ip = await getIP();
+            window._fbIPHash = await hashIP(ip);
+            await loadRatings();
+            window._fbReady = true;
+            // Re-render stars
+            const params = new URLSearchParams(window.location.search);
+            const slug = params.get('id');
+            if (slug && typeof CARS !== 'undefined') {
+                function makeSlug(car) {
+                    return (car.make + '-' + car.model + '-' + car.year).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+                }
+                const car = CARS.find(c => makeSlug(c) === slug);
+                if (car) {
+                    const ratingEl = document.querySelector('.detail-rating');
+                    if (ratingEl && typeof renderStars === 'function') {
+                        ratingEl.innerHTML = renderStars(car.id, 24, true);
+                    }
+                }
+            }
+        })();
+    </script>
+</body>
+</html>
