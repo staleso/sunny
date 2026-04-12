@@ -45,7 +45,7 @@
         <!-- Status bar spacer for iPhone notch -->
         <div class="status-bar-spacer"></div>
 
-        <!-- Sticky top bar -->
+        <!-- Sticky top bar with filters -->
         <div class="sticky-top">
             <header class="app-header">
                 <h1>Elbil Norge</h1>
@@ -57,6 +57,67 @@
             <button class="tab" data-tab="favorites">Favoritter</button>
             <a href="tabell.html" class="tab tab-link">Tabell</a>
             </nav>
+            <div class="sticky-filters" id="sticky-filters">
+                <div class="search-bar">
+                    <input type="text" id="search-input" placeholder="Søk etter elbiler..." autocomplete="off">
+                </div>
+                <div class="filter-row">
+                    <select id="filter-brand">
+                        <option value="all">Merke</option>
+                        <option value="Audi">Audi</option>
+                        <option value="BMW">BMW</option>
+                        <option value="BYD">BYD</option>
+                        <option value="Cupra">Cupra</option>
+                        <option value="Fiat">Fiat</option>
+                        <option value="Ford">Ford</option>
+                        <option value="Hyundai">Hyundai</option>
+                        <option value="Jaguar">Jaguar</option>
+                        <option value="Kia">Kia</option>
+                        <option value="Mercedes">Mercedes</option>
+                        <option value="MG">MG</option>
+                        <option value="NIO">NIO</option>
+                        <option value="Nissan">Nissan</option>
+                        <option value="Opel">Opel</option>
+                        <option value="Peugeot">Peugeot</option>
+                        <option value="Polestar">Polestar</option>
+                        <option value="Porsche">Porsche</option>
+                        <option value="Renault">Renault</option>
+                        <option value="Skoda">Skoda</option>
+                        <option value="Smart">Smart</option>
+                        <option value="Tesla">Tesla</option>
+                        <option value="Toyota">Toyota</option>
+                        <option value="Volkswagen">Volkswagen</option>
+                        <option value="Volvo">Volvo</option>
+                        <option value="Xpeng">Xpeng</option>
+                    </select>
+                    <select id="filter-year">
+                        <option value="all">Årstall</option>
+                        <option value="2026">2026</option>
+                        <option value="2025">2025</option>
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                        <option value="2020">2020</option>
+                    </select>
+                    <select id="filter-type">
+                        <option value="all">Type</option>
+                        <option value="suv">SUV</option>
+                        <option value="sedan">Sedan</option>
+                        <option value="hatchback">Hatchback</option>
+                        <option value="wagon">Stasjonsvogn</option>
+                        <option value="van">Flerbruksbil</option>
+                    </select>
+                    <select id="filter-sort">
+                        <option value="price-high">Pris &#8595;</option>
+                        <option value="price-low">Pris &#8593;</option>
+                        <option value="name">A-&#197;</option>
+                        <option value="range">Rekkevidde</option>
+                        <option value="hp">Effekt</option>
+                        <option value="fast">0-100</option>
+                        <option value="rating">Vurdering</option>
+                    </select>
+                </div>
+            </div>
         </div>
 
         <!-- Annonse topp -->
@@ -72,66 +133,6 @@
 
         <!-- Browse Tab -->
         <section id="browse-tab" class="tab-content active">
-            <!-- Search & Filter -->
-            <div class="search-bar">
-                <input type="text" id="search-input" placeholder="Søk etter elbiler..." autocomplete="off">
-            </div>
-            <div class="filter-row">
-                <select id="filter-brand">
-                    <option value="all">Merke</option>
-                    <option value="Audi">Audi</option>
-                    <option value="BMW">BMW</option>
-                    <option value="BYD">BYD</option>
-                    <option value="Cupra">Cupra</option>
-                    <option value="Fiat">Fiat</option>
-                    <option value="Ford">Ford</option>
-                    <option value="Hyundai">Hyundai</option>
-                    <option value="Jaguar">Jaguar</option>
-                    <option value="Kia">Kia</option>
-                    <option value="Mercedes">Mercedes</option>
-                    <option value="MG">MG</option>
-                    <option value="NIO">NIO</option>
-                    <option value="Nissan">Nissan</option>
-                    <option value="Opel">Opel</option>
-                    <option value="Peugeot">Peugeot</option>
-                    <option value="Polestar">Polestar</option>
-                    <option value="Porsche">Porsche</option>
-                    <option value="Renault">Renault</option>
-                    <option value="Skoda">Skoda</option>
-                    <option value="Smart">Smart</option>
-                    <option value="Tesla">Tesla</option>
-                    <option value="Toyota">Toyota</option>
-                    <option value="Volkswagen">Volkswagen</option>
-                    <option value="Volvo">Volvo</option>
-                    <option value="Xpeng">Xpeng</option>
-                </select>
-                <select id="filter-year">
-                    <option value="all">Årstall</option>
-                    <option value="2026">2026</option>
-                    <option value="2025">2025</option>
-                    <option value="2023">2023</option>
-                    <option value="2022">2022</option>
-                    <option value="2021">2021</option>
-                    <option value="2020">2020</option>
-                </select>
-                <select id="filter-type">
-                    <option value="all">Type</option>
-                    <option value="suv">SUV</option>
-                    <option value="sedan">Sedan</option>
-                    <option value="hatchback">Hatchback</option>
-                    <option value="wagon">Stasjonsvogn</option>
-                    <option value="van">Flerbruksbil</option>
-                </select>
-                <select id="filter-sort">
-                    <option value="price-high">Pris ↓</option>
-                    <option value="price-low">Pris ↑</option>
-                    <option value="name">A-Å</option>
-                    <option value="range">Rekkevidde</option>
-                    <option value="hp">Effekt</option>
-                    <option value="fast">0-100</option>
-                    <option value="rating">Vurdering</option>
-                </select>
-            </div>
             <div id="car-list" class="car-list"></div>
         </section>
 
@@ -206,10 +207,29 @@
 
         <!-- Footer Disclaimer -->
         <footer class="app-disclaimer">
-            <p>Informasjonen i denne appen er kun ment som veiledende og uforpliktende. Priser, spesifikasjoner, rekkevidde og andre opplysninger er innhentet etter beste evne fra offentlig tilgjengelige kilder, men det gis ingen garanti for at informasjonen er korrekt, fullstendig eller oppdatert. Faktiske verdier kan avvike.</p>
-            <p>Stjernevurderingene er basert på ekte brukeranmeldelser.</p>
-            <p>Utvikleren av denne appen tar ikke ansvar for eventuelle feil, mangler eller tap som direkte eller indirekte kan oppstå som følge av bruk av informasjonen. Kontakt alltid forhandler for bekreftede priser og spesifikasjoner.</p>
-            <button class="feedback-open-btn" onclick="openFeedback()">💬 Gi tilbakemelding</button>
+            <h3>Om Elbilvalg.no</h3>
+            <p>Elbilvalg.no er en uavhengig informasjonstjeneste som gir deg oversikt over elektriske biler tilgjengelig i det norske markedet. Tjenesten er ikke tilknyttet noen bilprodusent, importør eller forhandler.</p>
+
+            <h3>Datakvalitet og ansvarsfraskrivelse</h3>
+            <p>Informasjonen på denne nettsiden er kun ment som veiledende og uforpliktende. Alle priser, spesifikasjoner, rekkevidder og andre tekniske opplysninger er innhentet etter beste evne fra offentlig tilgjengelige kilder, inkludert produsentenes egne nettsider og offisielle spesifikasjonsark.</p>
+            <p>Vi gir ingen garanti for at informasjonen er korrekt, fullstendig eller oppdatert. Faktiske verdier kan avvike avhengig av utstyrsnivå, kjøreforhold, temperatur og andre faktorer. Rekkevidde er oppgitt etter WLTP-standarden der tilgjengelig, og faktisk rekkevidde vil variere.</p>
+            <p>Priser vises som veiledende nybilpris inkludert merverdiavgift, og kan endres uten varsel. Kontakt alltid en autorisert forhandler for gjeldende priser og spesifikasjoner.</p>
+
+            <h3>Brukeranmeldelser</h3>
+            <p>Stjernevurderingene er basert på ekte brukeranmeldelser. Hver bruker kan gi én vurdering per bil. Vurderingene representerer brukernes personlige meninger og gjenspeiler ikke nødvendigvis redaksjonens syn.</p>
+
+            <h3>Bilder</h3>
+            <p>Bildeillustrasjonene på denne nettsiden er levert av IMAGIN.studio og er kun ment som illustrasjoner. Bildene kan avvike fra faktiske modeller med hensyn til farge, utstyr og design. Alle rettigheter til bildene tilhører IMAGIN.studio og respektive bilprodusenter.</p>
+
+            <h3>Personvern og informasjonskapsler</h3>
+            <p>Vi bruker Google Analytics for å samle anonymisert besøksstatistikk og Google AdSense for å vise annonser. Disse tjenestene benytter informasjonskapsler. Ved å bruke denne nettsiden samtykker du til vår bruk av informasjonskapsler i henhold til valget du har gjort i samtykkebanneret.</p>
+
+            <h3>Ansvarsbegrensning</h3>
+            <p>Elbilvalg.no og dets utviklere tar ikke ansvar for eventuelle feil, mangler eller tap som direkte eller indirekte kan oppstå som følge av bruk av informasjonen på denne nettsiden. Bruk av informasjonen skjer på eget ansvar.</p>
+
+            <h3>Kontakt</h3>
+            <p>Fant du en feil eller har du forslag til forbedringer? Vi setter pris på tilbakemeldinger.</p>
+            <button class="feedback-open-btn" onclick="openFeedback()">Gi tilbakemelding</button>
         </footer>
     </div>
 

@@ -83,7 +83,11 @@
         // Stars
         var starsHtml = typeof renderStars === 'function' ? renderStars(car.id, 24, true) : '';
 
+        // Image URL
+        var imgUrl = typeof carImageUrl === 'function' ? carImageUrl(car, 23) : '';
+
         document.getElementById('detail-content').innerHTML = ''
+            + (imgUrl ? '<div class="detail-image"><img src="' + imgUrl + '" alt="' + car.make + ' ' + car.model + ' ' + car.year + '"></div>' : '')
             + '<header class="detail-header">'
             + '  <div class="detail-title-row">'
             + '    <div>'

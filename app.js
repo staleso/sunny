@@ -1040,6 +1040,12 @@ function carSlug(car) {
         .toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
 }
 
+// ========== Car Image ==========
+function carImageUrl(car, angle) {
+    const modelFamily = car.model.split(' ')[0].toLowerCase();
+    return `https://cdn.imagin.studio/getimage?customer=img&make=${encodeURIComponent(car.make.toLowerCase())}&modelFamily=${encodeURIComponent(modelFamily)}&modelYear=${car.year}&angle=${angle || 23}&zoomType=fullscreen`;
+}
+
 // ========== Render Car Card ==========
 function renderCarCard(car) {
     const div = document.createElement("div");
@@ -1051,6 +1057,9 @@ function renderCarCard(car) {
 
     div.innerHTML = `
         <div class="car-card-accent" style="background:${bc.primary}"></div>
+        <div class="car-card-image">
+            <img src="${carImageUrl(car, 23)}" alt="${car.make} ${car.model} ${car.year}" loading="lazy">
+        </div>
         <div class="car-card-body">
             <div class="car-card-top">
                 <div class="car-card-info">
@@ -1479,6 +1488,7 @@ document.getElementById("feedback-modal").addEventListener("click", function(e) 
 // ========== Tabs ==========
 function switchTab(tab) {
     state.activeTab = tab;
+    document.body.className = "tab-" + tab;
     const tabs = document.querySelectorAll(".tab");
     const indicator = document.querySelector(".tab-indicator");
     tabs.forEach(t => t.classList.toggle("active", t.dataset.tab === tab));

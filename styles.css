@@ -52,7 +52,17 @@ body {
     top: 0;
     z-index: 100;
     background: var(--bg);
-    padding-bottom: 6px;
+    padding-bottom: 10px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+
+.sticky-filters {
+    padding: 8px 16px 0;
+}
+
+body.tab-compare .sticky-filters,
+body.tab-favorites .sticky-filters {
+    display: none;
 }
 
 /* ========== Status Bar & Header ========== */
@@ -260,6 +270,38 @@ body {
     width: 3px;
     flex-shrink: 0;
     opacity: 0.7;
+}
+
+.car-card-image {
+    width: 180px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    background: var(--surface2);
+}
+
+.car-card-image img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+}
+
+@media (max-width: 500px) {
+    .car-card {
+        flex-direction: column;
+    }
+    .car-card-image {
+        width: 100%;
+        height: 140px;
+        padding: 16px;
+    }
+    .car-card-image img {
+        max-height: 120px;
+        width: auto;
+    }
 }
 
 .car-card-body {
@@ -978,14 +1020,26 @@ body {
 }
 
 .app-disclaimer {
-    margin: 24px 16px;
-    padding: 16px;
+    margin: 32px 16px;
+    padding: 24px;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    font-size: 11px;
+    font-size: 12px;
     color: var(--text2);
-    line-height: 1.5;
+    line-height: 1.6;
+    font-weight: 300;
+}
+
+.app-disclaimer h3 {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    margin: 16px 0 6px;
+}
+
+.app-disclaimer h3:first-child {
+    margin-top: 0;
 }
 
 .app-disclaimer p {
@@ -1159,6 +1213,22 @@ body {
 
 .back-link:hover {
     text-decoration: underline;
+}
+
+.detail-image {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.detail-image img {
+    max-width: 100%;
+    max-height: 300px;
+    object-fit: contain;
 }
 
 .detail-loading {
