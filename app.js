@@ -1040,24 +1040,54 @@ function renderCarCard(car) {
     div.className = "car-card";
     div.onclick = () => openModal(car.id);
 
-    const src = BRAND_SOURCES[car.make];
     const bc = BRAND_COLORS[car.make] || { primary: "#888", gradient: "linear-gradient(135deg, #888, #444)" };
-
-    // Progress bar percentages
-    const rangePct = Math.min(100, (car.range / 900) * 100);
-    const hpPct = Math.min(100, (car.hp / 1000) * 100);
-    const batteryPct = Math.min(100, (car.kwh / 120) * 100);
-    const speedPct = Math.min(100, ((10 - car.zeroToHundred) / 7.5) * 100);
+    const efficiency = (car.kwh / car.range * 100).toFixed(1);
 
     div.innerHTML = `
-        <div class="car-card-accent" style="background:${bc.gradient}"></div>
+        <div class="car-card-accent" style="background:${bc.primary}"></div>
         <div class="car-card-body">
-            <div class="car-card-header">
-                <div>
+            <div class="car-card-top">
+                <div class="car-card-info">
                     <div class="car-card-title">${car.make} ${car.model}</div>
-                    <div class="car-card-subtitle">${car.year} · ${car.segment} · ${car.drivetrain}</div>
+                    <div class="car-card-subtitle">${car.year} · ${car.segment}</div>
                 </div>
-                <div class="car-actions">
+                <div class="car-card-price">${formatPrice(car.price)}</div>
+            </div>
+            <div class="car-card-specs">
+                <div class="spec-item">
+                    <span class="spec-value">${car.range}</span>
+                    <span class="spec-unit">km</span>
+                </div>
+                <div class="spec-divider"></div>
+                <div class="spec-item">
+                    <span class="spec-value">${car.hp}</span>
+                    <span class="spec-unit">hk</span>
+                </div>
+                <div class="spec-divider"></div>
+                <div class="spec-item">
+                    <span class="spec-value">${car.zeroToHundred}</span>
+                    <span class="spec-unit">sek</span>
+                </div>
+                <div class="spec-divider"></div>
+                <div class="spec-item">
+                    <span class="spec-value">${car.kwh}</span>
+                    <span class="spec-unit">kWh</span>
+                </div>
+                ${car.trunk ? `
+                <div class="spec-divider"></div>
+                <div class="spec-item">
+                    <span class="spec-value">${car.trunk}</span>
+                    <span class="spec-unit">liter</span>
+                </div>` : ''}
+            </div>
+            <div class="car-card-bottom">
+                <div class="car-card-tags">
+                    <span class="car-tag">${car.drivetrain}</span>
+                    <span class="car-tag">${car.seats} seter</span>
+                    <span class="car-tag">${efficiency} kWh/100km</span>
+                </div>
+                <div class="car-card-actions">
+                    ${renderStars(car.id, 12)}
                     <button class="btn-icon ${isFavorite(car.id) ? 'active-fav' : ''}"
                             onclick="toggleFavorite(${car.id}, event)"
                             aria-label="Favoritt">
@@ -1069,44 +1099,6 @@ function renderCarCard(car) {
                         ${isInCompare(car.id) ? ICONS.check : ICONS.plus}
                     </button>
                 </div>
-            </div>
-            <div class="car-card-bars">
-                <div class="spec-bar-row">
-                    <span class="spec-bar-label">Rekkevidde</span>
-                    <div class="spec-bar-track">
-                        <div class="spec-bar-fill range-bar" style="width:${rangePct}%"></div>
-                    </div>
-                    <span class="spec-bar-value">${car.range} km</span>
-                </div>
-                <div class="spec-bar-row">
-                    <span class="spec-bar-label">Effekt</span>
-                    <div class="spec-bar-track">
-                        <div class="spec-bar-fill hp-bar" style="width:${hpPct}%"></div>
-                    </div>
-                    <span class="spec-bar-value">${car.hp} hk</span>
-                </div>
-                <div class="spec-bar-row">
-                    <span class="spec-bar-label">Batteri</span>
-                    <div class="spec-bar-track">
-                        <div class="spec-bar-fill battery-bar" style="width:${batteryPct}%"></div>
-                    </div>
-                    <span class="spec-bar-value">${car.kwh} kWh</span>
-                </div>
-                <div class="spec-bar-row">
-                    <span class="spec-bar-label">0-100</span>
-                    <div class="spec-bar-track">
-                        <div class="spec-bar-fill speed-bar" style="width:${speedPct}%"></div>
-                    </div>
-                    <span class="spec-bar-value">${car.zeroToHundred}s</span>
-                </div>
-            </div>
-            <div class="car-card-footer">
-                <span class="car-price">${formatPrice(car.price)}</span>
-                <div class="car-card-meta">
-                    ${car.trunk ? `<span class="meta-tag">${car.trunk} L</span>` : ''}
-                    <span class="meta-tag">${car.seats} seter</span>
-                </div>
-                ${renderStars(car.id, 14)}
             </div>
         </div>
     `;
