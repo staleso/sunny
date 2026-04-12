@@ -305,14 +305,15 @@ body.tab-favorites .sticky-filters {
 }
 
 .car-card-image::after {
-    content: "AI-illustrasjon";
+    content: "AI";
     position: absolute;
-    bottom: 6px;
-    right: 8px;
-    font-size: 9px;
+    bottom: 4px;
+    right: 5px;
+    font-size: 7px;
     font-weight: 500;
-    color: var(--text2);
-    letter-spacing: 0.03em;
+    color: var(--text3);
+    letter-spacing: 0.05em;
+    opacity: 0.6;
     pointer-events: none;
     z-index: 2;
 }
@@ -1273,14 +1274,15 @@ body.tab-favorites .sticky-filters {
 }
 
 .detail-image::after {
-    content: "AI-illustrasjon – kan avvike fra faktisk modell";
+    content: "AI-illustrasjon";
     position: absolute;
-    bottom: 10px;
-    right: 16px;
-    font-size: 11px;
+    bottom: 8px;
+    right: 12px;
+    font-size: 9px;
     font-weight: 500;
-    color: var(--text2);
-    letter-spacing: 0.02em;
+    color: var(--text3);
+    letter-spacing: 0.03em;
+    opacity: 0.6;
     pointer-events: none;
     z-index: 2;
 }
