@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=8">
+    <link rel="stylesheet" href="styles.css?v=9">
     <meta name="google-adsense-account" content="ca-pub-4678480487049419">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4678480487049419" crossorigin="anonymous"></script>
     <!-- Google Analytics -->
@@ -38,12 +38,23 @@
         </div>
     </div>
 
-    <script src="app.js?v=8"></script>
+    <script src="app.js?v=9"></script>
     <script>
     (function() {
+        function addNoIndex() {
+            var m = document.createElement('meta');
+            m.name = 'robots';
+            m.content = 'noindex, follow';
+            document.head.appendChild(m);
+        }
         const params = new URLSearchParams(window.location.search);
         const slug = params.get('id');
-        if (!slug) { window.location.href = '/'; return; }
+        if (!slug) {
+            addNoIndex();
+            document.title = 'Velg en elbil | Elbilvalg.no';
+            document.getElementById('detail-content').innerHTML = '<p class="detail-loading">Ingen bil valgt. <a href="/">Se alle elbiler</a></p>';
+            return;
+        }
 
         // Find car by slug
         function makeSlug(car) {
@@ -52,9 +63,17 @@
         }
         const car = CARS.find(c => makeSlug(c) === slug);
         if (!car) {
+            addNoIndex();
+            document.title = 'Bil ikke funnet | Elbilvalg.no';
             document.getElementById('detail-content').innerHTML = '<p class="detail-loading">Fant ikke bilen. <a href="/">Gå tilbake</a></p>';
             return;
         }
+
+        // Add canonical for this specific car page
+        var canonical = document.createElement('link');
+        canonical.rel = 'canonical';
+        canonical.href = 'https://elbilvalg.no/bil.html?id=' + slug;
+        document.head.appendChild(canonical);
 
         // Set page title and meta
         document.title = car.make + ' ' + car.model + ' ' + car.year + ' – Pris, rekkevidde, spesifikasjoner | Elbilvalg.no';
