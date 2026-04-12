@@ -29,6 +29,13 @@
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
+        // Set consent defaults before any tracking
+        var _cc = localStorage.getItem('cookie-consent');
+        if (_cc === 'accepted') {
+            gtag('consent', 'default', { analytics_storage: 'granted', ad_storage: 'granted', ad_personalization: 'granted', ad_user_data: 'granted' });
+        } else {
+            gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', ad_personalization: 'denied', ad_user_data: 'denied' });
+        }
         gtag('js', new Date());
         gtag('config', 'G-3TDS5SGX53');
     </script>
@@ -205,6 +212,54 @@
             <button class="feedback-open-btn" onclick="openFeedback()">💬 Gi tilbakemelding</button>
         </footer>
     </div>
+
+    <!-- Cookie consent banner -->
+    <div id="cookie-consent" class="cookie-banner" style="display:none">
+        <div class="cookie-text">
+            <p>Vi bruker informasjonskapsler for analyse og annonser. Ved å klikke «Godta» samtykker du til bruk av informasjonskapsler.</p>
+            <a href="#" onclick="document.getElementById('cookie-details').style.display='block';return false" class="cookie-link">Les mer</a>
+            <div id="cookie-details" style="display:none;margin-top:8px;font-size:12px;color:var(--text2)">
+                <p><strong>Nødvendige:</strong> Lagrer dine preferanser og valgene du gjør på siden.</p>
+                <p><strong>Analyse:</strong> Google Analytics samler anonymisert besøksstatistikk.</p>
+                <p><strong>Annonser:</strong> Google AdSense viser relevante annonser basert på interesser.</p>
+            </div>
+        </div>
+        <div class="cookie-buttons">
+            <button onclick="acceptCookies()" class="cookie-btn cookie-accept">Godta</button>
+            <button onclick="declineCookies()" class="cookie-btn cookie-decline">Avslå</button>
+        </div>
+    </div>
+    <script>
+        function acceptCookies() {
+            localStorage.setItem('cookie-consent', 'accepted');
+            document.getElementById('cookie-consent').style.display = 'none';
+            // Enable Google Analytics
+            window['ga-disable-G-3TDS5SGX53'] = false;
+            if (typeof gtag === 'function') {
+                gtag('consent', 'update', { analytics_storage: 'granted', ad_storage: 'granted', ad_personalization: 'granted', ad_user_data: 'granted' });
+            }
+        }
+        function declineCookies() {
+            localStorage.setItem('cookie-consent', 'declined');
+            document.getElementById('cookie-consent').style.display = 'none';
+            window['ga-disable-G-3TDS5SGX53'] = true;
+            if (typeof gtag === 'function') {
+                gtag('consent', 'update', { analytics_storage: 'denied', ad_storage: 'denied', ad_personalization: 'denied', ad_user_data: 'denied' });
+            }
+        }
+        (function() {
+            var consent = localStorage.getItem('cookie-consent');
+            if (!consent) {
+                document.getElementById('cookie-consent').style.display = 'flex';
+                // Default to denied until user accepts
+                if (typeof gtag === 'function') {
+                    gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', ad_personalization: 'denied', ad_user_data: 'denied' });
+                }
+            } else if (consent === 'declined') {
+                window['ga-disable-G-3TDS5SGX53'] = true;
+            }
+        })();
+    </script>
 
     <script src="app.js?v=6"></script>
     <script type="module">
