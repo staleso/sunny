@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=10">
+    <link rel="stylesheet" href="styles.css?v=11">
     <meta name="google-adsense-account" content="ca-pub-4678480487049419">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4678480487049419" crossorigin="anonymous"></script>
     <!-- Google Analytics -->
@@ -38,7 +38,7 @@
         </div>
     </div>
 
-    <script src="app.js?v=10"></script>
+    <script src="app.js?v=11"></script>
     <script>
     (function() {
         function addNoIndex() {
@@ -102,11 +102,20 @@
         // Stars
         var starsHtml = typeof renderStars === 'function' ? renderStars(car.id, 24, true) : '';
 
-        // Image URL
-        var imgUrl = typeof carImageUrl === 'function' ? carImageUrl(car, 23) : '';
+        // Image: Wikipedia (cached) or placeholder
+        var cachedImg = typeof getCachedCarImage === 'function' ? getCachedCarImage(car) : null;
+        var bc = (typeof BRAND_COLORS !== 'undefined' && BRAND_COLORS[car.make]) || { primary: '#888' };
+        var initials = (car.make.charAt(0) + car.model.charAt(0)).toUpperCase();
+        var imgHtml;
+        if (cachedImg) {
+            imgHtml = '<div class="detail-image"><img src="' + cachedImg + '" alt="' + car.make + ' ' + car.model + ' ' + car.year + '" data-car-img="' + car.id + '"></div>';
+        } else {
+            imgHtml = '<div class="detail-image"><div class="car-img-placeholder" style="background:linear-gradient(135deg, ' + bc.primary + '22, ' + bc.primary + '08)"><span class="car-img-placeholder-text">' + initials + '</span></div><img alt="' + car.make + ' ' + car.model + ' ' + car.year + '" data-car-img="' + car.id + '" style="display:none"></div>';
+            if (typeof scheduleCarImageLoad === 'function') setTimeout(function() { scheduleCarImageLoad(car); }, 0);
+        }
 
         document.getElementById('detail-content').innerHTML = ''
-            + (imgUrl ? '<div class="detail-image"><img src="' + imgUrl + '" alt="' + car.make + ' ' + car.model + ' ' + car.year + '"></div>' : '')
+            + imgHtml
             + '<header class="detail-header">'
             + '  <div class="detail-title-row">'
             + '    <div>'

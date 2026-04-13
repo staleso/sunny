@@ -1040,10 +1040,93 @@ function carSlug(car) {
         .toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
 }
 
-// ========== Car Image ==========
-function carImageUrl(car, angle) {
-    const modelFamily = car.model.split(' ')[0].toLowerCase();
-    return `https://cdn.imagin.studio/getimage?customer=img&make=${encodeURIComponent(car.make.toLowerCase())}&modelFamily=${encodeURIComponent(modelFamily)}&modelYear=${car.year}&angle=${angle || 23}&zoomType=fullscreen`;
+// ========== Car Image (Wikipedia) ==========
+// Cache images in localStorage: "none" means we've tried and found nothing.
+const WIKI_CACHE_PREFIX = "wiki-img-v1-";
+const WIKI_INFLIGHT = {};
+
+function wikiCacheKey(car) {
+    return WIKI_CACHE_PREFIX + car.make + "-" + car.model + "-" + car.year;
+}
+
+function getCachedCarImage(car) {
+    const v = localStorage.getItem(wikiCacheKey(car));
+    if (!v) return undefined;     // unknown
+    if (v === "none") return null; // no image available
+    return v;                      // URL
+}
+
+async function fetchCarImage(car) {
+    const key = wikiCacheKey(car);
+    const cached = localStorage.getItem(key);
+    if (cached) return cached === "none" ? null : cached;
+    if (WIKI_INFLIGHT[key]) return WIKI_INFLIGHT[key];
+
+    const titles = [
+        car.make + " " + car.model,
+        car.make + " " + car.model.split(" ")[0],
+        car.make + " " + car.model.replace(/\s+/g, "_")
+    ];
+
+    WIKI_INFLIGHT[key] = (async () => {
+        for (const title of titles) {
+            try {
+                const url = "https://en.wikipedia.org/w/api.php?action=query&prop=pageimages&format=json&pithumbsize=600&redirects=1&titles=" + encodeURIComponent(title) + "&origin=*";
+                const r = await fetch(url);
+                const d = await r.json();
+                const pages = d.query && d.query.pages ? Object.values(d.query.pages) : [];
+                for (const p of pages) {
+                    if (p.thumbnail && p.thumbnail.source) {
+                        localStorage.setItem(key, p.thumbnail.source);
+                        return p.thumbnail.source;
+                    }
+                }
+            } catch (e) { /* try next */ }
+        }
+        localStorage.setItem(key, "none");
+        return null;
+    })();
+    return WIKI_INFLIGHT[key];
+}
+
+// Lazy-load and inject image into any matching img placeholder in the DOM.
+async function loadCarImageInto(car, selector) {
+    const url = await fetchCarImage(car);
+    if (!url) return;
+    document.querySelectorAll(selector).forEach(el => {
+        if (el.tagName === "IMG") { el.src = url; el.classList.add("wiki-loaded"); }
+    });
+}
+
+function renderCarImagePlaceholder(car, cssClass) {
+    const cached = getCachedCarImage(car);
+    const bc = (typeof BRAND_COLORS !== "undefined" && BRAND_COLORS[car.make]) || { primary: "#888" };
+    const initials = (car.make.charAt(0) + car.model.charAt(0)).toUpperCase();
+    if (cached) {
+        return `<img class="${cssClass} wiki-loaded" src="${cached}" alt="${car.make} ${car.model} ${car.year}" loading="lazy" data-car-img="${car.id}">`;
+    }
+    // Transparent placeholder; will be swapped once fetchCarImage resolves
+    return `<div class="car-img-placeholder" style="background:linear-gradient(135deg, ${bc.primary}22, ${bc.primary}08)">
+        <span class="car-img-placeholder-text">${initials}</span>
+    </div>
+    <img class="${cssClass}" alt="${car.make} ${car.model} ${car.year}" loading="lazy" data-car-img="${car.id}" style="display:none">`;
+}
+
+// Trigger async fetch + injection for cars with unknown image
+function scheduleCarImageLoad(car) {
+    if (getCachedCarImage(car) !== undefined) return;
+    fetchCarImage(car).then(url => {
+        if (!url) return;
+        document.querySelectorAll(`img[data-car-img="${car.id}"]`).forEach(img => {
+            img.src = url;
+            img.style.display = "";
+            img.classList.add("wiki-loaded");
+            const placeholder = img.previousElementSibling;
+            if (placeholder && placeholder.classList && placeholder.classList.contains("car-img-placeholder")) {
+                placeholder.style.display = "none";
+            }
+        });
+    });
 }
 
 // ========== Render Car Card ==========
@@ -1058,7 +1141,7 @@ function renderCarCard(car) {
     div.innerHTML = `
         <div class="car-card-accent" style="background:${bc.primary}"></div>
         <div class="car-card-image">
-            <img src="${carImageUrl(car, 23)}" alt="${car.make} ${car.model} ${car.year}" loading="lazy">
+            ${renderCarImagePlaceholder(car, "")}
         </div>
         <div class="car-card-body">
             <div class="car-card-top">
@@ -1165,6 +1248,7 @@ function renderBrowse() {
         return;
     }
     cars.forEach(car => list.appendChild(renderCarCard(car)));
+    cars.forEach(scheduleCarImageLoad);
 }
 
 // ========== Compare Tab ==========
@@ -1318,10 +1402,12 @@ function renderFavorites() {
 
     empty.style.display = "none";
     list.innerHTML = "";
+    const favCars = [];
     state.favorites.forEach(id => {
         const car = getCarById(id);
-        if (car) list.appendChild(renderCarCard(car));
+        if (car) { list.appendChild(renderCarCard(car)); favCars.push(car); }
     });
+    favCars.forEach(scheduleCarImageLoad);
 }
 
 // ========== Modal ==========
@@ -1523,18 +1609,27 @@ function renderCompareBar() {
     countEl.textContent = count;
 
     const cars = state.compareList.map(getCarById).filter(Boolean);
-    itemsEl.innerHTML = cars.map(car => `
+    itemsEl.innerHTML = cars.map(car => {
+        const cached = getCachedCarImage(car);
+        const bc = BRAND_COLORS[car.make] || { primary: "#888" };
+        const initials = (car.make.charAt(0) + car.model.charAt(0)).toUpperCase();
+        const img = cached
+            ? `<img src="${cached}" alt="${car.make} ${car.model}" loading="lazy" data-car-img="${car.id}">`
+            : `<div class="car-img-placeholder small" style="background:linear-gradient(135deg, ${bc.primary}22, ${bc.primary}08)"><span>${initials}</span></div>
+               <img alt="${car.make} ${car.model}" loading="lazy" data-car-img="${car.id}" style="display:none">`;
+        return `
         <div class="compare-bar-item" title="${car.make} ${car.model}">
             <div class="compare-bar-thumb">
-                <img src="${carImageUrl(car, 23)}" alt="${car.make} ${car.model}" loading="lazy">
+                ${img}
                 <button class="compare-bar-item-remove" onclick="toggleCompare(${car.id}, event)" aria-label="Fjern">✕</button>
             </div>
             <div class="compare-bar-name">
                 <span class="compare-bar-make">${car.make}</span>
                 <span class="compare-bar-model">${car.model}</span>
             </div>
-        </div>
-    `).join("");
+        </div>`;
+    }).join("");
+    cars.forEach(scheduleCarImageLoad);
 }
 
 function clearCompare() {

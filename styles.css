@@ -288,34 +288,37 @@ body.tab-favorites .sticky-filters {
 .car-card-image img {
     width: 100%;
     height: auto;
-    object-fit: contain;
-    mix-blend-mode: multiply;
+    max-height: 140px;
+    object-fit: cover;
+    border-radius: 6px;
 }
 
-/* Fade ut nedre del for å dempe IMAGIN-vannmerket */
-.car-card-image::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 28%;
-    background: linear-gradient(to bottom, rgba(240,240,243,0) 0%, rgba(240,240,243,0.95) 85%, rgba(240,240,243,1) 100%);
-    pointer-events: none;
+.car-img-placeholder {
+    width: 100%;
+    height: 120px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.car-card-image::after {
-    content: "AI";
-    position: absolute;
-    bottom: 4px;
-    right: 5px;
-    font-size: 7px;
-    font-weight: 500;
-    color: var(--text3);
+.car-img-placeholder-text,
+.car-img-placeholder span {
+    font-size: 32px;
+    font-weight: 300;
+    color: var(--text2);
     letter-spacing: 0.05em;
-    opacity: 0.6;
-    pointer-events: none;
-    z-index: 2;
+}
+
+.car-img-placeholder.small {
+    height: 100%;
+    width: 100%;
+    border-radius: 0;
+}
+
+.car-img-placeholder.small span {
+    font-size: 14px;
+    font-weight: 500;
 }
 
 @media (max-width: 500px) {
@@ -1249,7 +1252,7 @@ body.tab-favorites .sticky-filters {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 24px;
+    padding: 16px;
     margin-bottom: 24px;
     text-align: center;
     position: relative;
@@ -1258,33 +1261,20 @@ body.tab-favorites .sticky-filters {
 
 .detail-image img {
     max-width: 100%;
-    max-height: 300px;
-    object-fit: contain;
+    max-height: 360px;
+    object-fit: cover;
+    border-radius: 8px;
+    width: 100%;
 }
 
-.detail-image::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 22%;
-    background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.95) 80%, rgba(255,255,255,1) 100%);
-    pointer-events: none;
+.detail-image .car-img-placeholder {
+    height: 240px;
+    border-radius: 8px;
 }
 
-.detail-image::after {
-    content: "AI-illustrasjon";
-    position: absolute;
-    bottom: 8px;
-    right: 12px;
-    font-size: 9px;
-    font-weight: 500;
-    color: var(--text3);
-    letter-spacing: 0.03em;
-    opacity: 0.6;
-    pointer-events: none;
-    z-index: 2;
+.detail-image .car-img-placeholder-text {
+    font-size: 64px;
+    font-weight: 300;
 }
 
 .detail-loading {
@@ -1661,21 +1651,10 @@ body.tab-favorites .sticky-filters {
 }
 
 .compare-bar-thumb img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    mix-blend-mode: multiply;
-}
-
-.compare-bar-thumb::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 30%;
-    background: linear-gradient(to bottom, rgba(240,240,243,0) 0%, rgba(240,240,243,1) 100%);
-    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
 }
 
 .compare-bar-name {
