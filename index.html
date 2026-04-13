@@ -32,7 +32,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=14">
+    <link rel="stylesheet" href="styles.css?v=15">
     <meta name="google-adsense-account" content="ca-pub-4678480487049419">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4678480487049419" crossorigin="anonymous"></script>
     <!-- Google Analytics -->
@@ -106,15 +106,6 @@
                         <option value="Volvo">Volvo</option>
                         <option value="Xpeng">Xpeng</option>
                     </select>
-                    <select id="filter-year">
-                        <option value="all">Årstall</option>
-                        <option value="2026">2026</option>
-                        <option value="2025">2025</option>
-                        <option value="2023">2023</option>
-                        <option value="2022">2022</option>
-                        <option value="2021">2021</option>
-                        <option value="2020">2020</option>
-                    </select>
                     <select id="filter-type">
                         <option value="all">Type</option>
                         <option value="suv">SUV</option>
@@ -132,6 +123,29 @@
                         <option value="fast">0-100</option>
                         <option value="rating">Vurdering</option>
                     </select>
+                </div>
+                <div class="slider-filters">
+                    <div class="slider-filter" data-filter="price">
+                        <div class="slider-head">
+                            <span class="slider-label">Pris</span>
+                            <span class="slider-value" id="price-value">0 – 1 500 000 kr</span>
+                        </div>
+                        <div class="dual-slider">
+                            <div class="slider-track"><div class="slider-fill" id="price-fill"></div></div>
+                            <input type="range" id="price-min" min="0" max="1500000" step="25000" value="0" aria-label="Minste pris">
+                            <input type="range" id="price-max" min="0" max="1500000" step="25000" value="1500000" aria-label="Største pris">
+                        </div>
+                    </div>
+                    <div class="slider-filter" data-filter="range">
+                        <div class="slider-head">
+                            <span class="slider-label">Rekkevidde</span>
+                            <span class="slider-value" id="range-value">Alle</span>
+                        </div>
+                        <div class="single-slider">
+                            <div class="slider-track"><div class="slider-fill" id="range-fill"></div></div>
+                            <input type="range" id="range-min" min="0" max="700" step="25" value="0" aria-label="Minste rekkevidde">
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- Sist sett - smal linje -->
@@ -313,7 +327,7 @@
         })();
     </script>
 
-    <script src="app.js?v=14"></script>
+    <script src="app.js?v=15"></script>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { getFirestore, doc, getDoc, setDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";

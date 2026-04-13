@@ -1301,6 +1301,58 @@ function renderCarCard(car) {
     return div;
 }
 
+// ========== Slider filters ==========
+const PRICE_MIN = 0, PRICE_MAX = 1500000, PRICE_STEP = 25000;
+const RANGE_MIN = 0, RANGE_MAX = 700, RANGE_STEP = 25;
+
+function formatPriceShort(v) {
+    if (v >= 1000000) return (v / 1000000).toFixed(v % 1000000 === 0 ? 0 : 1).replace(".", ",") + " mill";
+    if (v >= 1000) return Math.round(v / 1000) + "k";
+    return String(v);
+}
+
+function getPriceFilter() {
+    const minEl = document.getElementById("price-min");
+    const maxEl = document.getElementById("price-max");
+    if (!minEl || !maxEl) return { min: PRICE_MIN, max: PRICE_MAX, active: false };
+    let lo = parseInt(minEl.value, 10);
+    let hi = parseInt(maxEl.value, 10);
+    if (lo > hi) { const t = lo; lo = hi; hi = t; }
+    return { min: lo, max: hi, active: lo > PRICE_MIN || hi < PRICE_MAX };
+}
+
+function getRangeFilter() {
+    const el = document.getElementById("range-min");
+    if (!el) return { min: 0, active: false };
+    const v = parseInt(el.value, 10);
+    return { min: v, active: v > 0 };
+}
+
+function updateSliderUI() {
+    const pf = getPriceFilter();
+    const priceVal = document.getElementById("price-value");
+    const priceFill = document.getElementById("price-fill");
+    if (priceVal) {
+        if (!pf.active) priceVal.textContent = "Alle priser";
+        else priceVal.textContent = formatPriceShort(pf.min) + " – " + formatPriceShort(pf.max) + " kr";
+    }
+    if (priceFill) {
+        const l = ((pf.min - PRICE_MIN) / (PRICE_MAX - PRICE_MIN)) * 100;
+        const r = ((pf.max - PRICE_MIN) / (PRICE_MAX - PRICE_MIN)) * 100;
+        priceFill.style.left = l + "%";
+        priceFill.style.right = (100 - r) + "%";
+    }
+
+    const rf = getRangeFilter();
+    const rangeVal = document.getElementById("range-value");
+    const rangeFill = document.getElementById("range-fill");
+    if (rangeVal) rangeVal.textContent = rf.active ? ("Min. " + rf.min + " km") : "Alle";
+    if (rangeFill) {
+        const w = ((rf.min - RANGE_MIN) / (RANGE_MAX - RANGE_MIN)) * 100;
+        rangeFill.style.width = w + "%";
+    }
+}
+
 // ========== Browse Tab ==========
 function renderBrowse() {
     const list = document.getElementById("car-list");
@@ -1308,14 +1360,17 @@ function renderBrowse() {
     const brandFilter = document.getElementById("filter-brand").value;
     const typeFilter = document.getElementById("filter-type").value;
     const sort = document.getElementById("filter-sort").value;
-    const yearFilter = document.getElementById("filter-year").value;
+    const pf = getPriceFilter();
+    const rf = getRangeFilter();
+    updateSliderUI();
 
     let cars = CARS.filter(car => {
         const matchSearch = `${car.make} ${car.model} ${car.year} ${car.segment}`.toLowerCase().includes(search);
         const matchBrand = brandFilter === "all" || car.make === brandFilter;
         const matchType = typeFilter === "all" || car.type === typeFilter;
-        const matchYear = yearFilter === "all" || car.year === parseInt(yearFilter);
-        return matchSearch && matchBrand && matchType && matchYear;
+        const matchPrice = car.price >= pf.min && car.price <= pf.max;
+        const matchRange = car.range >= rf.min;
+        return matchSearch && matchBrand && matchType && matchPrice && matchRange;
     });
 
     switch (sort) {
@@ -1336,7 +1391,7 @@ function renderBrowse() {
         countEl.className = "result-count";
         list.parentNode.insertBefore(countEl, list);
     }
-    const hasFilter = search || brandFilter !== "all" || typeFilter !== "all" || yearFilter !== "all";
+    const hasFilter = search || brandFilter !== "all" || typeFilter !== "all" || pf.active || rf.active;
     countEl.textContent = hasFilter ? `${cars.length} biler funnet` : `${cars.length} biler`;
     countEl.style.display = "block";
 
@@ -1758,7 +1813,32 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("filter-brand").addEventListener("change", renderBrowse);
     document.getElementById("filter-type").addEventListener("change", renderBrowse);
     document.getElementById("filter-sort").addEventListener("change", renderBrowse);
-    document.getElementById("filter-year").addEventListener("change", renderBrowse);
+
+    // Slider filters
+    const priceMin = document.getElementById("price-min");
+    const priceMax = document.getElementById("price-max");
+    const rangeMin = document.getElementById("range-min");
+    if (priceMin && priceMax) {
+        // Prevent handles from crossing
+        const clampPrice = () => {
+            const lo = parseInt(priceMin.value, 10);
+            const hi = parseInt(priceMax.value, 10);
+            if (lo > hi - PRICE_STEP) {
+                if (document.activeElement === priceMin) priceMin.value = hi - PRICE_STEP;
+                else priceMax.value = lo + PRICE_STEP;
+            }
+            updateSliderUI();
+        };
+        priceMin.addEventListener("input", clampPrice);
+        priceMax.addEventListener("input", clampPrice);
+        priceMin.addEventListener("change", renderBrowse);
+        priceMax.addEventListener("change", renderBrowse);
+    }
+    if (rangeMin) {
+        rangeMin.addEventListener("input", updateSliderUI);
+        rangeMin.addEventListener("change", renderBrowse);
+    }
+    updateSliderUI();
 
     // Modal close
     document.getElementById("modal-back").addEventListener("click", closeModal);
