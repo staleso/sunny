@@ -7,6 +7,17 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="ELbil Norge">
     <meta name="theme-color" content="#f8f8fa">
+    <script>
+        (function() {
+            var t = localStorage.getItem('theme');
+            if (!t && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) t = 'dark';
+            if (t === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                var m = document.querySelector('meta[name="theme-color"]');
+                if (m) m.content = '#16161e';
+            }
+        })();
+    </script>
     <title>Valg av elbil i Norge 2025 – Sammenlign pris, rekkevidde og ytelse | Elbilvalg.no</title>
     <meta name="description" content="Hvilken elbil skal du velge? Sammenlign alle elbiler i Norge – pris, rekkevidde, hestekrefter, bagasjerom og dimensjoner. Finn den billigste elbilen, lengst rekkevidde eller beste familiebil. Komplett elbil-oversikt.">
     <meta name="keywords" content="valg av elbil, hvilken elbil skal jeg velge, elbil sammenligning, sammenlign elbiler Norge, beste elbil 2025, billigste elbil Norge, elbil rekkevidde, elbil pris, elbil oversikt, elbilvalg, elektrisk bil, elbil familie, SUV elbil, Tesla, BMW, Volkswagen, Audi, Mercedes, Volvo, Skoda, Hyundai, Kia">
@@ -21,7 +32,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=12">
+    <link rel="stylesheet" href="styles.css?v=13">
     <meta name="google-adsense-account" content="ca-pub-4678480487049419">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4678480487049419" crossorigin="anonymous"></script>
     <!-- Google Analytics -->
@@ -47,6 +58,10 @@
 
         <!-- Sticky top bar with filters -->
         <div class="sticky-top">
+            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Bytt tema">
+                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+            </button>
             <header class="app-header">
                 <h1>Elbil Norge</h1>
                 <p class="subtitle">Sammenlign elbiler i Norge</p>
@@ -134,6 +149,12 @@
         <!-- Browse Tab -->
         <section id="browse-tab" class="tab-content active">
             <div id="car-list" class="car-list"></div>
+        </section>
+
+        <!-- Recently viewed -->
+        <section id="recently-viewed" class="recently-viewed" style="display:none">
+            <h2>Sist sett</h2>
+            <div class="recently-viewed-list"></div>
         </section>
 
         <!-- Compare Tab -->
@@ -292,7 +313,7 @@
         })();
     </script>
 
-    <script src="app.js?v=12"></script>
+    <script src="app.js?v=13"></script>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { getFirestore, doc, getDoc, setDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";

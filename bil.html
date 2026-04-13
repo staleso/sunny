@@ -4,12 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#f8f8fa">
+    <script>
+        (function() {
+            var t = localStorage.getItem('theme');
+            if (!t && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) t = 'dark';
+            if (t === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                var m = document.querySelector('meta[name="theme-color"]');
+                if (m) m.content = '#16161e';
+            }
+        })();
+    </script>
     <meta property="og:type" content="website">
     <meta property="og:locale" content="nb_NO">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=12">
+    <link rel="stylesheet" href="styles.css?v=13">
     <meta name="google-adsense-account" content="ca-pub-4678480487049419">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4678480487049419" crossorigin="anonymous"></script>
     <!-- Google Analytics -->
@@ -38,7 +49,7 @@
         </div>
     </div>
 
-    <script src="app.js?v=12"></script>
+    <script src="app.js?v=13"></script>
     <script>
     (function() {
         function addNoIndex() {
@@ -74,6 +85,10 @@
         canonical.rel = 'canonical';
         canonical.href = 'https://elbilvalg.no/bil.html?id=' + slug;
         document.head.appendChild(canonical);
+
+        // Track recent view + GA4
+        if (typeof addRecentlyViewed === 'function') addRecentlyViewed(car.id);
+        if (typeof trackEvent === 'function') trackEvent('car_view', { car_id: car.id, car_make: car.make, car_model: car.model });
 
         // Set page title and meta
         document.title = car.make + ' ' + car.model + ' ' + car.year + ' – Pris, rekkevidde, spesifikasjoner | Elbilvalg.no';

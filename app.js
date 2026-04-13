@@ -883,6 +883,84 @@ function saveState() {
     localStorage.setItem("ratings", JSON.stringify(state.ratings));
 }
 
+// ========== Analytics ==========
+function trackEvent(name, params) {
+    if (typeof gtag === "function") {
+        try { gtag("event", name, params || {}); } catch (e) { /* ignore */ }
+    }
+}
+
+// ========== Dark Mode ==========
+function isDarkMode() {
+    return document.documentElement.getAttribute("data-theme") === "dark";
+}
+
+function applyTheme(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    if (metaTheme) metaTheme.content = theme === "dark" ? "#16161e" : "#f8f8fa";
+}
+
+function toggleTheme() {
+    const next = isDarkMode() ? "light" : "dark";
+    localStorage.setItem("theme", next);
+    applyTheme(next);
+    trackEvent("theme_toggle", { theme: next });
+}
+
+(function initTheme() {
+    const saved = localStorage.getItem("theme");
+    if (saved === "dark" || saved === "light") {
+        applyTheme(saved);
+    } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        applyTheme("dark");
+    }
+})();
+
+// ========== Recently Viewed ==========
+const RECENTLY_VIEWED_KEY = "recentlyViewed";
+const RECENTLY_VIEWED_MAX = 8;
+
+function addRecentlyViewed(id) {
+    try {
+        let list = JSON.parse(localStorage.getItem(RECENTLY_VIEWED_KEY) || "[]");
+        list = [id, ...list.filter(x => x !== id)].slice(0, RECENTLY_VIEWED_MAX);
+        localStorage.setItem(RECENTLY_VIEWED_KEY, JSON.stringify(list));
+    } catch (e) { /* ignore */ }
+}
+
+function getRecentlyViewed() {
+    try {
+        return JSON.parse(localStorage.getItem(RECENTLY_VIEWED_KEY) || "[]");
+    } catch (e) { return []; }
+}
+
+function renderRecentlyViewed() {
+    const container = document.getElementById("recently-viewed");
+    if (!container) return;
+    const ids = getRecentlyViewed();
+    const cars = ids.map(getCarById).filter(Boolean);
+    if (cars.length === 0) {
+        container.style.display = "none";
+        return;
+    }
+    container.style.display = "";
+    const listEl = container.querySelector(".recently-viewed-list");
+    listEl.innerHTML = cars.map(car => {
+        const bc = BRAND_COLORS[car.make] || { primary: "#888" };
+        const initials = (car.make.charAt(0) + car.model.charAt(0)).toUpperCase();
+        return `
+        <a href="bil.html?id=${carSlug(car)}" class="recently-viewed-item" onclick="trackEvent('recently_viewed_click', { car_id: ${car.id} })">
+            <div class="recently-viewed-thumb" style="background:linear-gradient(135deg, ${bc.primary}22, ${bc.primary}08)">
+                <span>${initials}</span>
+            </div>
+            <div class="recently-viewed-make">${car.make}</div>
+            <div class="recently-viewed-model">${car.model}</div>
+            <div class="recently-viewed-price">${formatPrice(car.price)}</div>
+        </a>`;
+    }).join("");
+}
+
 function getRating(carId) {
     if (window._fbReady && window._fbRatings) {
         const carData = window._fbRatings[String(carId)];
@@ -979,8 +1057,10 @@ function isFavorite(id) {
 
 function toggleCompare(id, e) {
     if (e) e.stopPropagation();
+    const car = getCarById(id);
     const idx = state.compareList.indexOf(id);
-    if (idx > -1) {
+    const adding = idx === -1;
+    if (!adding) {
         state.compareList.splice(idx, 1);
     } else {
         if (state.compareList.length >= 10) {
@@ -989,18 +1069,32 @@ function toggleCompare(id, e) {
         }
         state.compareList.push(id);
     }
+    trackEvent(adding ? "compare_add" : "compare_remove", {
+        car_id: id,
+        car_make: car ? car.make : "",
+        car_model: car ? car.model : "",
+        compare_count: state.compareList.length
+    });
     saveState();
     updateUI();
 }
 
 function toggleFavorite(id, e) {
     if (e) e.stopPropagation();
+    const car = getCarById(id);
     const idx = state.favorites.indexOf(id);
-    if (idx > -1) {
+    const adding = idx === -1;
+    if (!adding) {
         state.favorites.splice(idx, 1);
     } else {
         state.favorites.push(id);
     }
+    trackEvent(adding ? "favorite_add" : "favorite_remove", {
+        car_id: id,
+        car_make: car ? car.make : "",
+        car_model: car ? car.model : "",
+        favorite_count: state.favorites.length
+    });
     saveState();
     updateUI();
 }
@@ -1494,6 +1588,7 @@ document.getElementById("feedback-modal").addEventListener("click", function(e) 
 
 // ========== Tabs ==========
 function switchTab(tab) {
+    if (state.activeTab !== tab) trackEvent("tab_switch", { tab: tab });
     state.activeTab = tab;
     document.body.className = "tab-" + tab;
     const tabs = document.querySelectorAll(".tab");
@@ -1559,6 +1654,7 @@ function updateUI() {
     renderCompare();
     renderFavorites();
     renderCompareBar();
+    renderRecentlyViewed();
 }
 
 // ========== Init ==========
