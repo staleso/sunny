@@ -66,6 +66,7 @@
 
     <script src="app.js?v=14"></script>
     <script>
+    (function() {
     const QUESTIONS = [
         {
             id: 'budget',
@@ -124,78 +125,77 @@
         }
     ];
 
-    const state = { step: 0, answers: {} };
+    const quizState = { step: 0, answers: {} };
 
     function renderStep() {
         const content = document.getElementById('quiz-content');
         const bar = document.getElementById('progress-bar');
 
-        if (state.step >= QUESTIONS.length) {
+        if (quizState.step >= QUESTIONS.length) {
             bar.style.width = '100%';
             renderResults();
             return;
         }
 
-        const q = QUESTIONS[state.step];
-        bar.style.width = ((state.step / QUESTIONS.length) * 100) + '%';
+        const q = QUESTIONS[quizState.step];
+        bar.style.width = ((quizState.step / QUESTIONS.length) * 100) + '%';
 
-        content.innerHTML = `
-            <div class="quiz-step">
-                <div class="quiz-step-num">Spørsmål ${state.step + 1} av ${QUESTIONS.length}</div>
-                <h2 class="quiz-question">${q.title}</h2>
-                <p class="quiz-help">${q.help}</p>
-                <div class="quiz-options">
-                    ${q.options.map((opt, i) => `
-                        <button class="quiz-option" onclick="answer('${q.id}', ${JSON.stringify(opt.value)})">${opt.label}</button>
-                    `).join('')}
-                </div>
-                ${state.step > 0 ? '<button class="quiz-back" onclick="goBack()">← Tilbake</button>' : ''}
-            </div>
-        `;
+        const optsHtml = q.options.map((opt) => {
+            const valAttr = typeof opt.value === 'string'
+                ? "'" + opt.value.replace(/'/g, "\\'") + "'"
+                : opt.value;
+            return '<button class="quiz-option" onclick="quizAnswer(\'' + q.id + '\', ' + valAttr + ')">' + opt.label + '</button>';
+        }).join('');
+
+        content.innerHTML =
+            '<div class="quiz-step">' +
+                '<div class="quiz-step-num">Spørsmål ' + (quizState.step + 1) + ' av ' + QUESTIONS.length + '</div>' +
+                '<h2 class="quiz-question">' + q.title + '</h2>' +
+                '<p class="quiz-help">' + q.help + '</p>' +
+                '<div class="quiz-options">' + optsHtml + '</div>' +
+                (quizState.step > 0 ? '<button class="quiz-back" onclick="quizBack()">← Tilbake</button>' : '') +
+            '</div>';
     }
 
     function answer(id, value) {
-        state.answers[id] = value;
-        state.step++;
-        if (typeof trackEvent === 'function') trackEvent('quiz_answer', { question: id, value: String(value), step: state.step });
+        quizState.answers[id] = value;
+        quizState.step++;
+        if (typeof trackEvent === 'function') trackEvent('quiz_answer', { question: id, value: String(value), step: quizState.step });
         renderStep();
     }
 
     function goBack() {
-        if (state.step > 0) state.step--;
+        if (quizState.step > 0) quizState.step--;
         renderStep();
     }
 
     function scoreCar(car, a) {
         let score = 0;
-        // Budget: within = +20, over = disqualify soft
         if (car.price <= a.budget) score += 20;
         else if (car.price <= a.budget * 1.15) score += 5;
         else return -1000;
 
-        // Seats
         if (car.seats >= a.family) score += 15;
         else score -= 20;
 
-        // Usage → range requirements
-        const winterRange = getWinterRange(car);
+        const winterRange = (typeof getWinterRange === 'function') ? getWinterRange(car) : Math.round(car.range * 0.65);
+        const chargeSpeed = (typeof getChargeSpeed === 'function') ? getChargeSpeed(car) : 130;
+
         if (a.usage === 'city' && winterRange >= 180) score += 10;
         else if (a.usage === 'mixed' && winterRange >= 250) score += 15;
         else if (a.usage === 'long' && winterRange >= 320) score += 20;
-        else if (a.usage === 'highway' && winterRange >= 300 && getChargeSpeed(car) >= 150) score += 25;
+        else if (a.usage === 'highway' && winterRange >= 300 && chargeSpeed >= 150) score += 25;
         else if ((a.usage === 'long' || a.usage === 'highway') && winterRange < 250) score -= 15;
 
-        // Trailer
         if (a.trailer > 0) {
-            const braked = getTrailerBraked(car);
+            const braked = (typeof getTrailerBraked === 'function') ? getTrailerBraked(car) : 750;
             if (braked >= a.trailer) score += 15;
             else score -= 25;
         }
 
-        // Priority weighting
         if (a.priority === 'price') score += Math.max(0, 20 - (car.price / a.budget) * 15);
         if (a.priority === 'range') score += Math.min(25, (car.range - 300) / 20);
-        if (a.priority === 'charging') score += Math.min(25, (getChargeSpeed(car) - 100) / 8);
+        if (a.priority === 'charging') score += Math.min(25, (chargeSpeed - 100) / 8);
         if (a.priority === 'balance') {
             const valueScore = (car.range / (car.price / 100000));
             score += Math.min(20, valueScore);
@@ -204,9 +204,14 @@
     }
 
     function renderResults() {
-        const a = state.answers;
+        const a = quizState.answers;
         if (typeof trackEvent === 'function') trackEvent('quiz_complete', a);
-        const scored = CARS.map(car => ({ car, score: scoreCar(car, a) }))
+        if (typeof CARS === 'undefined') {
+            document.getElementById('quiz-content').innerHTML =
+                '<div class="quiz-results"><h2>Feil</h2><p>Kunne ikke laste bildata. <a href="javascript:location.reload()">Prøv igjen</a>.</p></div>';
+            return;
+        }
+        const scored = CARS.map(car => ({ car: car, score: scoreCar(car, a) }))
             .filter(x => x.score > -500)
             .sort((x, y) => y.score - x.score);
 
@@ -214,55 +219,65 @@
         const content = document.getElementById('quiz-content');
 
         if (top3.length === 0) {
-            content.innerHTML = `
-                <div class="quiz-results">
-                    <h2>Ingen treff</h2>
-                    <p>Vi fant ingen biler som passet alle kriteriene. <a href="/">Bla gjennom alle biler</a> eller <a href="javascript:location.reload()">start på nytt</a>.</p>
-                </div>`;
+            content.innerHTML =
+                '<div class="quiz-results">' +
+                    '<h2>Ingen treff</h2>' +
+                    '<p>Vi fant ingen biler som passet alle kriteriene. <a href="/">Bla gjennom alle biler</a> eller <a href="javascript:location.reload()">start på nytt</a>.</p>' +
+                '</div>';
             return;
         }
 
-        content.innerHTML = `
-            <div class="quiz-results">
-                <h2>Dine topp ${top3.length} anbefalinger</h2>
-                <p class="quiz-results-intro">Basert på svarene dine har vi valgt ut disse bilene som passer best:</p>
-                <div class="quiz-results-list">
-                    ${top3.map((r, i) => {
-                        const car = r.car;
-                        const bc = BRAND_COLORS[car.make] || { primary: '#888' };
-                        const initials = (car.make.charAt(0) + car.model.charAt(0)).toUpperCase();
-                        return `
-                        <a href="bil.html?id=${carSlug(car)}" class="quiz-result-card" onclick="trackEvent('quiz_result_click', { rank: ${i+1}, car_id: ${car.id} })">
-                            <div class="quiz-result-rank">${i + 1}</div>
-                            <div class="quiz-result-thumb" style="background:linear-gradient(135deg, ${bc.primary}22, ${bc.primary}08)">
-                                <span>${initials}</span>
-                            </div>
-                            <div class="quiz-result-info">
-                                <div class="quiz-result-title">${car.make} ${car.model}</div>
-                                <div class="quiz-result-sub">${car.year} · ${car.segment}</div>
-                                <div class="quiz-result-specs">
-                                    <span>${formatPrice(car.price)}</span>
-                                    <span>·</span>
-                                    <span>${car.range} km</span>
-                                    <span>·</span>
-                                    <span>${getChargeSpeed(car)} kW</span>
-                                </div>
-                            </div>
-                            <div class="quiz-result-arrow">→</div>
-                        </a>`;
-                    }).join('')}
-                </div>
-                <div class="quiz-actions">
-                    <button class="quiz-restart-btn" onclick="location.reload()">Start på nytt</button>
-                    <a class="quiz-browse-btn" href="/">Se alle biler</a>
-                </div>
-                <div class="quiz-note">Anbefalingene er veiledende og basert på spesifikasjonene i vår database. Vi vurderer pris, rekkevidde, antall seter, tilhengerkapasitet, ladehastighet og prioriteringen din.</div>
-            </div>
-        `;
+        const cardsHtml = top3.map((r, i) => {
+            const car = r.car;
+            const bc = (typeof BRAND_COLORS !== 'undefined' && BRAND_COLORS[car.make]) ? BRAND_COLORS[car.make] : { primary: '#888' };
+            const initials = (car.make.charAt(0) + car.model.charAt(0)).toUpperCase();
+            const slug = (typeof carSlug === 'function') ? carSlug(car) : car.id;
+            const priceStr = (typeof formatPrice === 'function') ? formatPrice(car.price) : (car.price + ' kr');
+            const kw = (typeof getChargeSpeed === 'function') ? getChargeSpeed(car) : '–';
+            return '<a href="bil.html?id=' + slug + '" class="quiz-result-card" onclick="if(typeof trackEvent===\'function\')trackEvent(\'quiz_result_click\', { rank: ' + (i+1) + ', car_id: ' + car.id + ' })">' +
+                '<div class="quiz-result-rank">' + (i + 1) + '</div>' +
+                '<div class="quiz-result-thumb" style="background:linear-gradient(135deg, ' + bc.primary + '22, ' + bc.primary + '08)">' +
+                    '<span>' + initials + '</span>' +
+                '</div>' +
+                '<div class="quiz-result-info">' +
+                    '<div class="quiz-result-title">' + car.make + ' ' + car.model + '</div>' +
+                    '<div class="quiz-result-sub">' + car.year + ' · ' + car.segment + '</div>' +
+                    '<div class="quiz-result-specs">' +
+                        '<span>' + priceStr + '</span>' +
+                        '<span>·</span>' +
+                        '<span>' + car.range + ' km</span>' +
+                        '<span>·</span>' +
+                        '<span>' + kw + ' kW</span>' +
+                    '</div>' +
+                '</div>' +
+                '<div class="quiz-result-arrow">→</div>' +
+            '</a>';
+        }).join('');
+
+        content.innerHTML =
+            '<div class="quiz-results">' +
+                '<h2>Dine topp ' + top3.length + ' anbefalinger</h2>' +
+                '<p class="quiz-results-intro">Basert på svarene dine har vi valgt ut disse bilene som passer best:</p>' +
+                '<div class="quiz-results-list">' + cardsHtml + '</div>' +
+                '<div class="quiz-actions">' +
+                    '<button class="quiz-restart-btn" onclick="location.reload()">Start på nytt</button>' +
+                    '<a class="quiz-browse-btn" href="/">Se alle biler</a>' +
+                '</div>' +
+                '<div class="quiz-note">Anbefalingene er veiledende og basert på spesifikasjonene i vår database. Vi vurderer pris, rekkevidde, antall seter, tilhengerkapasitet, ladehastighet og prioriteringen din.</div>' +
+            '</div>';
     }
 
+    // Expose onclick handlers globally
+    window.quizAnswer = answer;
+    window.quizBack = goBack;
+
     // Start
-    renderStep();
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', renderStep);
+    } else {
+        renderStep();
+    }
+    })();
     </script>
 
     <script type="module">
