@@ -742,6 +742,88 @@ const CARS = [
     }
 ];
 
+// ========== EV-spec estimates ==========
+// Estimated DC max charging (kW) based on make/model patterns.
+// These are approximations — use car.chargeSpeed field for precise override.
+function getChargeSpeed(car) {
+    if (typeof car.chargeSpeed === "number") return car.chargeSpeed;
+    const m = car.make, model = (car.model || "").toLowerCase();
+    if (m === "Lucid") return 300;
+    if (m === "Porsche" && model.includes("taycan")) return 270;
+    if (m === "Audi" && model.includes("e-tron gt")) return 270;
+    if (m === "Audi" && (model.includes("q6") || model.includes("a6 e-tron"))) return 270;
+    if ((m === "Hyundai" || m === "Kia" || m === "Genesis") &&
+        /(ioniq [56]|ev6|ev9|gv60|niro ev)/.test(model)) return 235;
+    if (m === "Tesla") {
+        if (model.includes("model s") || model.includes("model x")) return 250;
+        return 250;
+    }
+    if (m === "BMW" && model.includes("ix")) return 195;
+    if (m === "Mercedes" && /(eqs|eqe|eqxx)/.test(model)) return 200;
+    if (m === "Volvo" && (model.includes("ex90") || model.includes("ex30"))) return 175;
+    if (m === "Polestar") return 205;
+    if (m === "Volkswagen" && model.startsWith("id")) return 175;
+    if (m === "Skoda" && model.includes("enyaq")) return 175;
+    if (m === "Cupra" && model.includes("tavascan")) return 175;
+    if (m === "Nio") return 180;
+    if (m === "Xpeng") return 180;
+    if (m === "BYD") return 150;
+    if (m === "MG") return 140;
+    if (m === "Renault") return 135;
+    if (m === "Peugeot" || m === "Opel" || m === "Fiat") return 100;
+    if (m === "Nissan") return 100;
+    if (m === "Smart") return 130;
+    if (m === "Toyota") return 150;
+    return 130;
+}
+
+// Estimated 10-80% DC fast charge time in minutes (estimated curve)
+function getChargeTime10to80(car) {
+    if (typeof car.chargeTime10to80 === "number") return car.chargeTime10to80;
+    const speed = getChargeSpeed(car);
+    const usableKwh = car.kwh * 0.95;
+    const kwhNeeded = usableKwh * 0.7;
+    // Assume avg sustained ~55% of peak, add 3 min buffer for tapering
+    const avgKw = speed * 0.55;
+    return Math.round((kwhNeeded / avgKw) * 60 + 3);
+}
+
+// Winter range = range * 0.65 (rough Norwegian winter estimate)
+function getWinterRange(car) {
+    if (typeof car.winterRange === "number") return car.winterRange;
+    return Math.round(car.range * 0.65);
+}
+
+// Heat pump presence (modern EVs 2022+ typically have it, budget brands may not)
+function hasHeatPump(car) {
+    if (typeof car.heatPump === "boolean") return car.heatPump;
+    const noHeatPumpBrands = ["Dacia"];
+    if (noHeatPumpBrands.includes(car.make)) return false;
+    if (car.year >= 2022) return true;
+    return false;
+}
+
+// Braked trailer capacity (kg) — rough per type/segment
+function getTrailerBraked(car) {
+    if (typeof car.trailerBraked === "number") return car.trailerBraked;
+    const m = car.make, model = (car.model || "").toLowerCase();
+    // Known high-capacity tow-rated EVs
+    if (/(ix|ex90|q8 e-tron|ev9|id\.?buzz|ariya|model x|model y|eqs suv|eqe suv)/.test(model)) return 2000;
+    if (car.type === "suv" && car.hp >= 300) return 1800;
+    if (car.type === "suv") return 1500;
+    if (car.type === "wagon") return 1500;
+    if (car.type === "van") return 1500;
+    if (car.type === "sedan" && car.hp >= 300) return 1500;
+    if (car.type === "sedan") return 1000;
+    if (car.type === "hatchback") return 750;
+    return 750;
+}
+
+function getTrailerUnbraked(car) {
+    if (typeof car.trailerUnbraked === "number") return car.trailerUnbraked;
+    return 750; // most EVs standard
+}
+
 // ========== Brand Colors ==========
 const BRAND_COLORS = {
     "BMW":        { primary: "#0066B1", gradient: "linear-gradient(135deg, #0066B1, #003366)" },
@@ -948,16 +1030,7 @@ function renderRecentlyViewed() {
     const listEl = container.querySelector(".recently-viewed-list");
     listEl.innerHTML = cars.map(car => {
         const bc = BRAND_COLORS[car.make] || { primary: "#888" };
-        const initials = (car.make.charAt(0) + car.model.charAt(0)).toUpperCase();
-        return `
-        <a href="bil.html?id=${carSlug(car)}" class="recently-viewed-item" onclick="trackEvent('recently_viewed_click', { car_id: ${car.id} })">
-            <div class="recently-viewed-thumb" style="background:linear-gradient(135deg, ${bc.primary}22, ${bc.primary}08)">
-                <span>${initials}</span>
-            </div>
-            <div class="recently-viewed-make">${car.make}</div>
-            <div class="recently-viewed-model">${car.model}</div>
-            <div class="recently-viewed-price">${formatPrice(car.price)}</div>
-        </a>`;
+        return `<a href="bil.html?id=${carSlug(car)}" class="recently-viewed-item" style="--brand-color:${bc.primary}" onclick="trackEvent('recently_viewed_click', { car_id: ${car.id} })">${car.make} ${car.model}</a>`;
     }).join("");
 }
 
@@ -1173,6 +1246,13 @@ function renderCarCard(car) {
                 <div class="spec-item">
                     <span class="spec-value">${car.range}</span>
                     <span class="spec-unit">km</span>
+                    <span class="spec-sub">vinter ~${getWinterRange(car)}</span>
+                </div>
+                <div class="spec-divider"></div>
+                <div class="spec-item">
+                    <span class="spec-value">${getChargeSpeed(car)}</span>
+                    <span class="spec-unit">kW DC</span>
+                    <span class="spec-sub">10-80% ~${getChargeTime10to80(car)} min</span>
                 </div>
                 <div class="spec-divider"></div>
                 <div class="spec-item">

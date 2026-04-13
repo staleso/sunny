@@ -20,7 +20,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=13">
+    <link rel="stylesheet" href="styles.css?v=14">
     <meta name="google-adsense-account" content="ca-pub-4678480487049419">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4678480487049419" crossorigin="anonymous"></script>
     <!-- Google Analytics -->
@@ -49,7 +49,7 @@
         </div>
     </div>
 
-    <script src="app.js?v=13"></script>
+    <script src="app.js?v=14"></script>
     <script>
     (function() {
         function addNoIndex() {
@@ -142,7 +142,11 @@
             + '<section class="detail-specs-hero">'
             + '  <div class="hero-stat">'
             + '    <span class="hero-value">' + car.range + '</span>'
-            + '    <span class="hero-label">km rekkevidde</span>'
+            + '    <span class="hero-label">km rekkevidde (WLTP)</span>'
+            + '  </div>'
+            + '  <div class="hero-stat">'
+            + '    <span class="hero-value">' + getChargeSpeed(car) + '</span>'
+            + '    <span class="hero-label">kW DC-lading</span>'
             + '  </div>'
             + '  <div class="hero-stat">'
             + '    <span class="hero-value">' + car.hp + '</span>'
@@ -155,6 +159,25 @@
             + '  <div class="hero-stat">'
             + '    <span class="hero-value">' + car.kwh + '</span>'
             + '    <span class="hero-label">kWh batteri</span>'
+            + '  </div>'
+            + '</section>'
+
+            + '<section class="detail-section">'
+            + '  <h2>Lading</h2>'
+            + '  <div class="detail-grid">'
+            + '    <div class="detail-row"><span class="detail-label">Maks DC-lading</span><span class="detail-val">~' + getChargeSpeed(car) + ' kW</span></div>'
+            + '    <div class="detail-row"><span class="detail-label">Lading 10–80%</span><span class="detail-val">~' + getChargeTime10to80(car) + ' min</span></div>'
+            + '    <div class="detail-row"><span class="detail-label">Varmepumpe</span><span class="detail-val">' + (hasHeatPump(car) ? '<span class="badge-yes">Ja</span>' : '<span class="badge-no">Nei</span>') + '</span></div>'
+            + '    <div class="detail-row"><span class="detail-label">Vinterrekkevidde (est.)</span><span class="detail-val">~' + getWinterRange(car) + ' km</span></div>'
+            + '  </div>'
+            + '  <p class="detail-note">Vinterestimat: sommerrekkevidde × 0,65. Faktisk forbruk avhenger av temperatur, kjørestil og dekk.</p>'
+            + '</section>'
+
+            + '<section class="detail-section">'
+            + '  <h2>Tilhenger</h2>'
+            + '  <div class="detail-grid">'
+            + '    <div class="detail-row"><span class="detail-label">Tilhenger m/brems</span><span class="detail-val">~' + getTrailerBraked(car) + ' kg</span></div>'
+            + '    <div class="detail-row"><span class="detail-label">Tilhenger u/brems</span><span class="detail-val">~' + getTrailerUnbraked(car) + ' kg</span></div>'
             + '  </div>'
             + '</section>'
 
