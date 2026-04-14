@@ -1332,10 +1332,12 @@ function updateSliderUI() {
     const pf = getPriceFilter();
     const priceVal = document.getElementById("price-value");
     const priceFill = document.getElementById("price-fill");
+    const priceWrap = priceVal && priceVal.closest(".slider-filter");
     if (priceVal) {
-        if (!pf.active) priceVal.textContent = "Alle priser";
-        else priceVal.textContent = formatPriceShort(pf.min) + " – " + formatPriceShort(pf.max) + " kr";
+        if (!pf.active) priceVal.textContent = "Alle";
+        else priceVal.textContent = formatPriceShort(pf.min) + " – " + formatPriceShort(pf.max);
     }
+    if (priceWrap) priceWrap.classList.toggle("is-active", pf.active);
     if (priceFill) {
         const l = ((pf.min - PRICE_MIN) / (PRICE_MAX - PRICE_MIN)) * 100;
         const r = ((pf.max - PRICE_MIN) / (PRICE_MAX - PRICE_MIN)) * 100;
@@ -1346,7 +1348,9 @@ function updateSliderUI() {
     const rf = getRangeFilter();
     const rangeVal = document.getElementById("range-value");
     const rangeFill = document.getElementById("range-fill");
+    const rangeWrap = rangeVal && rangeVal.closest(".slider-filter");
     if (rangeVal) rangeVal.textContent = rf.active ? ("Min. " + rf.min + " km") : "Alle";
+    if (rangeWrap) rangeWrap.classList.toggle("is-active", rf.active);
     if (rangeFill) {
         const w = ((rf.min - RANGE_MIN) / (RANGE_MAX - RANGE_MIN)) * 100;
         rangeFill.style.width = w + "%";
