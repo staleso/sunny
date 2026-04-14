@@ -20,7 +20,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=14">
+    <link rel="stylesheet" href="styles.css?v=17">
     <meta name="google-adsense-account" content="ca-pub-4678480487049419">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4678480487049419" crossorigin="anonymous"></script>
     <!-- Google Analytics -->
@@ -49,7 +49,7 @@
         </div>
     </div>
 
-    <script src="app.js?v=14"></script>
+    <script src="app.js?v=17"></script>
     <script>
     (function() {
         function addNoIndex() {
@@ -213,10 +213,20 @@
             + '  <div class="detail-rating">' + starsHtml + '</div>'
             + '</section>'
 
+            + '<section class="detail-section" id="comments-section" data-car-id="' + car.id + '">'
+            + '  <h2>Kommentarer <span class="comments-count" id="comments-count"></span></h2>'
+            + '  <div id="comments-list" class="comments-list"><p class="comments-loading">Laster kommentarer…</p></div>'
+            + '  <form id="comment-form" class="comment-form" autocomplete="off">'
+            + '    <input type="text" id="comment-name" class="comment-name" placeholder="Navn (la stå tomt for anonym)" maxlength="40">'
+            + '    <textarea id="comment-text" class="comment-text" placeholder="Skriv en kommentar…" maxlength="1000" rows="3" required></textarea>'
+            + '    <div class="comment-form-foot">'
+            + '      <span class="comment-count-hint" id="comment-count-hint">0 / 1000</span>'
+            + '      <button type="submit" class="comment-submit">Send</button>'
+            + '    </div>'
+            + '  </form>'
+            + '</section>'
+
             + '<div class="detail-actions">'
-            + '  <button class="detail-btn" onclick="toggleFavorite(' + car.id + '); location.reload();">'
-            + (isFavorite(car.id) ? '&#10084; Fjern favoritt' : '&#9825; Legg til favoritt')
-            + '  </button>'
             + '  <button class="detail-btn detail-btn-primary" onclick="toggleCompare(' + car.id + '); location.reload();">'
             + (isInCompare(car.id) ? '&#10003; Fjern fra sammenligning' : '+ Legg til sammenligning')
             + '  </button>'
@@ -236,7 +246,8 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getFirestore, doc, getDoc, setDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, setDoc, updateDoc, deleteDoc, addDoc, collection, getDocs, query, where, orderBy } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
         const firebaseConfig = {
             apiKey: "AIzaSyAxAbS7ohSJqcKHsRmsygGPfX36D2Upkqk",
             authDomain: "elbilvalg.firebaseapp.com",
@@ -248,6 +259,8 @@
         };
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+        const auth = getAuth(app);
+
         async function hashIP(ip) {
             const data = new TextEncoder().encode(ip);
             const buf = await crypto.subtle.digest("SHA-256", data);
@@ -271,6 +284,194 @@
             await setDoc(ref, data);
             window._fbRatings[key] = data;
         };
+
+        // ===== Admin state =====
+        let isAdmin = false;
+        onAuthStateChanged(auth, (user) => {
+            isAdmin = !!user;
+            document.body.classList.toggle("is-admin", isAdmin);
+            renderAdminBar();
+            if (document.getElementById("comments-list")) loadComments();
+        });
+
+        function renderAdminBar() {
+            let bar = document.getElementById("admin-bar");
+            if (!isAdmin) { if (bar) bar.remove(); return; }
+            if (!bar) {
+                bar = document.createElement("div");
+                bar.id = "admin-bar";
+                bar.className = "admin-bar";
+                document.body.appendChild(bar);
+            }
+            bar.innerHTML = '<span class="admin-badge">Admin</span>' +
+                '<span class="admin-email">' + (auth.currentUser && auth.currentUser.email || '') + '</span>' +
+                '<button class="admin-logout" id="admin-logout">Logg ut</button>';
+            document.getElementById("admin-logout").onclick = () => signOut(auth);
+        }
+
+        function showAdminLogin() {
+            if (document.getElementById("admin-modal")) return;
+            const m = document.createElement("div");
+            m.id = "admin-modal";
+            m.className = "admin-modal";
+            m.innerHTML =
+                '<div class="admin-modal-content">' +
+                    '<h3>Admin-innlogging</h3>' +
+                    '<input type="email" id="admin-email" placeholder="E-post" autocomplete="username">' +
+                    '<input type="password" id="admin-password" placeholder="Passord" autocomplete="current-password">' +
+                    '<div class="admin-modal-err" id="admin-err"></div>' +
+                    '<div class="admin-modal-actions">' +
+                        '<button class="admin-modal-cancel" id="admin-cancel">Avbryt</button>' +
+                        '<button class="admin-modal-submit" id="admin-submit">Logg inn</button>' +
+                    '</div>' +
+                '</div>';
+            document.body.appendChild(m);
+            document.getElementById("admin-cancel").onclick = () => { m.remove(); history.replaceState(null, "", location.pathname + location.search); };
+            document.getElementById("admin-submit").onclick = async () => {
+                const email = document.getElementById("admin-email").value.trim();
+                const pw = document.getElementById("admin-password").value;
+                const err = document.getElementById("admin-err");
+                err.textContent = "";
+                try {
+                    await signInWithEmailAndPassword(auth, email, pw);
+                    m.remove();
+                    history.replaceState(null, "", location.pathname + location.search);
+                } catch (e) {
+                    err.textContent = "Feil e-post eller passord.";
+                }
+            };
+        }
+
+        if (location.hash === "#admin") showAdminLogin();
+        window.addEventListener("hashchange", () => { if (location.hash === "#admin") showAdminLogin(); });
+
+        // ===== Comments =====
+        function getCarId() {
+            const sec = document.getElementById("comments-section");
+            return sec ? parseInt(sec.dataset.carId, 10) : null;
+        }
+        function fmtDate(ms) {
+            const d = new Date(ms);
+            const now = Date.now();
+            const diff = (now - ms) / 1000;
+            if (diff < 60) return "nå";
+            if (diff < 3600) return Math.floor(diff / 60) + " min siden";
+            if (diff < 86400) return Math.floor(diff / 3600) + " t siden";
+            if (diff < 7 * 86400) return Math.floor(diff / 86400) + " d siden";
+            return d.toLocaleDateString("nb-NO", { day: "numeric", month: "short", year: "numeric" });
+        }
+        function escapeHtml(s) {
+            return String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+        }
+
+        async function loadComments() {
+            const carId = getCarId();
+            const listEl = document.getElementById("comments-list");
+            const countEl = document.getElementById("comments-count");
+            if (carId === null || !listEl) return;
+            try {
+                const q = query(collection(db, "comments"), where("carId", "==", carId));
+                const snap = await getDocs(q);
+                const items = [];
+                snap.forEach(d => items.push({ id: d.id, ...d.data() }));
+                items.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+                if (countEl) countEl.textContent = items.length ? "(" + items.length + ")" : "";
+                if (items.length === 0) {
+                    listEl.innerHTML = '<p class="comments-empty">Ingen kommentarer enda. Bli den første!</p>';
+                    return;
+                }
+                listEl.innerHTML = items.map(c => {
+                    const name = c.name && c.name.trim() ? escapeHtml(c.name.trim()) : '<em>Anonym</em>';
+                    const text = escapeHtml(c.text || "").replace(/\n/g, "<br>");
+                    const edited = c.edited ? ' <span class="comment-edited">(redigert)</span>' : '';
+                    const adminBtns = isAdmin
+                        ? '<div class="comment-admin">' +
+                            '<button class="comment-edit" data-id="' + c.id + '">Rediger</button>' +
+                            '<button class="comment-delete" data-id="' + c.id + '">Slett</button>' +
+                          '</div>'
+                        : '';
+                    return '<article class="comment" data-id="' + c.id + '">' +
+                        '<header class="comment-head">' +
+                            '<span class="comment-name">' + name + '</span>' +
+                            '<span class="comment-date">' + fmtDate(c.createdAt || 0) + edited + '</span>' +
+                        '</header>' +
+                        '<div class="comment-body">' + text + '</div>' +
+                        adminBtns +
+                    '</article>';
+                }).join("");
+                if (isAdmin) bindAdminButtons();
+            } catch (e) {
+                listEl.innerHTML = '<p class="comments-error">Kunne ikke laste kommentarer.</p>';
+                console.error(e);
+            }
+        }
+
+        function bindAdminButtons() {
+            document.querySelectorAll(".comment-delete").forEach(btn => {
+                btn.onclick = async () => {
+                    if (!confirm("Slette denne kommentaren?")) return;
+                    try {
+                        await deleteDoc(doc(db, "comments", btn.dataset.id));
+                        loadComments();
+                    } catch (e) { alert("Kunne ikke slette: " + e.message); }
+                };
+            });
+            document.querySelectorAll(".comment-edit").forEach(btn => {
+                btn.onclick = async () => {
+                    const art = btn.closest(".comment");
+                    const body = art.querySelector(".comment-body");
+                    const current = body.innerText.replace(/\n$/, "");
+                    const next = prompt("Rediger kommentar:", current);
+                    if (next === null || next === current) return;
+                    try {
+                        await updateDoc(doc(db, "comments", btn.dataset.id), { text: next, edited: true });
+                        loadComments();
+                    } catch (e) { alert("Kunne ikke redigere: " + e.message); }
+                };
+            });
+        }
+
+        function bindCommentForm() {
+            const form = document.getElementById("comment-form");
+            if (!form) return;
+            const textEl = document.getElementById("comment-text");
+            const hintEl = document.getElementById("comment-count-hint");
+            if (textEl && hintEl) {
+                const updateHint = () => { hintEl.textContent = textEl.value.length + " / 1000"; };
+                textEl.addEventListener("input", updateHint);
+                updateHint();
+            }
+            form.onsubmit = async (e) => {
+                e.preventDefault();
+                const carId = getCarId();
+                if (carId === null) return;
+                const name = document.getElementById("comment-name").value.trim().slice(0, 40);
+                const text = document.getElementById("comment-text").value.trim().slice(0, 1000);
+                if (!text) return;
+                const btn = form.querySelector(".comment-submit");
+                btn.disabled = true; btn.textContent = "Sender…";
+                try {
+                    await addDoc(collection(db, "comments"), {
+                        carId: carId,
+                        name: name,
+                        text: text,
+                        createdAt: Date.now(),
+                        edited: false,
+                        ipHash: window._fbIPHash || ""
+                    });
+                    document.getElementById("comment-text").value = "";
+                    document.getElementById("comment-name").value = "";
+                    if (hintEl) hintEl.textContent = "0 / 1000";
+                    if (typeof window.trackEvent === "function") window.trackEvent("comment_add", { car_id: carId });
+                    await loadComments();
+                } catch (e) {
+                    alert("Kunne ikke sende kommentar: " + e.message);
+                } finally {
+                    btn.disabled = false; btn.textContent = "Send";
+                }
+            };
+        }
+
         (async () => {
             const ip = await getIP();
             window._fbIPHash = await hashIP(ip);
@@ -291,6 +492,9 @@
                     }
                 }
             }
+            // Comments
+            bindCommentForm();
+            loadComments();
         })();
     </script>
 </body>

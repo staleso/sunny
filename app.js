@@ -954,14 +954,12 @@ function getBrandLogo(make, compact) {
 // ========== App State ==========
 const state = {
     compareList: JSON.parse(localStorage.getItem("compareList") || "[]"),
-    favorites: JSON.parse(localStorage.getItem("favorites") || "[]"),
     ratings: JSON.parse(localStorage.getItem("ratings") || "{}"),
     activeTab: "browse"
 };
 
 function saveState() {
     localStorage.setItem("compareList", JSON.stringify(state.compareList));
-    localStorage.setItem("favorites", JSON.stringify(state.favorites));
     localStorage.setItem("ratings", JSON.stringify(state.ratings));
 }
 
@@ -1124,10 +1122,6 @@ function isInCompare(id) {
     return state.compareList.includes(id);
 }
 
-function isFavorite(id) {
-    return state.favorites.includes(id);
-}
-
 function toggleCompare(id, e) {
     if (e) e.stopPropagation();
     const car = getCarById(id);
@@ -1147,26 +1141,6 @@ function toggleCompare(id, e) {
         car_make: car ? car.make : "",
         car_model: car ? car.model : "",
         compare_count: state.compareList.length
-    });
-    saveState();
-    updateUI();
-}
-
-function toggleFavorite(id, e) {
-    if (e) e.stopPropagation();
-    const car = getCarById(id);
-    const idx = state.favorites.indexOf(id);
-    const adding = idx === -1;
-    if (!adding) {
-        state.favorites.splice(idx, 1);
-    } else {
-        state.favorites.push(id);
-    }
-    trackEvent(adding ? "favorite_add" : "favorite_remove", {
-        car_id: id,
-        car_make: car ? car.make : "",
-        car_model: car ? car.model : "",
-        favorite_count: state.favorites.length
     });
     saveState();
     updateUI();
@@ -1284,11 +1258,6 @@ function renderCarCard(car) {
                 </div>
                 <div class="car-card-actions">
                     ${renderStars(car.id, 12)}
-                    <button class="btn-icon ${isFavorite(car.id) ? 'active-fav' : ''}"
-                            onclick="toggleFavorite(${car.id}, event)"
-                            aria-label="Favoritt">
-                        ${isFavorite(car.id) ? ICONS.heartFilled : ICONS.heart}
-                    </button>
                     <button class="btn-icon ${isInCompare(car.id) ? 'active-compare' : ''}"
                             onclick="toggleCompare(${car.id}, event)"
                             aria-label="Sammenlign">
@@ -1545,25 +1514,6 @@ function moveCompare(fromIdx, toIdx) {
     renderCompare();
 }
 
-// ========== Favorites Tab ==========
-function renderFavorites() {
-    const empty = document.getElementById("favorites-empty");
-    const list = document.getElementById("favorites-list");
-
-    if (state.favorites.length === 0) {
-        empty.style.display = "block";
-        list.innerHTML = "";
-        return;
-    }
-
-    empty.style.display = "none";
-    list.innerHTML = "";
-    state.favorites.forEach(id => {
-        const car = getCarById(id);
-        if (car) list.appendChild(renderCarCard(car));
-    });
-}
-
 // ========== Modal ==========
 function openModal(id) {
     const car = getCarById(id);
@@ -1667,10 +1617,6 @@ function openModal(id) {
             <button class="modal-btn btn-compare ${isInCompare(car.id) ? 'added' : ''}"
                     onclick="toggleCompare(${car.id}); openModal(${car.id});">
                 ${isInCompare(car.id) ? ICONS.check + ' Sammenlignes' : ICONS.plus + ' Sammenlign'}
-            </button>
-            <button class="modal-btn btn-fav ${isFavorite(car.id) ? 'favorited' : ''}"
-                    onclick="toggleFavorite(${car.id}); openModal(${car.id});">
-                ${isFavorite(car.id) ? ICONS.heartFilled + ' Favoritt' : ICONS.heart + ' Favoritt'}
             </button>
         </div>
 
@@ -1791,7 +1737,6 @@ function clearCompare() {
 function updateUI() {
     renderBrowse();
     renderCompare();
-    renderFavorites();
     renderCompareBar();
     renderRecentlyViewed();
 }

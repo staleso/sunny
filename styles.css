@@ -2424,3 +2424,303 @@ body.tab-favorites .recently-viewed-strip {
         padding: 8px 12px 4px;
     }
 }
+
+/* ===== Comments ===== */
+.comments-count {
+    color: var(--text3);
+    font-weight: 400;
+    font-size: 14px;
+    margin-left: 6px;
+}
+
+.comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.comments-loading,
+.comments-empty,
+.comments-error {
+    color: var(--text3);
+    font-size: 14px;
+    font-style: italic;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.comments-error { color: #ef4444; }
+
+.comment {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+}
+
+.comment-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+}
+
+.comment-name {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text1);
+}
+
+.comment-name em {
+    font-style: normal;
+    color: var(--text3);
+    font-weight: 500;
+}
+
+.comment-date {
+    font-size: 12px;
+    color: var(--text3);
+    white-space: nowrap;
+}
+
+.comment-edited {
+    font-style: italic;
+    opacity: 0.7;
+}
+
+.comment-body {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--text1);
+    word-wrap: break-word;
+}
+
+.comment-admin {
+    margin-top: 10px;
+    display: flex;
+    gap: 8px;
+}
+
+.comment-edit,
+.comment-delete {
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    border: 1px solid var(--border);
+    background: var(--bg1);
+    color: var(--text2);
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s ease;
+}
+
+.comment-edit:hover {
+    border-color: var(--accent, #2563eb);
+    color: var(--accent, #2563eb);
+}
+
+.comment-delete:hover {
+    border-color: #ef4444;
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.08);
+}
+
+/* Comment form */
+.comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 14px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+.comment-name,
+.comment-text {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg1);
+    color: var(--text1);
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.5;
+    resize: vertical;
+    box-sizing: border-box;
+    transition: border-color 0.15s ease;
+}
+
+.comment-name:focus,
+.comment-text:focus {
+    outline: none;
+    border-color: var(--accent, #2563eb);
+}
+
+.comment-text {
+    min-height: 70px;
+}
+
+.comment-form-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.comment-count-hint {
+    font-size: 12px;
+    color: var(--text3);
+    font-variant-numeric: tabular-nums;
+}
+
+.comment-submit {
+    padding: 8px 18px;
+    background: var(--accent, #2563eb);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: inherit;
+    transition: opacity 0.15s ease;
+}
+
+.comment-submit:hover:not(:disabled) { opacity: 0.9; }
+.comment-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* Admin bar + modal */
+.admin-bar {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    background: var(--bg1);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    font-size: 12px;
+}
+
+.admin-badge {
+    background: var(--accent, #2563eb);
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.admin-email {
+    color: var(--text2);
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.admin-logout {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text2);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.admin-logout:hover { color: #ef4444; border-color: #ef4444; }
+
+.admin-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.admin-modal-content {
+    background: var(--bg1);
+    border-radius: 14px;
+    padding: 24px;
+    width: 100%;
+    max-width: 360px;
+    border: 1px solid var(--border);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+}
+
+.admin-modal-content h3 {
+    margin: 0 0 16px;
+    font-size: 18px;
+    color: var(--text1);
+}
+
+.admin-modal-content input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg2);
+    color: var(--text1);
+    font-family: inherit;
+    font-size: 14px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.admin-modal-content input:focus {
+    outline: none;
+    border-color: var(--accent, #2563eb);
+}
+
+.admin-modal-err {
+    color: #ef4444;
+    font-size: 13px;
+    min-height: 18px;
+    margin-bottom: 10px;
+}
+
+.admin-modal-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+}
+
+.admin-modal-cancel,
+.admin-modal-submit {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: inherit;
+    border: 1px solid var(--border);
+    background: var(--bg2);
+    color: var(--text1);
+    transition: all 0.15s ease;
+}
+
+.admin-modal-submit {
+    background: var(--accent, #2563eb);
+    color: #fff;
+    border-color: var(--accent, #2563eb);
+}
+
+.admin-modal-submit:hover { opacity: 0.9; }
+.admin-modal-cancel:hover { border-color: var(--text3); }
