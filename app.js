@@ -1373,7 +1373,22 @@ function renderBrowse() {
         list.innerHTML = '<div class="no-results">Ingen biler funnet</div>';
         return;
     }
-    cars.forEach(car => list.appendChild(renderCarCard(car)));
+    cars.forEach((car, i) => {
+        list.appendChild(renderCarCard(car));
+        // Insert an inline ad after every 5th card (not after the very last card)
+        if ((i + 1) % 5 === 0 && i < cars.length - 1) {
+            const adWrap = document.createElement("div");
+            adWrap.className = "ad-inline";
+            adWrap.innerHTML =
+                '<ins class="adsbygoogle" style="display:block" ' +
+                'data-ad-client="ca-pub-4678480487049419" ' +
+                'data-ad-slot="auto" data-ad-format="fluid" ' +
+                'data-ad-layout-key="-6t+ed+2i-1n-4w" ' +
+                'data-full-width-responsive="true"></ins>';
+            list.appendChild(adWrap);
+            try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) { /* ignore */ }
+        }
+    });
 }
 
 // ========== Compare Tab ==========
