@@ -418,55 +418,54 @@ body.tab-favorites .sticky-filters {
 
 /* Spec items row */
 .car-card-specs {
-    display: flex;
-    align-items: baseline;
-    gap: 0;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(82px, 1fr));
+    gap: 8px 14px;
+    align-items: start;
 }
 
 .spec-item {
     display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 3px;
-    padding: 0 10px;
-    min-width: 54px;
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+    min-width: 0;
 }
 
-.spec-sub {
-    flex-basis: 100%;
+.spec-item > .spec-value,
+.spec-item > .spec-unit {
+    display: inline;
 }
 
-.spec-item:first-child {
-    padding-left: 0;
-}
-
-.spec-value {
+.spec-item .spec-value {
     font-size: 18px;
     font-weight: 300;
     color: var(--text);
     letter-spacing: -0.03em;
     font-variant-numeric: tabular-nums;
+    margin-right: 3px;
 }
 
-.spec-unit {
+.spec-item .spec-unit {
     font-size: 11px;
     color: var(--text2);
     font-weight: 400;
 }
 
 .spec-sub {
+    display: block;
     font-size: 10px;
     color: var(--text3);
     font-weight: 400;
     margin-top: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
 }
 
 .spec-divider {
-    width: 1px;
-    height: 18px;
-    background: var(--border);
-    align-self: center;
+    display: none;
 }
 
 /* Bottom row */
