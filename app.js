@@ -1208,9 +1208,8 @@ function scheduleCarImageLoad() { /* no-op */ }
 
 function renderCarImagePlaceholder(car) {
     const bc = (typeof BRAND_COLORS !== "undefined" && BRAND_COLORS[car.make]) || { primary: "#888" };
-    const initials = (car.make.charAt(0) + car.model.charAt(0)).toUpperCase();
-    return `<div class="car-img-placeholder" style="background:linear-gradient(135deg, ${bc.primary}22, ${bc.primary}08)">
-        <span class="car-img-placeholder-text">${initials}</span>
+    return `<div class="car-img-placeholder" style="background:linear-gradient(135deg, ${bc.primary}1f, ${bc.primary}05)">
+        <span class="car-img-placeholder-text" style="color:${bc.primary}">${car.make}</span>
     </div>`;
 }
 
