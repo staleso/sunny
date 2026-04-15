@@ -1374,21 +1374,23 @@ body.tab-favorites .sticky-filters {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 16px;
-    margin-bottom: 24px;
+    padding: 10px;
+    margin-bottom: 20px;
     text-align: center;
     position: relative;
     overflow: hidden;
 }
 
 .detail-image .car-img-placeholder {
-    height: 240px;
+    height: 100px;
     border-radius: 8px;
 }
 
 .detail-image .car-img-placeholder-text {
-    font-size: 64px;
+    font-size: 26px;
     font-weight: 300;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
 }
 
 .detail-loading {
@@ -1524,6 +1526,67 @@ body.tab-favorites .sticky-filters {
     color: var(--text);
     font-weight: 500;
     font-variant-numeric: tabular-nums;
+}
+
+/* Consolidated detail table */
+.detail-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 28px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.detail-table td {
+    padding: 11px 16px;
+    font-size: 14px;
+    border-bottom: 1px solid var(--border);
+}
+
+.detail-table tr:last-child td {
+    border-bottom: none;
+}
+
+.detail-table .detail-table-label {
+    color: var(--text2);
+    font-weight: 300;
+    width: 55%;
+}
+
+.detail-table .detail-table-val {
+    color: var(--text);
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+}
+
+.detail-table .detail-table-section th {
+    text-align: left;
+    padding: 14px 16px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text2);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    background: var(--surface2, rgba(0,0,0,0.02));
+    border-bottom: 1px solid var(--border);
+}
+
+.detail-table .detail-table-section:not(:first-child) th {
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+}
+
+.detail-table .detail-note-row td {
+    padding: 10px 16px 12px;
+    font-size: 12px;
+    color: var(--text2);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.45;
+    border-bottom: none;
 }
 
 /* News */

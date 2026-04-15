@@ -20,7 +20,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=25">
+    <link rel="stylesheet" href="styles.css?v=30">
     <meta name="google-adsense-account" content="ca-pub-4678480487049419">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4678480487049419" crossorigin="anonymous"></script>
     <!-- Google Analytics -->
@@ -49,7 +49,7 @@
         </div>
     </div>
 
-    <script src="app.js?v=25"></script>
+    <script src="app.js?v=30"></script>
     <script>
     (function() {
         function addNoIndex() {
@@ -117,10 +117,9 @@
         // Stars
         var starsHtml = typeof renderStars === 'function' ? renderStars(car.id, 24, true) : '';
 
-        // Placeholder image (brand-colored initials)
+        // Placeholder image (brand name in elegant typography)
         var bc = (typeof BRAND_COLORS !== 'undefined' && BRAND_COLORS[car.make]) || { primary: '#888' };
-        var initials = (car.make.charAt(0) + car.model.charAt(0)).toUpperCase();
-        var imgHtml = '<div class="detail-image"><div class="car-img-placeholder" style="background:linear-gradient(135deg, ' + bc.primary + '22, ' + bc.primary + '08)"><span class="car-img-placeholder-text">' + initials + '</span></div></div>';
+        var imgHtml = '<div class="detail-image"><div class="car-img-placeholder" style="background:linear-gradient(135deg, ' + bc.primary + '1f, ' + bc.primary + '05)"><span class="car-img-placeholder-text" style="color:' + bc.primary + '">' + car.make + '</span></div></div>';
 
         document.getElementById('detail-content').innerHTML = ''
             + imgHtml
@@ -166,46 +165,34 @@
                     + '</section>';
             })()
 
-            + '<section class="detail-section">'
-            + '  <h2>Lading</h2>'
-            + '  <div class="detail-grid">'
-            + '    <div class="detail-row"><span class="detail-label">Maks DC-lading</span><span class="detail-val">~' + getChargeSpeed(car) + ' kW</span></div>'
-            + '    <div class="detail-row"><span class="detail-label">Lading 10–80%</span><span class="detail-val">~' + getChargeTime10to80(car) + ' min</span></div>'
-            + '    <div class="detail-row"><span class="detail-label">Varmepumpe</span><span class="detail-val">' + (hasHeatPump(car) ? '<span class="badge-yes">Ja</span>' : '<span class="badge-no">Nei</span>') + '</span></div>'
-            + '    <div class="detail-row"><span class="detail-label">Vinterrekkevidde (est.)</span><span class="detail-val">~' + getWinterRange(car) + ' km</span></div>'
-            + '  </div>'
-            + '  <p class="detail-note">Vinterestimat: sommerrekkevidde × 0,65. Faktisk forbruk avhenger av temperatur, kjørestil og dekk.</p>'
-            + '</section>'
+            + '<table class="detail-table">'
+            + '  <tbody>'
+            + '    <tr class="detail-table-section"><th colspan="2">Lading</th></tr>'
+            + '    <tr><td class="detail-table-label">Maks DC-lading</td><td class="detail-table-val">~' + getChargeSpeed(car) + ' kW</td></tr>'
+            + '    <tr><td class="detail-table-label">Lading 10–80%</td><td class="detail-table-val">~' + getChargeTime10to80(car) + ' min</td></tr>'
+            + '    <tr><td class="detail-table-label">Varmepumpe</td><td class="detail-table-val">' + (hasHeatPump(car) ? '<span class="badge-yes">Ja</span>' : '<span class="badge-no">Nei</span>') + '</td></tr>'
+            + '    <tr><td class="detail-table-label">Vinterrekkevidde (est.)</td><td class="detail-table-val">~' + getWinterRange(car) + ' km</td></tr>'
+            + '    <tr class="detail-note-row"><td colspan="2">Vinterestimat: sommerrekkevidde × 0,65. Faktisk forbruk avhenger av temperatur, kjørestil og dekk.</td></tr>'
 
-            + '<section class="detail-section">'
-            + '  <h2>Tilhenger</h2>'
-            + '  <div class="detail-grid">'
-            + '    <div class="detail-row"><span class="detail-label">Tilhenger m/brems</span><span class="detail-val">~' + getTrailerBraked(car) + ' kg</span></div>'
-            + '    <div class="detail-row"><span class="detail-label">Tilhenger u/brems</span><span class="detail-val">~' + getTrailerUnbraked(car) + ' kg</span></div>'
-            + '  </div>'
-            + '</section>'
+            + '    <tr class="detail-table-section"><th colspan="2">Tilhenger</th></tr>'
+            + '    <tr><td class="detail-table-label">Tilhenger m/brems</td><td class="detail-table-val">~' + getTrailerBraked(car) + ' kg</td></tr>'
+            + '    <tr><td class="detail-table-label">Tilhenger u/brems</td><td class="detail-table-val">~' + getTrailerUnbraked(car) + ' kg</td></tr>'
 
-            + '<section class="detail-section">'
-            + '  <h2>Detaljer</h2>'
-            + '  <div class="detail-grid">'
-            + '    <div class="detail-row"><span class="detail-label">Drivlinje</span><span class="detail-val">' + car.drivetrain + '</span></div>'
-            + '    <div class="detail-row"><span class="detail-label">Seter</span><span class="detail-val">' + car.seats + '</span></div>'
-            + '    <div class="detail-row"><span class="detail-label">Bagasjerom</span><span class="detail-val">' + (car.trunk ? car.trunk + ' liter' : '—') + '</span></div>'
-            + '    <div class="detail-row"><span class="detail-label">Forbruk</span><span class="detail-val">' + efficiency + ' kWh/100km</span></div>'
-            + '    <div class="detail-row"><span class="detail-label">Batteri</span><span class="detail-val">' + car.battery + '</span></div>'
-            + '    <div class="detail-row"><span class="detail-label">Type</span><span class="detail-val">' + car.segment + '</span></div>'
-            + '  </div>'
-            + '</section>'
+            + '    <tr class="detail-table-section"><th colspan="2">Detaljer</th></tr>'
+            + '    <tr><td class="detail-table-label">Drivlinje</td><td class="detail-table-val">' + car.drivetrain + '</td></tr>'
+            + '    <tr><td class="detail-table-label">Seter</td><td class="detail-table-val">' + car.seats + '</td></tr>'
+            + '    <tr><td class="detail-table-label">Bagasjerom</td><td class="detail-table-val">' + (car.trunk ? car.trunk + ' liter' : '—') + '</td></tr>'
+            + '    <tr><td class="detail-table-label">Forbruk</td><td class="detail-table-val">' + efficiency + ' kWh/100km</td></tr>'
+            + '    <tr><td class="detail-table-label">Batteri</td><td class="detail-table-val">' + car.battery + '</td></tr>'
+            + '    <tr><td class="detail-table-label">Type</td><td class="detail-table-val">' + car.segment + '</td></tr>'
 
-            + '<section class="detail-section">'
-            + '  <h2>Dimensjoner</h2>'
-            + '  <div class="detail-grid">'
-            + '    <div class="detail-row"><span class="detail-label">Lengde</span><span class="detail-val">' + car.length + ' mm</span></div>'
-            + '    <div class="detail-row"><span class="detail-label">Bredde</span><span class="detail-val">' + car.width + ' mm</span></div>'
-            + '    <div class="detail-row"><span class="detail-label">Høyde</span><span class="detail-val">' + car.height + ' mm</span></div>'
-            + '    <div class="detail-row"><span class="detail-label">Vekt</span><span class="detail-val">' + car.weight + ' kg</span></div>'
-            + '  </div>'
-            + '</section>'
+            + '    <tr class="detail-table-section"><th colspan="2">Dimensjoner</th></tr>'
+            + '    <tr><td class="detail-table-label">Lengde</td><td class="detail-table-val">' + car.length + ' mm</td></tr>'
+            + '    <tr><td class="detail-table-label">Bredde</td><td class="detail-table-val">' + car.width + ' mm</td></tr>'
+            + '    <tr><td class="detail-table-label">Høyde</td><td class="detail-table-val">' + car.height + ' mm</td></tr>'
+            + '    <tr><td class="detail-table-label">Vekt</td><td class="detail-table-val">' + car.weight + ' kg</td></tr>'
+            + '  </tbody>'
+            + '</table>'
 
             + '<section class="detail-section">'
             + '  <h2>Nyheter og tester</h2>'
