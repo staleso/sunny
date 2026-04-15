@@ -824,6 +824,26 @@ function getTrailerUnbraked(car) {
     return 750; // most EVs standard
 }
 
+// ========== Car Descriptions ==========
+// Objective, factual descriptions keyed by "Make Model" or "Make BaseModel".
+// getCarDescription() falls back from exact model to base model.
+const CAR_DESCRIPTIONS = {
+    "Porsche Taycan": "Porsche Taycan er merkets første helelektriske bil og posisjoneres i segmentet for luksus-sportssedaner. Den er bygget på en 800-volts arkitektur som gir kort DC-ladetid og muliggjør gjentatte fullgass-akselerasjoner uten merkbar ytelsestap. Rekkevidden er moderat sammenlignet med konkurrenter som Mercedes EQS og Lucid Air, mens kjøredynamikk, chassisbalanse og konsistens ved sporty kjøring regnes som modellens sterkeste sider. Bagasjeromsplass og plass i baksetet er begrenset grunnet det lave, sportslige karosseriet; Sport Turismo- og Cross Turismo-variantene tilbyr noe mer praktisk nytte."
+};
+
+function getCarDescription(car) {
+    if (!car) return null;
+    const exact = CAR_DESCRIPTIONS[car.make + " " + car.model];
+    if (exact) return exact;
+    // Match on base model (first word) — so all Taycan trims share one text
+    const baseModel = (car.model || "").split(/\s+/)[0];
+    if (baseModel) {
+        const base = CAR_DESCRIPTIONS[car.make + " " + baseModel];
+        if (base) return base;
+    }
+    return null;
+}
+
 // ========== Brand Colors ==========
 const BRAND_COLORS = {
     "BMW":        { primary: "#0066B1", gradient: "linear-gradient(135deg, #0066B1, #003366)" },
