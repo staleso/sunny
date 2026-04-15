@@ -1376,10 +1376,13 @@ function renderBrowse() {
         list.innerHTML = '<div class="no-results">Ingen biler funnet</div>';
         return;
     }
+    // Only inject AdSense blocks if at least 600 ms has passed since last render.
+    // Prevents AdSense thrashing while the user types/filters.
+    const now = Date.now();
+    const shouldRenderAds = !renderBrowse._lastAdRender || (now - renderBrowse._lastAdRender > 600);
     cars.forEach((car, i) => {
         list.appendChild(renderCarCard(car));
-        // Insert an inline ad after every 5th card (not after the very last card)
-        if ((i + 1) % 5 === 0 && i < cars.length - 1) {
+        if (shouldRenderAds && (i + 1) % 5 === 0 && i < cars.length - 1) {
             const adWrap = document.createElement("div");
             adWrap.className = "ad-inline";
             adWrap.innerHTML =
@@ -1392,6 +1395,7 @@ function renderBrowse() {
             try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) { /* ignore */ }
         }
     });
+    if (shouldRenderAds) renderBrowse._lastAdRender = now;
 }
 
 // ========== Compare Tab ==========
@@ -1774,8 +1778,43 @@ document.addEventListener("DOMContentLoaded", () => {
     // Position indicator on load
     requestAnimationFrame(() => switchTab(state.activeTab || "browse"));
 
-    // Search & filter
-    document.getElementById("search-input").addEventListener("input", renderBrowse);
+    // Collapse top nav (brand/tabs + extra filters) on scroll — keep search visible.
+    const stickyTop = document.querySelector(".sticky-top");
+    if (stickyTop) {
+        let ticking = false;
+        const onScroll = () => {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(() => {
+                const y = window.scrollY || document.documentElement.scrollTop;
+                stickyTop.classList.toggle("is-scrolled", y > 24);
+                ticking = false;
+                // Keep tab indicator aligned after height change transitions
+                if (typeof switchTab === "function" && state.activeTab) {
+                    const indicator = document.querySelector(".tab-indicator");
+                    const activeTab = document.querySelector('.tab[data-tab="' + state.activeTab + '"]');
+                    if (indicator && activeTab) {
+                        const bar = activeTab.parentElement;
+                        const barRect = bar.getBoundingClientRect();
+                        const tabRect = activeTab.getBoundingClientRect();
+                        indicator.style.left = (tabRect.left - barRect.left) + "px";
+                        indicator.style.width = tabRect.width + "px";
+                    }
+                }
+            });
+        };
+        window.addEventListener("scroll", onScroll, { passive: true });
+    }
+
+    // Search & filter (search is debounced so typing doesn't rebuild DOM on every keystroke)
+    const debouncedRender = (function() {
+        let t = null;
+        return function() {
+            if (t) clearTimeout(t);
+            t = setTimeout(function() { t = null; renderBrowse(); }, 180);
+        };
+    })();
+    document.getElementById("search-input").addEventListener("input", debouncedRender);
     document.getElementById("filter-brand").addEventListener("change", renderBrowse);
     document.getElementById("filter-type").addEventListener("change", renderBrowse);
     document.getElementById("filter-sort").addEventListener("change", renderBrowse);

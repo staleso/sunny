@@ -77,10 +77,33 @@ body {
     padding-bottom: 10px;
     box-shadow: 0 2px 12px rgba(0,0,0,0.06);
     border-bottom: 1px solid var(--border);
+    transition: padding-bottom 0.25s ease;
 }
 
 .sticky-filters {
     padding: 8px 16px 0;
+}
+
+/* Collapsible rows below search hide when the page is scrolled */
+.sticky-top .filter-row,
+.sticky-top .slider-filters {
+    max-height: 240px;
+    opacity: 1;
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.2s ease, margin 0.3s ease;
+}
+
+.sticky-top.is-scrolled .filter-row,
+.sticky-top.is-scrolled .slider-filters {
+    max-height: 0;
+    opacity: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    pointer-events: none;
+}
+
+.sticky-top.is-scrolled {
+    padding-bottom: 6px;
 }
 
 body.tab-compare .sticky-filters,
