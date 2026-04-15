@@ -1367,7 +1367,7 @@ function renderBrowse() {
         countEl.className = "result-count";
         list.parentNode.insertBefore(countEl, list);
     }
-    const hasFilter = search || brandFilter !== "all" || typeFilter !== "all" || pf.active || rf.active;
+    const hasFilter = search || brandFilter !== "all" || typeFilter !== "all" || pf.active;
     countEl.textContent = hasFilter ? `${cars.length} biler funnet` : `${cars.length} biler`;
     countEl.style.display = "block";
 
