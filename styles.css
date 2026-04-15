@@ -93,38 +93,31 @@ body.tab-favorites .sticky-filters {
     height: var(--safe-top);
 }
 
-.app-header {
-    padding: 14px 20px 4px;
-    text-align: center;
-}
-
-.app-header h1 {
-    font-size: 24px;
-    font-weight: 300;
-    letter-spacing: -0.03em;
-    color: var(--text);
-    display: inline;
-}
-
-.subtitle {
-    color: var(--text3);
-    font-size: 14px;
-    margin-top: 4px;
-    font-weight: 300;
-    display: inline;
-    margin-left: 8px;
-}
-
 /* ========== Tab Bar ========== */
 .tab-bar {
     display: flex;
-    gap: 4px;
+    gap: 2px;
     padding: 4px;
-    margin: 8px 16px 0;
+    margin: 8px 12px 0;
     background: var(--surface);
     border-radius: 10px;
     position: relative;
     border: 1px solid var(--border);
+    align-items: center;
+}
+
+.brand {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    text-decoration: none;
+    padding: 0 10px 0 6px;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+    flex-shrink: 0;
+    border-right: 1px solid var(--border);
+    margin-right: 4px;
+    line-height: 28px;
 }
 
 .tab-link {
@@ -135,20 +128,37 @@ body.tab-favorites .sticky-filters {
 }
 
 .tab {
-    flex: 1;
-    padding: 8px 8px;
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 6px 4px;
     border: none;
     background: transparent;
     color: var(--text2);
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 400;
-    border-radius: 10px;
+    border-radius: 8px;
     cursor: pointer;
     transition: color 0.25s;
     position: relative;
     z-index: 1;
     font-family: inherit;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+@media (max-width: 420px) {
+    .brand {
+        font-size: 0;
+        padding: 0 6px 0 4px;
+        margin-right: 2px;
+    }
+    .brand::before {
+        content: "EN";
+        font-size: 13px;
+        font-weight: 600;
+    }
 }
 
 .tab.active {
@@ -1813,22 +1823,21 @@ body:not(.tab-compare) #app {
 
 /* ===== Dark Mode Toggle ===== */
 .theme-toggle {
-    position: absolute;
-    top: 14px;
-    right: 16px;
-    width: 36px;
-    height: 36px;
+    position: static;
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    margin-left: 4px;
     border-radius: 50%;
     border: 1px solid var(--border);
-    background: var(--surface);
+    background: transparent;
     color: var(--text2);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 16px;
+    font-size: 14px;
     font-family: inherit;
-    z-index: 10;
     transition: all 0.2s;
 }
 
@@ -1838,8 +1847,8 @@ body:not(.tab-compare) #app {
 }
 
 .theme-toggle svg {
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
 }
 
 :root[data-theme="dark"] .theme-toggle .icon-sun { display: block; }

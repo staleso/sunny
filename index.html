@@ -32,7 +32,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=20">
+    <link rel="stylesheet" href="styles.css?v=21">
     <meta name="google-adsense-account" content="ca-pub-4678480487049419">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4678480487049419" crossorigin="anonymous"></script>
     <!-- Google Analytics -->
@@ -58,19 +58,16 @@
 
         <!-- Sticky top bar with filters -->
         <div class="sticky-top">
+            <nav class="tab-bar" id="tab-bar">
+            <a href="/" class="brand" aria-label="Elbil Norge – forside">Elbil Norge</a>
+            <button class="tab active" data-tab="browse">Utforsk</button>
+            <button class="tab" data-tab="compare">Sammenlign <span class="badge" id="compare-count" style="display:none">0</span></button>
+            <a href="finn-din-elbil.html" class="tab tab-link">Quiz</a>
+            <a href="tabell.html" class="tab tab-link">Tabell</a>
             <button class="theme-toggle" onclick="toggleTheme()" aria-label="Bytt tema">
                 <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
                 <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
             </button>
-            <header class="app-header">
-                <h1>Elbil Norge</h1>
-                <p class="subtitle">Sammenlign elbiler i Norge</p>
-            </header>
-            <nav class="tab-bar" id="tab-bar">
-            <button class="tab active" data-tab="browse">Utforsk</button>
-            <button class="tab" data-tab="compare">Sammenlign <span class="badge" id="compare-count" style="display:none">0</span></button>
-            <a href="finn-din-elbil.html" class="tab tab-link">Finn din elbil</a>
-            <a href="tabell.html" class="tab tab-link">Tabell</a>
             </nav>
             <div class="sticky-filters" id="sticky-filters">
                 <div class="search-bar">
@@ -308,7 +305,7 @@
         })();
     </script>
 
-    <script src="app.js?v=20"></script>
+    <script src="app.js?v=21"></script>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { getFirestore, doc, getDoc, setDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
