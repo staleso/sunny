@@ -828,17 +828,30 @@ function getTrailerUnbraked(car) {
 // Objective, factual descriptions keyed by "Make Model" or "Make BaseModel".
 // getCarDescription() falls back from exact model to base model.
 const CAR_DESCRIPTIONS = {
-    "Porsche Taycan": "Porsche Taycan er merkets første helelektriske bil og posisjoneres i segmentet for luksus-sportssedaner. Den er bygget på en 800-volts arkitektur som gir kort DC-ladetid og muliggjør gjentatte fullgass-akselerasjoner uten merkbar ytelsestap. Rekkevidden er moderat sammenlignet med konkurrenter som Mercedes EQS og Lucid Air, mens kjøredynamikk, chassisbalanse og konsistens ved sporty kjøring regnes som modellens sterkeste sider. Bagasjeromsplass og plass i baksetet er begrenset grunnet det lave, sportslige karosseriet; Sport Turismo- og Cross Turismo-variantene tilbyr noe mer praktisk nytte."
+    "Porsche Taycan": "Porsche Taycan er merkets første helelektriske bil og posisjoneres i segmentet for luksus-sportssedaner. Den er bygget på en 800-volts arkitektur som gir kort DC-ladetid og muliggjør gjentatte fullgass-akselerasjoner uten merkbar ytelsestap. Rekkevidden er moderat sammenlignet med konkurrenter som Mercedes EQS og Lucid Air, mens kjøredynamikk, chassisbalanse og konsistens ved sporty kjøring regnes som modellens sterkeste sider. Bagasjeromsplass og plass i baksetet er begrenset grunnet det lave, sportslige karosseriet; Sport Turismo- og Cross Turismo-variantene tilbyr noe mer praktisk nytte. (Tekst: AI-generert)",
+    "Porsche Macan": "Porsche Macan Electric er den helelektriske versjonen av merkets bestselgende SUV. Den deler 800-volts plattform med Taycan og tilbyr dermed rask DC-lading opp mot 270 kW. Kjøreegenskapene er blant de beste i klassen for kompakte luksus-SUV-er, med lavt tyngdepunkt og adaptivt luftfjæring som standard på flere varianter. Bagasjerommet er på nivå med forgjengeren, og bilen er tilgjengelig med både bakhjulsdrift og firehjulsdrift. (Tekst: AI-generert)",
+    "Porsche Cayenne": "Porsche Cayenne Electric markerer overgangen til elektrisk drift for merkets store SUV. Bilen bygger på en ny plattform med 800-volts arkitektur og skal kombinere Porsches sportslighet med det romslighets- og komfortnivået Cayenne er kjent for. Forventet rekkevidde og ytelse plasserer den i konkurranse med BMW iX og Mercedes EQS SUV. Bilen får luftfjæring og adaptivt understell som standard. (Tekst: AI-generert)",
+    "BMW iX1": "BMW iX1 er merkets mest kompakte elektriske SUV og baseres på FAAR-plattformen. Den tilbyr et praktisk interiør med godt med plass til passasjerer og bagasje i forhold til sine ytre mål. Firehjulsdrift er standard på xDrive-varianten, og rekkevidden er tilstrekkelig for de fleste daglige behov. Bilen konkurrerer direkte mot Audi Q4 e-tron og Mercedes EQA i det populære kompakt-SUV-segmentet. (Tekst: AI-generert)",
+    "BMW iX3": "BMW iX3 er en mellomklasse elektrisk SUV som kombinerer BMWs kjøredynamikk med et romslig og familievennlig interiør. Femte generasjon eDrive-teknologi gir effektiv kraftoverføring, og bilen tilbyr hurtiglading med opptil 180 kW DC. Bagasjerommet er blant de større i klassen. Bilen konkurrerer med modeller som Mercedes EQC og Audi Q6 e-tron. (Tekst: AI-generert)",
+    "BMW iX": "BMW iX er merkets elektriske flaggskip-SUV, bygget på en dedikert elbilplattform. Den bruker karbonfiberforsterket karosseri for å holde vekten nede, og tilbyr et minimalistisk interiør med store skjermer og bærekraftige materialer. Rekkevidden er konkurransedyktig i luksus-SUV-segmentet, og DC-lading støttes med opptil 200 kW. Luftfjæring og adaptivt understell gir en komfortabel kjøreopplevelse. (Tekst: AI-generert)",
+    "BMW i4": "BMW i4 er en elektrisk sedan i Gran Coupé-format som deler visuell profil med 4-serien. Den leveres med bakhjulsdrift i eDrive40-versjonen og firehjulsdrift i M-variantene. Kjøreegenskapene er blant de mest sporty i elbilsegmentet, og rekkevidden er konkurransedyktig for klassen. M50- og M60-versjonene retter seg mot entusiaster med høyere effekt og strammere understell. (Tekst: AI-generert)",
+    "BMW i5": "BMW i5 er den elektriske versjonen av 5-serien og posisjoneres som en romslig eksekutivsedaner. Bilen tilbyr et komfortabelt interiør med god plass i baksetet og et stort bagasjerom. Teknologien inkluderer BMWs nyeste iDrive-system med buet skjermflate. Rekkevidden og ladeytelsen gjør den egnet for lengre reiser, og den konkurrerer direkte med Mercedes EQE og Audi A6 e-tron. (Tekst: AI-generert)",
+    "BMW i7": "BMW i7 er merkets mest luksuriøse elbil og representerer toppmodellen i 7-serien. Den har et overdådig interiør med Theatre Screen i baksetet, massasjeseter og Bowers & Wilkins-lydanlegg som tilvalg. Rekkevidden er god til tross for bilens størrelse, og 195 kW DC-lading gir akseptable ladestopp. Bilen konkurrerer med Mercedes EQS og er primært rettet mot komfort og representasjon. (Tekst: AI-generert)",
+    "BMW i3 120Ah": "BMW i3 var en av de tidligste premium-elbilene på markedet og ble produsert fra 2013 til 2022. Den har et kompakt, høyreist design med karbonfiber-karosseri som holdt vekten nede. Batteriet på 42,2 kWh gir begrenset rekkevidde etter dagens standard, men bilen fungerer godt som bybil. Interiøret bruker bærekraftige materialer og har et karakteristisk, åpent design. (Tekst: AI-generert)",
+    "BMW i3 50": "Nye BMW i3 er en kompakt elektrisk sedan basert på den nye Neue Klasse-plattformen. Den representerer et generasjonsskifte i BMWs elbilstrategi med ny battericelletegnologi og forbedret effektivitet. Bilen tilbyr et moderne interiør med nytt operativsystem og et design som skiller seg fra forgjengeren. Rekkevidden og ladeytelsen er vesentlig forbedret sammenlignet med eldre BMW-elbiler. (Tekst: AI-generert)"
 };
 
 function getCarDescription(car) {
     if (!car) return null;
-    const exact = CAR_DESCRIPTIONS[car.make + " " + car.model];
-    if (exact) return exact;
-    // Match on base model (first word) — so all Taycan trims share one text
-    const baseModel = (car.model || "").split(/\s+/)[0];
-    if (baseModel) {
-        const base = CAR_DESCRIPTIONS[car.make + " " + baseModel];
+    const key = car.make + " " + car.model;
+    if (CAR_DESCRIPTIONS[key]) return CAR_DESCRIPTIONS[key];
+    const words = (car.model || "").split(/\s+/);
+    if (words.length >= 2) {
+        const mid = car.make + " " + words[0] + " " + words[1];
+        if (CAR_DESCRIPTIONS[mid]) return CAR_DESCRIPTIONS[mid];
+    }
+    if (words[0]) {
+        const base = CAR_DESCRIPTIONS[car.make + " " + words[0]];
         if (base) return base;
     }
     return null;
