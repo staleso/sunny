@@ -2937,6 +2937,43 @@ body.tab-favorites .recently-viewed-strip {
     min-height: 90px;
 }
 
+/* ===== Site-wide footer ===== */
+.site-footer {
+    text-align: center;
+    padding: 20px 16px 28px;
+    margin-top: 12px;
+    border-top: 1px solid var(--border);
+}
+
+.site-footer-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--text2);
+}
+
+.site-footer-nav a {
+    color: var(--text2);
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.15s;
+}
+
+.site-footer-nav a:hover {
+    color: var(--accent);
+}
+
+.site-footer-sep {
+    color: var(--border);
+    font-size: 10px;
+}
+
+.site-footer-copy {
+    font-weight: 300;
+}
+
 /* ===== Comments ===== */
 .comments-count {
     color: var(--text3);
