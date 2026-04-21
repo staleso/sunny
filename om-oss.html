@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#f8f8fa">
+    <script>
+        (function() {
+            var t = localStorage.getItem('theme');
+            if (!t && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) t = 'dark';
+            if (t === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                var m = document.querySelector('meta[name="theme-color"]');
+                if (m) m.content = '#16161e';
+            }
+        })();
+    </script>
+    <title>Om oss | Elbilvalg.no</title>
+    <meta name="description" content="Om Elbilvalg.no – en uavhengig norsk tjeneste for sammenligning av elbiler. Les om hvem vi er, vår redaksjonelle profil og hvordan vi jobber.">
+    <link rel="canonical" href="https://elbilvalg.no/om-oss.html">
+    <meta property="og:title" content="Om oss | Elbilvalg.no">
+    <meta property="og:description" content="Elbilvalg.no er en uavhengig norsk tjeneste for sammenligning av elbiler. Les om hvem vi er og hvordan vi jobber.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="nb_NO">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=31">
+    <meta name="google-adsense-account" content="ca-pub-4678480487049419">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3TDS5SGX53"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        var _cc = localStorage.getItem('cookie-consent');
+        if (_cc === 'accepted') {
+            gtag('consent', 'default', { analytics_storage: 'granted', ad_storage: 'granted', ad_personalization: 'granted', ad_user_data: 'granted' });
+        } else {
+            gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', ad_personalization: 'denied', ad_user_data: 'denied' });
+        }
+        gtag('js', new Date());
+        gtag('config', 'G-3TDS5SGX53');
+    </script>
+</head>
+<body>
+    <div class="static-page">
+        <nav class="detail-nav">
+            <a href="/" class="back-link">&larr; Tilbake til forsiden</a>
+        </nav>
+
+        <article class="static-content">
+            <h1>Om Elbilvalg.no</h1>
+
+            <section>
+                <h2>Hvem vi er</h2>
+                <p>Elbilvalg.no er en uavhengig norsk informasjonstjeneste som hjelper forbrukere med å sammenligne og velge elbil. Tjenesten er utviklet og driftet som et uavhengig prosjekt, uten tilknytning til bilprodusenter, importører eller forhandlere.</p>
+                <p>Vi er et lite team med interesse for teknologi og bærekraftig transport. Målet vårt er å gjøre det enklere for norske forbrukere å navigere det raskt voksende elbilmarkedet ved å samle relevant informasjon på ett sted.</p>
+            </section>
+
+            <section>
+                <h2>Vår misjon</h2>
+                <p>Norge er verdensledende i overgangen til elektriske biler, og markedet tilbyr i dag over 100 modeller fra mer enn 20 produsenter. For mange kan det være overveldende å finne riktig bil blant alle alternativene.</p>
+                <p>Elbilvalg.no gjør det mulig å sammenligne pris, rekkevidde, ytelse, plass og andre spesifikasjoner på tvers av alle tilgjengelige modeller. Vi tilbyr også en elbilquiz som hjelper deg med å finne biler som passer dine behov, og en sammenligningsfunksjon der du kan sette modeller opp mot hverandre.</p>
+            </section>
+
+            <section>
+                <h2>Redaksjonell profil</h2>
+                <p>Innholdet på Elbilvalg.no er ment å være nøytralt, faktabasert og nyttig. Vi tar ikke stilling til hvilke merker eller modeller som er «best» — i stedet presenterer vi data slik at du kan ta et informert valg basert på dine egne behov og preferanser.</p>
+                <p>Beskrivende tekster om bilmodeller er AI-generert og deretter redaksjonelt gjennomgått for nøyaktighet. Disse tekstene er merket med «Tekst: AI-generert» for full transparens.</p>
+                <p>Stjernevurderinger og kommentarer er brukergenerert innhold og representerer individuelle meninger, ikke redaksjonens syn.</p>
+            </section>
+
+            <section>
+                <h2>Datakilder</h2>
+                <p>Tekniske spesifikasjoner, priser og øvrige data er innhentet fra offentlig tilgjengelige kilder, inkludert:</p>
+                <ul>
+                    <li>Produsentenes offisielle norske nettsider</li>
+                    <li>Offisielle spesifikasjonsark og pressemeldinger</li>
+                    <li>WLTP-sertifiserte rekkevidde- og forbrukstall</li>
+                </ul>
+                <p>Vi gjør vårt beste for å holde informasjonen oppdatert, men kan ikke garantere at alle data til enhver tid er korrekte. Priser og spesifikasjoner kan endres uten varsel fra produsentene. Kontakt alltid en autorisert forhandler for gjeldende informasjon.</p>
+            </section>
+
+            <section>
+                <h2>Finansiering</h2>
+                <p>Elbilvalg.no er gratis å bruke og finansieres gjennom annonser levert av Google AdSense. Annonseinntektene dekker drift og videreutvikling av tjenesten. Annonsene påvirker ikke vår redaksjonelle uavhengighet, og vi mottar ingen betaling fra bilprodusenter eller forhandlere for omtale eller plassering.</p>
+            </section>
+
+            <section>
+                <h2>Teknologi</h2>
+                <p>Elbilvalg.no er en statisk nettside som kjører direkte i nettleseren din uten behov for brukerkontoer eller innlogging. Stjernevurderinger og kommentarer lagres i en Firebase-database. Nettsiden er åpen kildekode.</p>
+            </section>
+
+            <section>
+                <h2>Kontakt</h2>
+                <p>Har du funnet feil i dataene, har forslag til forbedringer, eller ønsker å komme i kontakt med oss? Vi setter pris på alle tilbakemeldinger.</p>
+                <p>Bruk tilbakemeldingsfunksjonen på <a href="/">forsiden</a>, eller ta kontakt via GitHub-prosjektet vårt.</p>
+            </section>
+        </article>
+
+        <footer class="static-footer">
+            <a href="/">Forsiden</a>
+            <a href="/personvern.html">Personvern</a>
+        </footer>
+    </div>
+</body>
+</html>

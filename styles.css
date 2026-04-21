@@ -1222,6 +1222,25 @@ body.tab-favorites .sticky-filters {
     opacity: 0.85;
 }
 
+.footer-links {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 20px;
+    font-size: 12px;
+}
+
+.footer-links a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 400;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
 /* ========== Feedback Modal ========== */
 .feedback-modal {
     display: none;
@@ -2714,6 +2733,96 @@ body.tab-favorites .recently-viewed-strip {
     border: none;
     border-left: 2px solid var(--border);
     border-radius: 0;
+}
+
+/* ===== Static pages (Om oss, Personvern) ===== */
+.static-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 16px 40px;
+}
+
+.static-content {
+    margin-top: 8px;
+}
+
+.static-content h1 {
+    font-size: 26px;
+    font-weight: 400;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-bottom: 8px;
+    line-height: 1.2;
+}
+
+.static-content h2 {
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--text);
+    margin: 28px 0 10px;
+}
+
+.static-content h3 {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    margin: 18px 0 6px;
+}
+
+.static-content p,
+.static-content li {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text2);
+    font-weight: 300;
+}
+
+.static-content p {
+    margin-bottom: 10px;
+}
+
+.static-content ul {
+    margin: 8px 0 12px 20px;
+    padding: 0;
+}
+
+.static-content li {
+    margin-bottom: 6px;
+}
+
+.static-content a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.static-content a:hover {
+    text-decoration: underline;
+}
+
+.static-updated {
+    font-size: 12px;
+    color: var(--text2);
+    font-weight: 300;
+    margin-bottom: 20px;
+}
+
+.static-footer {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 20px;
+    font-size: 13px;
+}
+
+.static-footer a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 400;
+}
+
+.static-footer a:hover {
+    text-decoration: underline;
 }
 
 /* ===== Inline ads between cars ===== */
