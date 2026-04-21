@@ -1172,6 +1172,17 @@ body.tab-favorites .sticky-filters {
 .seo-content p {
     margin-bottom: 8px;
 }
+.seo-ai-note {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    color: var(--text2);
+}
+.seo-ai-note .ai-label {
+    flex-shrink: 0;
+}
 
 .app-disclaimer {
     margin: 32px 16px;
@@ -2781,6 +2792,20 @@ body.tab-favorites .recently-viewed-strip {
     border: none;
     background: transparent;
     margin-bottom: 24px;
+}
+
+.ai-label {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--text2);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 3px 8px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    margin-bottom: 8px;
+    background: var(--surface);
 }
 
 .detail-description p {

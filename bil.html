@@ -20,7 +20,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=31">
+    <link rel="stylesheet" href="styles.css?v=33">
     <meta name="google-adsense-account" content="ca-pub-4678480487049419">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4678480487049419" crossorigin="anonymous"></script>
     <!-- Google Analytics -->
@@ -37,6 +37,7 @@
         gtag('js', new Date());
         gtag('config', 'G-3TDS5SGX53');
     </script>
+    <meta name="ai-content-declaration" content="Deler av innholdet på denne siden er generert ved hjelp av kunstig intelligens og redaksjonelt gjennomgått.">
     <title>Laster...</title>
 </head>
 <body>
@@ -137,8 +138,10 @@
             + (function() {
                 var desc = (typeof getCarDescription === 'function') ? getCarDescription(car) : null;
                 if (!desc) return '';
-                return '<section class="detail-section detail-description">'
-                    + '  <p>' + desc + '</p>'
+                var clean = desc.replace(/\s*\(Tekst: AI-generert\)\s*$/, '');
+                return '<section class="detail-section detail-description" data-ai-generated="true">'
+                    + '  <span class="ai-label">AI-generert tekst</span>'
+                    + '  <p>' + clean + '</p>'
                     + '</section>';
             })()
 
