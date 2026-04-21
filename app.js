@@ -1409,6 +1409,9 @@ function updateSliderUI() {
 }
 
 // ========== Browse Tab ==========
+var browsePage = 1;
+var CARS_PER_PAGE = 10;
+
 function renderBrowse() {
     const list = document.getElementById("car-list");
     const search = document.getElementById("search-input").value.toLowerCase();
@@ -1436,6 +1439,12 @@ function renderBrowse() {
         default: cars.sort((a, b) => `${a.make} ${a.model}`.localeCompare(`${b.make} ${b.model}`));
     }
 
+    var totalPages = Math.max(1, Math.ceil(cars.length / CARS_PER_PAGE));
+    if (browsePage > totalPages) browsePage = totalPages;
+    if (browsePage < 1) browsePage = 1;
+    var startIdx = (browsePage - 1) * CARS_PER_PAGE;
+    var pageCars = cars.slice(startIdx, startIdx + CARS_PER_PAGE);
+
     // Result count
     let countEl = document.getElementById("result-count");
     if (!countEl) {
@@ -1451,16 +1460,15 @@ function renderBrowse() {
     list.innerHTML = "";
     if (cars.length === 0) {
         list.innerHTML = '<div class="no-results">Ingen biler funnet</div>';
+        removePagination();
         return;
     }
-    // Only inject AdSense blocks if at least 600 ms has passed since last render.
-    // Prevents AdSense thrashing while the user types/filters.
-    const now = Date.now();
-    const shouldRenderAds = !renderBrowse._lastAdRender || (now - renderBrowse._lastAdRender > 600);
-    cars.forEach((car, i) => {
+    var now = Date.now();
+    var shouldRenderAds = !renderBrowse._lastAdRender || (now - renderBrowse._lastAdRender > 600);
+    pageCars.forEach(function(car, i) {
         list.appendChild(renderCarCard(car));
-        if (shouldRenderAds && (i + 1) % 5 === 0 && i < cars.length - 1) {
-            const adWrap = document.createElement("div");
+        if (shouldRenderAds && (i + 1) % 5 === 0 && i < pageCars.length - 1) {
+            var adWrap = document.createElement("div");
             adWrap.className = "ad-inline";
             adWrap.innerHTML =
                 '<ins class="adsbygoogle" style="display:block" ' +
@@ -1469,10 +1477,92 @@ function renderBrowse() {
                 'data-ad-layout-key="-6t+ed+2i-1n-4w" ' +
                 'data-full-width-responsive="true"></ins>';
             list.appendChild(adWrap);
-            try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) { /* ignore */ }
+            try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
         }
     });
     if (shouldRenderAds) renderBrowse._lastAdRender = now;
+
+    renderPagination(totalPages, cars.length);
+}
+
+function renderPagination(totalPages, totalCars) {
+    var existing = document.getElementById("pagination");
+    if (existing) existing.remove();
+    if (totalPages <= 1) return;
+
+    var nav = document.createElement("nav");
+    nav.id = "pagination";
+    nav.className = "pagination";
+
+    var prevBtn = document.createElement("button");
+    prevBtn.className = "pagination-btn";
+    prevBtn.textContent = "‹";
+    prevBtn.disabled = browsePage <= 1;
+    prevBtn.onclick = function() { goToPage(browsePage - 1); };
+    nav.appendChild(prevBtn);
+
+    var pages = getPaginationRange(browsePage, totalPages);
+    pages.forEach(function(p) {
+        if (p === "...") {
+            var dots = document.createElement("span");
+            dots.className = "pagination-dots";
+            dots.textContent = "…";
+            nav.appendChild(dots);
+        } else {
+            var btn = document.createElement("button");
+            btn.className = "pagination-btn" + (p === browsePage ? " active" : "");
+            btn.textContent = p;
+            btn.onclick = function() { goToPage(p); };
+            nav.appendChild(btn);
+        }
+    });
+
+    var nextBtn = document.createElement("button");
+    nextBtn.className = "pagination-btn";
+    nextBtn.textContent = "›";
+    nextBtn.disabled = browsePage >= totalPages;
+    nextBtn.onclick = function() { goToPage(browsePage + 1); };
+    nav.appendChild(nextBtn);
+
+    var info = document.createElement("div");
+    info.className = "pagination-info";
+    var start = (browsePage - 1) * CARS_PER_PAGE + 1;
+    var end = Math.min(browsePage * CARS_PER_PAGE, totalCars);
+    info.textContent = start + "–" + end + " av " + totalCars;
+    nav.appendChild(info);
+
+    var list = document.getElementById("car-list");
+    list.parentNode.insertBefore(nav, list.nextSibling);
+}
+
+function removePagination() {
+    var el = document.getElementById("pagination");
+    if (el) el.remove();
+}
+
+function getPaginationRange(current, total) {
+    if (total <= 7) {
+        var arr = [];
+        for (var i = 1; i <= total; i++) arr.push(i);
+        return arr;
+    }
+    var pages = [1];
+    if (current > 3) pages.push("...");
+    for (var i = Math.max(2, current - 1); i <= Math.min(total - 1, current + 1); i++) {
+        pages.push(i);
+    }
+    if (current < total - 2) pages.push("...");
+    pages.push(total);
+    return pages;
+}
+
+function goToPage(page) {
+    browsePage = page;
+    renderBrowse();
+    var stickyTop = document.querySelector(".sticky-top");
+    if (stickyTop) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }
 }
 
 // ========== Compare Tab ==========
@@ -1884,17 +1974,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Search & filter (search is debounced so typing doesn't rebuild DOM on every keystroke)
+    function resetPageAndRender() { browsePage = 1; renderBrowse(); }
     const debouncedRender = (function() {
         let t = null;
         return function() {
             if (t) clearTimeout(t);
-            t = setTimeout(function() { t = null; renderBrowse(); }, 180);
+            t = setTimeout(function() { t = null; browsePage = 1; renderBrowse(); }, 180);
         };
     })();
     document.getElementById("search-input").addEventListener("input", debouncedRender);
-    document.getElementById("filter-brand").addEventListener("change", renderBrowse);
-    document.getElementById("filter-type").addEventListener("change", renderBrowse);
-    document.getElementById("filter-sort").addEventListener("change", renderBrowse);
+    document.getElementById("filter-brand").addEventListener("change", resetPageAndRender);
+    document.getElementById("filter-type").addEventListener("change", resetPageAndRender);
+    document.getElementById("filter-sort").addEventListener("change", resetPageAndRender);
 
     // Slider filters
     const priceMin = document.getElementById("price-min");
@@ -1936,8 +2027,8 @@ document.addEventListener("DOMContentLoaded", () => {
         };
         wireSlider(priceMin, "price-min-bubble", clampPrice);
         wireSlider(priceMax, "price-max-bubble", clampPrice);
-        priceMin.addEventListener("change", renderBrowse);
-        priceMax.addEventListener("change", renderBrowse);
+        priceMin.addEventListener("change", resetPageAndRender);
+        priceMax.addEventListener("change", resetPageAndRender);
         // Raise the thumb being interacted with above the other
         priceMin.addEventListener("pointerdown", () => { priceMin.style.zIndex = 3; priceMax.style.zIndex = 1; });
         priceMax.addEventListener("pointerdown", () => { priceMax.style.zIndex = 3; priceMin.style.zIndex = 1; });
