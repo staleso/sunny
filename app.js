@@ -1305,11 +1305,21 @@ function carSlug(car) {
 function getCachedCarImage() { return null; }
 function scheduleCarImageLoad() { /* no-op */ }
 
+var CAR_SILHOUETTES = {
+    suv: '<svg viewBox="0 0 200 80" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 58 C20 58 22 52 30 48 L55 46 C60 40 68 28 80 26 L130 24 C142 24 150 30 155 38 L168 46 C176 46 180 50 180 58" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="52" cy="58" r="10" stroke="currentColor" stroke-width="2.5"/><circle cx="52" cy="58" r="4" stroke="currentColor" stroke-width="1.5"/><circle cx="152" cy="58" r="10" stroke="currentColor" stroke-width="2.5"/><circle cx="152" cy="58" r="4" stroke="currentColor" stroke-width="1.5"/><line x1="20" y1="58" x2="42" y2="58" stroke="currentColor" stroke-width="2"/><line x1="62" y1="58" x2="142" y2="58" stroke="currentColor" stroke-width="2"/><line x1="162" y1="58" x2="180" y2="58" stroke="currentColor" stroke-width="2"/><path d="M68 46 L72 28 C73 26 75 25 80 25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M110 25 L110 46" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M75 38 L105 38" stroke="currentColor" stroke-width="1" opacity="0.4"/><path d="M115 38 L150 40" stroke="currentColor" stroke-width="1" opacity="0.4"/><circle cx="174" cy="44" r="2.5" stroke="currentColor" stroke-width="1.5"/><circle cx="28" cy="50" r="2.5" stroke="currentColor" stroke-width="1.5"/></svg>'
+};
+
 function renderCarImagePlaceholder(car) {
     const bc = (typeof BRAND_COLORS !== "undefined" && BRAND_COLORS[car.make]) || { primary: "#888" };
-    return `<div class="car-img-placeholder" style="background:linear-gradient(135deg, ${bc.primary}1f, ${bc.primary}05)">
-        <span class="car-img-placeholder-text" style="color:${bc.primary}">${car.make}</span>
-    </div>`;
+    var svg = CAR_SILHOUETTES[car.type] || '';
+    if (svg) {
+        return '<div class="car-img-placeholder" style="background:linear-gradient(135deg, ' + bc.primary + '1f, ' + bc.primary + '05)">'
+            + '<div class="car-silhouette" style="color:' + bc.primary + '">' + svg + '</div>'
+            + '</div>';
+    }
+    return '<div class="car-img-placeholder" style="background:linear-gradient(135deg, ' + bc.primary + '1f, ' + bc.primary + '05)">'
+        + '<span class="car-img-placeholder-text" style="color:' + bc.primary + '">' + car.make + '</span>'
+        + '</div>';
 }
 
 // ========== Render Car Card ==========
