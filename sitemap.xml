@@ -49,6 +49,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://elbilvalg.no/nye-elbiler-2026.html</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://elbilvalg.no/kalkulator.html</loc>
     <lastmod>2026-04-22</lastmod>
     <changefreq>monthly</changefreq>
