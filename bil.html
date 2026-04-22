@@ -50,6 +50,17 @@
         </div>
     </div>
 
+    <noscript>
+        <div style="max-width:700px;margin:40px auto;padding:0 20px;font-family:Inter,sans-serif">
+            <h1>Elbilvalg.no – Sammenlign elbiler i Norge</h1>
+            <p>Denne siden viser detaljerte spesifikasjoner for en elektrisk bil tilgjengelig i det norske markedet, inkludert pris, rekkevidde (WLTP), batteristørrelse, ladekapasitet, dimensjoner og kjøreegenskaper.</p>
+            <p>For å se fullstendig innhold kreves JavaScript. <a href="/">Gå til forsiden</a> for å utforske alle elbiler.</p>
+            <h2>Om Elbilvalg.no</h2>
+            <p>Elbilvalg.no er en uavhengig norsk tjeneste som hjelper forbrukere med å sammenligne over 100 elektriske biler fra mer enn 20 produsenter. Sammenlign pris, rekkevidde, hestekrefter, bagasjerom og dimensjoner. Tjenesten er gratis og uten tilknytning til bilprodusenter eller forhandlere.</p>
+            <p><a href="/om-oss.html">Om oss</a> · <a href="/personvern.html">Personvernerklæring</a> · <a href="/vilkaar.html">Vilkår for bruk</a></p>
+        </div>
+    </noscript>
+
     <script src="app.js?v=31"></script>
     <script>
     (function() {
@@ -102,6 +113,66 @@
         og.setAttribute('property', 'og:title');
         og.content = car.make + ' ' + car.model + ' ' + car.year + ' | Elbilvalg.no';
         document.head.appendChild(og);
+
+        // JSON-LD structured data (Schema.org)
+        var jsonLd = {
+            "@context": "https://schema.org",
+            "@type": "Car",
+            "name": car.make + " " + car.model,
+            "brand": { "@type": "Brand", "name": car.make },
+            "model": car.model,
+            "vehicleModelDate": String(car.year),
+            "fuelType": "Electricity",
+            "driveWheelConfiguration": car.drivetrain === "AWD" ? "AllWheelDriveConfiguration" : (car.drivetrain === "FWD" ? "FrontWheelDriveConfiguration" : "RearWheelDriveConfiguration"),
+            "vehicleSeatingCapacity": car.seats,
+            "vehicleEngine": {
+                "@type": "EngineSpecification",
+                "fuelType": "Electricity"
+            },
+            "speed": {
+                "@type": "QuantitativeValue",
+                "value": car.zeroToHundred,
+                "unitText": "seconds 0-100 km/h"
+            },
+            "offers": {
+                "@type": "Offer",
+                "priceCurrency": "NOK",
+                "price": car.price,
+                "availability": "https://schema.org/InStock",
+                "url": "https://elbilvalg.no/bil.html?id=" + slug
+            },
+            "additionalProperty": [
+                { "@type": "PropertyValue", "name": "Rekkevidde (WLTP)", "value": car.range + " km" },
+                { "@type": "PropertyValue", "name": "Batteri", "value": car.kwh + " kWh" },
+                { "@type": "PropertyValue", "name": "Effekt", "value": car.hp + " hk" },
+                { "@type": "PropertyValue", "name": "Vekt", "value": car.weight + " kg" },
+                { "@type": "PropertyValue", "name": "Lengde", "value": car.length + " mm" }
+            ]
+        };
+        var desc = (typeof getCarDescription === 'function') ? getCarDescription(car) : null;
+        if (desc) jsonLd.description = desc.replace(/\s*\(Tekst: AI-generert\)\s*$/, '');
+
+        var ldScript = document.createElement('script');
+        ldScript.type = 'application/ld+json';
+        ldScript.textContent = JSON.stringify(jsonLd);
+        document.head.appendChild(ldScript);
+
+        // Organization structured data
+        var orgLd = document.createElement('script');
+        orgLd.type = 'application/ld+json';
+        orgLd.textContent = JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "Elbilvalg.no",
+            "url": "https://elbilvalg.no/",
+            "description": "Uavhengig norsk tjeneste for sammenligning av elbiler",
+            "publisher": {
+                "@type": "Organization",
+                "name": "Elbilvalg.no",
+                "url": "https://elbilvalg.no/"
+            }
+        });
+        document.head.appendChild(orgLd);
 
         var src = typeof BRAND_SOURCES !== 'undefined' ? BRAND_SOURCES[car.make] : null;
         var efficiency = (car.kwh / car.range * 100).toFixed(1);
@@ -212,7 +283,7 @@
 
             + '<div class="detail-disclaimer">'
             + '  Informasjonen er veiledende og kan inneholde feil. Priser og spesifikasjoner kan avvike fra faktiske verdier. Kontakt alltid forhandler for bekreftede opplysninger. Beskrivende tekster på denne siden er AI-generert og redaksjonelt gjennomgått.'
-            + '  <div class="footer-links"><a href="/om-oss.html">Om oss</a><a href="/personvern.html">Personvernerklæring</a></div>'
+            + '  <div class="footer-links"><a href="/om-oss.html">Om oss</a><a href="/personvern.html">Personvernerklæring</a><a href="/vilkaar.html">Vilkår for bruk</a></div>'
             + '</div>'
 
             + '<div class="detail-ad">'
@@ -482,6 +553,8 @@
             <a href="/om-oss.html">Om oss</a>
             <span class="site-footer-sep">·</span>
             <a href="/personvern.html">Personvern</a>
+            <span class="site-footer-sep">·</span>
+            <a href="/vilkaar.html">Vilkår</a>
             <span class="site-footer-sep">·</span>
             <span class="site-footer-copy">Elbilvalg.no</span>
         </nav>
