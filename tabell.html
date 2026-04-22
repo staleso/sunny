@@ -182,6 +182,7 @@
         const columns = [
             { key: "make", label: "Merke", cls: "col-make" },
             { key: "model", label: "Modell" },
+            { key: "country", label: "Land", format: function(v, car) { return car ? getCarCountryFlag(car) : "—"; } },
             { key: "year", label: "År", cls: "col-num" },
             { key: "price", label: "Pris (NOK)", cls: "col-price", format: v => v ? v.toLocaleString("nb-NO") : "—" },
             { key: "type", label: "Type" },
@@ -233,12 +234,13 @@
             if (searchTerm) {
                 const q = searchTerm.toLowerCase();
                 cars = cars.filter(c =>
-                    (c.make + " " + c.model + " " + c.segment + " " + c.type + " " + c.drivetrain)
+                    (c.make + " " + c.model + " " + c.segment + " " + c.type + " " + c.drivetrain + " " + getCarCountry(c))
                         .toLowerCase().includes(q)
                 );
             }
             cars.sort((a, b) => {
-                let va = a[sortKey], vb = b[sortKey];
+                let va = sortKey === "country" ? getCarCountry(a) : a[sortKey];
+                let vb = sortKey === "country" ? getCarCountry(b) : b[sortKey];
                 if (va == null) va = "";
                 if (vb == null) vb = "";
                 if (typeof va === "string") {
@@ -255,7 +257,7 @@
             tbody.innerHTML = cars.map(car => {
                 return "<tr>" + columns.map(col => {
                     const val = car[col.key];
-                    const display = col.format ? col.format(val) : (val != null ? val : "—");
+                    const display = col.format ? col.format(val, car) : (val != null ? val : "—");
                     return `<td class="${col.cls || ''}">${display}</td>`;
                 }).join("") + "</tr>";
             }).join("");
