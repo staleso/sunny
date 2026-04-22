@@ -340,6 +340,16 @@ body.tab-favorites .sticky-filters {
     padding: 8px;
 }
 
+.car-silhouette {
+    width: 80%;
+    max-width: 180px;
+    opacity: 0.55;
+}
+.car-silhouette svg {
+    width: 100%;
+    height: auto;
+}
+
 .car-img-placeholder-text,
 .car-img-placeholder span {
     font-size: 18px;
