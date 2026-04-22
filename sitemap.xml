@@ -49,6 +49,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://elbilvalg.no/kalkulator.html</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://elbilvalg.no/bil.html?id=bmw-ix1-xdrive30-2025</loc>
     <lastmod>2026-04-21</lastmod>
     <changefreq>monthly</changefreq>

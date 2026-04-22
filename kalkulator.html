@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#f8f8fa">
+    <script>
+        (function() {
+            var t = localStorage.getItem('theme');
+            if (!t && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) t = 'dark';
+            if (t === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                var m = document.querySelector('meta[name="theme-color"]');
+                if (m) m.content = '#16161e';
+            }
+        })();
+    </script>
+    <title>Elbil vs. bensin – bilholdskalkulator | Elbilvalg.no</title>
+    <meta name="description" content="Sammenlign totalkostnaden for elbil og bensinbil over tid. Forhåndsutfylte data for alle elbiler i Norge – juster strømpris, bensinpris, forsikring og kjørelengde.">
+    <link rel="canonical" href="https://elbilvalg.no/kalkulator.html">
+    <meta property="og:title" content="Elbil vs. bensin – bilholdskalkulator | Elbilvalg.no">
+    <meta property="og:description" content="Hva koster det egentlig å eie elbil vs. bensinbil? Regn ut selv med vår kalkulator.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="nb_NO">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=20260422">
+    <meta name="google-adsense-account" content="ca-pub-4678480487049419">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4678480487049419" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3TDS5SGX53"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        var _cc = localStorage.getItem('cookie-consent');
+        if (_cc === 'accepted') {
+            gtag('consent', 'default', { analytics_storage: 'granted', ad_storage: 'granted', ad_personalization: 'granted', ad_user_data: 'granted' });
+        } else {
+            gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', ad_personalization: 'denied', ad_user_data: 'denied' });
+        }
+        gtag('js', new Date());
+        gtag('config', 'G-3TDS5SGX53');
+    </script>
+    <style>
+        .calc-page {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px 16px 40px;
+        }
+        .calc-nav {
+            margin-bottom: 16px;
+        }
+        .calc-nav a {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .calc-nav a:hover { text-decoration: underline; }
+        .calc-title {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 4px;
+        }
+        .calc-intro {
+            font-size: 14px;
+            color: var(--text2);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .calc-car-select {
+            margin-bottom: 20px;
+        }
+        .calc-car-select label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text2);
+            margin-bottom: 6px;
+        }
+        .calc-car-select select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--surface);
+            color: var(--text);
+            font-size: 15px;
+            font-family: inherit;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+        }
+
+        .calc-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        @media (max-width: 600px) {
+            .calc-columns { grid-template-columns: 1fr; }
+        }
+
+        .calc-column {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px;
+        }
+        .calc-column-header {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .calc-column-badge {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .badge-ev {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+        :root[data-theme="dark"] .badge-ev {
+            background: #1e3a5f;
+            color: #93c5fd;
+        }
+        .badge-petrol {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        :root[data-theme="dark"] .badge-petrol {
+            background: #422006;
+            color: #fcd34d;
+        }
+
+        .calc-field {
+            margin-bottom: 12px;
+        }
+        .calc-field:last-child {
+            margin-bottom: 0;
+        }
+        .calc-field label {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            font-size: 13px;
+            color: var(--text2);
+            margin-bottom: 4px;
+        }
+        .calc-field label .calc-unit {
+            font-size: 11px;
+            color: var(--text3);
+        }
+        .calc-field input {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--bg);
+            color: var(--text);
+            font-size: 15px;
+            font-family: inherit;
+            text-align: right;
+        }
+        .calc-field input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .calc-shared {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+        .calc-shared-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 14px;
+        }
+        .calc-shared-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        @media (max-width: 600px) {
+            .calc-shared-grid { grid-template-columns: 1fr; }
+        }
+
+        .calc-results {
+            background: var(--surface);
+            border: 2px solid var(--accent);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .calc-results-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        .calc-results-grid {
+            display: grid;
+            grid-template-columns: auto 1fr 1fr;
+            gap: 6px 16px;
+            font-size: 14px;
+        }
+        .calc-results-grid .row-label {
+            color: var(--text2);
+            font-size: 13px;
+        }
+        .calc-results-grid .row-ev,
+        .calc-results-grid .row-petrol {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+        .calc-results-grid .row-header {
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text2);
+            padding-bottom: 4px;
+        }
+        .calc-results-grid .row-total {
+            font-weight: 700;
+            font-size: 16px;
+            padding-top: 8px;
+            border-top: 1px solid var(--border);
+        }
+
+        .calc-verdict {
+            text-align: center;
+            margin-top: 16px;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+        }
+        .verdict-ev {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+        :root[data-theme="dark"] .verdict-ev {
+            background: #1e3a5f;
+            color: #93c5fd;
+        }
+        .verdict-petrol {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        :root[data-theme="dark"] .verdict-petrol {
+            background: #422006;
+            color: #fcd34d;
+        }
+
+        .calc-disclaimer {
+            font-size: 12px;
+            color: var(--text2);
+            line-height: 1.5;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+    </style>
+</head>
+<body>
+    <div class="calc-page">
+        <nav class="calc-nav">
+            <a href="/">&larr; Tilbake til forsiden</a>
+        </nav>
+
+        <h1 class="calc-title">Elbil vs. bensin — hva koster det?</h1>
+        <p class="calc-intro">Sammenlign totalkostnaden for elbil og bensinbil over tid. Velg en elbil for å fylle inn data automatisk, eller skriv inn dine egne tall. Alle felt kan endres.</p>
+
+        <div class="calc-car-select">
+            <label for="car-picker">Velg elbil (fyller ut automatisk)</label>
+            <select id="car-picker">
+                <option value="">— Velg en elbil —</option>
+            </select>
+        </div>
+
+        <div class="calc-shared">
+            <div class="calc-shared-title">Felles forutsetninger</div>
+            <div class="calc-shared-grid">
+                <div class="calc-field">
+                    <label>Kjørelengde per år <span class="calc-unit">km</span></label>
+                    <input type="number" id="km-year" value="15000" step="1000">
+                </div>
+                <div class="calc-field">
+                    <label>Eiertid <span class="calc-unit">år</span></label>
+                    <input type="number" id="years" value="5" min="1" max="15" step="1">
+                </div>
+                <div class="calc-field">
+                    <label>Strømpris hjemmelading <span class="calc-unit">kr/kWh</span></label>
+                    <input type="number" id="el-price" value="1.50" step="0.10">
+                </div>
+                <div class="calc-field">
+                    <label>Bensinpris <span class="calc-unit">kr/liter</span></label>
+                    <input type="number" id="petrol-price" value="20.00" step="0.50">
+                </div>
+            </div>
+        </div>
+
+        <div class="calc-columns">
+            <div class="calc-column">
+                <div class="calc-column-header">
+                    <span class="calc-column-badge badge-ev">Elbil</span>
+                    <span id="ev-name">—</span>
+                </div>
+                <div class="calc-field">
+                    <label>Kjøpspris <span class="calc-unit">kr</span></label>
+                    <input type="number" id="ev-price" value="450000" step="10000">
+                </div>
+                <div class="calc-field">
+                    <label>Forbruk <span class="calc-unit">kWh/100 km</span></label>
+                    <input type="number" id="ev-consumption" value="17.0" step="0.5">
+                </div>
+                <div class="calc-field">
+                    <label>Forsikring per år <span class="calc-unit">kr</span></label>
+                    <input type="number" id="ev-insurance" value="12000" step="500">
+                </div>
+                <div class="calc-field">
+                    <label>Service/vedlikehold per år <span class="calc-unit">kr</span></label>
+                    <input type="number" id="ev-service" value="3000" step="500">
+                </div>
+                <div class="calc-field">
+                    <label>Verditap (totalt over eiertid) <span class="calc-unit">%</span></label>
+                    <input type="number" id="ev-depreciation" value="50" step="5" min="0" max="100">
+                </div>
+                <div class="calc-field">
+                    <label>Bompenger per år <span class="calc-unit">kr</span></label>
+                    <input type="number" id="ev-toll" value="3000" step="500">
+                </div>
+            </div>
+
+            <div class="calc-column">
+                <div class="calc-column-header">
+                    <span class="calc-column-badge badge-petrol">Bensin</span>
+                    Tilsvarende bensinbil
+                </div>
+                <div class="calc-field">
+                    <label>Kjøpspris <span class="calc-unit">kr</span></label>
+                    <input type="number" id="petrol-price-car" value="400000" step="10000">
+                </div>
+                <div class="calc-field">
+                    <label>Forbruk <span class="calc-unit">liter/mil</span></label>
+                    <input type="number" id="petrol-consumption" value="0.70" step="0.05">
+                </div>
+                <div class="calc-field">
+                    <label>Forsikring per år <span class="calc-unit">kr</span></label>
+                    <input type="number" id="petrol-insurance" value="14000" step="500">
+                </div>
+                <div class="calc-field">
+                    <label>Service/vedlikehold per år <span class="calc-unit">kr</span></label>
+                    <input type="number" id="petrol-service" value="8000" step="500">
+                </div>
+                <div class="calc-field">
+                    <label>Verditap (totalt over eiertid) <span class="calc-unit">%</span></label>
+                    <input type="number" id="petrol-depreciation" value="55" step="5" min="0" max="100">
+                </div>
+                <div class="calc-field">
+                    <label>Bompenger per år <span class="calc-unit">kr</span></label>
+                    <input type="number" id="petrol-toll" value="6000" step="500">
+                </div>
+            </div>
+        </div>
+
+        <div class="calc-results" id="calc-results">
+            <div class="calc-results-title">Totalkostnad over <span id="result-years">5</span> år</div>
+            <div class="calc-results-grid" id="results-grid"></div>
+            <div class="calc-verdict" id="calc-verdict"></div>
+        </div>
+
+        <p class="calc-disclaimer">Kalkulatoren gir et estimat basert på tallene du oppgir. Faktiske kostnader avhenger av mange faktorer som ikke er inkludert, blant annet rentenivå på billån, lokale bompenger, parkeringsfordeler og individuelle forsikringsvilkår. Verditap varierer betydelig mellom merker og modeller. Strøm- og bensinpriser svinger over tid. Bruk resultatet som et utgangspunkt, ikke et fasitsvar.</p>
+    </div>
+
+    <footer class="site-footer">
+        <nav class="site-footer-nav">
+            <a href="/">Forsiden</a>
+            <span class="site-footer-sep">·</span>
+            <a href="/om-oss.html">Om oss</a>
+            <span class="site-footer-sep">·</span>
+            <a href="/personvern.html">Personvern</a>
+            <span class="site-footer-sep">·</span>
+            <a href="/vilkaar.html">Vilkår</a>
+            <span class="site-footer-sep">·</span>
+            <span class="site-footer-copy">Elbilvalg.no</span>
+        </nav>
+    </footer>
+
+    <script src="app.js?v=20260422"></script>
+    <script>
+    (function() {
+        var picker = document.getElementById('car-picker');
+        var sorted = CARS.slice().sort(function(a, b) {
+            var ma = a.make.localeCompare(b.make, 'nb');
+            if (ma !== 0) return ma;
+            return a.model.localeCompare(b.model, 'nb');
+        });
+        sorted.forEach(function(car) {
+            var opt = document.createElement('option');
+            opt.value = car.id;
+            opt.textContent = car.make + ' ' + car.model + ' (' + car.year + ') — ' + car.price.toLocaleString('nb-NO') + ' kr';
+            picker.appendChild(opt);
+        });
+
+        picker.addEventListener('change', function() {
+            var car = CARS.find(function(c) { return c.id === parseInt(picker.value); });
+            if (!car) return;
+            document.getElementById('ev-name').textContent = car.make + ' ' + car.model;
+            document.getElementById('ev-price').value = car.price;
+            var consumption = (car.kwh / car.range * 100).toFixed(1);
+            document.getElementById('ev-consumption').value = consumption;
+            calculate();
+        });
+
+        function val(id) { return parseFloat(document.getElementById(id).value) || 0; }
+        function fmt(n) { return Math.round(n).toLocaleString('nb-NO'); }
+
+        function calculate() {
+            var kmYear = val('km-year');
+            var years = val('years');
+            var elPrice = val('el-price');
+            var petrolPriceL = val('petrol-price');
+
+            var evPrice = val('ev-price');
+            var evCons = val('ev-consumption');
+            var evInsurance = val('ev-insurance');
+            var evService = val('ev-service');
+            var evDepr = val('ev-depreciation');
+            var evToll = val('ev-toll');
+
+            var petrolPriceCar = val('petrol-price-car');
+            var petrolCons = val('petrol-consumption');
+            var petrolInsurance = val('petrol-insurance');
+            var petrolService = val('petrol-service');
+            var petrolDepr = val('petrol-depreciation');
+            var petrolToll = val('petrol-toll');
+
+            var evFuelYear = (kmYear / 100) * evCons * elPrice;
+            var petrolFuelYear = (kmYear / 10) * petrolCons * petrolPriceL;
+
+            var evDeprKr = evPrice * (evDepr / 100);
+            var petrolDeprKr = petrolPriceCar * (petrolDepr / 100);
+
+            var evFuelTotal = evFuelYear * years;
+            var petrolFuelTotal = petrolFuelYear * years;
+            var evInsTotal = evInsurance * years;
+            var petrolInsTotal = petrolInsurance * years;
+            var evServTotal = evService * years;
+            var petrolServTotal = petrolService * years;
+            var evTollTotal = evToll * years;
+            var petrolTollTotal = petrolToll * years;
+
+            var evTotal = evDeprKr + evFuelTotal + evInsTotal + evServTotal + evTollTotal;
+            var petrolTotal = petrolDeprKr + petrolFuelTotal + petrolInsTotal + petrolServTotal + petrolTollTotal;
+
+            document.getElementById('result-years').textContent = years;
+
+            var rows = [
+                { label: '', ev: 'Elbil', petrol: 'Bensin', cls: 'row-header' },
+                { label: 'Verditap', ev: evDeprKr, petrol: petrolDeprKr },
+                { label: 'Drivstoff/lading', ev: evFuelTotal, petrol: petrolFuelTotal },
+                { label: 'Forsikring', ev: evInsTotal, petrol: petrolInsTotal },
+                { label: 'Service/vedlikehold', ev: evServTotal, petrol: petrolServTotal },
+                { label: 'Bompenger', ev: evTollTotal, petrol: petrolTollTotal },
+                { label: 'Totalt', ev: evTotal, petrol: petrolTotal, cls: 'row-total' }
+            ];
+
+            var html = '';
+            rows.forEach(function(r) {
+                var cls = r.cls || '';
+                if (cls === 'row-header') {
+                    html += '<div class="row-label ' + cls + '">' + r.label + '</div>'
+                        + '<div class="row-ev ' + cls + '">' + r.ev + '</div>'
+                        + '<div class="row-petrol ' + cls + '">' + r.petrol + '</div>';
+                } else {
+                    html += '<div class="row-label ' + cls + '">' + r.label + '</div>'
+                        + '<div class="row-ev ' + cls + '">' + fmt(r.ev) + ' kr</div>'
+                        + '<div class="row-petrol ' + cls + '">' + fmt(r.petrol) + ' kr</div>';
+                }
+            });
+
+            document.getElementById('results-grid').innerHTML = html;
+
+            var diff = Math.abs(evTotal - petrolTotal);
+            var verdict = document.getElementById('calc-verdict');
+            if (evTotal < petrolTotal) {
+                verdict.className = 'calc-verdict verdict-ev';
+                verdict.textContent = 'Elbilen er ' + fmt(diff) + ' kr billigere over ' + years + ' år';
+            } else if (petrolTotal < evTotal) {
+                verdict.className = 'calc-verdict verdict-petrol';
+                verdict.textContent = 'Bensinbilen er ' + fmt(diff) + ' kr billigere over ' + years + ' år';
+            } else {
+                verdict.className = 'calc-verdict';
+                verdict.textContent = 'Likt!';
+            }
+        }
+
+        document.querySelectorAll('.calc-page input').forEach(function(input) {
+            input.addEventListener('input', calculate);
+        });
+
+        var params = new URLSearchParams(window.location.search);
+        var preselect = params.get('id');
+        if (preselect) {
+            var slug = preselect.toLowerCase();
+            var match = CARS.find(function(c) {
+                var s = (c.make + '-' + c.model + '-' + c.year).toLowerCase().replace(/[^a-z0-9]+/g, '-');
+                return s === slug;
+            });
+            if (match) {
+                picker.value = match.id;
+                picker.dispatchEvent(new Event('change'));
+            }
+        }
+
+        calculate();
+    })();
+    </script>
+</body>
+</html>
