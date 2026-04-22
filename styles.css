@@ -1227,6 +1227,15 @@ body.tab-favorites .sticky-filters {
     margin-top: auto;
 }
 
+.articles-ai-note {
+    margin: 10px 0 0;
+    font-size: 12px;
+    color: var(--text2);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
 /* ========== Article page styles ========== */
 .article-category {
     font-size: 11px;
