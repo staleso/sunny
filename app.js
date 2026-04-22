@@ -742,6 +742,28 @@ const CARS = [
     }
 ];
 
+// ========== Country of origin ==========
+var BRAND_COUNTRY = {
+    "BMW": "Tyskland", "Audi": "Tyskland", "Mercedes": "Tyskland", "Porsche": "Tyskland",
+    "Volkswagen": "Tyskland", "Opel": "Tyskland",
+    "Tesla": "USA", "Ford": "USA",
+    "Volvo": "Sverige", "Polestar": "Sverige",
+    "Hyundai": "Sør-Korea", "Kia": "Sør-Korea",
+    "Skoda": "Tsjekkia",
+    "Toyota": "Japan", "Nissan": "Japan",
+    "Renault": "Frankrike", "Peugeot": "Frankrike",
+    "NIO": "Kina", "Xpeng": "Kina", "BYD": "Kina", "MG": "Kina", "Smart": "Kina",
+    "Cupra": "Spania", "Jaguar": "Storbritannia", "Fiat": "Italia"
+};
+var COUNTRY_FLAGS = {
+    "Tyskland": "\u{1F1E9}\u{1F1EA}", "USA": "\u{1F1FA}\u{1F1F8}", "Sverige": "\u{1F1F8}\u{1F1EA}",
+    "Sør-Korea": "\u{1F1F0}\u{1F1F7}", "Tsjekkia": "\u{1F1E8}\u{1F1FF}", "Japan": "\u{1F1EF}\u{1F1F5}",
+    "Frankrike": "\u{1F1EB}\u{1F1F7}", "Kina": "\u{1F1E8}\u{1F1F3}", "Spania": "\u{1F1EA}\u{1F1F8}",
+    "Storbritannia": "\u{1F1EC}\u{1F1E7}", "Italia": "\u{1F1EE}\u{1F1F9}"
+};
+function getCarCountry(car) { return BRAND_COUNTRY[car.make] || ""; }
+function getCarCountryFlag(car) { var c = getCarCountry(car); return (COUNTRY_FLAGS[c] || "") + " " + c; }
+
 // ========== EV-spec estimates ==========
 // Estimated DC max charging (kW) based on make/model patterns.
 // These are approximations — use car.chargeSpeed field for precise override.
@@ -1308,7 +1330,7 @@ function renderCarCard(car) {
             <div class="car-card-top">
                 <div class="car-card-info">
                     <div class="car-card-title">${car.make} ${car.model}</div>
-                    <div class="car-card-subtitle">${car.year} · ${car.segment}</div>
+                    <div class="car-card-subtitle">${car.year} · ${car.segment} · ${getCarCountryFlag(car)}</div>
                 </div>
                 <div class="car-card-price">${formatPrice(car.price)}</div>
             </div>
@@ -1715,7 +1737,7 @@ function openModal(id) {
 
     body.innerHTML = `
         <div class="modal-title">${car.make} ${car.model}</div>
-        <div class="modal-year">${car.year} · ${car.segment}</div>
+        <div class="modal-year">${car.year} · ${car.segment} · ${getCarCountryFlag(car)}</div>
         <div class="modal-price">${formatPrice(car.price)}</div>
         ${src ? `<a href="${src.url}" target="_blank" rel="noopener" class="modal-source-link">Kilde: ${src.name}</a>` : ''}
 

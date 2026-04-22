@@ -20,7 +20,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=33">
+    <link rel="stylesheet" href="styles.css?v=20260422">
     <meta name="google-adsense-account" content="ca-pub-4678480487049419">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4678480487049419" crossorigin="anonymous"></script>
     <!-- Google Analytics -->
@@ -61,7 +61,7 @@
         </div>
     </noscript>
 
-    <script src="app.js?v=31"></script>
+    <script src="app.js?v=20260422"></script>
     <script>
     (function() {
         function addNoIndex() {
@@ -199,7 +199,7 @@
             + '  <div class="detail-title-row">'
             + '    <div>'
             + '      <h1 class="detail-title">' + car.make + ' ' + car.model + '</h1>'
-            + '      <p class="detail-subtitle">' + car.year + ' · ' + car.segment + ' · ' + car.drivetrain + '</p>'
+            + '      <p class="detail-subtitle">' + car.year + ' · ' + car.segment + ' · ' + car.drivetrain + ' · ' + getCarCountryFlag(car) + '</p>'
             + '    </div>'
             + '    <div class="detail-price">' + formatPrice(car.price) + '</div>'
             + '  </div>'
@@ -243,6 +243,7 @@
             + '    <tr><td class="detail-table-label">Forbruk</td><td class="detail-table-val">' + efficiency + ' kWh/100km</td></tr>'
             + '    <tr><td class="detail-table-label">Batteri</td><td class="detail-table-val">' + car.battery + '</td></tr>'
             + '    <tr><td class="detail-table-label">Type</td><td class="detail-table-val">' + car.segment + '</td></tr>'
+            + '    <tr><td class="detail-table-label">Opprinnelsesland</td><td class="detail-table-val">' + getCarCountryFlag(car) + '</td></tr>'
 
             + '    <tr class="detail-table-section"><th colspan="2">Dimensjoner</th></tr>'
             + '    <tr><td class="detail-table-label">Lengde</td><td class="detail-table-val">' + car.length + ' mm</td></tr>'
