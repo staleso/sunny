@@ -132,6 +132,7 @@
                 { label: 'Lavest mulig pris', value: 'price' },
                 { label: 'Lengst rekkevidde', value: 'range' },
                 { label: 'Raskest lading', value: 'charging' },
+                { label: 'Mest mulig ytelse og wow-faktor', value: 'performance' },
                 { label: 'Best verdi for pengene', value: 'balance' }
             ]
         }
@@ -208,6 +209,11 @@
         if (a.priority === 'price') score += Math.max(0, 20 - (car.price / a.budget) * 15);
         if (a.priority === 'range') score += Math.min(25, (car.range - 300) / 20);
         if (a.priority === 'charging') score += Math.min(25, (chargeSpeed - 100) / 8);
+        if (a.priority === 'performance') {
+            score += Math.min(25, (car.hp - 200) / 20);
+            if (car.zeroToHundred && car.zeroToHundred < 5) score += 10;
+            else if (car.zeroToHundred && car.zeroToHundred < 6) score += 5;
+        }
         if (a.priority === 'balance') {
             const valueScore = (car.range / (car.price / 100000));
             score += Math.min(20, valueScore);
