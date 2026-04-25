@@ -1092,16 +1092,21 @@ body.tab-favorites .sticky-filters {
 }
 
 .star-filled {
-    color: #f59e0b;
-    text-shadow: 0 0 1px rgba(245, 158, 11, 0.4);
+    color: #d97706;
+    text-shadow: 0 0 2px rgba(217, 119, 6, 0.5);
 }
 
 .star-empty {
-    color: #d1d5db;
+    color: #9ca3af;
+}
+
+:root[data-theme="dark"] .star-filled {
+    color: #f59e0b;
+    text-shadow: 0 0 2px rgba(245, 158, 11, 0.5);
 }
 
 :root[data-theme="dark"] .star-empty {
-    color: #4b5563;
+    color: #6b7280;
 }
 
 .star-avg {
