@@ -1,0 +1,55 @@
+name: Månedlig bilsalgsartikkel
+
+on:
+  schedule:
+    # Kjører kl. 09:00 UTC den 15. hver måned
+    - cron: '0 9 15 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  generate-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Installer avhengigheter
+        run: npm install @anthropic-ai/sdk
+
+      - name: Generer bilsalgsartikkel
+        run: node scripts/generate-bilsalg.mjs
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      - name: Commit og push endringer
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add bilsalg-*.html index.html sitemap.xml
+          git diff --staged --quiet || git commit -m "Automatisk: Bilsalgsartikkel $(date +'%B %Y' --locale=no_NO 2>/dev/null || date +'%B %Y')"
+          git push
+
+      - uses: actions/configure-pages@v4
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
