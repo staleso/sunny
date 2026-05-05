@@ -276,9 +276,16 @@ const CARS = [
         emoji: "⚡", color: "#2e2e1a", segment: "Large SUV"
     },
     {
+        id: 101, make: "Porsche", model: "Cayenne S Electric", year: 2026, price: 1389000,
+        type: "suv", hp: 544, kwh: 113, zeroToHundred: 3.8, seats: 5,
+        drivetrain: "AWD", battery: "113 kWh", range: 653,
+        length: 4985, width: 1980, height: 1674, weight: 2565, trunk: 621,
+        emoji: "⚡", color: "#2e2e1a", segment: "Large SUV"
+    },
+    {
         id: 77, make: "Porsche", model: "Cayenne Turbo Electric", year: 2026, price: 1767100,
         type: "suv", hp: 1156, kwh: 113, zeroToHundred: 2.5, seats: 5,
-        drivetrain: "AWD", battery: "113 kWh", range: 600,
+        drivetrain: "AWD", battery: "113 kWh", range: 623,
         length: 4985, width: 1980, height: 1674, weight: 2600, trunk: 621,
         emoji: "⚡", color: "#1a1a2e", segment: "Performance SUV"
     },
