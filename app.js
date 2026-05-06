@@ -1407,7 +1407,7 @@ function renderCarCard(car) {
 }
 
 // ========== Slider filters ==========
-const PRICE_MIN = 0, PRICE_MAX = 1500000, PRICE_STEP = 25000;
+const PRICE_MIN = 0, PRICE_MAX = 2000000, PRICE_STEP = 25000;
 
 function formatPriceShort(v) {
     if (v >= 1000000) return (v / 1000000).toFixed(v % 1000000 === 0 ? 0 : 1).replace(".", ",") + " mill";
