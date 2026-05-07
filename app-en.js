@@ -1986,7 +1986,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Position indicator on load
-    requestAnimationFrame(() => switchTab(state.activeTab || "browse"));
+    var initTab = window.location.hash === "#compare" ? "compare" : (state.activeTab || "browse");
+    requestAnimationFrame(() => switchTab(initTab));
 
     // Collapse top nav (brand/tabs + extra filters) on scroll — keep search visible.
     const stickyTop = document.querySelector(".sticky-top");
