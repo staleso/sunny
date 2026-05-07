@@ -1154,7 +1154,7 @@ function renderRecentlyViewed() {
     const listEl = container.querySelector(".recently-viewed-list");
     listEl.innerHTML = cars.map(car => {
         const bc = BRAND_COLORS[car.make] || { primary: "#888" };
-        return `<a href="bil.html?id=${carSlug(car)}" class="recently-viewed-item" style="--brand-color:${bc.primary}" onclick="trackEvent('recently_viewed_click', { car_id: ${car.id} })">${car.make} ${car.model}</a>`;
+        return `<a href="/en/car.html?id=${carSlug(car)}" class="recently-viewed-item" style="--brand-color:${bc.primary}" onclick="trackEvent('recently_viewed_click', { car_id: ${car.id} })">${car.make} ${car.model}</a>`;
     }).join("");
 }
 
@@ -1333,7 +1333,7 @@ function renderCarImagePlaceholder(car) {
 function renderCarCard(car) {
     const div = document.createElement("div");
     div.className = "car-card";
-    div.onclick = () => { window.location.href = 'bil.html?id=' + carSlug(car); };
+    div.onclick = () => { window.location.href = '/en/car.html?id=' + carSlug(car); };
 
     const bc = BRAND_COLORS[car.make] || { primary: "#888", gradient: "linear-gradient(135deg, #888, #444)" };
     const efficiency = (car.kwh / car.range * 100).toFixed(1);
