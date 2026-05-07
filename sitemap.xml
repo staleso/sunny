@@ -37,6 +37,36 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://elbilvalg.no/en/choosing-an-ev.html</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://elbilvalg.no/en/first-ev.html</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://elbilvalg.no/en/ev-price-trends.html</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://elbilvalg.no/en/new-evs-2026.html</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://elbilvalg.no/en/ev-body-types.html</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://elbilvalg.no/bil.html</loc>
     <lastmod>2026-04-21</lastmod>
     <changefreq>weekly</changefreq>
