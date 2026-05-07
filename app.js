@@ -1340,7 +1340,7 @@ function renderCarCard(car) {
 
     var silhouette = CAR_SILHOUETTES[car.type] || CAR_SILHOUETTES['sedan'];
     div.innerHTML = `
-        <div class="car-card-header" style="border-bottom-color:${bc.primary}22">
+        <div class="car-card-header" style="background:linear-gradient(135deg, ${bc.primary}14, ${bc.primary}08)">
             <div class="car-card-header-icon" style="color:${bc.primary}">${silhouette}</div>
             <div class="car-card-header-brand" style="color:${bc.primary}">${car.make}</div>
         </div>
