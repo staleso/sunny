@@ -1909,20 +1909,8 @@ function switchTab(tab) {
     state.activeTab = tab;
     document.body.className = "tab-" + tab;
     const tabs = document.querySelectorAll(".tab");
-    const indicator = document.querySelector(".tab-indicator");
     tabs.forEach(t => t.classList.toggle("active", t.dataset.tab === tab));
     document.querySelectorAll(".tab-content").forEach(t => t.classList.toggle("active", t.id === tab + "-tab"));
-    // Move indicator
-    if (indicator) {
-        const activeTab = document.querySelector(`.tab[data-tab="${tab}"]`);
-        if (activeTab) {
-            const bar = activeTab.parentElement;
-            const barRect = bar.getBoundingClientRect();
-            const tabRect = activeTab.getBoundingClientRect();
-            indicator.style.left = (tabRect.left - barRect.left) + "px";
-            indicator.style.width = tabRect.width + "px";
-        }
-    }
     updateUI();
 }
 
@@ -1974,12 +1962,6 @@ function updateUI() {
 
 // ========== Init ==========
 document.addEventListener("DOMContentLoaded", () => {
-    // Tab indicator
-    const tabBar = document.querySelector(".tab-bar");
-    const indicator = document.createElement("div");
-    indicator.className = "tab-indicator";
-    tabBar.appendChild(indicator);
-
     // Tab switching
     document.querySelectorAll(".tab").forEach(tab => {
         tab.addEventListener("click", () => switchTab(tab.dataset.tab));
@@ -2000,18 +1982,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 const y = window.scrollY || document.documentElement.scrollTop;
                 stickyTop.classList.toggle("is-scrolled", y > 24);
                 ticking = false;
-                // Keep tab indicator aligned after height change transitions
-                if (typeof switchTab === "function" && state.activeTab) {
-                    const indicator = document.querySelector(".tab-indicator");
-                    const activeTab = document.querySelector('.tab[data-tab="' + state.activeTab + '"]');
-                    if (indicator && activeTab) {
-                        const bar = activeTab.parentElement;
-                        const barRect = bar.getBoundingClientRect();
-                        const tabRect = activeTab.getBoundingClientRect();
-                        indicator.style.left = (tabRect.left - barRect.left) + "px";
-                        indicator.style.width = tabRect.width + "px";
-                    }
-                }
             });
         };
         window.addEventListener("scroll", onScroll, { passive: true });
