@@ -1267,6 +1267,18 @@ body.tab-favorites .sticky-filters {
     gap: 6px;
 }
 
+.articles-see-all {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--accent);
+    text-decoration: none;
+}
+.articles-see-all:hover {
+    text-decoration: underline;
+}
+
 /* ========== Article page styles ========== */
 .article-category {
     font-size: 11px;

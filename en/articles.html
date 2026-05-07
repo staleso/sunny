@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#f8f8fa">
+    <script>
+        (function() {
+            var t = localStorage.getItem('theme');
+            if (!t && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) t = 'dark';
+            if (t === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                var m = document.querySelector('meta[name="theme-color"]');
+                if (m) m.content = '#16161e';
+            }
+        })();
+    </script>
+    <title>EV articles – guides, news and tips | Elbilvalg.no</title>
+    <meta name="description" content="Everything you need to know about electric cars in Norway. Guides for first-time buyers, price trends, new 2026 models, body types and tips for choosing the right EV.">
+    <link rel="canonical" href="https://elbilvalg.no/en/articles.html">
+    <link rel="alternate" hreflang="nb" href="https://elbilvalg.no/artikler.html">
+    <link rel="alternate" hreflang="en" href="https://elbilvalg.no/en/articles.html">
+    <meta property="og:title" content="EV articles – guides, news and tips | Elbilvalg.no">
+    <meta property="og:description" content="Guides, news and background on electric cars in Norway. From first-time buying to price trends and new models.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_US">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css?v=20260422">
+    <meta name="google-adsense-account" content="ca-pub-4678480487049419">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4678480487049419" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3TDS5SGX53"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        var _cc = localStorage.getItem('cookie-consent');
+        if (_cc === 'accepted') {
+            gtag('consent', 'default', { analytics_storage: 'granted', ad_storage: 'granted', ad_personalization: 'granted', ad_user_data: 'granted' });
+        } else {
+            gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', ad_personalization: 'denied', ad_user_data: 'denied' });
+        }
+        gtag('js', new Date());
+        gtag('config', 'G-3TDS5SGX53');
+    </script>
+</head>
+<body>
+    <div class="sticky-top">
+        <header class="app-header">
+            <a href="/en/" class="brand" aria-label="Elbilvalg.no – home">Elbilvalg.no</a>
+                <a href="/artikler.html" class="lang-switch" aria-label="Norsk versjon">NO</a>
+            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+            </button>
+        </header>
+        <nav class="tab-bar">
+            <a href="/en/" class="tab tab-link">Explore</a>
+            <a href="/en/quiz.html" class="tab tab-link">Quiz</a>
+            <a href="/en/calculator.html" class="tab tab-link">Calculator</a>
+            <a href="/en/table.html" class="tab tab-link">Table</a>
+            <a href="/en/articles.html" class="tab tab-link" style="color:var(--accent);background:rgba(37,99,235,0.08);">Articles</a>
+        </nav>
+    </div>
+    <script>
+    function toggleTheme(){var d=document.documentElement,t=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',t);localStorage.setItem('theme',t);var m=document.querySelector('meta[name="theme-color"]');if(m)m.content=t==='dark'?'#16161e':'#f8f8fa';}
+    </script>
+
+    <div class="static-page">
+        <article class="static-content">
+            <h1>EV articles</h1>
+            <p class="article-lead">Guides, news and background for anyone considering an electric car in Norway.</p>
+
+            <section class="articles-section" style="margin-top:24px;">
+                <div class="articles-grid">
+                    <a href="/en/choosing-an-ev.html" class="article-card">
+                        <p class="article-card-category">Guide</p>
+                        <h3 class="article-card-title">10 things to consider when choosing an EV</h3>
+                        <p class="article-card-ingress">Range, charging, price, AWD or not? We go through the most important factors and help you prioritize for your needs.</p>
+                        <span class="article-card-link">Read the guide &#8594;</span>
+                    </a>
+                    <a href="/en/first-ev.html" class="article-card">
+                        <p class="article-card-category">For first-time buyers</p>
+                        <h3 class="article-card-title">What you need to know as a first-time EV buyer</h3>
+                        <p class="article-card-ingress">Range anxiety, home charging, battery in winter and what actually surprises new EV owners — the answers you need before you decide.</p>
+                        <span class="article-card-link">Read the article &#8594;</span>
+                    </a>
+                    <a href="/en/ev-price-trends.html" class="article-card">
+                        <p class="article-card-category">Economy</p>
+                        <h3 class="article-card-title">EV price trends – cheaper than you think?</h3>
+                        <p class="article-card-ingress">Battery prices have fallen by 90% since 2010. What does that mean for new car prices, and is an EV really cheaper than petrol over the ownership period?</p>
+                        <span class="article-card-link">Read the article &#8594;</span>
+                    </a>
+                    <a href="/en/new-evs-2026.html" class="article-card">
+                        <p class="article-card-category">News 2026</p>
+                        <h3 class="article-card-title">New EVs in 2026 – the models coming soon</h3>
+                        <p class="article-card-ingress">BMW Neue Klasse, Mercedes CLA, Porsche Cayenne Electric, Renault 5 and more. Overview of this year's most important EV launches in Norway.</p>
+                        <span class="article-card-link">Read the article &#8594;</span>
+                    </a>
+                    <a href="/en/ev-body-types.html" class="article-card">
+                        <p class="article-card-category">Body types</p>
+                        <h3 class="article-card-title">SUV, sedan or station wagon?</h3>
+                        <p class="article-card-ingress">8 out of 10 now choose SUVs. But is the station wagon really dead? A review of body types and trends in the Norwegian EV market.</p>
+                        <span class="article-card-link">Read the article &#8594;</span>
+                    </a>
+                </div>
+                <p class="articles-ai-note"><span class="ai-label">AI-generated</span> Articles are written with the help of artificial intelligence and editorially reviewed.</p>
+            </section>
+        </article>
+    </div>
+
+    <footer class="site-footer">
+        <nav class="site-footer-nav">
+            <a href="/en/">Home</a>
+            <span class="site-footer-sep">&middot;</span>
+            <a href="/om-oss.html">About us</a>
+            <span class="site-footer-sep">&middot;</span>
+            <a href="/personvern.html">Privacy</a>
+            <span class="site-footer-sep">&middot;</span>
+            <a href="/vilkaar.html">Terms</a>
+            <span class="site-footer-sep">&middot;</span>
+            <span class="site-footer-copy">Elbilvalg.no</span>
+        </nav>
+    </footer>
+</body>
+</html>
