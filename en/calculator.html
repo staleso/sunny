@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="no">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -15,17 +15,19 @@
             }
         })();
     </script>
-    <title>Elbil vs. bensin – bilholdskalkulator | Elbilvalg.no</title>
-    <meta name="description" content="Sammenlign totalkostnaden for elbil og bensinbil over tid. Forhåndsutfylte data for alle elbiler i Norge – juster strømpris, bensinpris, forsikring og kjørelengde.">
-    <link rel="canonical" href="https://elbilvalg.no/kalkulator.html">
-    <meta property="og:title" content="Elbil vs. bensin – bilholdskalkulator | Elbilvalg.no">
-    <meta property="og:description" content="Hva koster det egentlig å eie elbil vs. bensinbil? Regn ut selv med vår kalkulator.">
+    <title>EV vs. Petrol – Ownership Cost Calculator | Elbilvalg.no</title>
+    <meta name="description" content="Compare the total cost of owning an EV vs. a petrol car over time. Pre-filled data for all electric cars in Norway – adjust electricity price, petrol price, insurance and annual mileage.">
+    <link rel="canonical" href="https://elbilvalg.no/en/calculator.html">
+    <link rel="alternate" hreflang="nb" href="https://elbilvalg.no/kalkulator.html">
+    <link rel="alternate" hreflang="en" href="https://elbilvalg.no/en/calculator.html">
+    <meta property="og:title" content="EV vs. Petrol – Ownership Cost Calculator | Elbilvalg.no">
+    <meta property="og:description" content="What does it really cost to own an EV vs. a petrol car? Calculate it yourself with our calculator.">
     <meta property="og:type" content="website">
-    <meta property="og:locale" content="nb_NO">
+    <meta property="og:locale" content="en_US">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=20260422">
+    <link rel="stylesheet" href="../styles.css?v=20260422">
     <meta name="google-adsense-account" content="ca-pub-4678480487049419">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4678480487049419" crossorigin="anonymous"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-3TDS5SGX53"></script>
@@ -320,18 +322,18 @@
 <body>
     <div class="sticky-top">
         <header class="app-header">
-            <a href="/" class="brand" aria-label="Elbil Norge – forside">Elbil Norge</a>
-                <a href="/en/" class="lang-switch" aria-label="English version">EN</a>
-            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Bytt tema">
+            <a href="/en/" class="brand" aria-label="EV Norway – home">EV Norway</a>
+            <a href="/kalkulator.html" class="lang-switch" aria-label="Switch to Norwegian">NO</a>
+            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
                 <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
                 <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
             </button>
         </header>
         <nav class="tab-bar">
-            <a href="/" class="tab tab-link">Utforsk</a>
-            <a href="/finn-din-elbil.html" class="tab tab-link">Quiz</a>
-            <a href="/kalkulator.html" class="tab tab-link">Kalkulator</a>
-            <a href="/tabell.html" class="tab tab-link">Tabell</a>
+            <a href="/en/" class="tab tab-link">Explore</a>
+            <a href="/en/quiz.html" class="tab tab-link">Quiz</a>
+            <a href="/en/calculator.html" class="tab tab-link">Calculator</a>
+            <a href="/en/table.html" class="tab tab-link">Table</a>
         </nav>
     </div>
     <script>
@@ -339,38 +341,38 @@
     </script>
 
     <div class="calc-page">
-        <h1 class="calc-title">Elbil vs. bensin — hva koster det?</h1>
-        <p class="calc-intro">Sammenlign totalkostnaden for elbil og bensinbil over tid. Velg en elbil for å fylle inn data automatisk, eller skriv inn dine egne tall. Alle felt kan endres.</p>
+        <h1 class="calc-title">EV vs. Petrol — what does it cost?</h1>
+        <p class="calc-intro">Compare the total cost of owning an EV vs. a petrol car over time. Select an EV to auto-fill data, or enter your own figures. All fields are editable.</p>
 
         <div class="calc-warning">
-            <strong>Kun veiledende estimat — ikke finansiell rådgivning</strong>
-            Denne kalkulatoren gir et forenklet overslag basert på tallene du legger inn. Mange faktorer er ikke inkludert: lånerente, trafikkforsikringsavgift, parkeringsfordeler, batteridegradring og individuelle forsikringsvilkår. Avgiftsfordeler for elbil (mva-fritak, engangsavgift, bompenger) fastsettes politisk og kan endres. Kontakt forhandler eller finansrådgiver for konkrete vurderinger.
+            <strong>Indicative estimate only — not financial advice</strong>
+            This calculator provides a simplified estimate based on the figures you enter. Many factors are not included: loan interest, traffic insurance levy, parking benefits, battery degradation and individual insurance terms. Tax benefits for EVs (VAT exemption, registration tax, toll roads) are set by policy and may change. Contact a dealer or financial adviser for specific assessments.
         </div>
 
         <div class="calc-car-select">
-            <label for="car-picker">Velg elbil (fyller ut automatisk)</label>
+            <label for="car-picker">Select EV (auto-fills data)</label>
             <select id="car-picker">
-                <option value="">— Velg en elbil —</option>
+                <option value="">— Select an EV —</option>
             </select>
         </div>
 
         <div class="calc-shared">
-            <div class="calc-shared-title">Felles forutsetninger</div>
+            <div class="calc-shared-title">Shared assumptions</div>
             <div class="calc-shared-grid">
                 <div class="calc-field">
-                    <label>Kjørelengde per år <span class="calc-unit">km</span></label>
+                    <label>Annual mileage <span class="calc-unit">km</span></label>
                     <input type="number" id="km-year" value="15000" step="1000">
                 </div>
                 <div class="calc-field">
-                    <label>Eiertid <span class="calc-unit">år</span></label>
+                    <label>Ownership period <span class="calc-unit">years</span></label>
                     <input type="number" id="years" value="5" min="1" max="15" step="1">
                 </div>
                 <div class="calc-field">
-                    <label>Strømpris hjemmelading <span class="calc-unit">kr/kWh</span></label>
+                    <label>Electricity price (home charging) <span class="calc-unit">NOK/kWh</span></label>
                     <input type="number" id="el-price" value="1.50" step="0.10">
                 </div>
                 <div class="calc-field">
-                    <label>Bensinpris <span class="calc-unit">kr/liter</span></label>
+                    <label>Petrol price <span class="calc-unit">NOK/litre</span></label>
                     <input type="number" id="petrol-price" value="20.00" step="0.50">
                 </div>
             </div>
@@ -379,120 +381,120 @@
         <div class="calc-columns">
             <div class="calc-column">
                 <div class="calc-column-header">
-                    <span class="calc-column-badge badge-ev">Elbil</span>
+                    <span class="calc-column-badge badge-ev">EV</span>
                     <span id="ev-name">—</span>
                 </div>
                 <div class="calc-field">
-                    <label>Kjøpspris <span class="calc-unit">kr</span></label>
+                    <label>Purchase price <span class="calc-unit">NOK</span></label>
                     <input type="number" id="ev-price" value="450000" step="10000">
                 </div>
                 <div class="calc-field">
-                    <label>Forbruk <span class="calc-unit">kWh/100 km</span></label>
+                    <label>Consumption <span class="calc-unit">kWh/100 km</span></label>
                     <input type="number" id="ev-consumption" value="17.0" step="0.5">
                 </div>
                 <div class="calc-field">
-                    <label>Forsikring per år <span class="calc-unit">kr</span></label>
+                    <label>Insurance per year <span class="calc-unit">NOK</span></label>
                     <input type="number" id="ev-insurance" value="12000" step="500">
                 </div>
                 <div class="calc-field">
-                    <label>Service/vedlikehold per år <span class="calc-unit">kr</span></label>
+                    <label>Service/maintenance per year <span class="calc-unit">NOK</span></label>
                     <input type="number" id="ev-service" value="3000" step="500">
                 </div>
                 <div class="calc-field">
-                    <label>Verditap (totalt over eiertid) <span class="calc-unit">%</span></label>
+                    <label>Depreciation (total over ownership) <span class="calc-unit">%</span></label>
                     <input type="number" id="ev-depreciation" value="50" step="5" min="0" max="100">
                 </div>
                 <div class="calc-field">
-                    <label>Bompenger per år <span class="calc-unit">kr</span></label>
+                    <label>Toll roads per year <span class="calc-unit">NOK</span></label>
                     <input type="number" id="ev-toll" value="3000" step="500">
                 </div>
             </div>
 
             <div class="calc-column">
                 <div class="calc-column-header">
-                    <span class="calc-column-badge badge-petrol">Bensin</span>
-                    Tilsvarende bensinbil
+                    <span class="calc-column-badge badge-petrol">Petrol</span>
+                    Equivalent petrol car
                 </div>
                 <div class="calc-field">
-                    <label>Kjøpspris <span class="calc-unit">kr</span></label>
+                    <label>Purchase price <span class="calc-unit">NOK</span></label>
                     <input type="number" id="petrol-price-car" value="400000" step="10000">
                 </div>
                 <div class="calc-field">
-                    <label>Forbruk <span class="calc-unit">liter/mil</span></label>
+                    <label>Consumption <span class="calc-unit">litres/10 km</span></label>
                     <input type="number" id="petrol-consumption" value="0.70" step="0.05">
                 </div>
                 <div class="calc-field">
-                    <label>Forsikring per år <span class="calc-unit">kr</span></label>
+                    <label>Insurance per year <span class="calc-unit">NOK</span></label>
                     <input type="number" id="petrol-insurance" value="14000" step="500">
                 </div>
                 <div class="calc-field">
-                    <label>Service/vedlikehold per år <span class="calc-unit">kr</span></label>
+                    <label>Service/maintenance per year <span class="calc-unit">NOK</span></label>
                     <input type="number" id="petrol-service" value="8000" step="500">
                 </div>
                 <div class="calc-field">
-                    <label>Verditap (totalt over eiertid) <span class="calc-unit">%</span></label>
+                    <label>Depreciation (total over ownership) <span class="calc-unit">%</span></label>
                     <input type="number" id="petrol-depreciation" value="55" step="5" min="0" max="100">
                 </div>
                 <div class="calc-field">
-                    <label>Bompenger per år <span class="calc-unit">kr</span></label>
+                    <label>Toll roads per year <span class="calc-unit">NOK</span></label>
                     <input type="number" id="petrol-toll" value="6000" step="500">
                 </div>
             </div>
         </div>
 
         <div class="calc-results" id="calc-results">
-            <div class="calc-results-title">Totalkostnad over <span id="result-years">5</span> år</div>
+            <div class="calc-results-title">Total cost over <span id="result-years">5</span> years</div>
             <div class="calc-results-grid" id="results-grid"></div>
             <div class="calc-verdict" id="calc-verdict"></div>
-            <p class="calc-results-disclaimer">Estimat — ikke fasitsvar. Mange kostnader er ikke inkludert. Se fullstendig forbehold under.</p>
+            <p class="calc-results-disclaimer">Estimate — not a definitive answer. Many costs are not included. See full disclaimer below.</p>
         </div>
 
         <div class="calc-disclaimer">
-            <strong>Fullstendig forbehold</strong>
-            <p>Denne kalkulatoren er kun ment som et veiledende verktøy og utgjør ikke finansiell, juridisk eller annen profesjonell rådgivning. Elbilvalg.no tar ikke ansvar for beslutninger tatt på grunnlag av resultatene.</p>
-            <p style="margin-top:8px"><strong>Faktorer som ikke er inkludert:</strong></p>
+            <strong>Full disclaimer</strong>
+            <p>This calculator is intended as an indicative tool only and does not constitute financial, legal or other professional advice. Elbilvalg.no accepts no responsibility for decisions made based on the results.</p>
+            <p style="margin-top:8px"><strong>Factors not included:</strong></p>
             <ul style="margin:6px 0 0 16px; padding:0;">
-                <li>Rente og gebyrer på billån/leasing</li>
-                <li>Trafikkforsikringsavgift (ulik for elbil og bensin)</li>
-                <li>Parkeringsfordeler for elbil (kommunalt fastsatt)</li>
-                <li>Fergerabatt og kollektivfelt (kan endres politisk)</li>
-                <li>Batteridegradring som øker forbruket over tid</li>
-                <li>Dekkslitasje (elbiler er tyngre og sliter dekk raskere)</li>
-                <li>Årsavgift og EU-kontroll</li>
+                <li>Interest and fees on car loans/leasing</li>
+                <li>Traffic insurance levy (differs for EVs and petrol cars)</li>
+                <li>Parking benefits for EVs (set by local authorities)</li>
+                <li>Ferry discounts and bus-lane access (subject to policy changes)</li>
+                <li>Battery degradation increasing consumption over time</li>
+                <li>Tyre wear (EVs are heavier and wear tyres faster)</li>
+                <li>Annual vehicle tax and roadworthiness inspections</li>
             </ul>
-            <p style="margin-top:8px"><strong>Viktig om avgifter:</strong> Mva-fritaket for elbil, engangsavgift, bompengesatser og andre fordeler fastsettes politisk og kan endres uten varsel. Tallene i kalkulatoren reflekterer forholdene på publiseringstidspunktet.</p>
-            <p style="margin-top:8px"><strong>Verditap</strong> varierer betydelig mellom merker, modeller og årganger. Standardverdiene (50 % elbil, 55 % bensin over 5 år) er grove gjennomsnitt og kan avvike vesentlig for din bil.</p>
-            <p style="margin-top:8px">Kontakt forhandler eller uavhengig finansrådgiver for konkrete vurderinger av bilhold.</p>
+            <p style="margin-top:8px"><strong>Important note on taxes:</strong> VAT exemption for EVs, registration tax, toll road rates and other benefits are set by government policy and may change without notice. The figures in this calculator reflect conditions at the time of publication.</p>
+            <p style="margin-top:8px"><strong>Depreciation</strong> varies significantly between makes, models and model years. The default values (50% EV, 55% petrol over 5 years) are rough averages and may differ substantially for your car.</p>
+            <p style="margin-top:8px">Contact a dealer or independent financial adviser for specific assessments of car ownership costs.</p>
         </div>
     </div>
 
     <footer class="site-footer">
         <nav class="site-footer-nav">
-            <a href="/">Forsiden</a>
-            <span class="site-footer-sep">·</span>
-            <a href="/om-oss.html">Om oss</a>
-            <span class="site-footer-sep">·</span>
-            <a href="/personvern.html">Personvern</a>
-            <span class="site-footer-sep">·</span>
-            <a href="/vilkaar.html">Vilkår</a>
-            <span class="site-footer-sep">·</span>
+            <a href="/en/">Home</a>
+            <span class="site-footer-sep">&middot;</span>
+            <a href="/om-oss.html">About us</a>
+            <span class="site-footer-sep">&middot;</span>
+            <a href="/personvern.html">Privacy</a>
+            <span class="site-footer-sep">&middot;</span>
+            <a href="/vilkaar.html">Terms</a>
+            <span class="site-footer-sep">&middot;</span>
             <span class="site-footer-copy">Elbilvalg.no</span>
         </nav>
     </footer>
 
-    <script src="app.js?v=20260422"></script>
+    <script src="../app-en.js?v=20260422"></script>
     <script>
     (function() {
         var picker = document.getElementById('car-picker');
         var sorted = CARS.slice().sort(function(a, b) {
-            var ma = a.make.localeCompare(b.make, 'nb');
+            var ma = a.make.localeCompare(b.make, 'en');
             if (ma !== 0) return ma;
-            return a.model.localeCompare(b.model, 'nb');
+            return a.model.localeCompare(b.model, 'en');
         });
         sorted.forEach(function(car) {
             var opt = document.createElement('option');
             opt.value = car.id;
-            opt.textContent = car.make + ' ' + car.model + ' (' + car.year + ') — ' + car.price.toLocaleString('nb-NO') + ' kr';
+            opt.textContent = car.make + ' ' + car.model + ' (' + car.year + ') — ' + car.price.toLocaleString('en') + ' NOK';
             picker.appendChild(opt);
         });
 
@@ -507,7 +509,7 @@
         });
 
         function val(id) { return parseFloat(document.getElementById(id).value) || 0; }
-        function fmt(n) { return Math.round(n).toLocaleString('nb-NO'); }
+        function fmt(n) { return Math.round(n).toLocaleString('en') + ' NOK'; }
 
         function calculate() {
             var kmYear = val('km-year');
@@ -550,13 +552,13 @@
             document.getElementById('result-years').textContent = years;
 
             var rows = [
-                { label: '', ev: 'Elbil', petrol: 'Bensin', cls: 'row-header' },
-                { label: 'Verditap', ev: evDeprKr, petrol: petrolDeprKr },
-                { label: 'Drivstoff/lading', ev: evFuelTotal, petrol: petrolFuelTotal },
-                { label: 'Forsikring', ev: evInsTotal, petrol: petrolInsTotal },
-                { label: 'Service/vedlikehold', ev: evServTotal, petrol: petrolServTotal },
-                { label: 'Bompenger', ev: evTollTotal, petrol: petrolTollTotal },
-                { label: 'Totalt', ev: evTotal, petrol: petrolTotal, cls: 'row-total' }
+                { label: '', ev: 'EV', petrol: 'Petrol', cls: 'row-header' },
+                { label: 'Depreciation', ev: evDeprKr, petrol: petrolDeprKr },
+                { label: 'Fuel/charging', ev: evFuelTotal, petrol: petrolFuelTotal },
+                { label: 'Insurance', ev: evInsTotal, petrol: petrolInsTotal },
+                { label: 'Service/maintenance', ev: evServTotal, petrol: petrolServTotal },
+                { label: 'Toll roads', ev: evTollTotal, petrol: petrolTollTotal },
+                { label: 'Total', ev: evTotal, petrol: petrolTotal, cls: 'row-total' }
             ];
 
             var html = '';
@@ -568,8 +570,8 @@
                         + '<div class="row-petrol ' + cls + '">' + r.petrol + '</div>';
                 } else {
                     html += '<div class="row-label ' + cls + '">' + r.label + '</div>'
-                        + '<div class="row-ev ' + cls + '">' + fmt(r.ev) + ' kr</div>'
-                        + '<div class="row-petrol ' + cls + '">' + fmt(r.petrol) + ' kr</div>';
+                        + '<div class="row-ev ' + cls + '">' + fmt(r.ev) + '</div>'
+                        + '<div class="row-petrol ' + cls + '">' + fmt(r.petrol) + '</div>';
                 }
             });
 
@@ -579,13 +581,13 @@
             var verdict = document.getElementById('calc-verdict');
             if (evTotal < petrolTotal) {
                 verdict.className = 'calc-verdict verdict-ev';
-                verdict.textContent = 'Elbilen er ' + fmt(diff) + ' kr billigere over ' + years + ' år';
+                verdict.textContent = 'The EV is ' + fmt(diff) + ' cheaper over ' + years + ' years';
             } else if (petrolTotal < evTotal) {
                 verdict.className = 'calc-verdict verdict-petrol';
-                verdict.textContent = 'Bensinbilen er ' + fmt(diff) + ' kr billigere over ' + years + ' år';
+                verdict.textContent = 'The petrol car is ' + fmt(diff) + ' cheaper over ' + years + ' years';
             } else {
                 verdict.className = 'calc-verdict';
-                verdict.textContent = 'Likt!';
+                verdict.textContent = 'Equal!';
             }
         }
 
