@@ -79,7 +79,7 @@
         </div>
     </noscript>
 
-    <script src="../app-en.js?v=20260422"></script>
+    <script src="../app-en.js?v=20260507"></script>
     <script>
     (function() {
         function addNoIndex() {
@@ -168,7 +168,7 @@
             ]
         };
         var desc = (typeof getCarDescription === 'function') ? getCarDescription(car) : null;
-        if (desc) jsonLd.description = desc.replace(/\s*\(Tekst: AI-generert\)\s*$/, '');
+        if (desc) jsonLd.description = desc.replace(/\s*\(Text: AI-generated\)\s*$/, '');
 
         var ldScript = document.createElement('script');
         ldScript.type = 'application/ld+json';
@@ -227,7 +227,7 @@
             + (function() {
                 var desc = (typeof getCarDescription === 'function') ? getCarDescription(car) : null;
                 if (!desc) return '';
-                var clean = desc.replace(/\s*\(Tekst: AI-generert\)\s*$/, '');
+                var clean = desc.replace(/\s*\(Text: AI-generated\)\s*$/, '');
                 return '<section class="detail-section detail-description" data-ai-generated="true">'
                     + '  <span class="ai-label">AI-generated text</span>'
                     + '  <p>' + clean + '</p>'
