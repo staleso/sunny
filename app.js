@@ -1338,10 +1338,11 @@ function renderCarCard(car) {
     const bc = BRAND_COLORS[car.make] || { primary: "#888", gradient: "linear-gradient(135deg, #888, #444)" };
     const efficiency = (car.kwh / car.range * 100).toFixed(1);
 
+    var silhouette = CAR_SILHOUETTES[car.type] || CAR_SILHOUETTES['sedan'];
     div.innerHTML = `
-        <div class="car-card-accent" style="background:${bc.primary}"></div>
-        <div class="car-card-image">
-            ${renderCarImagePlaceholder(car, "")}
+        <div class="car-card-header" style="border-bottom-color:${bc.primary}22">
+            <div class="car-card-header-icon" style="color:${bc.primary}">${silhouette}</div>
+            <div class="car-card-header-brand" style="color:${bc.primary}">${car.make}</div>
         </div>
         <div class="car-card-body">
             <div class="car-card-top">
