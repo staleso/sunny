@@ -67,6 +67,30 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://elbilvalg.no/artikler.html</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://elbilvalg.no/en/articles.html</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://elbilvalg.no/tabell.html</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://elbilvalg.no/finn-din-elbil.html</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://elbilvalg.no/bil.html</loc>
     <lastmod>2026-04-21</lastmod>
     <changefreq>weekly</changefreq>
