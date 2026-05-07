@@ -1599,9 +1599,12 @@ function getPaginationRange(current, total) {
 function goToPage(page) {
     browsePage = page;
     renderBrowse();
-    var stickyTop = document.querySelector(".sticky-top");
-    if (stickyTop) {
-        window.scrollTo({ top: 0, behavior: "smooth" });
+    var carList = document.getElementById("car-list");
+    if (carList) {
+        var stickyTop = document.querySelector(".sticky-top");
+        var offset = stickyTop ? stickyTop.offsetHeight : 0;
+        var top = carList.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top: top, behavior: "smooth" });
     }
 }
 
