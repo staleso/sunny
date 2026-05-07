@@ -133,6 +133,22 @@ body.tab-favorites .sticky-filters {
     line-height: 1.2;
 }
 
+.lang-switch {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text2);
+    text-decoration: none;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2px 6px;
+    letter-spacing: 0.04em;
+    margin-left: auto;
+}
+.lang-switch:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
 /* ========== Tab Bar ========== */
 .tab-bar {
     display: flex;

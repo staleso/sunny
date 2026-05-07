@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="no">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#111114">
-    <title>Elbil Norge - Tabell</title>
+    <title>EV Norway - Table</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -161,24 +161,24 @@
 <body>
     <div style="background:var(--surface);border-bottom:1px solid var(--border);padding:10px 16px;">
         <div style="max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-            <a href="/" style="font-size:18px;font-weight:700;color:var(--text);text-decoration:none;letter-spacing:-0.03em;">Elbil Norge</a>
-            <a href="/en/table.html" style="font-size:11px;font-weight:600;color:var(--text2);text-decoration:none;border:1px solid var(--border);border-radius:4px;padding:2px 6px;margin-left:auto;">EN</a>
-            <button onclick="toggleTheme()" aria-label="Bytt tema" style="background:none;border:none;cursor:pointer;color:var(--text2);padding:6px;">
+            <a href="/en/" style="font-size:18px;font-weight:700;color:var(--text);text-decoration:none;letter-spacing:-0.03em;">EV Norway</a>
+            <a href="/tabell.html" style="font-size:12px;color:var(--text2);text-decoration:none;margin-left:8px;">NO</a>
+            <button onclick="toggleTheme()" aria-label="Toggle theme" style="background:none;border:none;cursor:pointer;color:var(--text2);padding:6px;">
                 <svg id="t-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
             </button>
         </div>
         <div style="max-width:1400px;margin:0 auto;display:flex;gap:4px;overflow-x:auto;">
-            <a href="/" style="padding:6px 14px;font-size:13px;font-weight:500;color:var(--text2);text-decoration:none;border-radius:8px;">Utforsk</a>
-            <a href="/finn-din-elbil.html" style="padding:6px 14px;font-size:13px;font-weight:500;color:var(--text2);text-decoration:none;border-radius:8px;">Quiz</a>
-            <a href="/kalkulator.html" style="padding:6px 14px;font-size:13px;font-weight:500;color:var(--text2);text-decoration:none;border-radius:8px;">Kalkulator</a>
-            <a href="/tabell.html" style="padding:6px 14px;font-size:13px;font-weight:500;color:var(--accent);text-decoration:none;border-radius:8px;background:rgba(37,99,235,0.08);">Tabell</a>
+            <a href="/en/" style="padding:6px 14px;font-size:13px;font-weight:500;color:var(--text2);text-decoration:none;border-radius:8px;">Explore</a>
+            <a href="/en/quiz.html" style="padding:6px 14px;font-size:13px;font-weight:500;color:var(--text2);text-decoration:none;border-radius:8px;">Quiz</a>
+            <a href="/en/calculator.html" style="padding:6px 14px;font-size:13px;font-weight:500;color:var(--text2);text-decoration:none;border-radius:8px;">Calculator</a>
+            <a href="/en/table.html" style="padding:6px 14px;font-size:13px;font-weight:500;color:var(--accent);text-decoration:none;border-radius:8px;background:rgba(37,99,235,0.08);">Table</a>
         </div>
     </div>
     <script>
     function toggleTheme(){var d=document.documentElement,t=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',t);localStorage.setItem('theme',t);}
     </script>
     <div class="search-row">
-        <input type="text" id="search" placeholder="Søk etter merke, modell..." autocomplete="off">
+        <input type="text" id="search" placeholder="Search by make, model..." autocomplete="off">
     </div>
     <div class="table-wrapper">
         <table id="car-table">
@@ -190,28 +190,28 @@
     </div>
     <div class="count-row" id="count-row"></div>
 
-    <script src="app.js?v=20260422"></script>
+    <script src="../app-en.js?v=20260422"></script>
     <script>
     (function() {
         const columns = [
-            { key: "make", label: "Merke", cls: "col-make" },
-            { key: "model", label: "Modell" },
-            { key: "country", label: "Land", format: function(v, car) { return car ? getCarCountryFlag(car) : "—"; } },
-            { key: "year", label: "År", cls: "col-num" },
-            { key: "price", label: "Pris (NOK)", cls: "col-price", format: v => v ? v.toLocaleString("nb-NO") : "—" },
+            { key: "make", label: "Make", cls: "col-make" },
+            { key: "model", label: "Model" },
+            { key: "country", label: "Country", format: function(v, car) { return car ? getCarCountryFlag(car) : "—"; } },
+            { key: "year", label: "Year", cls: "col-num" },
+            { key: "price", label: "Price (NOK)", cls: "col-price", format: v => v ? v.toLocaleString("en") : "—" },
             { key: "type", label: "Type" },
             { key: "segment", label: "Segment" },
-            { key: "hp", label: "HK", cls: "col-num" },
+            { key: "hp", label: "HP", cls: "col-num" },
             { key: "kwh", label: "kWh", cls: "col-num" },
-            { key: "range", label: "Rekkevidde", cls: "col-num", format: v => v ? v + " km" : "—" },
+            { key: "range", label: "Range", cls: "col-num", format: v => v ? v + " km" : "—" },
             { key: "zeroToHundred", label: "0-100", cls: "col-num", format: v => v ? v + "s" : "—" },
-            { key: "drivetrain", label: "Drivlinje" },
-            { key: "seats", label: "Seter", cls: "col-num" },
-            { key: "trunk", label: "Bagasje", cls: "col-num", format: v => v ? v + " L" : "—" },
-            { key: "length", label: "Lengde", cls: "col-num", format: v => v ? v + " mm" : "—" },
-            { key: "width", label: "Bredde", cls: "col-num", format: v => v ? v + " mm" : "—" },
-            { key: "height", label: "Høyde", cls: "col-num", format: v => v ? v + " mm" : "—" },
-            { key: "weight", label: "Vekt", cls: "col-num", format: v => v ? v.toLocaleString("nb-NO") + " kg" : "—" },
+            { key: "drivetrain", label: "Drivetrain" },
+            { key: "seats", label: "Seats", cls: "col-num" },
+            { key: "trunk", label: "Trunk", cls: "col-num", format: v => v ? v + " L" : "—" },
+            { key: "length", label: "Length", cls: "col-num", format: v => v ? v + " mm" : "—" },
+            { key: "width", label: "Width", cls: "col-num", format: v => v ? v + " mm" : "—" },
+            { key: "height", label: "Height", cls: "col-num", format: v => v ? v + " mm" : "—" },
+            { key: "weight", label: "Weight", cls: "col-num", format: v => v ? v.toLocaleString("en") + " kg" : "—" },
         ];
 
         let sortKey = "price";
@@ -258,7 +258,7 @@
                 if (va == null) va = "";
                 if (vb == null) vb = "";
                 if (typeof va === "string") {
-                    return sortAsc ? va.localeCompare(vb, "nb") : vb.localeCompare(va, "nb");
+                    return sortAsc ? va.localeCompare(vb, "en") : vb.localeCompare(va, "en");
                 }
                 return sortAsc ? va - vb : vb - va;
             });
@@ -275,7 +275,7 @@
                     return `<td class="${col.cls || ''}">${display}</td>`;
                 }).join("") + "</tr>";
             }).join("");
-            document.getElementById("count-row").textContent = cars.length + " biler";
+            document.getElementById("count-row").textContent = cars.length + " cars";
         }
 
         document.getElementById("search").addEventListener("input", e => {

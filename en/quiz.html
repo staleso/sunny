@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="no">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -15,19 +15,22 @@
             }
         })();
     </script>
-    <title>Finn din elbil – Hvilken elbil passer meg? | Elbilvalg.no</title>
-    <meta name="description" content="Svar på 5 enkle spørsmål om budsjett, familie, bruk og behov – og få personlige elbilanbefalinger tilpasset deg. Gratis og uforpliktende.">
-    <meta name="keywords" content="finn din elbil, hvilken elbil passer meg, elbil anbefaling, beste elbil for meg, elbilvalg quiz, velg elbil">
-    <link rel="canonical" href="https://elbilvalg.no/finn-din-elbil.html">
-    <meta property="og:title" content="Finn din elbil – Hvilken elbil passer meg? | Elbilvalg.no">
-    <meta property="og:description" content="Svar på 5 enkle spørsmål og få personlige elbilanbefalinger.">
-    <meta property="og:url" content="https://elbilvalg.no/finn-din-elbil.html">
+    <title>Find Your EV – Which electric car suits you? | Elbilvalg.no</title>
+    <meta name="description" content="Answer 5 simple questions about budget, family, use and needs – and get personalized EV recommendations tailored to you. Free and non-binding.">
+    <meta name="keywords" content="find your EV, which electric car suits me, EV recommendation, best EV for me, EV quiz, choose electric car">
+    <link rel="canonical" href="https://elbilvalg.no/en/quiz.html">
+    <link rel="alternate" hreflang="no" href="https://elbilvalg.no/finn-din-elbil.html">
+    <link rel="alternate" hreflang="en" href="https://elbilvalg.no/en/quiz.html">
+    <link rel="alternate" hreflang="x-default" href="https://elbilvalg.no/finn-din-elbil.html">
+    <meta property="og:title" content="Find Your EV – Which electric car suits you? | Elbilvalg.no">
+    <meta property="og:description" content="Answer 5 simple questions and get personalized EV recommendations.">
+    <meta property="og:url" content="https://elbilvalg.no/en/quiz.html">
     <meta property="og:type" content="website">
-    <meta property="og:locale" content="nb_NO">
+    <meta property="og:locale" content="en_GB">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=20260422">
+    <link rel="stylesheet" href="../styles.css?v=20260422">
     <meta name="google-adsense-account" content="ca-pub-4678480487049419">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4678480487049419" crossorigin="anonymous"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-3TDS5SGX53"></script>
@@ -47,26 +50,28 @@
 <body>
     <div class="sticky-top">
         <header class="app-header">
-            <a href="/" class="brand" aria-label="Elbil Norge – forside">Elbil Norge</a>
-                <a href="/en/" class="lang-switch" aria-label="English version">EN</a>
-            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Bytt tema">
-                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
-            </button>
+            <a href="/en/" class="brand" aria-label="EV Norway – home">EV Norway</a>
+            <div style="display:flex;align-items:center;gap:0.5rem;">
+                <a href="/finn-din-elbil.html" class="lang-switch" aria-label="Bytt til norsk" style="font-size:0.85rem;text-decoration:none;opacity:0.7;cursor:pointer;">Norsk</a>
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+                    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+                </button>
+            </div>
         </header>
         <nav class="tab-bar">
-            <a href="/" class="tab tab-link">Utforsk</a>
-            <a href="/finn-din-elbil.html" class="tab tab-link">Quiz</a>
-            <a href="/kalkulator.html" class="tab tab-link">Kalkulator</a>
-            <a href="/tabell.html" class="tab tab-link">Tabell</a>
+            <a href="/en/" class="tab tab-link">Explore</a>
+            <a href="/en/quiz.html" class="tab tab-link">Quiz</a>
+            <a href="/en/calculator.html" class="tab tab-link">Calculator</a>
+            <a href="/en/table.html" class="tab tab-link">Table</a>
         </nav>
     </div>
 
     <div id="quiz-page">
         <div class="quiz-container">
             <header class="quiz-header">
-                <h1>Finn din elbil</h1>
-                <p class="quiz-intro">5 enkle spørsmål – vi foreslår de 3 bilene som passer best for deg.</p>
+                <h1>Find Your EV</h1>
+                <p class="quiz-intro">5 simple questions – we'll suggest the 3 best cars for you.</p>
             </header>
 
             <div class="quiz-progress">
@@ -77,14 +82,14 @@
         </div>
     </div>
 
-    <script src="app.js?v=20260422"></script>
+    <script src="../app-en.js?v=20260422"></script>
     <script>
     (function() {
     const QUESTIONS = [
         {
             id: 'budget',
-            title: 'Hva er budsjettet ditt?',
-            help: 'Omtrentlig nybilpris inkl. mva.',
+            title: 'What is your budget?',
+            help: 'Approximate new car price incl. tax.',
             options: [
                 { label: 'Under 300 000 kr', value: 300000 },
                 { label: '300 – 500 000 kr', value: 500000 },
@@ -94,47 +99,47 @@
         },
         {
             id: 'family',
-            title: 'Hvor mange personer skal bilen romme?',
-            help: 'Tenk på daglig bruk, ikke maksimal kapasitet.',
+            title: 'How many people should the car seat?',
+            help: 'Think about daily use, not maximum capacity.',
             options: [
-                { label: '1–2 personer', value: 2 },
-                { label: '3–4 personer', value: 4 },
-                { label: '5 personer', value: 5 },
-                { label: '6–7 personer', value: 7 }
+                { label: '1–2 people', value: 2 },
+                { label: '3–4 people', value: 4 },
+                { label: '5 people', value: 5 },
+                { label: '6–7 people', value: 7 }
             ]
         },
         {
             id: 'usage',
-            title: 'Hva skal bilen hovedsakelig brukes til?',
-            help: 'Velg den viktigste bruken – vi tar hensyn til rekkevidde.',
+            title: 'What will the car mainly be used for?',
+            help: 'Choose the most important use.',
             options: [
-                { label: 'Kort pendling (under 50 km/dag)', value: 'city' },
-                { label: 'Blandet kjøring (50–150 km/dag)', value: 'mixed' },
-                { label: 'Lange turer / hyttebruk (200+ km)', value: 'long' },
-                { label: 'Motorveipendling hele året', value: 'highway' }
+                { label: 'Short commute (under 50 km/day)', value: 'city' },
+                { label: 'Mixed driving (50–150 km/day)', value: 'mixed' },
+                { label: 'Long trips / cabin trips (200+ km)', value: 'long' },
+                { label: 'Highway commuting year-round', value: 'highway' }
             ]
         },
         {
             id: 'trailer',
-            title: 'Trenger du å trekke tilhenger eller båt?',
-            help: 'Bremset tilhengervekt – vi foreslår biler med tilstrekkelig kapasitet.',
+            title: 'Do you need to tow a trailer or boat?',
+            help: 'Braked trailer weight.',
             options: [
-                { label: 'Nei, ikke nødvendig', value: 0 },
-                { label: 'Liten tilhenger (inntil 750 kg)', value: 750 },
-                { label: 'Middels (opptil 1500 kg)', value: 1500 },
-                { label: 'Båt / stor tilhenger (1800+ kg)', value: 1800 }
+                { label: 'No, not necessary', value: 0 },
+                { label: 'Small trailer (up to 750 kg)', value: 750 },
+                { label: 'Medium (up to 1,500 kg)', value: 1500 },
+                { label: 'Boat / large trailer (1,800+ kg)', value: 1800 }
             ]
         },
         {
             id: 'priority',
-            title: 'Hva er viktigst for deg?',
-            help: 'Vi vekter anbefalingene deretter.',
+            title: 'What matters most to you?',
+            help: "We'll weight the recommendations accordingly.",
             options: [
-                { label: 'Lavest mulig pris', value: 'price' },
-                { label: 'Lengst rekkevidde', value: 'range' },
-                { label: 'Raskest lading', value: 'charging' },
-                { label: 'Mest mulig ytelse og wow-faktor', value: 'performance' },
-                { label: 'Best verdi for pengene', value: 'balance' }
+                { label: 'Lowest possible price', value: 'price' },
+                { label: 'Longest range', value: 'range' },
+                { label: 'Fastest charging', value: 'charging' },
+                { label: 'Most performance and wow factor', value: 'performance' },
+                { label: 'Best value for money', value: 'balance' }
             ]
         }
     ];
@@ -163,11 +168,11 @@
 
         content.innerHTML =
             '<div class="quiz-step">' +
-                '<div class="quiz-step-num">Spørsmål ' + (quizState.step + 1) + ' av ' + QUESTIONS.length + '</div>' +
+                '<div class="quiz-step-num">Question ' + (quizState.step + 1) + ' of ' + QUESTIONS.length + '</div>' +
                 '<h2 class="quiz-question">' + q.title + '</h2>' +
                 '<p class="quiz-help">' + q.help + '</p>' +
                 '<div class="quiz-options">' + optsHtml + '</div>' +
-                (quizState.step > 0 ? '<button class="quiz-back" onclick="quizBack()">← Tilbake</button>' : '') +
+                (quizState.step > 0 ? '<button class="quiz-back" onclick="quizBack()">← Back</button>' : '') +
             '</div>';
     }
 
@@ -227,7 +232,7 @@
         if (typeof trackEvent === 'function') trackEvent('quiz_complete', a);
         if (typeof CARS === 'undefined') {
             document.getElementById('quiz-content').innerHTML =
-                '<div class="quiz-results"><h2>Feil</h2><p>Kunne ikke laste bildata. <a href="javascript:location.reload()">Prøv igjen</a>.</p></div>';
+                '<div class="quiz-results"><h2>Error</h2><p>Could not load car data. <a href="javascript:location.reload()">Try again</a>.</p></div>';
             return;
         }
         const scored = CARS.map(car => ({ car: car, score: scoreCar(car, a) }))
@@ -240,8 +245,8 @@
         if (top3.length === 0) {
             content.innerHTML =
                 '<div class="quiz-results">' +
-                    '<h2>Ingen treff</h2>' +
-                    '<p>Vi fant ingen biler som passet alle kriteriene. <a href="/">Bla gjennom alle biler</a> eller <a href="javascript:location.reload()">start på nytt</a>.</p>' +
+                    '<h2>No matches</h2>' +
+                    '<p>We could not find any cars matching all your criteria. <a href="/en/">Browse all cars</a> or <a href="javascript:location.reload()">start over</a>.</p>' +
                 '</div>';
             return;
         }
@@ -275,14 +280,14 @@
 
         content.innerHTML =
             '<div class="quiz-results">' +
-                '<h2>Dine topp ' + top3.length + ' anbefalinger</h2>' +
-                '<p class="quiz-results-intro">Basert på svarene dine har vi valgt ut disse bilene som passer best:</p>' +
+                '<h2>Your top ' + top3.length + ' recommendations</h2>' +
+                '<p class="quiz-results-intro">Based on your answers, we have selected the cars that suit you best:</p>' +
                 '<div class="quiz-results-list">' + cardsHtml + '</div>' +
                 '<div class="quiz-actions">' +
-                    '<button class="quiz-restart-btn" onclick="location.reload()">Start på nytt</button>' +
-                    '<a class="quiz-browse-btn" href="/">Se alle biler</a>' +
+                    '<button class="quiz-restart-btn" onclick="location.reload()">Start over</button>' +
+                    '<a class="quiz-browse-btn" href="/en/">See all cars</a>' +
                 '</div>' +
-                '<div class="quiz-note">Anbefalingene er veiledende og basert på spesifikasjonene i vår database. Vi vurderer pris, rekkevidde, antall seter, tilhengerkapasitet, ladehastighet og prioriteringen din.</div>' +
+                '<div class="quiz-note">The recommendations are indicative and based on the specifications in our database. We evaluate price, range, number of seats, towing capacity, charging speed and your priority.</div>' +
             '</div>';
     }
 
