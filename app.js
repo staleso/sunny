@@ -373,14 +373,14 @@ const CARS = [
 
     // ===== VOLVO =====
     {
-        id: 38, make: "Volvo", model: "EX30 Single Motor", year: 2025, price: 369900,
+        id: 38, make: "Volvo", model: "EX30 Single Motor", year: 2025, price: 349900,
         type: "suv", hp: 272, kwh: 69, zeroToHundred: 5.3, seats: 5,
         drivetrain: "RWD", battery: "69 kWh", range: 476,
         length: 4233, width: 1837, height: 1550, weight: 1790, trunk: 318,
         emoji: "⚡", color: "#1a1a2e", segment: "Small SUV"
     },
     {
-        id: 39, make: "Volvo", model: "EX30 Twin Motor", year: 2025, price: 439900,
+        id: 39, make: "Volvo", model: "EX30 Twin Motor", year: 2025, price: 468900,
         type: "suv", hp: 428, kwh: 69, zeroToHundred: 3.6, seats: 5,
         drivetrain: "AWD", battery: "69 kWh", range: 450,
         length: 4233, width: 1837, height: 1550, weight: 1830, trunk: 318,
@@ -417,7 +417,7 @@ const CARS = [
         emoji: "⚡", color: "#1a1a2e", segment: "Small SUV"
     },
     {
-        id: 44, make: "Hyundai", model: "IONIQ 5 Long Range AWD", year: 2025, price: 499900,
+        id: 44, make: "Hyundai", model: "IONIQ 5 Long Range AWD", year: 2025, price: 449900,
         type: "suv", hp: 325, kwh: 84, zeroToHundred: 5.1, seats: 5,
         drivetrain: "AWD", battery: "84 kWh", range: 507,
         length: 4635, width: 1890, height: 1605, weight: 2100, trunk: 527,
@@ -440,14 +440,14 @@ const CARS = [
         emoji: "⚡", color: "#1a1a2e", segment: "Compact SUV"
     },
     {
-        id: 47, make: "Kia", model: "EV6 Long Range AWD", year: 2025, price: 529900,
+        id: 47, make: "Kia", model: "EV6 Long Range AWD", year: 2025, price: 519000,
         type: "suv", hp: 325, kwh: 77.4, zeroToHundred: 5.2, seats: 5,
         drivetrain: "AWD", battery: "77.4 kWh", range: 506,
         length: 4695, width: 1890, height: 1550, weight: 2090, trunk: 490,
         emoji: "⚡", color: "#16213e", segment: "Mid-size SUV"
     },
     {
-        id: 48, make: "Kia", model: "EV9 Long Range AWD", year: 2025, price: 699900,
+        id: 48, make: "Kia", model: "EV9 Long Range AWD", year: 2025, price: 759900,
         type: "suv", hp: 384, kwh: 99.8, zeroToHundred: 5.3, seats: 7,
         drivetrain: "AWD", battery: "99.8 kWh", range: 501,
         length: 5010, width: 1980, height: 1755, weight: 2614, trunk: 828,
@@ -472,7 +472,7 @@ const CARS = [
 
     // ===== POLESTAR =====
     {
-        id: 51, make: "Polestar", model: "2 Long Range Dual Motor", year: 2025, price: 499900,
+        id: 51, make: "Polestar", model: "2 Long Range Dual Motor", year: 2025, price: 472500,
         type: "sedan", hp: 421, kwh: 78, zeroToHundred: 4.2, seats: 5,
         drivetrain: "AWD", battery: "78 kWh", range: 487,
         length: 4606, width: 1859, height: 1482, weight: 2113, trunk: 405,
@@ -534,7 +534,7 @@ const CARS = [
         emoji: "⚡", color: "#2e1a1a", segment: "Mid-size SUV"
     },
     {
-        id: 59, make: "Ford", model: "Explorer Electric AWD", year: 2025, price: 499900,
+        id: 59, make: "Ford", model: "Explorer Electric AWD", year: 2025, price: 479900,
         type: "suv", hp: 340, kwh: 79, zeroToHundred: 5.3, seats: 5,
         drivetrain: "AWD", battery: "79 kWh", range: 530,
         length: 4468, width: 1872, height: 1637, weight: 2128, trunk: 536,
@@ -543,7 +543,7 @@ const CARS = [
 
     // ===== XPENG =====
     {
-        id: 60, make: "Xpeng", model: "G6", year: 2025, price: 449900,
+        id: 60, make: "Xpeng", model: "G6", year: 2025, price: 399900,
         type: "suv", hp: 296, kwh: 87.5, zeroToHundred: 5.9, seats: 5,
         drivetrain: "RWD", battery: "87.5 kWh", range: 570,
         length: 4753, width: 1920, height: 1650, weight: 2095, trunk: 571,
@@ -589,7 +589,7 @@ const CARS = [
         emoji: "⚡", color: "#2e1a1a", segment: "Compact"
     },
     {
-        id: 66, make: "Cupra", model: "Tavascan VZ", year: 2025, price: 559900,
+        id: 66, make: "Cupra", model: "Tavascan VZ", year: 2025, price: 539900,
         type: "suv", hp: 340, kwh: 77, zeroToHundred: 5.5, seats: 5,
         drivetrain: "AWD", battery: "77 kWh", range: 500,
         length: 4644, width: 1861, height: 1597, weight: 2188, trunk: 540,
@@ -598,14 +598,14 @@ const CARS = [
 
     // ===== RENAULT =====
     {
-        id: 67, make: "Renault", model: "Megane E-Tech 60", year: 2025, price: 369900,
+        id: 67, make: "Renault", model: "Megane E-Tech 60", year: 2025, price: 299900,
         type: "hatchback", hp: 220, kwh: 60, zeroToHundred: 7.4, seats: 5,
         drivetrain: "FWD", battery: "60 kWh", range: 450,
         length: 4200, width: 1768, height: 1505, weight: 1636, trunk: 440,
         emoji: "⚡", color: "#1b2e1b", segment: "Compact"
     },
     {
-        id: 68, make: "Renault", model: "Scenic E-Tech 87", year: 2025, price: 449900,
+        id: 68, make: "Renault", model: "Scenic E-Tech 87", year: 2025, price: 389900,
         type: "suv", hp: 220, kwh: 87, zeroToHundred: 7.9, seats: 5,
         drivetrain: "FWD", battery: "87 kWh", range: 620,
         length: 4470, width: 1863, height: 1571, weight: 1871, trunk: 545,
@@ -614,14 +614,14 @@ const CARS = [
 
     // ===== SMART =====
     {
-        id: 69, make: "Smart", model: "#1 Pro+", year: 2025, price: 349900,
+        id: 69, make: "Smart", model: "#1 Pro+", year: 2025, price: 399900,
         type: "suv", hp: 272, kwh: 66, zeroToHundred: 6.7, seats: 5,
         drivetrain: "RWD", battery: "66 kWh", range: 420,
         length: 4270, width: 1822, height: 1636, weight: 1820, trunk: 323,
         emoji: "⚡", color: "#1a1a2e", segment: "Small SUV"
     },
     {
-        id: 70, make: "Smart", model: "#3 BRABUS", year: 2025, price: 469900,
+        id: 70, make: "Smart", model: "#3 BRABUS", year: 2025, price: 539900,
         type: "suv", hp: 428, kwh: 66, zeroToHundred: 3.7, seats: 5,
         drivetrain: "AWD", battery: "66 kWh", range: 400,
         length: 4400, width: 1844, height: 1556, weight: 1910, trunk: 370,
