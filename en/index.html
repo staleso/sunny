@@ -37,7 +37,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../styles.css?v=20260422">
     <meta name="google-adsense-account" content="ca-pub-4678480487049419">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4678480487049419" crossorigin="anonymous"></script>
+    <script>if(localStorage.getItem('cookie-consent')==='accepted'){var _as=document.createElement('script');_as.async=true;_as.src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4678480487049419';_as.crossOrigin='anonymous';document.head.appendChild(_as);}</script>
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-3TDS5SGX53"></script>
     <script>
@@ -331,10 +331,14 @@
         function acceptCookies() {
             localStorage.setItem('cookie-consent', 'accepted');
             document.getElementById('cookie-consent').style.display = 'none';
-            // Enable Google Analytics
             window['ga-disable-G-3TDS5SGX53'] = false;
             if (typeof gtag === 'function') {
                 gtag('consent', 'update', { analytics_storage: 'granted', ad_storage: 'granted', ad_personalization: 'granted', ad_user_data: 'granted' });
+            }
+            if (!document.querySelector('script[src*="adsbygoogle"]')) {
+                var s = document.createElement('script'); s.async = true;
+                s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4678480487049419';
+                s.crossOrigin = 'anonymous'; document.head.appendChild(s);
             }
         }
         function declineCookies() {
@@ -399,8 +403,12 @@
             window._fbRatings = ratings;
         }
 
-        // Save rating
+        // Save rating (fetches IP only on first rating)
         window._fbSaveRating = async function(carId, rating) {
+            if (!window._fbIPHash) {
+                const ip = await getIP();
+                window._fbIPHash = await hashIP(ip);
+            }
             const key = String(carId);
             const ref = doc(db, "ratings", key);
             const snap = await getDoc(ref);
@@ -410,10 +418,8 @@
             window._fbRatings[key] = data;
         };
 
-        // Init
+        // Init (load ratings only, no IP fetch)
         (async () => {
-            const ip = await getIP();
-            window._fbIPHash = await hashIP(ip);
             await loadRatings();
             window._fbReady = true;
             if (typeof updateUI === "function") updateUI();
@@ -429,6 +435,8 @@
             <a href="/personvern.html">Privacy</a>
             <span class="site-footer-sep">&middot;</span>
             <a href="/vilkaar.html">Terms</a>
+            <span class="site-footer-sep">&middot;</span>
+            <a href="#" onclick="localStorage.removeItem('cookie-consent');document.getElementById('cookie-consent').style.display='flex';window.scrollTo(0,0);return false;">Cookie settings</a>
             <span class="site-footer-sep">&middot;</span>
             <span class="site-footer-copy">Elbilvalg.no</span>
         </nav>
