@@ -33,18 +33,17 @@
     <link rel="stylesheet" href="../styles.css?v=20260422">
     <meta name="google-adsense-account" content="ca-pub-4678480487049419">
     <script>if(localStorage.getItem('cookie-consent')==='accepted'){var _as=document.createElement('script');_as.async=true;_as.src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4678480487049419';_as.crossOrigin='anonymous';document.head.appendChild(_as);}</script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3TDS5SGX53"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
-        var _cc = localStorage.getItem('cookie-consent');
-        if (_cc === 'accepted') {
+        if (localStorage.getItem('cookie-consent') === 'accepted') {
+            var _ga = document.createElement('script'); _ga.async = true;
+            _ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-3TDS5SGX53';
+            document.head.appendChild(_ga);
             gtag('consent', 'default', { analytics_storage: 'granted', ad_storage: 'granted', ad_personalization: 'granted', ad_user_data: 'granted' });
-        } else {
-            gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', ad_personalization: 'denied', ad_user_data: 'denied' });
+            gtag('js', new Date());
+            gtag('config', 'G-3TDS5SGX53');
         }
-        gtag('js', new Date());
-        gtag('config', 'G-3TDS5SGX53');
     </script>
 </head>
 <body>
@@ -81,6 +80,15 @@
             <div id="quiz-content"></div>
         </div>
     </div>
+
+    <noscript>
+        <div style="max-width:700px;margin:40px auto;padding:0 20px;font-family:Inter,sans-serif">
+            <h1>Find your EV – interactive quiz</h1>
+            <p>Answer 5 simple questions about budget, family size, driving habits and needs, and get personalised EV recommendations from over 100 models available in Norway.</p>
+            <p>The quiz evaluates cars from Tesla, BMW, Mercedes, Volkswagen, Audi, Volvo, Hyundai, Kia, Toyota, Porsche, Polestar, BYD, Xpeng, Skoda, Renault and more.</p>
+            <p>Please enable JavaScript to use the quiz. <a href="/en/">Go to home page</a> to explore all EVs.</p>
+        </div>
+    </noscript>
 
     <script src="../app-en.js?v=20260507"></script>
     <script>

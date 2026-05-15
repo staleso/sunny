@@ -15,7 +15,8 @@
             }
         })();
     </script>
-    <title>Elbilvalg.no - Tabell</title>
+    <title>Alle elbiler i Norge – sortérbar tabell | Elbilvalg.no</title>
+    <meta name="description" content="Komplett tabell over alle elbiler til salgs i Norge. Sorter og filtrer på pris, rekkevidde, hestekrefter, bagasjerom, vekt og mer. Oppdatert mai 2026.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -114,18 +115,17 @@
     </style>
     <meta name="google-adsense-account" content="ca-pub-4678480487049419">
     <script>if(localStorage.getItem('cookie-consent')==='accepted'){var _as=document.createElement('script');_as.async=true;_as.src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4678480487049419';_as.crossOrigin='anonymous';document.head.appendChild(_as);}</script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3TDS5SGX53"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
-        var _cc = localStorage.getItem('cookie-consent');
-        if (_cc === 'accepted') {
+        if (localStorage.getItem('cookie-consent') === 'accepted') {
+            var _ga = document.createElement('script'); _ga.async = true;
+            _ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-3TDS5SGX53';
+            document.head.appendChild(_ga);
             gtag('consent', 'default', { analytics_storage: 'granted', ad_storage: 'granted', ad_personalization: 'granted', ad_user_data: 'granted' });
-        } else {
-            gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', ad_personalization: 'denied', ad_user_data: 'denied' });
+            gtag('js', new Date());
+            gtag('config', 'G-3TDS5SGX53');
         }
-        gtag('js', new Date());
-        gtag('config', 'G-3TDS5SGX53');
     </script>
 </head>
 <body>
@@ -162,6 +162,16 @@
         </table>
     </div>
     <div class="count-row" id="count-row"></div>
+
+    <noscript>
+        <div style="max-width:1400px;margin:24px auto;padding:0 16px;">
+            <h1>Alle elbiler i Norge – komplett tabell</h1>
+            <p>Denne siden viser en sortérbar og filtrerbar tabell over alle elbiler til salgs i Norge. Du kan sammenligne pris, rekkevidde (WLTP), hestekrefter, batterikapasitet (kWh), bagasjerom, dimensjoner, vekt og bakkeklaring for over 100 elbilmodeller.</p>
+            <p>Tabellen inkluderer merker som Tesla, BMW, Mercedes, Volkswagen, Audi, Volvo, Hyundai, Kia, Toyota, Porsche, Polestar, NIO, BYD, Xpeng, Skoda, Renault, Peugeot, Citroën, Ford, Honda, Mazda, Lexus, Hongqi, Lotus og Voyah.</p>
+            <p>Aktiver JavaScript for å bruke den interaktive tabellen med søk og sortering.</p>
+            <p><a href="/">Tilbake til forsiden</a></p>
+        </div>
+    </noscript>
 
     <script src="app.js?v=20260507"></script>
     <script>

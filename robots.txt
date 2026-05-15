@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /workout/
+Disallow: /scripts/
 
 Sitemap: https://elbilvalg.no/sitemap.xml
