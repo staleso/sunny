@@ -234,31 +234,31 @@ const CARS = [
         emoji: "⚡", color: "#2e1a1a", segment: "Performance Sedan"
     },
     {
-        id: 23, make: "Porsche", model: "Taycan 4S", year: 2025, price: 1049900,
-        type: "sedan", hp: 530, kwh: 93.4, zeroToHundred: 3.7, seats: 4,
+        id: 23, make: "Porsche", model: "Taycan 4S", year: 2025, price: 1347081,
+        type: "sedan", hp: 544, kwh: 93.4, zeroToHundred: 3.7, seats: 4,
         drivetrain: "AWD", battery: "93.4 kWh", range: 560,
         length: 4963, width: 1966, height: 1381, weight: 2215, trunk: 407,
         groundClearance: 127,
         emoji: "⚡", color: "#2d1b2e", segment: "Performance Sedan"
     },
     {
-        id: 24, make: "Porsche", model: "Taycan Turbo", year: 2025, price: 1449900,
-        type: "sedan", hp: 680, kwh: 97, zeroToHundred: 3.2, seats: 4,
-        drivetrain: "AWD", battery: "97 kWh", range: 550,
+        id: 24, make: "Porsche", model: "Taycan Turbo", year: 2025, price: 1952894,
+        type: "sedan", hp: 884, kwh: 97, zeroToHundred: 2.7, seats: 4,
+        drivetrain: "AWD", battery: "97 kWh", range: 630,
         length: 4963, width: 1966, height: 1381, weight: 2290, trunk: 407,
         groundClearance: 127,
         emoji: "⚡", color: "#1a1a2e", segment: "Performance Sedan"
     },
     {
-        id: 78, make: "Porsche", model: "Taycan Turbo S", year: 2025, price: 1749900,
-        type: "sedan", hp: 775, kwh: 97, zeroToHundred: 2.4, seats: 4,
+        id: 78, make: "Porsche", model: "Taycan Turbo S", year: 2025, price: 2334764,
+        type: "sedan", hp: 952, kwh: 97, zeroToHundred: 2.4, seats: 4,
         drivetrain: "AWD", battery: "97 kWh", range: 630,
         length: 4963, width: 1966, height: 1381, weight: 2345, trunk: 407,
         groundClearance: 127,
         emoji: "⚡", color: "#2e1a1a", segment: "Performance Sedan"
     },
     {
-        id: 79, make: "Porsche", model: "Taycan 4 Cross Turismo", year: 2025, price: 1049900,
+        id: 79, make: "Porsche", model: "Taycan 4 Cross Turismo", year: 2025, price: 1300544,
         type: "wagon", hp: 408, kwh: 93.4, zeroToHundred: 4.7, seats: 4,
         drivetrain: "AWD", battery: "93.4 kWh", range: 490,
         length: 4974, width: 1967, height: 1395, weight: 2295, trunk: 446,
@@ -267,23 +267,23 @@ const CARS = [
     },
     {
         id: 80, make: "Porsche", model: "Taycan Turbo S Cross Turismo", year: 2025, price: 1799900,
-        type: "wagon", hp: 775, kwh: 97, zeroToHundred: 2.5, seats: 4,
+        type: "wagon", hp: 952, kwh: 97, zeroToHundred: 2.5, seats: 4,
         drivetrain: "AWD", battery: "97 kWh", range: 500,
         length: 4974, width: 1967, height: 1395, weight: 2370, trunk: 446,
         groundClearance: 147,
         emoji: "⚡", color: "#2e2e1a", segment: "Performance Wagon"
     },
     {
-        id: 81, make: "Porsche", model: "Taycan GTS Sport Turismo", year: 2025, price: 1596300,
-        type: "wagon", hp: 690, kwh: 97, zeroToHundred: 3.1, seats: 4,
-        drivetrain: "AWD", battery: "97 kWh", range: 570,
+        id: 81, make: "Porsche", model: "Taycan GTS Sport Turismo", year: 2025, price: 1666858,
+        type: "wagon", hp: 700, kwh: 97, zeroToHundred: 3.3, seats: 4,
+        drivetrain: "AWD", battery: "97 kWh", range: 628,
         length: 4963, width: 1966, height: 1395, weight: 2310, trunk: 446,
         groundClearance: 147,
         emoji: "⚡", color: "#16213e", segment: "Performance Wagon"
     },
     {
         id: 82, make: "Porsche", model: "Taycan Turbo S Sport Turismo", year: 2025, price: 1749900,
-        type: "wagon", hp: 775, kwh: 97, zeroToHundred: 2.4, seats: 4,
+        type: "wagon", hp: 952, kwh: 97, zeroToHundred: 2.4, seats: 4,
         drivetrain: "AWD", battery: "97 kWh", range: 600,
         length: 4963, width: 1966, height: 1395, weight: 2350, trunk: 446,
         groundClearance: 147,
@@ -291,38 +291,38 @@ const CARS = [
     },
     {
         id: 25, make: "Porsche", model: "Macan Electric", year: 2025, price: 849900,
-        type: "suv", hp: 408, kwh: 100, zeroToHundred: 5.2, seats: 5,
-        drivetrain: "AWD", battery: "100 kWh", range: 613,
+        type: "suv", hp: 360, kwh: 100, zeroToHundred: 5.7, seats: 5,
+        drivetrain: "RWD", battery: "100 kWh", range: 641,
         length: 4784, width: 1938, height: 1624, weight: 2405, trunk: 540,
         groundClearance: 185,
         emoji: "⚡", color: "#16213e", segment: "Mid-size SUV"
     },
     {
-        id: 26, make: "Porsche", model: "Macan Electric 4S", year: 2025, price: 999900,
+        id: 26, make: "Porsche", model: "Macan Electric 4S", year: 2025, price: 1132855,
         type: "suv", hp: 516, kwh: 100, zeroToHundred: 4.1, seats: 5,
-        drivetrain: "AWD", battery: "100 kWh", range: 590,
+        drivetrain: "AWD", battery: "100 kWh", range: 606,
         length: 4784, width: 1938, height: 1624, weight: 2405, trunk: 540,
         groundClearance: 185,
         emoji: "⚡", color: "#1b2838", segment: "Performance SUV"
     },
     {
         id: 76, make: "Porsche", model: "Cayenne Electric", year: 2026, price: 1116400,
-        type: "suv", hp: 408, kwh: 113, zeroToHundred: 4.5, seats: 5,
-        drivetrain: "AWD", battery: "113 kWh", range: 643,
+        type: "suv", hp: 442, kwh: 113, zeroToHundred: 4.8, seats: 5,
+        drivetrain: "AWD", battery: "113 kWh", range: 642,
         length: 4985, width: 1980, height: 1674, weight: 2525, trunk: 621,
         groundClearance: 210,
         emoji: "⚡", color: "#2e2e1a", segment: "Large SUV"
     },
     {
         id: 101, make: "Porsche", model: "Cayenne S Electric", year: 2026, price: 1389000,
-        type: "suv", hp: 544, kwh: 113, zeroToHundred: 3.8, seats: 5,
+        type: "suv", hp: 666, kwh: 113, zeroToHundred: 3.8, seats: 5,
         drivetrain: "AWD", battery: "113 kWh", range: 653,
         length: 4985, width: 1980, height: 1674, weight: 2565, trunk: 621,
         groundClearance: 210,
         emoji: "⚡", color: "#2e2e1a", segment: "Large SUV"
     },
     {
-        id: 77, make: "Porsche", model: "Cayenne Turbo Electric", year: 2026, price: 1767100,
+        id: 77, make: "Porsche", model: "Cayenne Turbo Electric", year: 2026, price: 1820709,
         type: "suv", hp: 1156, kwh: 113, zeroToHundred: 2.5, seats: 5,
         drivetrain: "AWD", battery: "113 kWh", range: 623,
         length: 4985, width: 1980, height: 1674, weight: 2600, trunk: 621,
