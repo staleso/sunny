@@ -1,0 +1,51 @@
+{
+  "enough_relevant": true,
+  "headline": "Testdag: forslag om moms på elbil og dyrere hurtiglading",
+  "ingress": "Testdata: momsforslag, dyrere hurtiglading og ferske registreringstall. Slik ser en ferdig side ut.",
+  "stories": [
+    {
+      "title": "Forslag om å trappe ned momsfritaket for elbil",
+      "item_ids": ["s3", "s5"],
+      "text": "Regjeringen foreslår å trappe ned momsfritaket for elbiler, ifølge budsjettdokumentene. Elbilforeningen mener forslaget vil gjøre elbiler dyrere fra nyttår.",
+      "meaning": "Planlegger du å kjøpe elbil, kan det lønne seg å følge budsjettbehandlingen før du bestiller.",
+      "disagreement": null,
+      "quote": null
+    },
+    {
+      "title": "Hurtiglading blir dyrere hos testoperatøren",
+      "item_ids": ["s2"],
+      "text": "Testoperatøren øker prisen på hurtiglading fra 5 til 5,50 kroner per kWh fra 1. november. Selskapet begrunner økningen med høyere nettkostnader.",
+      "meaning": "Lader du mye på farten, bør du regne med litt høyere kostnader per tur.",
+      "disagreement": null,
+      "quote": { "text": "Vi må dekke økte nettkostnader", "item_id": "s2" }
+    },
+    {
+      "title": "Nesten bare elbiler blant nye biler i oktober",
+      "item_ids": ["s4"],
+      "text": "Så langt i oktober er det registrert 9 000 nye personbiler. Elbilandelen er 97,1 prosent, og testmodell A er mest registrert.",
+      "meaning": "Bruktmarkedet for elbil fortsetter å vokse, og det gir flere å velge mellom.",
+      "disagreement": null,
+      "quote": null
+    },
+    {
+      "title": "Ny ladestasjon langs E6",
+      "item_ids": ["s1"],
+      "text": "En ny stasjon med 24 hurtigladere åpner langs E6 i desember. Den skal gjøre langturer enklere.",
+      "meaning": "Kjører du ofte E6, får du flere ladealternativer.",
+      "disagreement": null,
+      "quote": null
+    }
+  ],
+  "themes": [
+    {
+      "title": "Momsen på elbil",
+      "text": "Flere saker handler om forslaget om å trappe ned momsfritaket, både selve forslaget og Elbilforeningens reaksjon.",
+      "item_ids": ["s3", "s5"]
+    },
+    {
+      "title": "Lading: mer kapasitet, høyere priser",
+      "text": "Sakene om lading peker i to retninger: ny kapasitet langs E6 og høyere pris hos en hurtigladeoperatør.",
+      "item_ids": ["s1", "s2"]
+    }
+  ]
+}

@@ -1,0 +1,129 @@
+name: Daglige elbilnyheter
+
+on:
+  # Cron aktiveres først etter godkjent testrunde. Fjern # på de to linjene under for å slå den på.
+  # schedule:
+  #   - cron: '0 6 * * *'   # 06:00 UTC = 07:00/08:00 norsk tid
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'run = lag side og åpne PR · dry-run = bare forhåndsvisning (artefakt) · check-sources = test kildene'
+        type: choice
+        options: [run, dry-run, check-sources]
+        default: run
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+concurrency:
+  group: daglige-nyheter
+  cancel-in-progress: false
+
+jobs:
+  nyheter:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      MODE: ${{ github.event.inputs.mode || 'run' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Installer avhengigheter
+        run: npm ci
+
+      - name: Kjør tester
+        run: npm test
+
+      - name: Sjekk API-nøkkel
+        if: env.MODE != 'check-sources'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          if [ -z "$ANTHROPIC_API_KEY" ]; then
+            echo "::error::ANTHROPIC_API_KEY mangler. Legg den inn under Settings → Secrets and variables → Actions."
+            exit 1
+          fi
+
+      - name: Lag dagens side
+        id: gen
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          case "$MODE" in
+            run)           node scripts/daglige-nyheter/run.mjs ;;
+            dry-run)       node scripts/daglige-nyheter/run.mjs --dry-run ;;
+            check-sources) node scripts/daglige-nyheter/run.mjs --check-sources ;;
+          esac
+
+      - name: Last opp forhåndsvisning
+        if: env.MODE == 'dry-run' && steps.gen.outputs.created == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: nyheter-forhandsvisning
+          path: .nyheter-dry-run/
+
+      - name: Åpne pull request
+        if: env.MODE == 'run' && steps.gen.outputs.created == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DATE: ${{ steps.gen.outputs.date }}
+          TITLE: ${{ steps.gen.outputs.title }}
+          PAGE: ${{ steps.gen.outputs.page }}
+          PAGE_URL: ${{ steps.gen.outputs.url }}
+          AUTO_MERGE: ${{ vars.AUTO_MERGE || 'false' }}
+        run: |
+          set -euo pipefail
+          BRANCH="nyheter/$DATE"
+
+          # Bare forventede filer skal være endret
+          unexpected=$(git status --porcelain | grep -vE ' (nyheter/|artikler\.html$|sitemap\.xml$)' || true)
+          if [ -n "$unexpected" ]; then
+            echo "::error::Uventede endringer, avbryter uten PR:"; echo "$unexpected"; exit 1
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add nyheter/ artikler.html sitemap.xml
+          git commit -m "Dagens elbilnyheter $DATE"
+          git push --force origin "$BRANCH"
+
+          existing=$(gh pr list --head "$BRANCH" --state open --json number --jq '.[0].number // empty')
+          if [ -z "$existing" ]; then
+            body=$(printf 'Automatisk generert side med dagens elbilnyheter.\n\n- Side: `%s`\n- Publiseres på: %s\n\nLes gjennom sakene og kildelenkene før du merger. Loggen for kjøringen viser hvilke kilder som virket og hva faktakontrollen fjernet: %s/%s/actions/runs/%s' \
+              "$PAGE" "$PAGE_URL" "$GITHUB_SERVER_URL" "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID")
+            if ! gh pr create --base main --head "$BRANCH" --title "Dagens elbilnyheter $DATE: $TITLE" --body "$body"; then
+              git push origin --delete "$BRANCH" || true
+              echo "::error::Kunne ikke åpne PR. Sjekk at «Allow GitHub Actions to create and approve pull requests» er slått på under Settings → Actions → General."
+              exit 1
+            fi
+          else
+            echo "PR #$existing finnes allerede og er oppdatert."
+          fi
+
+          if [ "$AUTO_MERGE" = "true" ]; then
+            gh pr merge "$BRANCH" --squash --delete-branch
+            # Merge gjort av GITHUB_TOKEN starter ikke andre workflows av seg selv
+            gh workflow run deploy.yml --ref main
+          fi
+
+      - name: Oppsummering
+        if: always()
+        run: |
+          {
+            echo "### Daglige elbilnyheter ($MODE)"
+            if [ "${{ steps.gen.outputs.created }}" = "true" ]; then
+              echo "Laget **${{ steps.gen.outputs.title }}** (\`${{ steps.gen.outputs.page }}\`)"
+            else
+              echo "Ingen side laget. Se loggen for årsak."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"

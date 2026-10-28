@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>TESTDATA elbil</title>
+<entry><title>Testsak: ladeprisene på hurtigladere øker med 10 prosent</title>
+<link rel="alternate" href="https://example.org/elbil/ladepriser"/>
+<summary>Fiktiv testsak. Testoperatøren øker prisen fra 5 til 5,50 kroner per kWh fra 1. november. «Vi må dekke økte nettkostnader», sier testsjefen.</summary>
+<updated>2026-10-27T14:00:00Z</updated></entry>
+<entry><title>Testsak: forslag om økt moms på elbil i statsbudsjettet</title>
+<link rel="alternate" href="https://example.org/elbil/moms"/>
+<summary>Fiktiv testsak. Elbilforeningen mener forslaget gjør elbiler dyrere fra nyttår.</summary>
+<updated>2026-10-27T08:30:00Z</updated></entry>
+</feed>

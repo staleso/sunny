@@ -4,7 +4,15 @@
     "description": "A mobile-first car comparison PWA for iPhone",
     "main": "app.js",
     "scripts": {
-        "start": "npx serve ."
+        "start": "npx serve .",
+        "test": "node --test scripts/daglige-nyheter/test/*.test.mjs",
+        "nyheter": "node scripts/daglige-nyheter/run.mjs",
+        "nyheter:dry-run": "node scripts/daglige-nyheter/run.mjs --dry-run",
+        "nyheter:kilder": "node scripts/daglige-nyheter/run.mjs --check-sources"
     },
-    "dependencies": {}
+    "dependencies": {
+        "@anthropic-ai/sdk": "^1.3.0",
+        "fast-xml-parser": "^5.11.2",
+        "zod": "^4.6.7"
+    }
 }

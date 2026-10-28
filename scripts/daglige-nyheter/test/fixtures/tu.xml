@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"><channel><title>TESTDATA TU</title>
+<item><title>Testsak: regjeringen foreslår økt moms på elbiler</title><link>https://example.org/tu/moms</link>
+<description>Fiktiv testsak. Ifølge forslaget skal momsfritaket for elbil trappes ned, viser budsjettdokumentene.</description>
+<pubDate>Tue, 27 Oct 2026 12:00:00 +0000</pubDate></item>
+<item><title>Testsak: ny ladestasjon langs E6 åpner</title><link>https://example.org/tu/ladestasjon</link>
+<description>Fiktiv testsak. Stasjonen har 12 hurtigladere og åpner i desember.</description>
+<pubDate>Tue, 27 Oct 2026 16:00:00 +0000</pubDate></item>
+<item><title>Testsak: ny bro over fjorden</title><link>https://example.org/tu/bro</link>
+<description>Fiktiv testsak om en bro. Ikke relevant.</description>
+<pubDate>Tue, 27 Oct 2026 16:00:00 +0000</pubDate></item>
+</channel></rss>

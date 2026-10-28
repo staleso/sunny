@@ -3528,3 +3528,48 @@ body.tab-favorites .recently-viewed-strip {
 
 .admin-modal-submit:hover { opacity: 0.9; }
 .admin-modal-cancel:hover { border-color: var(--text3); }
+
+/* ========== Daglige elbilnyheter (nyheter/YYYY-MM-DD.html) ========== */
+.static-content .news-item {
+    padding: 14px 0 16px;
+    border-bottom: 1px solid var(--border);
+}
+.static-content .news-item:last-child {
+    border-bottom: none;
+}
+.static-content .news-item h3 {
+    font-size: 17px;
+    font-weight: 600;
+    margin: 0 0 6px;
+    color: var(--text);
+}
+.static-content .news-quote {
+    margin: 8px 0;
+    padding: 6px 12px;
+    border-left: 3px solid var(--surface3);
+    font-style: italic;
+    color: var(--text2);
+}
+.static-content .news-quote cite {
+    font-style: normal;
+    font-size: 13px;
+}
+.static-content .news-meaning,
+.static-content .news-disagreement {
+    background: var(--surface2);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 14px;
+}
+.static-content .news-sources {
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.6;
+}
+.static-content .news-sources a {
+    color: var(--accent);
+    text-decoration: none;
+}
+.static-content .news-sources a:hover {
+    text-decoration: underline;
+}

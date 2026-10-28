@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"><channel><title>TESTDATA OFV</title><link>https://example.org/ofv</link>
+<item><title>Testsak: 9 000 nye personbiler registrert så langt i oktober</title>
+<link>https://example.org/ofv/oktober-hittil?utm_source=rss</link>
+<description>&lt;p&gt;Fiktiv testsak. Elbilandelen er 97,1 prosent så langt i måneden. Testmodell A er mest registrert.&lt;/p&gt;</description>
+<pubDate>Tue, 27 Oct 2026 10:00:00 +0100</pubDate></item>
+<item><title>Testsak: gammel sak som er for gammel</title><link>https://example.org/ofv/gammel</link>
+<description>Elbil-sak fra forrige uke.</description><pubDate>Mon, 19 Oct 2026 10:00:00 +0100</pubDate></item>
+</channel></rss>

@@ -1,0 +1,136 @@
+{
+    "model": "claude-haiku-5-5",
+    "maxAgeHours": 36,
+    "minStories": 3,
+    "maxStories": 5,
+    "minThemes": 2,
+    "maxThemes": 3,
+    "maxItemsToModel": 60,
+    "maxDailyCardsInArticles": 7,
+    "stateRetentionDays": 30,
+    "userAgent": "ElbilvalgNyhetsbot/1.0 (+https://elbilvalg.no/om-oss.html)",
+    "keywords": [
+        "elbil",
+        "el-bil",
+        "elektrisk bil",
+        "elektriske biler",
+        "elektrisk suv",
+        "nullutslipp",
+        "lading",
+        "ladestasjon",
+        "ladepunkt",
+        "ladenettverk",
+        "hurtiglad",
+        "lynlad",
+        "ladekabel",
+        "ladepris",
+        "batteri",
+        "rekkevidde",
+        "tesla",
+        "polestar",
+        "byd",
+        "volvo ex",
+        "id.4",
+        "id.3",
+        "id.7",
+        "ioniq",
+        "kia ev",
+        "bilsalg",
+        "nybilsalg",
+        "registrering",
+        "ofv",
+        "engangsavgift",
+        "bilavgift",
+        "trafikkforsikringsavgift",
+        "vektavgift",
+        "elbilmoms",
+        "moms på elbil",
+        "bompenger",
+        "bomring",
+        "elbilforening"
+    ],
+    "sources": [
+        {
+            "id": "ofv",
+            "name": "OFV",
+            "enabled": true,
+            "keywordFilter": false,
+            "feeds": [
+                "https://ofv.no/aktuelt/rss",
+                "https://ofv.no/rss"
+            ],
+            "discoverFrom": [
+                "https://ofv.no/aktuelt"
+            ]
+        },
+        {
+            "id": "elbil",
+            "name": "Norsk elbilforening (elbil.no)",
+            "enabled": true,
+            "keywordFilter": false,
+            "feeds": [
+                "https://elbil.no/feed/"
+            ],
+            "discoverFrom": [
+                "https://elbil.no/"
+            ]
+        },
+        {
+            "id": "tek",
+            "name": "Tek.no",
+            "enabled": true,
+            "keywordFilter": true,
+            "feeds": [
+                "https://www.tek.no/api/rss/rss2/medium/collections"
+            ],
+            "discoverFrom": [
+                "https://www.tek.no/"
+            ]
+        },
+        {
+            "id": "tu",
+            "name": "TU.no",
+            "enabled": true,
+            "keywordFilter": true,
+            "feeds": [
+                "https://www.tu.no/rss"
+            ],
+            "discoverFrom": [
+                "https://www.tu.no/"
+            ]
+        },
+        {
+            "id": "ntb",
+            "name": "NTB Kommunikasjon (pressemeldinger)",
+            "enabled": true,
+            "keywordFilter": true,
+            "feeds": [],
+            "discoverFrom": [
+                "https://kommunikasjon.ntb.no/presserom/15519297/norsk-elbilforening",
+                "https://kommunikasjon.ntb.no/presserom/17848801/ofv"
+            ]
+        },
+        {
+            "id": "e24",
+            "name": "E24",
+            "enabled": true,
+            "keywordFilter": true,
+            "feeds": [
+                "https://e24.no/rss2/"
+            ],
+            "discoverFrom": [
+                "https://e24.no/"
+            ]
+        },
+        {
+            "id": "nettavisen",
+            "name": "Nettavisen",
+            "enabled": true,
+            "keywordFilter": true,
+            "feeds": [
+                "https://www.nettavisen.no/service/rich-rss"
+            ],
+            "discoverFrom": []
+        }
+    ]
+}
