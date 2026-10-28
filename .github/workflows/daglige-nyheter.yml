@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
-      MODE: ${{ github.event_name == 'push' && 'dry-run' || github.event.inputs.mode || 'run' }}
+      MODE: ${{ github.event_name == 'push' && 'check-sources' || github.event.inputs.mode || 'run' }}
     steps:
       - uses: actions/checkout@v4
         with:
