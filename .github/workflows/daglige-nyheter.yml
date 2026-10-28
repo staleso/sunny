@@ -4,9 +4,6 @@ on:
   # Cron aktiveres først etter godkjent testrunde. Fjern # på de to linjene under for å slå den på.
   # schedule:
   #   - cron: '0 6 * * *'   # 06:00 UTC = 07:00/08:00 norsk tid
-  # MIDLERTIDIG: testrunde (dry-run) på denne branchen. Fjernes før merge.
-  push:
-    branches: [claude/porsche-car-page-update-s8vftn]
   workflow_dispatch:
     inputs:
       mode:
@@ -29,11 +26,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
-      MODE: ${{ github.event_name == 'push' && 'check-sources' || github.event.inputs.mode || 'run' }}
+      MODE: ${{ github.event.inputs.mode || 'run' }}
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.event_name == 'push' && github.ref || 'main' }}
+          ref: main
 
       - uses: actions/setup-node@v4
         with:
@@ -121,11 +118,15 @@ jobs:
 
       - name: Oppsummering
         if: always()
+        env:
+          CREATED: ${{ steps.gen.outputs.created }}
+          TITLE: ${{ steps.gen.outputs.title }}
+          PAGE: ${{ steps.gen.outputs.page }}
         run: |
           {
             echo "### Daglige elbilnyheter ($MODE)"
-            if [ "${{ steps.gen.outputs.created }}" = "true" ]; then
-              echo "Laget **${{ steps.gen.outputs.title }}** (\`${{ steps.gen.outputs.page }}\`)"
+            if [ "$CREATED" = "true" ]; then
+              echo "Laget **$TITLE** (\`$PAGE\`)"
             else
               echo "Ingen side laget. Se loggen for årsak."
             fi
