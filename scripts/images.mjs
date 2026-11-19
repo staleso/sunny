@@ -32,8 +32,16 @@ async function search(query) {
     return Object.values(data.query?.pages || {}).sort((a, b) => a.index - b.index);
 }
 
-function pick(pages) {
+// Modellnavn med tall (f.eks. «ID.4», «iX3») må stå i filnavnet, så vi ikke får feil modell.
+function modelTokens(query) {
+    return query.toLowerCase().split(/\s+/).filter(t => /\d/.test(t) && !/^(19|20)\d\d$/.test(t));
+}
+
+function pick(pages, query = '') {
+    const must = modelTokens(query);
     for (const p of pages) {
+        const name = p.title.toLowerCase().replace(/_/g, ' ');
+        if (must.some(t => !name.includes(t))) continue;
         const ii = p.imageinfo?.[0];
         if (!ii || !/jpeg|png|webp/.test(ii.mime)) continue;
         const m = ii.extmetadata || {};
@@ -62,9 +70,9 @@ export async function findImage(query) {
     const metaFile = local.replace(/\.jpg$/, '.json');
     if (fs.existsSync(local) && fs.existsSync(metaFile)) return JSON.parse(fs.readFileSync(metaFile, 'utf8'));
 
-    let hit = pick(await search(query));
+    let hit = pick(await search(query), query);
     // Prøv et kortere søk (merke + modell) hvis første søk ga ingenting.
-    if (!hit && query.split(' ').length > 2) hit = pick(await search(query.split(' ').slice(0, 2).join(' ')));
+    if (!hit && query.split(' ').length > 2) hit = pick(await search(query.split(' ').slice(0, 2).join(' ')), query);
     if (!hit) return null;
 
     const res = await fetch(hit.remote, { headers: { 'User-Agent': UA } });
