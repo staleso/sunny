@@ -51,18 +51,18 @@
             </button>
         </header>
         <nav class="tab-bar">
-            <a href="/" class="tab tab-link" style="color:var(--accent);background:rgba(37,99,235,0.08);">Biler</a>
-            <a href="/#compare" class="tab tab-link">Vs</a>
+            <a href="/" class="tab tab-link">Nyheter</a>
+            <a href="/sammenlign.html" class="tab tab-link" style="color:var(--accent);background:rgba(37,99,235,0.08);">Biler</a>
+            <a href="/sammenlign.html#compare" class="tab tab-link">Vs</a>
             <a href="/finn-din-elbil.html" class="tab tab-link">Quiz</a>
             <a href="/kalkulator.html" class="tab tab-link">Kalk</a>
             <a href="/tabell.html" class="tab tab-link">Tabell</a>
-            <a href="/artikler.html" class="tab tab-link">Artikler</a>
         </nav>
     </div>
 
     <div id="car-detail-page">
         <nav class="detail-nav">
-            <a href="/" class="back-link">&#8592; Alle elbiler</a>
+            <a href="/sammenlign.html" class="back-link">&#8592; Alle elbiler</a>
         </nav>
         <div id="detail-content">
             <p class="detail-loading">Laster bildata...</p>
@@ -73,7 +73,7 @@
         <div style="max-width:700px;margin:40px auto;padding:0 20px;font-family:Inter,sans-serif">
             <h1>Elbilvalg.no – Sammenlign elbiler i Norge</h1>
             <p>Denne siden viser detaljerte spesifikasjoner for en elektrisk bil tilgjengelig i det norske markedet, inkludert pris, rekkevidde (WLTP), batteristørrelse, ladekapasitet, dimensjoner og kjøreegenskaper.</p>
-            <p>For å se fullstendig innhold kreves JavaScript. <a href="/">Gå til forsiden</a> for å utforske alle elbiler.</p>
+            <p>For å se fullstendig innhold kreves JavaScript. <a href="/sammenlign.html">Gå til sammenligningen</a> for å utforske alle elbiler.</p>
             <h2>Om Elbilvalg.no</h2>
             <p>Elbilvalg.no er en uavhengig norsk tjeneste som hjelper forbrukere med å sammenligne over 100 elektriske biler fra mer enn 20 produsenter. Sammenlign pris, rekkevidde, hestekrefter, bagasjerom og dimensjoner. Tjenesten er gratis og uten tilknytning til bilprodusenter eller forhandlere.</p>
             <p><a href="/om-oss.html">Om oss</a> · <a href="/personvern.html">Personvernerklæring</a> · <a href="/vilkaar.html">Vilkår for bruk</a></p>
@@ -94,7 +94,7 @@
         if (!slug) {
             addNoIndex();
             document.title = 'Velg en elbil | Elbilvalg.no';
-            document.getElementById('detail-content').innerHTML = '<p class="detail-loading">Ingen bil valgt. <a href="/">Se alle elbiler</a></p>';
+            document.getElementById('detail-content').innerHTML = '<p class="detail-loading">Ingen bil valgt. <a href="/sammenlign.html">Se alle elbiler</a></p>';
             return;
         }
 

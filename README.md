@@ -29,3 +29,12 @@
 
 ## Contribution
 If you want to contribute to this project, please send a pull request or create an issue for discussion.
+
+## Nyhetsforside (AI)
+
+Forsiden (`/` og `/en/`) er nyhetsdrevet. Sammenligningen ligger på `/sammenlign.html` (`/en/compare.html`).
+
+- `data/articles.json` – alle artikler (nyeste først). Forsiden, artikkellistene og sitemap bygges fra denne.
+- `node scripts/build-news.mjs` – bygger forsiden på nytt (f.eks. etter manuell endring i JSON-filen).
+- `node scripts/generate-news.mjs` – lar Claude søke etter dagens elbilnyhet, skrive en sak med kilder og publisere den. Krever `ANTHROPIC_API_KEY`. `DRY_RUN=1` skriver ut uten å lagre.
+- `.github/workflows/daily-news.yml` – kjører generatoren to ganger daglig og deployer. Kan også startes manuelt under Actions.

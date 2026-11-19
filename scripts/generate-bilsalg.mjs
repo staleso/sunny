@@ -2,6 +2,7 @@ import Anthropic from '@anthropic-ai/sdk';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { loadArticles, saveArticles, buildAll } from './news-lib.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
@@ -77,48 +78,14 @@ ${template}`
     return html;
 }
 
-function buildArticleCard(ingress) {
-    return `<a href="/${filename}" class="article-card">
-                        <p class="article-card-category">Bilsalg</p>
-                        <h3 class="article-card-title">Bilsalget i ${monthNameCap} ${year}</h3>
-                        <p class="article-card-ingress">${ingress}</p>
-                        <span class="article-card-link">Les artikkelen →</span>
-                    </a>`;
-}
-
-function updateIndexHtml(articleCard) {
-    const indexPath = path.join(ROOT, 'index.html');
-    let index = fs.readFileSync(indexPath, 'utf8');
-
-    // Fjern eksisterende bilsalg-kort
-    index = index.replace(
-        /<a href="\/bilsalg-[^"]+\.html" class="article-card">[\s\S]*?<\/a>/g,
-        ''
-    );
-
-    // Sett inn nytt kort først i articles-grid
-    index = index.replace(
-        /(<div class="articles-grid">)/,
-        `$1\n                    ${articleCard}`
-    );
-
-    fs.writeFileSync(indexPath, index);
-}
-
-function updateSitemap() {
-    const sitemapPath = path.join(ROOT, 'sitemap.xml');
-    let sitemap = fs.readFileSync(sitemapPath, 'utf8');
-
-    // Fjern gamle bilsalg-oppføringer
-    sitemap = sitemap.replace(
-        /\s*<url>\s*<loc>https:\/\/elbilvalg\.no\/bilsalg-[^<]+<\/loc>[\s\S]*?<\/url>/g,
-        ''
-    );
-
-    const newEntry = `\n  <url>\n    <loc>${canonicalUrl}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n  </url>`;
-    sitemap = sitemap.replace('</urlset>', `${newEntry}\n</urlset>`);
-
-    fs.writeFileSync(sitemapPath, sitemap);
+function addToFrontPage(ingress) {
+    const articles = loadArticles().filter(a => a.url !== `/${filename}`);
+    articles.push({
+        lang: 'nb', url: `/${filename}`, title: `Bilsalget i ${monthName} ${year}`,
+        ingress, category: 'Bilsalg', date: today, time: now.toISOString().slice(11, 16), ai: true,
+    });
+    saveArticles(articles);
+    buildAll();
 }
 
 // Trekk ut ingress fra generert HTML for å bruke i artikkelkortet
@@ -139,12 +106,9 @@ try {
     console.log(`✓ Artikkel lagret: ${filename}`);
 
     const ingress = extractIngress(html);
-    const articleCard = buildArticleCard(ingress);
-    updateIndexHtml(articleCard);
-    console.log('✓ index.html oppdatert');
+    addToFrontPage(ingress);
+    console.log('✓ Forsiden og artikkellisten oppdatert');
 
-    updateSitemap();
-    console.log('✓ sitemap.xml oppdatert');
 
     console.log(`\nFerdig: ${canonicalUrl}`);
 } catch (err) {
