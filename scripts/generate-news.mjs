@@ -10,7 +10,8 @@ import path from 'path';
 import { ROOT, loadArticles, saveArticles, buildAll, renderArticlePage } from './news-lib.mjs';
 import { findImage, insertHero } from './images.mjs';
 
-const MODEL = 'claude-opus-5-5';
+// Sonnet 5.5 gir god kvalitet til lav pris. Kan overstyres med NEWS_MODEL.
+const MODEL = process.env.NEWS_MODEL || 'claude-sonnet-5-5';
 const PER_RUN = Math.max(1, Math.min(3, Number(process.env.ARTICLES_PER_RUN || 1)));
 const DRY_RUN = !!process.env.DRY_RUN;
 
@@ -82,7 +83,7 @@ async function writeArticle(publishedTitles, today) {
             fallbacks: 'default',
             system: SYSTEM,
             output_config: { effort: 'medium', format: { type: 'json_schema', schema: SCHEMA } },
-            tools: [{ type: 'web_search_20260209', name: 'web_search', max_uses: 8, user_location: { type: 'approximate', country: 'NO' } }],
+            tools: [{ type: 'web_search_20260209', name: 'web_search', max_uses: 5, user_location: { type: 'approximate', country: 'NO' } }],
             messages,
         });
 
