@@ -54,12 +54,12 @@
             </button>
         </header>
         <nav class="tab-bar">
-            <a href="/" class="tab tab-link">Biler</a>
-            <a href="/#compare" class="tab tab-link">Vs</a>
+            <a href="/" class="tab tab-link">Nyheter</a>
+            <a href="/sammenlign.html" class="tab tab-link">Biler</a>
+            <a href="/sammenlign.html#compare" class="tab tab-link">Vs</a>
             <a href="/finn-din-elbil.html" class="tab tab-link" style="color:var(--accent);background:rgba(37,99,235,0.08);">Quiz</a>
             <a href="/kalkulator.html" class="tab tab-link">Kalk</a>
             <a href="/tabell.html" class="tab tab-link">Tabell</a>
-            <a href="/artikler.html" class="tab tab-link">Artikler</a>
         </nav>
     </div>
 
@@ -251,7 +251,7 @@
             content.innerHTML =
                 '<div class="quiz-results">' +
                     '<h2>Ingen treff</h2>' +
-                    '<p>Vi fant ingen biler som passet alle kriteriene. <a href="/">Bla gjennom alle biler</a> eller <a href="javascript:location.reload()">start på nytt</a>.</p>' +
+                    '<p>Vi fant ingen biler som passet alle kriteriene. <a href="/sammenlign.html">Bla gjennom alle biler</a> eller <a href="javascript:location.reload()">start på nytt</a>.</p>' +
                 '</div>';
             return;
         }
@@ -290,7 +290,7 @@
                 '<div class="quiz-results-list">' + cardsHtml + '</div>' +
                 '<div class="quiz-actions">' +
                     '<button class="quiz-restart-btn" onclick="location.reload()">Start på nytt</button>' +
-                    '<a class="quiz-browse-btn" href="/">Se alle biler</a>' +
+                    '<a class="quiz-browse-btn" href="/sammenlign.html">Se alle biler</a>' +
                 '</div>' +
                 '<div class="quiz-note">Anbefalingene er veiledende og basert på spesifikasjonene i vår database. Vi vurderer pris, rekkevidde, antall seter, tilhengerkapasitet, ladehastighet og prioriteringen din.</div>' +
             '</div>';

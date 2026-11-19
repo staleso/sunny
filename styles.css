@@ -3528,3 +3528,131 @@ body.tab-favorites .recently-viewed-strip {
 
 .admin-modal-submit:hover { opacity: 0.9; }
 .admin-modal-cancel:hover { border-color: var(--text3); }
+
+/* ========== Nyhetsforside (nf-) ========== */
+.tab.tab-current { color: var(--accent); background: rgba(37,99,235,0.08); }
+
+body.nf { --serif: 'Newsreader', Georgia, 'Times New Roman', serif; --ink: var(--text); --rule: var(--text); }
+:root[data-theme="dark"] body.nf { --rule: rgba(255,255,255,0.7); }
+
+.nf-page { max-width: 1120px; margin: 0 auto; padding: 0 16px 48px; }
+
+.nf-masthead { text-align: center; padding: 28px 0 18px; border-bottom: 3px double var(--rule); }
+.nf-dateline { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--text2); }
+.nf-wordmark {
+    font-family: var(--serif); font-weight: 700; letter-spacing: -0.03em; line-height: 0.95;
+    font-size: clamp(52px, 13vw, 128px); margin: 6px 0 8px; color: var(--ink);
+}
+.nf-tagline { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--text2); font-weight: 500; }
+
+/* Ticker */
+.nf-ticker { display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--border); padding: 10px 0; overflow: hidden; }
+.nf-ticker-label {
+    flex: none; display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700;
+    letter-spacing: .12em; text-transform: uppercase; color: var(--danger);
+}
+.nf-live { width: 8px; height: 8px; border-radius: 50%; background: var(--danger); animation: nf-pulse 1.6s ease-in-out infinite; }
+@keyframes nf-pulse { 0%,100% { opacity: 1; } 50% { opacity: .3; } }
+.nf-ticker-track { overflow: hidden; flex: 1; mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); }
+.nf-ticker-inner { display: inline-flex; white-space: nowrap; gap: 14px; animation: nf-scroll 60s linear infinite; }
+.nf-ticker-inner a { color: var(--text); text-decoration: none; font-size: 14px; font-weight: 500; }
+.nf-ticker-inner a:hover { color: var(--accent); }
+.nf-ticker:hover .nf-ticker-inner { animation-play-state: paused; }
+.nf-tick-sep { color: var(--text3); font-size: 8px; align-self: center; }
+@keyframes nf-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) {
+    .nf-ticker-inner { animation: none; }
+    .nf-ticker-track { overflow-x: auto; }
+    .nf-live { animation: none; }
+}
+
+/* Typografiske "forsidebilder" */
+.nf-cover {
+    position: relative; overflow: hidden; border-radius: 4px;
+    background:
+        repeating-linear-gradient(135deg, hsla(var(--h), 90%, 98%, .08) 0 1px, transparent 1px 14px),
+        radial-gradient(120% 90% at 85% 10%, hsl(calc(var(--h) + 30), 85%, 62%) 0%, transparent 55%),
+        linear-gradient(160deg, hsl(var(--h), 70%, 42%), hsl(calc(var(--h) - 20), 75%, 22%));
+    display: flex; align-items: flex-end;
+}
+.nf-cover::after {
+    content: '⚡'; position: absolute; right: 6%; top: 8%; font-size: 2.2em; opacity: .25; filter: grayscale(1) brightness(3);
+}
+.nf-cover-word {
+    font-family: var(--serif); font-weight: 700; color: #fff; letter-spacing: -0.02em; line-height: .9;
+    padding: 0 .35em .25em; text-transform: lowercase; opacity: .95; overflow-wrap: anywhere;
+}
+.nf-cover-lg { aspect-ratio: 16 / 10; font-size: clamp(38px, 7vw, 76px); }
+.nf-cover-sm { aspect-ratio: 16 / 9; font-size: 30px; margin-bottom: 12px; }
+
+.nf-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font-size: 12px; color: var(--text2); margin-bottom: 8px; }
+.nf-cat { font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: hsl(var(--h), 70%, 42%); }
+:root[data-theme="dark"] .nf-cat { color: hsl(var(--h), 80%, 70%); }
+
+/* Hovedsak */
+.nf-lead { padding: 28px 0; border-bottom: 1px solid var(--rule); }
+.nf-lead-link { display: grid; grid-template-columns: 1.15fr 1fr; gap: 32px; align-items: center; color: inherit; text-decoration: none; }
+.nf-lead h2 {
+    font-family: var(--serif); font-weight: 700; font-size: clamp(30px, 4.4vw, 52px); line-height: 1.04;
+    letter-spacing: -0.02em; margin: 4px 0 14px; color: var(--ink);
+}
+.nf-lead-link:hover h2 { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 5px; }
+.nf-lead p { font-size: 18px; line-height: 1.55; color: var(--text2); }
+.nf-byline { display: inline-flex; gap: 8px; align-items: center; margin-top: 16px; font-size: 13px; font-weight: 600; }
+
+/* Siste nytt + verktøy */
+.nf-split { display: grid; grid-template-columns: 1fr 340px; gap: 40px; padding: 28px 0; border-bottom: 1px solid var(--border); }
+.nf-section-h {
+    font-size: 12px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
+    border-top: 3px solid var(--rule); padding-top: 10px; margin-bottom: 8px; color: var(--ink);
+}
+.nf-river ol { list-style: none; padding: 0; margin: 0; }
+.nf-river li { border-bottom: 1px solid var(--border); }
+.nf-river li:last-child { border-bottom: 0; }
+.nf-river a { display: block; padding: 18px 0; color: inherit; text-decoration: none; }
+.nf-river h3 { font-family: var(--serif); font-size: 24px; line-height: 1.15; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 6px; }
+.nf-river a:hover h3 { color: var(--accent); }
+.nf-river p { font-size: 15px; line-height: 1.5; color: var(--text2); }
+
+.nf-tools { align-self: start; position: sticky; top: 120px; }
+.nf-tools-lead { font-family: var(--serif); font-size: 22px; line-height: 1.2; margin: 6px 0 14px; }
+.nf-tool {
+    display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; padding: 14px 16px; margin-bottom: 8px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px; color: inherit; text-decoration: none;
+    transition: border-color .2s, transform .2s;
+}
+.nf-tool strong { font-size: 15px; }
+.nf-tool span:not(.nf-arrow) { grid-column: 1; font-size: 13px; color: var(--text2); line-height: 1.4; }
+.nf-arrow { grid-column: 2; grid-row: 1 / span 2; align-self: center; color: var(--accent); font-size: 18px; }
+.nf-tool:hover { border-color: var(--accent); transform: translateX(2px); }
+.nf-tool:first-of-type { background: var(--accent2); color: var(--bg); border-color: var(--accent2); }
+.nf-tool:first-of-type span:not(.nf-arrow) { color: inherit; opacity: .75; }
+.nf-tool:first-of-type .nf-arrow { color: inherit; }
+
+/* Flere saker */
+.nf-more { padding: 28px 0; }
+.nf-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px 24px; margin-top: 14px; }
+.nf-card { color: inherit; text-decoration: none; display: block; }
+.nf-card h3 { font-family: var(--serif); font-size: 21px; line-height: 1.15; font-weight: 600; margin-bottom: 6px; }
+.nf-card:hover h3 { color: var(--accent); }
+.nf-card p { font-size: 14px; line-height: 1.5; color: var(--text2); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+.nf-all { display: block; text-align: center; padding: 14px; margin: 8px 0 24px; border: 1px solid var(--rule); border-radius: 999px; color: var(--ink); text-decoration: none; font-weight: 600; font-size: 14px; }
+.nf-all:hover { background: var(--ink); color: var(--bg); }
+.nf-ai-note { font-size: 13px; line-height: 1.5; color: var(--text2); max-width: 720px; margin: 24px auto 0; text-align: center; }
+.nf-ai-note a { color: var(--accent); }
+
+@media (max-width: 900px) {
+    .nf-split { grid-template-columns: 1fr; gap: 28px; }
+    .nf-tools { position: static; }
+    .nf-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+    .nf-lead-link { grid-template-columns: 1fr; gap: 18px; }
+    .nf-lead p { font-size: 16px; }
+    .nf-grid { grid-template-columns: 1fr; }
+    .nf-river h3 { font-size: 21px; }
+}
+@media (max-width: 480px) {
+    .nf-tagline { font-size: 11px; letter-spacing: .1em; }
+}
