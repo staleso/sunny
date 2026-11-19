@@ -78,9 +78,8 @@ const T = {
         langSwitch: ['/en/', 'EN', 'English version'],
         theme: 'Bytt tema',
         footer: [['/om-oss.html', 'Om oss'], ['/personvern.html', 'Personvern'], ['/vilkaar.html', 'Vilkår']],
-        cookieText: 'Vi bruker informasjonskapsler for analyse og annonser. Ved å klikke «Godta» samtykker du til bruk av informasjonskapsler.',
-        cookieAccept: 'Godta', cookieDecline: 'Avslå', cookieChange: 'Endre cookie-valg',
-    },
+        cookieChange: 'Endre cookie-valg',
+            },
     en: {
         htmlLang: 'en', locale: 'en_GB', home: '/en/', compare: '/en/compare.html', articles: '/en/articles.html',
         title: 'Elbilvalg.no – Electric car news from Norway',
@@ -102,9 +101,8 @@ const T = {
         langSwitch: ['/', 'NO', 'Norsk versjon'],
         theme: 'Toggle theme',
         footer: [['/om-oss.html', 'About'], ['/personvern.html', 'Privacy'], ['/vilkaar.html', 'Terms']],
-        cookieText: 'We use cookies for analytics and ads. By clicking “Accept” you consent to the use of cookies.',
-        cookieAccept: 'Accept', cookieDecline: 'Decline', cookieChange: 'Cookie settings',
-    },
+        cookieChange: 'Cookie settings',
+            },
 };
 
 function media(a, cls, eager = false) {
@@ -173,19 +171,17 @@ function head(t, lang) {
     <link rel="stylesheet" href="/styles.css?v=${CSS_VERSION}">
     <link rel="stylesheet" href="/news.css?v=${CSS_VERSION}">
     <meta name="google-adsense-account" content="ca-pub-4678480487049419">
-    <script>if(localStorage.getItem('cookie-consent')==='accepted'){var _as=document.createElement('script');_as.async=true;_as.src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4678480487049419';_as.crossOrigin='anonymous';document.head.appendChild(_as);}</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4678480487049419" crossorigin="anonymous"></script>
     <script>
+        // Samtykke håndteres av Googles samtykkemelding (AdSense → Personvern og meldinger).
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
-        if (localStorage.getItem('cookie-consent') === 'accepted') {
-            var _ga = document.createElement('script'); _ga.async = true;
-            _ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-3TDS5SGX53';
-            document.head.appendChild(_ga);
-            gtag('consent', 'default', { analytics_storage: 'granted', ad_storage: 'granted', ad_personalization: 'granted', ad_user_data: 'granted' });
-            gtag('js', new Date());
-            gtag('config', 'G-3TDS5SGX53');
-        }
+        gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', wait_for_update: 500 });
+        gtag('js', new Date());
+        gtag('config', 'G-3TDS5SGX53');
+        function showConsent(){window.googlefc=window.googlefc||{};googlefc.callbackQueue=googlefc.callbackQueue||[];googlefc.callbackQueue.push(function(){googlefc.showRevocationMessage();});}
     </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3TDS5SGX53"></script>
 </head>`;
 }
 
@@ -212,32 +208,11 @@ function header(t) {
 
 function footer(t) {
     const links = t.footer.map(([h, l]) => `<a href="${h}">${l}</a>`).join('\n            <span class="site-footer-sep">&middot;</span>\n            ');
-    return `    <div id="cookie-consent" class="cookie-banner" style="display:none">
-        <div class="cookie-text"><p>${esc(t.cookieText)}</p></div>
-        <div class="cookie-buttons">
-            <button onclick="setConsent('accepted')" class="cookie-btn cookie-accept">${t.cookieAccept}</button>
-            <button onclick="setConsent('declined')" class="cookie-btn cookie-decline">${t.cookieDecline}</button>
-        </div>
-    </div>
-    <script>
-        function setConsent(v) {
-            localStorage.setItem('cookie-consent', v);
-            document.getElementById('cookie-consent').style.display = 'none';
-            if (v === 'accepted') { location.reload(); }
-            else { window['ga-disable-G-3TDS5SGX53'] = true; }
-        }
-        (function() {
-            var c = localStorage.getItem('cookie-consent');
-            if (!c) document.getElementById('cookie-consent').style.display = 'flex';
-            else if (c === 'declined') window['ga-disable-G-3TDS5SGX53'] = true;
-        })();
-    </script>
-
-    <footer class="site-footer">
+    return `    <footer class="site-footer">
         <nav class="site-footer-nav">
             ${links}
             <span class="site-footer-sep">&middot;</span>
-            <a href="#" onclick="localStorage.removeItem('cookie-consent');document.getElementById('cookie-consent').style.display='flex';return false;">${t.cookieChange}</a>
+            <a href="#" onclick="showConsent();return false;">${t.cookieChange}</a>
             <span class="site-footer-sep">&middot;</span>
             <span class="site-footer-copy">Elbilvalg.no</span>
         </nav>

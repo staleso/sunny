@@ -30,19 +30,17 @@
     <link rel="stylesheet" href="styles.css?v=20260422">
     <link rel="stylesheet" href="/news.css?v=20261120">
     <meta name="google-adsense-account" content="ca-pub-4678480487049419">
-    <script>if(localStorage.getItem('cookie-consent')==='accepted'){var _as=document.createElement('script');_as.async=true;_as.src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4678480487049419';_as.crossOrigin='anonymous';document.head.appendChild(_as);}</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4678480487049419" crossorigin="anonymous"></script>
     <script>
+        // Samtykke håndteres av Googles samtykkemelding (AdSense → Personvern og meldinger).
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
-        if (localStorage.getItem('cookie-consent') === 'accepted') {
-            var _ga = document.createElement('script'); _ga.async = true;
-            _ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-3TDS5SGX53';
-            document.head.appendChild(_ga);
-            gtag('consent', 'default', { analytics_storage: 'granted', ad_storage: 'granted', ad_personalization: 'granted', ad_user_data: 'granted' });
-            gtag('js', new Date());
-            gtag('config', 'G-3TDS5SGX53');
-        }
+        gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', wait_for_update: 500 });
+        gtag('js', new Date());
+        gtag('config', 'G-3TDS5SGX53');
+        function showConsent(){window.googlefc=window.googlefc||{};googlefc.callbackQueue=googlefc.callbackQueue||[];googlefc.callbackQueue.push(function(){googlefc.showRevocationMessage();});}
     </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3TDS5SGX53"></script>
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -186,7 +184,7 @@
             <span class="site-footer-sep">·</span>
             <a href="/vilkaar.html">Vilkår</a>
             <span class="site-footer-sep">·</span>
-            <a href="/" onclick="localStorage.removeItem('cookie-consent');return true;">Endre cookie-valg</a>
+            <a href="#" onclick="showConsent();return false;">Endre cookie-valg</a>
             <span class="site-footer-sep">·</span>
             <span class="site-footer-copy">Elbilvalg.no</span>
         </nav>

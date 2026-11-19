@@ -33,19 +33,17 @@
     <link rel="stylesheet" href="/styles.css?v=20261120">
     <link rel="stylesheet" href="/news.css?v=20261120">
     <meta name="google-adsense-account" content="ca-pub-4678480487049419">
-    <script>if(localStorage.getItem('cookie-consent')==='accepted'){var _as=document.createElement('script');_as.async=true;_as.src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4678480487049419';_as.crossOrigin='anonymous';document.head.appendChild(_as);}</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4678480487049419" crossorigin="anonymous"></script>
     <script>
+        // Samtykke håndteres av Googles samtykkemelding (AdSense → Personvern og meldinger).
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
-        if (localStorage.getItem('cookie-consent') === 'accepted') {
-            var _ga = document.createElement('script'); _ga.async = true;
-            _ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-3TDS5SGX53';
-            document.head.appendChild(_ga);
-            gtag('consent', 'default', { analytics_storage: 'granted', ad_storage: 'granted', ad_personalization: 'granted', ad_user_data: 'granted' });
-            gtag('js', new Date());
-            gtag('config', 'G-3TDS5SGX53');
-        }
+        gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', wait_for_update: 500 });
+        gtag('js', new Date());
+        gtag('config', 'G-3TDS5SGX53');
+        function showConsent(){window.googlefc=window.googlefc||{};googlefc.callbackQueue=googlefc.callbackQueue||[];googlefc.callbackQueue.push(function(){googlefc.showRevocationMessage();});}
     </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3TDS5SGX53"></script>
 </head>
 <body class="nx">
     <div class="sticky-top">
@@ -197,27 +195,6 @@
     </main>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"url":"https://elbilvalg.no/en/ev-sales-april-2026.html","name":"Norway EV sales April 2026 – Volkswagen dethrones Tesla"},{"@type":"ListItem","position":2,"url":"https://elbilvalg.no/en/ev-prices-may-2026.html","name":"EV prices May 2026 – who's cutting the most?"},{"@type":"ListItem","position":3,"url":"https://elbilvalg.no/en/choosing-an-ev.html","name":"10 things to consider when choosing an EV"},{"@type":"ListItem","position":4,"url":"https://elbilvalg.no/en/first-ev.html","name":"What you need to know as a first-time EV buyer"},{"@type":"ListItem","position":5,"url":"https://elbilvalg.no/en/ev-price-trends.html","name":"EV price trends – cheaper than you think?"},{"@type":"ListItem","position":6,"url":"https://elbilvalg.no/en/new-evs-2026.html","name":"New EVs 2026 – the models coming to Norway"},{"@type":"ListItem","position":7,"url":"https://elbilvalg.no/en/ev-body-types.html","name":"SUV, sedan or station wagon? How body types have changed"}]}</script>
 
-    <div id="cookie-consent" class="cookie-banner" style="display:none">
-        <div class="cookie-text"><p>We use cookies for analytics and ads. By clicking “Accept” you consent to the use of cookies.</p></div>
-        <div class="cookie-buttons">
-            <button onclick="setConsent('accepted')" class="cookie-btn cookie-accept">Accept</button>
-            <button onclick="setConsent('declined')" class="cookie-btn cookie-decline">Decline</button>
-        </div>
-    </div>
-    <script>
-        function setConsent(v) {
-            localStorage.setItem('cookie-consent', v);
-            document.getElementById('cookie-consent').style.display = 'none';
-            if (v === 'accepted') { location.reload(); }
-            else { window['ga-disable-G-3TDS5SGX53'] = true; }
-        }
-        (function() {
-            var c = localStorage.getItem('cookie-consent');
-            if (!c) document.getElementById('cookie-consent').style.display = 'flex';
-            else if (c === 'declined') window['ga-disable-G-3TDS5SGX53'] = true;
-        })();
-    </script>
-
     <footer class="site-footer">
         <nav class="site-footer-nav">
             <a href="/om-oss.html">About</a>
@@ -226,7 +203,7 @@
             <span class="site-footer-sep">&middot;</span>
             <a href="/vilkaar.html">Terms</a>
             <span class="site-footer-sep">&middot;</span>
-            <a href="#" onclick="localStorage.removeItem('cookie-consent');document.getElementById('cookie-consent').style.display='flex';return false;">Cookie settings</a>
+            <a href="#" onclick="showConsent();return false;">Cookie settings</a>
             <span class="site-footer-sep">&middot;</span>
             <span class="site-footer-copy">Elbilvalg.no</span>
         </nav>

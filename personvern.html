@@ -26,18 +26,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css?v=20260422">
     <meta name="google-adsense-account" content="ca-pub-4678480487049419">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4678480487049419" crossorigin="anonymous"></script>
     <script>
+        // Samtykke håndteres av Googles samtykkemelding (AdSense → Personvern og meldinger).
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
-        if (localStorage.getItem('cookie-consent') === 'accepted') {
-            var _ga = document.createElement('script'); _ga.async = true;
-            _ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-3TDS5SGX53';
-            document.head.appendChild(_ga);
-            gtag('consent', 'default', { analytics_storage: 'granted', ad_storage: 'granted', ad_personalization: 'granted', ad_user_data: 'granted' });
-            gtag('js', new Date());
-            gtag('config', 'G-3TDS5SGX53');
-        }
+        gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', wait_for_update: 500 });
+        gtag('js', new Date());
+        gtag('config', 'G-3TDS5SGX53');
+        function showConsent(){window.googlefc=window.googlefc||{};googlefc.callbackQueue=googlefc.callbackQueue||[];googlefc.callbackQueue.push(function(){googlefc.showRevocationMessage();});}
     </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3TDS5SGX53"></script>
 </head>
 <body>
     <div class="sticky-top">
@@ -103,7 +102,7 @@
 
             <section>
                 <h2>3. Informasjonskapsler (cookies)</h2>
-                <p>Elbilvalg.no bruker informasjonskapsler fra tredjeparter. Du kan velge å godta eller avvise disse via samtykkebanneret som vises ved første besøk.</p>
+                <p>Elbilvalg.no bruker informasjonskapsler fra tredjeparter. Du kan velge å godta eller avvise disse i samtykkemeldingen fra Google som vises ved første besøk.</p>
 
                 <h3>3.1 Nødvendige informasjonskapsler</h3>
                 <p>Vi bruker ingen egne informasjonskapsler. Lokale preferanser lagres i nettleserens localStorage, som ikke er informasjonskapsler i tradisjonell forstand.</p>
@@ -132,7 +131,7 @@
                 <h2>4. Rettslig grunnlag</h2>
                 <p>Behandling av personopplysninger på Elbilvalg.no baseres på følgende rettslige grunnlag i henhold til personvernforordningen (GDPR):</p>
                 <ul>
-                    <li><strong>Samtykke (art. 6(1)(a)):</strong> Analyse- og annonseinformasjonskapsler aktiveres kun etter at du har gitt aktivt samtykke via samtykkebanneret.</li>
+                    <li><strong>Samtykke (art. 6(1)(a)):</strong> Analyse- og annonseinformasjonskapsler aktiveres kun etter at du har gitt aktivt samtykke i samtykkemeldingen. Samtykket håndteres av Googles sertifiserte samtykkeløsning (IAB TCF).</li>
                     <li><strong>Berettiget interesse (art. 6(1)(f)):</strong> Lagring av krypterte IP-hasher for stjernevurderinger og kommentarer, for å forhindre misbruk og sikre kvaliteten på brukergenerert innhold.</li>
                 </ul>
             </section>
@@ -163,7 +162,7 @@
                     <li><strong>Rett til innsyn:</strong> Du kan be om å få vite hvilke opplysninger vi har lagret om deg.</li>
                     <li><strong>Rett til retting:</strong> Du kan be om å få rettet uriktige opplysninger.</li>
                     <li><strong>Rett til sletting:</strong> Du kan be om å få slettet dine opplysninger.</li>
-                    <li><strong>Rett til å trekke samtykke:</strong> Du kan når som helst trekke tilbake ditt samtykke til informasjonskapsler ved å slette informasjonskapsler i nettleseren eller ved å bruke samtykkebanneret på nytt.</li>
+                    <li><strong>Rett til å trekke samtykke:</strong> Du kan når som helst trekke tilbake ditt samtykke til informasjonskapsler ved å slette informasjonskapsler i nettleseren eller via «Endre cookie-valg» nederst på siden.</li>
                     <li><strong>Rett til å klage:</strong> Du har rett til å klage til Datatilsynet dersom du mener at behandlingen av dine personopplysninger er i strid med regelverket.</li>
                 </ul>
                 <p>For å utøve dine rettigheter, kontakt oss via informasjonen nedenfor.</p>
@@ -201,7 +200,7 @@
             <span class="site-footer-sep">·</span>
             <a href="/vilkaar.html">Vilkår</a>
             <span class="site-footer-sep">·</span>
-            <a href="/" onclick="localStorage.removeItem('cookie-consent');return true;">Endre cookie-valg</a>
+            <a href="#" onclick="showConsent();return false;">Endre cookie-valg</a>
             <span class="site-footer-sep">·</span>
             <span class="site-footer-copy">Elbilvalg.no</span>
         </nav>
