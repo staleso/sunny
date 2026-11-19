@@ -2,9 +2,8 @@ name: AI-nyheter
 
 on:
   schedule:
-    # To nye saker om dagen: ca. 07:40 og 15:40 norsk tid (UTC i cron)
+    # Én ny sak om dagen, ca. 07:40 norsk tid (UTC i cron)
     - cron: '40 5 * * *'
-    - cron: '40 13 * * *'
   workflow_dispatch:
     inputs:
       articles:
