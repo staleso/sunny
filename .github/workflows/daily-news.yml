@@ -53,7 +53,15 @@ jobs:
           git add -A -- '*.html' data/articles.json sitemap.xml img
           git diff --staged --quiet && exit 0
           git commit -m "AI-nyheter: $(date -u +'%Y-%m-%d %H:%M')"
-          git push
+          # Hvis main har endret seg mens saken ble skrevet: hent nyeste, bygg forsiden på nytt og prøv igjen.
+          for i in 1 2 3; do
+            git push && exit 0
+            git pull --rebase -X theirs origin main
+            node scripts/build-news.mjs
+            git add -A -- '*.html' data/articles.json sitemap.xml
+            git diff --staged --quiet || git commit -m "Bygg forside på nytt"
+          done
+          exit 1
 
       - uses: actions/configure-pages@v4
 
