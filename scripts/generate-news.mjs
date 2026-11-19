@@ -8,6 +8,7 @@ import Anthropic from '@anthropic-ai/sdk';
 import fs from 'fs';
 import path from 'path';
 import { ROOT, loadArticles, saveArticles, buildAll, renderArticlePage } from './news-lib.mjs';
+import { findImage, insertHero } from './images.mjs';
 
 const MODEL = 'claude-opus-5-5';
 const PER_RUN = Math.max(1, Math.min(3, Number(process.env.ARTICLES_PER_RUN || 1)));
@@ -18,13 +19,14 @@ const CATEGORIES = ['Nyheter', 'Bilsalg', 'Priser', 'Nye modeller', 'Lading', 'P
 const SCHEMA = {
     type: 'object',
     additionalProperties: false,
-    required: ['slug', 'title', 'ingress', 'meta_description', 'category', 'sections', 'sources'],
+    required: ['slug', 'title', 'ingress', 'meta_description', 'category', 'image_query', 'sections', 'sources'],
     properties: {
         slug: { type: 'string', description: 'URL-slug med små bokstaver a-z, 0-9 og bindestrek, uten æøå. Maks 70 tegn.' },
         title: { type: 'string', description: 'Journalistisk tittel, maks 90 tegn.' },
         ingress: { type: 'string', description: 'Ingress på 1–2 setninger, maks 260 tegn.' },
         meta_description: { type: 'string', description: 'SEO-beskrivelse, maks 160 tegn.' },
         category: { type: 'string', enum: CATEGORIES },
+        image_query: { type: 'string', description: 'Kort engelsk søk etter et bilde på Wikimedia Commons som passer saken, helst merke og modell (f.eks. "Volkswagen ID.4" eller "Tesla Supercharger"). Maks 4 ord.' },
         sections: {
             type: 'array',
             description: '3–5 seksjoner med mellomtittel og 1–4 avsnitt ren tekst (ingen HTML/markdown).',
@@ -140,7 +142,14 @@ try {
             continue;
         }
         fs.writeFileSync(path.join(ROOT, `${slug}.html`), html);
-        articles.push({ lang: 'nb', url: `/${slug}.html`, title: a.title, ingress: a.ingress, category: a.category, date: today, time, ai: true });
+        const entry = { lang: 'nb', url: `/${slug}.html`, title: a.title, ingress: a.ingress, category: a.category, date: today, time, ai: true, image_query: a.image_query };
+        try {
+            const img = await findImage(a.image_query);
+            if (img) { entry.image = img; insertHero(entry.url, img, 'nb'); }
+        } catch (err) {
+            console.log(`! Bilde: ${err.message}`);
+        }
+        articles.push(entry);
         saveArticles(articles);
         console.log(`✓ ${slug}.html – ${a.title}`);
     }
