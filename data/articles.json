@@ -2,13 +2,44 @@
   "articles": [
     {
       "lang": "nb",
+      "url": "/mercedes-glc-kan-leveres-i-norge-for-nyttar-tross-utsolgt-i-europa.html",
+      "title": "Mercedes-importøren: Elektrisk GLC kan leveres i Norge før nyttår",
+      "ingress": "Elektriske Mercedes GLC er meldt utsolgt i Europa ut året. Norske kunder kan likevel få flere av de mest populære variantene levert i 2026, opplyser Mercedes-Benz Norge. Det kan bety mye for prisen når elbilmomsen etter planen øker ved nyttår.",
+      "category": "Nyheter",
+      "date": "2026-11-19",
+      "time": "22:23",
+      "ai": true,
+      "image_query": "Mercedes-Benz GLC electric",
+      "image": {
+        "src": "/img/news/mercedes-benz-glc-electric.jpg",
+        "width": 1400,
+        "height": 769,
+        "author": "Alexander Migl",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Mercedes-Benz_GLC_with_EQ_Technology_IMG_7654.jpg",
+        "title": "Mercedes-Benz GLC with EQ Technology IMG 7654.jpg"
+      }
+    },
+    {
+      "lang": "nb",
       "url": "/bilsalget-april-2026.html",
       "title": "Bilsalget i april 2026 – Volkswagen tar tronen fra Tesla",
       "ingress": "April ble en historisk måned for norsk bilsalg: 98,6 prosent av alle nye personbiler var elektriske — ny norsk rekord. Men den store overraskelsen var at Volkswagen slo Tesla ned fra topplassen …",
       "category": "Bilsalg",
       "date": "2026-05-15",
       "ai": true,
-      "image_query": "Volkswagen ID.4"
+      "image_query": "Volkswagen ID.4",
+      "image": {
+        "src": "/img/news/volkswagen-id-4.jpg",
+        "width": 1400,
+        "height": 807,
+        "author": "Alexander Migl",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Volkswagen_ID.5_GTX_1X7A0318.jpg",
+        "title": "Volkswagen ID.5 GTX 1X7A0318.jpg"
+      }
     },
     {
       "lang": "en",
@@ -18,7 +49,17 @@
       "category": "Car sales",
       "date": "2026-05-15",
       "ai": true,
-      "image_query": "Volkswagen ID.4"
+      "image_query": "Volkswagen ID.4",
+      "image": {
+        "src": "/img/news/volkswagen-id-4.jpg",
+        "width": 1400,
+        "height": 807,
+        "author": "Alexander Migl",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Volkswagen_ID.5_GTX_1X7A0318.jpg",
+        "title": "Volkswagen ID.5 GTX 1X7A0318.jpg"
+      }
     },
     {
       "lang": "nb",
@@ -28,7 +69,17 @@
       "category": "Prisoppdatering",
       "date": "2026-05-08",
       "ai": true,
-      "image_query": "Renault 5 E-Tech"
+      "image_query": "Renault 5 E-Tech",
+      "image": {
+        "src": "/img/news/renault-5-e-tech.jpg",
+        "width": 1400,
+        "height": 934,
+        "author": "Alexander-93",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Renault_5_E-Tech_GIMS_2024_1X7A2227.jpg",
+        "title": "Renault 5 E-Tech GIMS 2024 1X7A2227.jpg"
+      }
     },
     {
       "lang": "en",
@@ -38,7 +89,17 @@
       "category": "Price update",
       "date": "2026-05-08",
       "ai": true,
-      "image_query": "Renault 5 E-Tech"
+      "image_query": "Renault 5 E-Tech",
+      "image": {
+        "src": "/img/news/renault-5-e-tech.jpg",
+        "width": 1400,
+        "height": 934,
+        "author": "Alexander-93",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Renault_5_E-Tech_GIMS_2024_1X7A2227.jpg",
+        "title": "Renault 5 E-Tech GIMS 2024 1X7A2227.jpg"
+      }
     },
     {
       "lang": "nb",
@@ -48,7 +109,17 @@
       "category": "Bilsalg",
       "date": "2026-05-02",
       "ai": true,
-      "image_query": "Tesla Model Y"
+      "image_query": "Tesla Model Y",
+      "image": {
+        "src": "/img/news/tesla-model-y.jpg",
+        "width": 1400,
+        "height": 757,
+        "author": "Alexander Migl",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Tesla_Model_Y_1X7A6211.jpg",
+        "title": "Tesla Model Y 1X7A6211.jpg"
+      }
     },
     {
       "lang": "nb",
@@ -58,7 +129,17 @@
       "category": "Guide",
       "date": "2026-04-22",
       "ai": true,
-      "image_query": "electric car charging station"
+      "image_query": "electric car charging station",
+      "image": {
+        "src": "/img/news/electric-car-charging-station.jpg",
+        "width": 1400,
+        "height": 865,
+        "author": "CEphoto, Uwe Aranas",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Cologne_Germany_Electric-Car-Charging-Point-at-TUV-Rheinland-01.jpg",
+        "title": "Cologne Germany Electric-Car-Charging-Point-at-TUV-Rheinland-01.jpg"
+      }
     },
     {
       "lang": "nb",
@@ -68,7 +149,17 @@
       "category": "For deg som er ny",
       "date": "2026-04-22",
       "ai": true,
-      "image_query": "Hyundai Kona Electric charging"
+      "image_query": "Hyundai Kona Electric charging",
+      "image": {
+        "src": "/img/news/hyundai-kona-electric-charging.jpg",
+        "width": 1400,
+        "height": 768,
+        "author": "Kevauto",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:2019_Hyundai_Kona_Electric_front_charging_4.2.18.jpg",
+        "title": "2019 Hyundai Kona Electric front charging 4.2.18.jpg"
+      }
     },
     {
       "lang": "nb",
@@ -78,7 +169,17 @@
       "category": "Økonomi",
       "date": "2026-04-22",
       "ai": true,
-      "image_query": "Hyundai Ioniq 5"
+      "image_query": "Hyundai Ioniq 5",
+      "image": {
+        "src": "/img/news/hyundai-ioniq-5.jpg",
+        "width": 1400,
+        "height": 725,
+        "author": "Alexander Migl",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Hyundai_Ioniq_5_IAA_2021_1X7A0189.jpg",
+        "title": "Hyundai Ioniq 5 IAA 2021 1X7A0189.jpg"
+      }
     },
     {
       "lang": "nb",
@@ -88,7 +189,17 @@
       "category": "Nyheter 2026",
       "date": "2026-04-22",
       "ai": true,
-      "image_query": "BMW iX3 2025"
+      "image_query": "BMW iX3 2025",
+      "image": {
+        "src": "/img/news/bmw-ix3-2025.jpg",
+        "width": 1400,
+        "height": 765,
+        "author": "Alexander-93",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:BMW_iX3_NA5_IAA_2025_DSC_1684.jpg",
+        "title": "BMW iX3 NA5 IAA 2025 DSC 1684.jpg"
+      }
     },
     {
       "lang": "nb",
@@ -98,7 +209,17 @@
       "category": "Biltyper",
       "date": "2026-04-22",
       "ai": true,
-      "image_query": "Skoda Enyaq"
+      "image_query": "Skoda Enyaq",
+      "image": {
+        "src": "/img/news/skoda-enyaq.jpg",
+        "width": 1400,
+        "height": 776,
+        "author": "Alexander Migl",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Skoda_Enyaq_Sportline_1X7A0316.jpg",
+        "title": "Skoda Enyaq Sportline 1X7A0316.jpg"
+      }
     },
     {
       "lang": "en",
@@ -108,7 +229,17 @@
       "category": "Guide",
       "date": "2026-04-22",
       "ai": true,
-      "image_query": "electric car charging station"
+      "image_query": "electric car charging station",
+      "image": {
+        "src": "/img/news/electric-car-charging-station.jpg",
+        "width": 1400,
+        "height": 865,
+        "author": "CEphoto, Uwe Aranas",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Cologne_Germany_Electric-Car-Charging-Point-at-TUV-Rheinland-01.jpg",
+        "title": "Cologne Germany Electric-Car-Charging-Point-at-TUV-Rheinland-01.jpg"
+      }
     },
     {
       "lang": "en",
@@ -118,7 +249,17 @@
       "category": "For first-time buyers",
       "date": "2026-04-22",
       "ai": true,
-      "image_query": "Hyundai Kona Electric charging"
+      "image_query": "Hyundai Kona Electric charging",
+      "image": {
+        "src": "/img/news/hyundai-kona-electric-charging.jpg",
+        "width": 1400,
+        "height": 768,
+        "author": "Kevauto",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:2019_Hyundai_Kona_Electric_front_charging_4.2.18.jpg",
+        "title": "2019 Hyundai Kona Electric front charging 4.2.18.jpg"
+      }
     },
     {
       "lang": "en",
@@ -128,7 +269,17 @@
       "category": "Economy",
       "date": "2026-04-22",
       "ai": true,
-      "image_query": "Hyundai Ioniq 5"
+      "image_query": "Hyundai Ioniq 5",
+      "image": {
+        "src": "/img/news/hyundai-ioniq-5.jpg",
+        "width": 1400,
+        "height": 725,
+        "author": "Alexander Migl",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Hyundai_Ioniq_5_IAA_2021_1X7A0189.jpg",
+        "title": "Hyundai Ioniq 5 IAA 2021 1X7A0189.jpg"
+      }
     },
     {
       "lang": "en",
@@ -138,7 +289,17 @@
       "category": "News 2026",
       "date": "2026-04-22",
       "ai": true,
-      "image_query": "BMW iX3 2025"
+      "image_query": "BMW iX3 2025",
+      "image": {
+        "src": "/img/news/bmw-ix3-2025.jpg",
+        "width": 1400,
+        "height": 765,
+        "author": "Alexander-93",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:BMW_iX3_NA5_IAA_2025_DSC_1684.jpg",
+        "title": "BMW iX3 NA5 IAA 2025 DSC 1684.jpg"
+      }
     },
     {
       "lang": "en",
@@ -148,7 +309,17 @@
       "category": "Body types",
       "date": "2026-04-22",
       "ai": true,
-      "image_query": "Skoda Enyaq"
+      "image_query": "Skoda Enyaq",
+      "image": {
+        "src": "/img/news/skoda-enyaq.jpg",
+        "width": 1400,
+        "height": 776,
+        "author": "Alexander Migl",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Skoda_Enyaq_Sportline_1X7A0316.jpg",
+        "title": "Skoda Enyaq Sportline 1X7A0316.jpg"
+      }
     }
   ]
 }
