@@ -43,11 +43,14 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           ARTICLES_PER_RUN: ${{ github.event.inputs.articles || '1' }}
 
+      - name: Hent bilder (Wikimedia Commons)
+        run: node scripts/fetch-images.mjs
+
       - name: Commit og push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -A -- '*.html' data/articles.json sitemap.xml
+          git add -A -- '*.html' data/articles.json sitemap.xml img
           git diff --staged --quiet && exit 0
           git commit -m "AI-nyheter: $(date -u +'%Y-%m-%d %H:%M')"
           git push

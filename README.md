@@ -38,3 +38,4 @@ Forsiden (`/` og `/en/`) er nyhetsdrevet. Sammenligningen ligger på `/sammenlig
 - `node scripts/build-news.mjs` – bygger forsiden på nytt (f.eks. etter manuell endring i JSON-filen).
 - `node scripts/generate-news.mjs` – lar Claude søke etter dagens elbilnyhet, skrive en sak med kilder og publisere den. Krever `ANTHROPIC_API_KEY`. `DRY_RUN=1` skriver ut uten å lagre.
 - `.github/workflows/daily-news.yml` – kjører generatoren to ganger daglig og deployer. Kan også startes manuelt under Actions.
+- `node scripts/fetch-images.mjs` – henter fritt lisensierte bilder (CC0/CC BY/CC BY-SA/public domain) fra Wikimedia Commons til artikler som mangler bilde, lagrer dem i `img/news/` med kreditering. Kjøres automatisk i workflowene.

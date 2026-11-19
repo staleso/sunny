@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url';
 
 export const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const DATA_FILE = path.join(ROOT, 'data', 'articles.json');
-const CSS_VERSION = '20261119';
+const CSS_VERSION = '20261120';
 
 export function esc(s = '') {
     return String(s)
@@ -54,6 +54,7 @@ const T = {
         title: 'Elbilvalg.no – Elbilnyheter fra Norge, oppdatert løpende',
         description: 'Siste nytt om elbil i Norge: bilsalg, priser, nye modeller og lading. Løpende oppdatert av AI-redaksjonen – pluss Norges enkleste elbil-sammenligning.',
         tagline: 'Elbilnyheter fra Norge — oppdatert løpende',
+        heroTitle: 'Alt om elbil.<br>Hver dag.', live: 'Oppdateres løpende', credits: 'Bildekreditter', compareCta: 'Start sammenligningen',
         latest: 'Siste', river: 'Siste nytt', more: 'Flere saker', all: 'Alle artikler',
         tools: 'Verktøy', toolsLead: 'Finn riktig elbil for deg',
         byline: 'AI-redaksjonen', read: 'Les saken',
@@ -77,6 +78,7 @@ const T = {
         title: 'Elbilvalg.no – Electric car news from Norway',
         description: 'The latest on electric cars in Norway: sales, prices, new models and charging – plus a simple EV comparison tool.',
         tagline: 'Electric car news from Norway',
+        heroTitle: 'Everything EV.<br>Every day.', live: 'Updated continuously', credits: 'Image credits', compareCta: 'Start comparing',
         latest: 'Latest', river: 'Latest news', more: 'More stories', all: 'All articles',
         tools: 'Tools', toolsLead: 'Find the right EV for you',
         byline: 'AI newsroom', read: 'Read story',
@@ -97,23 +99,34 @@ const T = {
     },
 };
 
-function cover(a, size) {
-    const h = hue(a.category);
-    return `<div class="nf-cover nf-cover-${size}" style="--h:${h}" aria-hidden="true"><span class="nf-cover-word">${esc(a.category)}</span></div>`;
+function media(a, cls, eager = false) {
+    if (a.image) {
+        return `<div class="${cls}"><img src="${esc(a.image.src)}" alt="" width="${a.image.width}" height="${a.image.height}"${eager ? ' fetchpriority="high"' : ' loading="lazy"'}></div>`;
+    }
+    return `<div class="${cls} nx-noimg" style="--h:${hue(a.category)}" aria-hidden="true"><span>${esc(a.category)}</span></div>`;
 }
 
 function meta(a, lang) {
-    return `<span class="nf-meta"><span class="nf-cat" style="--h:${hue(a.category)}">${esc(a.category)}</span><time datetime="${a.date}">${formatDate(a.date, lang)}</time></span>`;
+    return `<span class="nx-meta"><span class="nx-pill" style="--h:${hue(a.category)}">${esc(a.category)}</span><time datetime="${a.date}">${formatDate(a.date, lang)}</time></span>`;
 }
 
-function card(a, lang) {
-    return `<a href="${esc(a.url)}" class="nf-card">
-                    ${cover(a, 'sm')}
-                    ${meta(a, lang)}
-                    <h3>${esc(a.title)}</h3>
-                    <p>${esc(a.ingress)}</p>
+function card(a, lang, cls = 'nx-card') {
+    return `<a href="${esc(a.url)}" class="${cls}">
+                    ${media(a, 'nx-media')}
+                    <div class="nx-card-body">
+                        ${meta(a, lang)}
+                        <h3>${esc(a.title)}</h3>
+                        <p>${esc(a.ingress)}</p>
+                    </div>
                 </a>`;
 }
+
+const ICONS = [
+    '<path d="M3 17h2l1-3h12l1 3h2M5 17v2M19 17v2M6 14l1.5-5h9L18 14"/><circle cx="8" cy="17" r="1"/><circle cx="16" cy="17" r="1"/>',
+    '<circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17h.01"/>',
+    '<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h2M12 11h2M16 11h0M8 15h2M12 15h2M8 18h2M12 18h2M16 15v3"/>',
+    '<path d="M3 5h18M3 12h18M3 19h18M9 5v14M15 5v14"/>',
+];
 
 function head(t, lang) {
     const url = `https://elbilvalg.no${t.home}`;
@@ -148,8 +161,9 @@ function head(t, lang) {
     <link rel="manifest" href="/manifest.json">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/styles.css?v=${CSS_VERSION}">
+    <link rel="stylesheet" href="/news.css?v=${CSS_VERSION}">
     <meta name="google-adsense-account" content="ca-pub-4678480487049419">
     <script>if(localStorage.getItem('cookie-consent')==='accepted'){var _as=document.createElement('script');_as.async=true;_as.src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4678480487049419';_as.crossOrigin='anonymous';document.head.appendChild(_as);}</script>
     <script>
@@ -229,80 +243,89 @@ export function renderFront(lang, all) {
     const t = T[lang];
     const list = all.filter(a => a.lang === lang);
     const [lead, ...rest] = list;
-    const river = rest.slice(0, 6);
-    const more = rest.slice(6, 18);
+    const side = rest.slice(0, 2);
+    const latest = rest.slice(2, 14);
     const today = new Date().toISOString().slice(0, 10);
-    const ticker = list.slice(0, 6).map(a => `<a href="${esc(a.url)}">${esc(a.title)}</a>`).join('<span class="nf-tick-sep" aria-hidden="true">●</span>');
+    const shown = [lead, ...side, ...latest].filter(Boolean);
+    const credits = [...new Map(shown.filter(a => a.image).map(a => [a.image.src, a.image])).values()];
 
     const ld = {
         '@context': 'https://schema.org', '@type': 'ItemList',
         itemListElement: list.slice(0, 10).map((a, i) => ({ '@type': 'ListItem', position: i + 1, url: `https://elbilvalg.no${a.url}`, name: a.title })),
     };
+    const [tool0, ...tools] = t.toolList;
 
     return `${head(t, lang)}
-<body class="nf">
+<body class="nx">
 ${header(t)}
 
-    <main class="nf-page">
-        <section class="nf-masthead">
-            <p class="nf-dateline"><time datetime="${today}">${formatDate(today, lang, true)}</time></p>
-            <h1 class="nf-wordmark">Elbilvalg</h1>
-            <p class="nf-tagline">${esc(t.tagline)}</p>
+    <main class="nx-page">
+        <section class="nx-intro">
+            <p class="nx-kicker"><span class="nx-live" aria-hidden="true"></span>${t.live} · <time datetime="${today}">${formatDate(today, lang, true)}</time></p>
+            <h1>${t.heroTitle}</h1>
+            <p class="nx-sub">${esc(t.tagline)}</p>
         </section>
 
-        <div class="nf-ticker" role="region" aria-label="${t.latest}">
-            <span class="nf-ticker-label"><span class="nf-live" aria-hidden="true"></span>${t.latest}</span>
-            <div class="nf-ticker-track"><div class="nf-ticker-inner">${ticker}<span class="nf-tick-sep" aria-hidden="true">●</span>${ticker}</div></div>
-        </div>
-
 <!-- NEWS:START (generert av scripts/build-news.mjs – ikke rediger for hånd) -->
-        ${lead ? `<article class="nf-lead">
-            <a href="${esc(lead.url)}" class="nf-lead-link">
-                ${cover(lead, 'lg')}
-                <div class="nf-lead-text">
+        <section class="nx-hero">
+            ${lead ? `<a href="${esc(lead.url)}" class="nx-lead">
+                ${media(lead, 'nx-lead-media', true)}
+                <div class="nx-lead-body">
                     ${meta(lead, lang)}
                     <h2>${esc(lead.title)}</h2>
                     <p>${esc(lead.ingress)}</p>
-                    <span class="nf-byline">${t.byline} <span class="ai-label">${t.aiLabel}</span></span>
+                    <span class="nx-read">${t.read} <span aria-hidden="true">→</span></span>
                 </div>
+            </a>` : ''}
+            <div class="nx-side">
+                ${side.map(a => card(a, lang, 'nx-card nx-card-row')).join('\n                ')}
+            </div>
+        </section>
+
+        <section class="nx-bento" aria-label="${t.tools}">
+            <a href="${tool0[0]}" class="nx-tile nx-tile-main">
+                <span class="nx-tile-kicker">${t.toolsLead}</span>
+                <strong>${tool0[1]}</strong>
+                <span>${tool0[2]}</span>
+                <span class="nx-btn">${t.compareCta} →</span>
             </a>
-        </article>` : ''}
+            ${tools.map(([h, n, d], i) => `<a href="${h}" class="nx-tile">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[i + 1]}</svg>
+                <strong>${n}</strong>
+                <span>${d}</span>
+            </a>`).join('\n            ')}
+        </section>
 
-        <div class="nf-split">
-            <section class="nf-river" aria-labelledby="nf-river-h">
-                <h2 class="nf-section-h" id="nf-river-h">${t.river}</h2>
-                <ol>
-                    ${river.map(a => `<li><a href="${esc(a.url)}">${meta(a, lang)}<h3>${esc(a.title)}</h3><p>${esc(a.ingress)}</p></a></li>`).join('\n                    ')}
-                </ol>
-            </section>
-
-            <aside class="nf-tools" aria-labelledby="nf-tools-h">
-                <h2 class="nf-section-h" id="nf-tools-h">${t.tools}</h2>
-                <p class="nf-tools-lead">${t.toolsLead}</p>
-                ${t.toolList.map(([h, n, d]) => `<a href="${h}" class="nf-tool"><strong>${n}</strong><span>${d}</span><span class="nf-arrow" aria-hidden="true">→</span></a>`).join('\n                ')}
-            </aside>
-        </div>
-
-        ${more.length ? `<section class="nf-more" aria-labelledby="nf-more-h">
-            <h2 class="nf-section-h" id="nf-more-h">${t.more}</h2>
-            <div class="nf-grid">
-                ${more.map(a => card(a, lang)).join('\n                ')}
+        ${latest.length ? `<section class="nx-latest" aria-labelledby="nx-latest-h">
+            <div class="nx-head"><h2 id="nx-latest-h">${t.river}</h2><a href="${t.articles}">${t.all} →</a></div>
+            <div class="nx-grid">
+                ${latest.map(a => card(a, lang)).join('\n                ')}
             </div>
         </section>` : ''}
-<!-- NEWS:END -->
 
-        <a href="${t.articles}" class="nf-all">${t.all} →</a>
+        ${credits.length ? `<details class="nx-credits">
+            <summary>${t.credits}</summary>
+            <ul>
+                ${credits.map(c => `<li>${creditLine(c, lang)}</li>`).join('\n                ')}
+            </ul>
+        </details>` : ''}
+<!-- NEWS:END -->
 
         <div class="ad-container">
             <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4678480487049419" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
             <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
 
-        <p class="nf-ai-note"><span class="ai-label">AI</span> ${t.aiNote}</p>
+        <p class="nx-ai-note"><span class="ai-label">AI</span> ${t.aiNote}</p>
     </main>
     <script type="application/ld+json">${JSON.stringify(ld)}</script>
 
 ${footer(t)}`;
+}
+
+function creditLine(img, lang) {
+    const lic = img.licenseUrl ? `<a href="${esc(img.licenseUrl)}" rel="license noopener" target="_blank">${esc(img.license)}</a>` : esc(img.license);
+    return `${esc(img.title)} — ${lang === 'nb' ? 'foto' : 'photo'}: ${esc(img.author)}, ${lic}, <a href="${esc(img.source)}" rel="noopener" target="_blank">Wikimedia Commons</a>`;
 }
 
 // Erstatter innholdet i <div class="articles-grid"> på artikkelsidene.
@@ -398,6 +421,7 @@ ${sources.map(src => `                    <li><a href="${esc(src.url)}" rel="noo
         .replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/, `<script type="application/ld+json">\n    ${JSON.stringify(ld, null, 2).replace(/\n/g, '\n    ')}\n    </script>`)
         .replace(/<a href="[^"]*" class="lang-switch"/, '<a href="/en/" class="lang-switch"')
         .replace(/<article class="static-content">[\s\S]*?<\/article>/, () => article);
+    if (!s.includes('/news.css')) s = s.replace(/(<link rel="stylesheet" href="[^"]*styles\.css[^"]*">)/, `$1\n    <link rel="stylesheet" href="/news.css?v=${CSS_VERSION}">`);
     if (!/<meta name="ai-content-declaration"/.test(s)) {
         s = s.replace('<title>', '<meta name="ai-content-declaration" content="Denne artikkelen er skrevet ved hjelp av kunstig intelligens.">\n    <title>');
     }

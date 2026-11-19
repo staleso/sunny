@@ -37,11 +37,14 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 
+      - name: Hent bilder (Wikimedia Commons)
+        run: node scripts/fetch-images.mjs
+
       - name: Commit og push endringer
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add bilsalg-*.html index.html en/index.html artikler.html en/articles.html data/articles.json sitemap.xml
+          git add bilsalg-*.html index.html en/index.html artikler.html en/articles.html data/articles.json sitemap.xml img
           git diff --staged --quiet || git commit -m "Automatisk: Bilsalgsartikkel $(date +'%B %Y' --locale=no_NO 2>/dev/null || date +'%B %Y')"
           git push
 
