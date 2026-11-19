@@ -127,3 +127,4 @@ body.nx {
 .article-hero img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 18px; background: var(--surface2); }
 .article-hero figcaption { margin-top: 8px; font-size: 12px; color: var(--text3); line-height: 1.4; }
 .article-hero figcaption a { color: inherit; text-decoration: underline; }
+.nx-ad { margin: 36px 0 0; }

@@ -8,6 +8,14 @@ export const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..'
 export const DATA_FILE = path.join(ROOT, 'data', 'articles.json');
 const CSS_VERSION = '20261120';
 
+export const AD_SLOT = '2454031921';
+export function adUnit(cls = 'ad-container') {
+    return `<div class="${cls}">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4678480487049419" data-ad-slot="${AD_SLOT}" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>`;
+}
+
 export function esc(s = '') {
     return String(s)
         .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -296,6 +304,8 @@ ${header(t)}
             </a>`).join('\n            ')}
         </section>
 
+        ${adUnit('ad-container nx-ad')}
+
         ${latest.length ? `<section class="nx-latest" aria-labelledby="nx-latest-h">
             <div class="nx-head"><h2 id="nx-latest-h">${t.river}</h2><a href="${t.articles}">${t.all} →</a></div>
             <div class="nx-grid">
@@ -311,10 +321,7 @@ ${header(t)}
         </details>` : ''}
 <!-- NEWS:END -->
 
-        <div class="ad-container">
-            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4678480487049419" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
-            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-        </div>
+        ${adUnit('ad-container nx-ad')}
 
         <p class="nx-ai-note"><span class="ai-label">AI</span> ${t.aiNote}</p>
     </main>
@@ -365,6 +372,26 @@ export function updateSitemap(all) {
     fs.writeFileSync(p, s);
 }
 
+// Legger en annonse midt i artikkelen (etter 2. seksjon). Idempotent.
+export function addInArticleAd(url) {
+    const p = path.join(ROOT, url.replace(/^\//, ''));
+    if (!fs.existsSync(p)) return false;
+    let s = fs.readFileSync(p, 'utf8');
+    if (s.includes('ad-in-article')) return false;
+    const start = s.indexOf('<article class="static-content">');
+    if (start < 0) return false;
+    let idx = start;
+    for (let i = 0; i < 2; i++) {
+        idx = s.indexOf('</section>', idx);
+        if (idx < 0) return false;
+        idx += '</section>'.length;
+    }
+    if (s.indexOf('</article>', start) < idx) return false;
+    s = s.slice(0, idx) + `\n\n            ${adUnit('ad-container ad-in-article')}` + s.slice(idx);
+    fs.writeFileSync(p, s);
+    return true;
+}
+
 export function buildAll() {
     const all = loadArticles();
     fs.writeFileSync(path.join(ROOT, 'index.html'), renderFront('nb', all));
@@ -372,6 +399,7 @@ export function buildAll() {
     updateArticleList('artikler.html', 'nb', all);
     updateArticleList('en/articles.html', 'en', all);
     updateSitemap(all);
+    for (const a of all) addInArticleAd(a.url);
     return all;
 }
 
