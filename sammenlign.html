@@ -127,8 +127,7 @@
                         <option value="van">Flerbruksbil</option>
                     </select>
                     <select id="filter-sort">
-                        <option value="price-high">Pris &#8595;</option>
-                        <option value="price-low">Pris &#8593;</option>
+                        <option value="band">Prisklasse</option>
                         <option value="name">A-&#197;</option>
                         <option value="range">Rekkevidde</option>
                         <option value="hp">Effekt</option>
@@ -136,21 +135,7 @@
                         <option value="rating">Vurdering</option>
                     </select>
                 </div>
-                <div class="slider-filters">
-                    <div class="slider-filter" data-filter="price">
-                        <div class="slider-head">
-                            <span class="slider-label">Pris</span>
-                            <span class="slider-value" id="price-value">0 – 1 500 000 kr</span>
-                        </div>
-                        <div class="dual-slider">
-                            <div class="slider-track"><div class="slider-fill" id="price-fill"></div></div>
-                            <div class="slider-bubble" id="price-min-bubble"></div>
-                            <div class="slider-bubble" id="price-max-bubble"></div>
-                            <input type="range" id="price-min" min="0" max="2000000" step="25000" value="0" aria-label="Minste pris">
-                            <input type="range" id="price-max" min="0" max="2000000" step="25000" value="2000000" aria-label="Største pris">
-                        </div>
-                    </div>
-                </div>
+                <div class="band-chips" id="band-chips" role="group" aria-label="Prisklasse"></div>
             </div>
         </div>
 
@@ -284,7 +269,7 @@
     </div>
 
 
-    <script src="app.js?v=20260422"></script>
+    <script src="app.js?v=20261121"></script>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { getFirestore, doc, getDoc, setDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";

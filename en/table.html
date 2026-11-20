@@ -172,7 +172,7 @@
         </div>
     </noscript>
 
-    <script src="../app-en.js?v=20260507"></script>
+    <script src="../app-en.js?v=20261121"></script>
     <script>
     (function() {
         const columns = [
@@ -180,7 +180,7 @@
             { key: "model", label: "Model" },
             { key: "country", label: "Country", format: function(v, car) { return car ? getCarCountryFlag(car) : "—"; } },
             { key: "year", label: "Year", cls: "col-num" },
-            { key: "price", label: "Price (NOK)", cls: "col-price", format: v => v ? v.toLocaleString("en") : "—" },
+            { key: "price", label: "Price band", cls: "col-price", format: v => v ? formatPrice(v) : "—" },
             { key: "type", label: "Type" },
             { key: "segment", label: "Segment" },
             { key: "hp", label: "HP", cls: "col-num" },

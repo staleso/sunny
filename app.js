@@ -1378,9 +1378,25 @@ function renderNewsLinks(car) {
 }
 
 // ========== Utility ==========
-function formatPrice(price) {
-    return price.toLocaleString("nb-NO") + " kr";
+// ========== Prisklasser ==========
+// Vi viser prisklasser i stedet for eksakte priser, siden prisene endres ofte.
+// car.price brukes bare internt til å plassere bilen i riktig klasse.
+const PRICE_BANDS = [
+    { id: "b1", min: 0, max: 300000, label: "Under 300 000 kr", name: "Rimelig", desc: "Små og rimelige elbiler. Helt momsfrie i 2026." },
+    { id: "b2", min: 300000, max: 400000, label: "300–400 000 kr", name: "Folkebil", desc: "Mest bil for pengene – de fleste nordmenn handler her." },
+    { id: "b3", min: 400000, max: 500000, label: "400–500 000 kr", name: "Familiebil", desc: "Romslige SUV-er og stasjonsvogner med god rekkevidde." },
+    { id: "b4", min: 500000, max: 700000, label: "500–700 000 kr", name: "Premium", desc: "Bedre materialer, mer utstyr og raskere lading." },
+    { id: "b5", min: 700000, max: 1000000, label: "700 000–1 mill. kr", name: "Luksus", desc: "Store og godt utstyrte biler fra premiummerkene." },
+    { id: "b6", min: 1000000, max: 1000000000, label: "Over 1 mill. kr", name: "Toppklasse", desc: "Sportsbiler og flaggskip." }
+];
+function getBandForPrice(price) {
+    return PRICE_BANDS.find(b => price >= b.min && price < b.max) || PRICE_BANDS[PRICE_BANDS.length - 1];
 }
+function getPriceBand(car) { return getBandForPrice(car.price); }
+function formatPrice(price) {
+    return getBandForPrice(price).label;
+}
+var selectedBand = "all";
 
 function getCarById(id) {
     return CARS.find(c => c.id === id);
@@ -1472,70 +1488,30 @@ function renderCarImagePlaceholder(car) {
 }
 
 // ========== Render Car Card ==========
-function renderCarCard(car) {
+function renderCarCard(car, showBand) {
     const div = document.createElement("div");
-    div.className = "car-card";
+    div.className = "car-card car-card--compact";
     div.onclick = () => { window.location.href = 'bil.html?id=' + carSlug(car); };
-
-    const bc = BRAND_COLORS[car.make] || { primary: "#888", gradient: "linear-gradient(135deg, #888, #444)" };
-    const efficiency = (car.kwh / car.range * 100).toFixed(1);
-
+    const bc = BRAND_COLORS[car.make] || { primary: "#888" };
     var silhouette = CAR_SILHOUETTES[car.type] || CAR_SILHOUETTES['sedan'];
+    const band = getPriceBand(car);
     div.innerHTML = `
         <div class="car-card-header" style="background:linear-gradient(135deg, ${bc.primary}14, ${bc.primary}08)">
             <div class="car-card-header-icon" style="color:${bc.primary}">${silhouette}</div>
             <div class="car-card-header-brand" style="color:${bc.primary}">${car.make}</div>
         </div>
         <div class="car-card-body">
-            <div class="car-card-top">
-                <div class="car-card-info">
-                    <div class="car-card-title">${car.make} ${car.model}</div>
-                    <div class="car-card-subtitle">${car.year} · ${car.segment} · ${getCarCountryFlag(car)}</div>
-                </div>
-                <div class="car-card-price">${formatPrice(car.price)}</div>
-            </div>
-            <div class="car-card-specs">
-                <div class="spec-item">
-                    <span class="spec-value">${car.range}</span>
-                    <span class="spec-unit">km</span>
-                    <span class="spec-sub">vinter ~${getWinterRange(car)}</span>
-                </div>
-                <div class="spec-divider"></div>
-                <div class="spec-item">
-                    <span class="spec-value">${getChargeSpeed(car)}</span>
-                    <span class="spec-unit">kW DC</span>
-                    <span class="spec-sub">10-80% ~${getChargeTime10to80(car)} min</span>
-                </div>
-                <div class="spec-divider"></div>
-                <div class="spec-item">
-                    <span class="spec-value">${car.hp}</span>
-                    <span class="spec-unit">hk</span>
-                </div>
-                <div class="spec-divider"></div>
-                <div class="spec-item">
-                    <span class="spec-value">${car.zeroToHundred}</span>
-                    <span class="spec-unit">sek</span>
-                </div>
-                <div class="spec-divider"></div>
-                <div class="spec-item">
-                    <span class="spec-value">${car.kwh}</span>
-                    <span class="spec-unit">kWh</span>
-                </div>
-                ${car.trunk ? `
-                <div class="spec-divider"></div>
-                <div class="spec-item">
-                    <span class="spec-value">${car.trunk}</span>
-                    <span class="spec-unit">liter</span>
-                </div>` : ''}
+            <div class="car-card-title">${car.make} ${car.model}</div>
+            <div class="car-card-subtitle">${car.segment} · ${getCarCountryFlag(car)}</div>
+            <div class="car-facts">
+                <span><strong>${car.range}</strong> km</span>
+                <span>${car.drivetrain}</span>
+                <span>${car.seats} seter</span>
             </div>
             <div class="car-card-bottom">
-                <div class="car-card-tags">
-                    <span class="car-tag">${car.drivetrain}</span>
-                    <span class="car-tag">${car.seats} seter</span>
-                    <span class="car-tag">${efficiency} kWh/100km</span>
-                </div>
+                ${showBand === false ? "<span></span>" : `<span class="band-pill">${car.year < 2025 ? "Eldre modell" : band.label}</span>`}
                 <div class="car-card-actions">
-                    ${renderStars(car.id, 16)}
+                    ${renderStars(car.id, 14)}
                     <button class="btn-compare ${isInCompare(car.id) ? 'active-compare' : ''}"
                             onclick="toggleCompare(${car.id}, event)"
                             aria-label="${isInCompare(car.id) ? 'Fjern fra sammenligning' : 'Legg til sammenligning'}">
@@ -1549,6 +1525,71 @@ function renderCarCard(car) {
     return div;
 }
 
+// ========== Prisklasse-knapper ==========
+function renderBandChips() {
+    const wrap = document.getElementById("band-chips");
+    if (!wrap) return;
+    const opts = [{ id: "all", label: "Alle" }].concat(PRICE_BANDS.map(b => ({ id: b.id, label: b.label })));
+    wrap.innerHTML = opts.map(o => `<button type="button" class="band-chip${selectedBand === o.id ? " is-active" : ""}" data-band="${o.id}" aria-pressed="${selectedBand === o.id}">${o.label}</button>`).join("");
+    wrap.querySelectorAll(".band-chip").forEach(btn => btn.addEventListener("click", () => {
+        selectedBand = btn.dataset.band; browsePage = 1; renderBrowse();
+    }));
+}
+
+var expandedBands = {};
+var BAND_PREVIEW = 6;
+function renderGrouped(list, cars) {
+    removePagination();
+    const filtering = selectedBand !== "all";
+    let shown = 0;
+    const current = cars.filter(c => c.year >= 2025);
+    const older = cars.filter(c => c.year < 2025);
+    PRICE_BANDS.forEach(function(b) {
+        const inBand = current.filter(c => getPriceBand(c) === b);
+        if (!inBand.length) return;
+        inBand.sort((x, y) => `${x.make} ${x.model}`.localeCompare(`${y.make} ${y.model}`));
+        const open = filtering || expandedBands[b.id];
+        const sec = document.createElement("section");
+        sec.className = "band-section";
+        sec.innerHTML = `<div class="band-head"><div><h2>${b.name}</h2><p>${b.desc}</p></div><span class="band-range">${b.label} · ${inBand.length} ${inBand.length === 1 ? "bil" : "biler"}</span></div>`;
+        const grid = document.createElement("div");
+        grid.className = "band-grid";
+        (open ? inBand : inBand.slice(0, BAND_PREVIEW)).forEach(car => grid.appendChild(renderCarCard(car, false)));
+        sec.appendChild(grid);
+        if (!filtering && inBand.length > BAND_PREVIEW) {
+            const more = document.createElement("button");
+            more.className = "band-more";
+            more.textContent = open ? "Vis færre" : "Vis alle {n}".replace("{n}", inBand.length);
+            more.onclick = () => { expandedBands[b.id] = !open; renderBrowse(); if (open) sec.scrollIntoView({ block: "start" }); };
+            sec.appendChild(more);
+        }
+        list.appendChild(sec);
+        shown++;
+        if (shown === 2) {
+            const ad = document.createElement("div");
+            ad.className = "ad-inline";
+            ad.innerHTML = '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4678480487049419" data-ad-slot="2454031921" data-ad-format="auto" data-full-width-responsive="true"></ins>';
+            list.appendChild(ad);
+            try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
+        }
+    });
+    if (older.length && selectedBand === "all") {
+        older.sort((x, y) => `${x.make} ${x.model}`.localeCompare(`${y.make} ${y.model}`));
+        const sec = document.createElement("section");
+        sec.className = "band-section";
+        sec.innerHTML = `<div class="band-head"><div><h2>Eldre modeller</h2><p>Modeller som ikke selges nye lenger. Se bruktmarkedet for pris.</p></div><span class="band-range">${older.length} ${older.length === 1 ? "bil" : "biler"}</span></div>`;
+        const grid = document.createElement("div");
+        grid.className = "band-grid";
+        older.forEach(car => grid.appendChild(renderCarCard(car, false)));
+        sec.appendChild(grid);
+        list.appendChild(sec);
+    }
+    const note = document.createElement("p");
+    note.className = "band-note";
+    note.textContent = "Prisklassene er veiledende. Sjekk alltid dagens pris hos importør eller forhandler.";
+    list.appendChild(note);
+}
+
 // ========== Slider filters ==========
 const PRICE_MIN = 0, PRICE_MAX = 2000000, PRICE_STEP = 25000;
 
@@ -1559,36 +1600,12 @@ function formatPriceShort(v) {
 }
 
 function getPriceFilter() {
-    const minEl = document.getElementById("price-min");
-    const maxEl = document.getElementById("price-max");
-    if (!minEl || !maxEl) return { min: PRICE_MIN, max: PRICE_MAX, active: false };
-    let lo = parseInt(minEl.value, 10);
-    let hi = parseInt(maxEl.value, 10);
-    if (lo > hi) { const t = lo; lo = hi; hi = t; }
-    return { min: lo, max: hi, active: lo > PRICE_MIN || hi < PRICE_MAX };
+    if (selectedBand === "all") return { min: 0, max: Infinity, active: false };
+    const b = PRICE_BANDS.find(x => x.id === selectedBand);
+    return { min: b.min, max: b.max - 1, active: true };
 }
 
-function updateSliderUI() {
-    const pf = getPriceFilter();
-    const priceVal = document.getElementById("price-value");
-    const priceFill = document.getElementById("price-fill");
-    const priceWrap = priceVal && priceVal.closest(".slider-filter");
-    if (priceVal) {
-        if (!pf.active) priceVal.textContent = "Alle";
-        else priceVal.textContent = formatPriceShort(pf.min) + " – " + formatPriceShort(pf.max);
-    }
-    if (priceWrap) priceWrap.classList.toggle("is-active", pf.active);
-    const pLo = ((pf.min - PRICE_MIN) / (PRICE_MAX - PRICE_MIN)) * 100;
-    const pHi = ((pf.max - PRICE_MIN) / (PRICE_MAX - PRICE_MIN)) * 100;
-    if (priceFill) {
-        priceFill.style.left = pLo + "%";
-        priceFill.style.right = (100 - pHi) + "%";
-    }
-    const pMinBub = document.getElementById("price-min-bubble");
-    const pMaxBub = document.getElementById("price-max-bubble");
-    if (pMinBub) { pMinBub.style.left = pLo + "%"; pMinBub.textContent = formatPriceShort(pf.min); }
-    if (pMaxBub) { pMaxBub.style.left = pHi + "%"; pMaxBub.textContent = formatPriceShort(pf.max); }
-}
+function updateSliderUI() { renderBandChips(); }
 
 // ========== Browse Tab ==========
 var browsePage = 1;
@@ -1612,8 +1629,7 @@ function renderBrowse() {
     });
 
     switch (sort) {
-        case "price-low": cars.sort((a, b) => a.price - b.price); break;
-        case "price-high": cars.sort((a, b) => b.price - a.price); break;
+        case "band": break;
         case "range": cars.sort((a, b) => b.range - a.range); break;
         case "hp": cars.sort((a, b) => b.hp - a.hp); break;
         case "fast": cars.sort((a, b) => a.zeroToHundred - b.zeroToHundred); break;
@@ -1645,6 +1661,7 @@ function renderBrowse() {
         removePagination();
         return;
     }
+    if (sort === "band") { renderGrouped(list, cars); return; }
     var now = Date.now();
     var shouldRenderAds = !renderBrowse._lastAdRender || (now - renderBrowse._lastAdRender > 600);
     pageCars.forEach(function(car, i) {
@@ -1773,7 +1790,7 @@ function renderCompare() {
     // Grouped specs
     const specGroups = [
         { title: "Ytelse", specs: [
-            { label: "Pris", key: "price", format: v => formatPrice(v), best: "low" },
+            { label: "Prisklasse", key: "price", format: v => formatPrice(v), best: "low" },
             { label: "Effekt", key: "hp", format: v => v + " hk", best: "high" },
             { label: "0-100 km/t", key: "zeroToHundred", format: v => v + "s", best: "low" },
             { label: "Drivlinje", key: "drivetrain", format: v => v, best: null },
