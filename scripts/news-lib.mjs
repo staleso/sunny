@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url';
 
 export const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const DATA_FILE = path.join(ROOT, 'data', 'articles.json');
-const CSS_VERSION = '20261120';
+const CSS_VERSION = '20261121';
 
 export const AD_SLOT = '2454031921';
 export function adUnit(cls = 'ad-container') {
@@ -312,13 +312,32 @@ function creditLine(img, lang) {
 
 // Erstatter innholdet i <div class="articles-grid"> på artikkelsidene.
 export function renderArticleGrid(lang, all) {
-    const t = T[lang];
-    return all.filter(a => a.lang === lang).map(a => `<a href="${esc(a.url)}" class="article-card">
-                        <p class="article-card-category">${esc(a.category)}</p>
-                        <h3 class="article-card-title">${esc(a.title)}</h3>
-                        <p class="article-card-ingress">${esc(a.ingress)}</p>
-                        <span class="article-card-link">${lang === 'nb' ? 'Les artikkelen' : 'Read the article'} &#8594;</span>
-                    </a>`).join('\n                    ');
+    return all.filter(a => a.lang === lang).map(a => card(a, lang)).join('\n                    ');
+}
+
+// «Flere saker» nederst i hver artikkel (3 nyeste andre saker på samme språk). Idempotent.
+export function updateRelated(article, all) {
+    const p = path.join(ROOT, article.url.replace(/^\//, ''));
+    if (!fs.existsSync(p)) return;
+    let s = fs.readFileSync(p, 'utf8');
+    const others = all.filter(a => a.lang === article.lang && a.url !== article.url).slice(0, 3);
+    if (!others.length) return;
+    const block = `<!-- RELATED:START -->
+            <section class="related">
+                <h2>${article.lang === 'nb' ? 'Flere saker' : 'More stories'}</h2>
+                <div class="related-grid">
+                    ${others.map(o => card(o, article.lang)).join('\n                    ')}
+                </div>
+            </section>
+            <!-- RELATED:END -->`;
+    if (s.includes('<!-- RELATED:START -->')) {
+        s = s.replace(/<!-- RELATED:START -->[\s\S]*?<!-- RELATED:END -->/, () => block);
+    } else {
+        const i = s.lastIndexOf('</article>');
+        if (i < 0) return;
+        s = s.slice(0, i) + block + '\n        ' + s.slice(i);
+    }
+    fs.writeFileSync(p, s);
 }
 
 export function updateArticleList(file, lang, all) {
@@ -374,7 +393,7 @@ export function buildAll() {
     updateArticleList('artikler.html', 'nb', all);
     updateArticleList('en/articles.html', 'en', all);
     updateSitemap(all);
-    for (const a of all) addInArticleAd(a.url);
+    for (const a of all) { addInArticleAd(a.url); updateRelated(a, all); }
     return all;
 }
 
