@@ -68,7 +68,8 @@ Regler:
 - Vær presis og forsiktig med avgifter, priser og regler. Skriv aldri «momsfri», «helt momsfritt», «avgiftsfri» eller lignende absolutte påstander. Skriv heller hva regelen faktisk er (f.eks. «det betales ikke mva. av de første 300 000 kronene for nye elbiler registrert i 2026»).
 - Skill tydelig mellom vedtatte regler og forslag. Forslag skal omtales som forslag («regjeringen har foreslått …», «hvis forslaget vedtas …»), aldri som noe som skjer.
 - Oppgi ikke eksakte bilpriser som fakta. Bruk «fra-pris ifølge importøren» med kilde, og nevn at priser kan endres.
-- Ikke gi råd som kan oppfattes som garanterte besparelser; bruk «kan» og forklar forutsetningene.`;
+- Ikke gi råd som kan oppfattes som garanterte besparelser; bruk «kan» og forklar forutsetningene.
+- Unngå bastante og vurderende påstander som «best», «raskest», «billigst», «alltid», «aldri», «rekord» eller «blant de beste i klassen», med mindre en navngitt kilde sier det – og da skal kilden nevnes («ifølge OFV …»). Produsentens tall (rekkevidde, ladetid, effekt) skal omtales som oppgitte tall («produsenten oppgir …»).`;
 
 const client = new Anthropic();
 

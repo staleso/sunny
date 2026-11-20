@@ -207,3 +207,4 @@ h2, h3 { letter-spacing: -0.02em; }
 .car-card--compact .star-count { display: none; }
 .detail-price { text-align: right; }
 .detail-price-label { display: block; font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--text2); margin-bottom: 2px; }
+.dated-note { font-size: 13.5px; line-height: 1.5; color: var(--text2); background: var(--surface2); border-radius: 12px; padding: 10px 14px; margin: 12px 0 4px; }
