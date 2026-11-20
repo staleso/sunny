@@ -889,6 +889,63 @@ const CARS = [
         groundClearance: 180,
         emoji: "⚡", color: "#2d6a4f", segment: "Compact SUV"
     },
+    // ===== Nye modeller (lagt til 20. november 2026; «fra»-priser brukes kun til prisklasse) =====
+    {
+        id: 107, make: "Dongfeng", model: "Box 42 kWh", year: 2026, price: 199900,
+        type: "hatchback", hp: 95, kwh: 42.3, zeroToHundred: 12.5, seats: 5,
+        drivetrain: "FWD", battery: "42.3 kWh", range: 310, chargeSpeed: 88,
+        length: 4020, width: 1810, height: 1570, weight: 1300, trunk: 326,
+        groundClearance: 150,
+        emoji: "⚡", color: "#3d405b", segment: "City Car"
+    },
+    {
+        id: 108, make: "GAC", model: "AION UT 60 kWh", year: 2026, price: 249990,
+        type: "hatchback", hp: 204, kwh: 60, zeroToHundred: 7.3, seats: 5,
+        drivetrain: "FWD", battery: "60 kWh", range: 430,
+        length: 4270, width: 1850, height: 1575, weight: 1745, trunk: 440,
+        groundClearance: 150,
+        emoji: "⚡", color: "#264653", segment: "Compact"
+    },
+    {
+        id: 109, make: "Kia", model: "EV2 Standard Range", year: 2026, price: 279900,
+        type: "suv", hp: 147, kwh: 42.2, zeroToHundred: 8.7, seats: 5,
+        drivetrain: "FWD", battery: "42.2 kWh", range: 317,
+        length: 4060, width: 1800, height: 1575, weight: 1400, trunk: 362,
+        groundClearance: 170,
+        emoji: "⚡", color: "#3a5a40", segment: "Small SUV"
+    },
+    {
+        id: 110, make: "Xpeng", model: "L03 RWD Standard Range", year: 2026, price: 299900,
+        type: "suv", hp: 245, kwh: 58.3, zeroToHundred: 7.5, seats: 5,
+        drivetrain: "RWD", battery: "58.3 kWh", range: 445, chargeSpeed: 193,
+        length: 4650, width: 1920, height: 1600, weight: 1850, trunk: 367,
+        groundClearance: 160,
+        emoji: "⚡", color: "#1b4965", segment: "Mid-size SUV"
+    },
+    {
+        id: 111, make: "Jaecoo", model: "5 EV", year: 2026, price: 299900,
+        type: "suv", hp: 211, kwh: 61, zeroToHundred: 7.7, seats: 5,
+        drivetrain: "FWD", battery: "61 kWh", range: 402, chargeSpeed: 130,
+        length: 4380, width: 1860, height: 1650, weight: 1750, trunk: 480,
+        groundClearance: 180,
+        emoji: "⚡", color: "#2f3e46", segment: "Compact SUV"
+    },
+    {
+        id: 112, make: "Mercedes", model: "CLA 250+", year: 2026, price: 622900,
+        type: "sedan", hp: 272, kwh: 85, zeroToHundred: 6.7, seats: 5,
+        drivetrain: "RWD", battery: "85 kWh", range: 768, chargeSpeed: 320,
+        length: 4723, width: 1855, height: 1468, weight: 2055, trunk: 405,
+        groundClearance: 140,
+        emoji: "⚡", color: "#1a1a2e", segment: "Mid-size Sedan"
+    },
+    {
+        id: 113, make: "Volvo", model: "EX60 P6", year: 2026, price: 649900,
+        type: "suv", hp: 374, kwh: 83, zeroToHundred: 5.9, seats: 5,
+        drivetrain: "RWD", battery: "83 kWh", range: 611,
+        length: 4803, width: 1899, height: 1635, weight: 2250, trunk: 520,
+        groundClearance: 190,
+        emoji: "⚡", color: "#1d3557", segment: "Mid-size SUV"
+    }
 ];
 
 // ========== Country of origin ==========
@@ -901,7 +958,7 @@ var BRAND_COUNTRY = {
     "Skoda": "Tsjekkia",
     "Toyota": "Japan", "Nissan": "Japan",
     "Renault": "Frankrike", "Peugeot": "Frankrike",
-    "NIO": "Kina", "Xpeng": "Kina", "BYD": "Kina", "MG": "Kina", "Smart": "Kina", "Changan": "Kina",
+    "NIO": "Kina", "Xpeng": "Kina", "BYD": "Kina", "MG": "Kina", "Smart": "Kina", "Changan": "Kina", "Dongfeng": "Kina", "GAC": "Kina", "Jaecoo": "Kina",
     "Cupra": "Spania", "Jaguar": "Storbritannia", "Fiat": "Italia"
 };
 var COUNTRY_FLAGS = {
