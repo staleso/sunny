@@ -1382,7 +1382,7 @@ function renderNewsLinks(car) {
 // Vi viser prisklasser i stedet for eksakte priser, siden prisene endres ofte.
 // car.price brukes bare internt til å plassere bilen i riktig klasse.
 const PRICE_BANDS = [
-    { id: "b1", min: 0, max: 300000, label: "Under NOK 300k", name: "Affordable", desc: "Small, affordable EVs. Fully VAT-free in 2026." },
+    { id: "b1", min: 0, max: 300000, label: "Under NOK 300k", name: "Affordable", desc: "Small, affordable EVs with starting prices under NOK 300k." },
     { id: "b2", min: 300000, max: 400000, label: "NOK 300–400k", name: "Everyday", desc: "Most car for the money – where most Norwegians buy." },
     { id: "b3", min: 400000, max: 500000, label: "NOK 400–500k", name: "Family", desc: "Roomy SUVs and estates with good range." },
     { id: "b4", min: 500000, max: 700000, label: "NOK 500–700k", name: "Premium", desc: "Better materials, more kit and faster charging." },

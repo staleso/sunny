@@ -1382,7 +1382,7 @@ function renderNewsLinks(car) {
 // Vi viser prisklasser i stedet for eksakte priser, siden prisene endres ofte.
 // car.price brukes bare internt til å plassere bilen i riktig klasse.
 const PRICE_BANDS = [
-    { id: "b1", min: 0, max: 300000, label: "Under 300 000 kr", name: "Rimelig", desc: "Små og rimelige elbiler. Helt momsfrie i 2026." },
+    { id: "b1", min: 0, max: 300000, label: "Under 300 000 kr", name: "Rimelig", desc: "Små og rimelige elbiler med fra-pris under 300 000 kroner." },
     { id: "b2", min: 300000, max: 400000, label: "300–400 000 kr", name: "Folkebil", desc: "Mest bil for pengene – de fleste nordmenn handler her." },
     { id: "b3", min: 400000, max: 500000, label: "400–500 000 kr", name: "Familiebil", desc: "Romslige SUV-er og stasjonsvogner med god rekkevidde." },
     { id: "b4", min: 500000, max: 700000, label: "500–700 000 kr", name: "Premium", desc: "Bedre materialer, mer utstyr og raskere lading." },
