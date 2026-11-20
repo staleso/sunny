@@ -2,6 +2,27 @@
   "articles": [
     {
       "lang": "nb",
+      "url": "/elbilen-storst-i-bruktbilmarkedet-andre-maned-pa-rad.html",
+      "title": "Elbilen er største drivlinje i bruktmarkedet for andre måned på rad",
+      "ingress": "37 prosent av bruktbilene som skiftet eier i oktober, var elbiler. Det viser tall fra OFV. Overgangen gjør det lettere å kjøpe elbil uten å gå for ny.",
+      "category": "Bruktbil",
+      "date": "2026-11-20",
+      "time": "13:39",
+      "ai": true,
+      "image_query": "Tesla Model Y",
+      "image": {
+        "src": "/img/news/tesla-model-y.jpg",
+        "width": 1400,
+        "height": 757,
+        "author": "Alexander Migl",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Tesla_Model_Y_1X7A6211.jpg",
+        "title": "Tesla Model Y 1X7A6211.jpg"
+      }
+    },
+    {
+      "lang": "nb",
       "url": "/mercedes-glc-levering-i-2026-for-momsokningen.html",
       "title": "Mercedes GLC kan fortsatt leveres i Norge i år – før momsgrensen halveres",
       "ingress": "Elektriske Mercedes GLC er meldt utsolgt i Europa ut året, men Mercedes-Benz Norge sier norske kunder fortsatt kan få levert populære varianter i 2026. Det kan spare kjøperne for opptil 37 500 kroner i moms.",
@@ -29,7 +50,17 @@
       "category": "Bilsalg",
       "date": "2026-05-15",
       "ai": true,
-      "image_query": "Volkswagen ID.4"
+      "image_query": "Volkswagen ID.4",
+      "image": {
+        "src": "/img/news/volkswagen-id-4.jpg",
+        "width": 1400,
+        "height": 798,
+        "author": "Alexander Migl",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Volkswagen_ID.4_GTX_1X7A0301.jpg",
+        "title": "Volkswagen ID.4 GTX 1X7A0301.jpg"
+      }
     },
     {
       "lang": "en",
@@ -39,7 +70,17 @@
       "category": "Car sales",
       "date": "2026-05-15",
       "ai": true,
-      "image_query": "Volkswagen ID.4"
+      "image_query": "Volkswagen ID.4",
+      "image": {
+        "src": "/img/news/volkswagen-id-4.jpg",
+        "width": 1400,
+        "height": 798,
+        "author": "Alexander Migl",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Volkswagen_ID.4_GTX_1X7A0301.jpg",
+        "title": "Volkswagen ID.4 GTX 1X7A0301.jpg"
+      }
     },
     {
       "lang": "nb",
