@@ -8,6 +8,7 @@ on:
     - cron: '40 5 * * *'
     - cron: '17 9 * * *'
     - cron: '23 13 * * *'
+    - cron: '45 13 * * *'   # 14:45 norsk tid
   workflow_dispatch:
     inputs:
       articles:
