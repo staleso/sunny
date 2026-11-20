@@ -847,7 +847,48 @@ const CARS = [
         length: 4300, width: 1770, height: 1550, weight: 1623, trunk: 434,
         groundClearance: 174,
         emoji: "⚡", color: "#1A237E", segment: "Small SUV"
-    }
+    },
+    // ===== Nye modeller (lagt til november 2026; priser er veiledende «fra»-priser) =====
+    {
+        id: 102, make: "Toyota", model: "Urban Cruiser 49 kWh", year: 2026, price: 330100,
+        type: "suv", hp: 144, kwh: 49, zeroToHundred: 9.6, seats: 5,
+        drivetrain: "FWD", battery: "49 kWh", range: 344, chargeSpeed: 67,
+        length: 4285, width: 1800, height: 1640, weight: 1700, trunk: 306,
+        groundClearance: 180,
+        emoji: "⚡", color: "#7a1f1f", segment: "Compact SUV"
+    },
+    {
+        id: 103, make: "BYD", model: "EVO 4x4", year: 2026, price: 389900,
+        type: "suv", hp: 443, kwh: 74.8, zeroToHundred: 3.9, seats: 5,
+        drivetrain: "AWD", battery: "74.8 kWh", range: 470, chargeSpeed: 220,
+        length: 4455, width: 1875, height: 1615, weight: 1990, trunk: 490,
+        groundClearance: 175,
+        emoji: "⚡", color: "#1d3557", segment: "Compact SUV"
+    },
+    {
+        id: 104, make: "Changan", model: "Deepal S05 AWD", year: 2026, price: 389900,
+        type: "suv", hp: 435, kwh: 68.8, zeroToHundred: 5.5, seats: 5,
+        drivetrain: "AWD", battery: "68.8 kWh", range: 445, chargeSpeed: 150,
+        length: 4598, width: 1900, height: 1600, weight: 2040, trunk: 448,
+        groundClearance: 170,
+        emoji: "⚡", color: "#2b2d42", segment: "Mid-size SUV"
+    },
+    {
+        id: 105, make: "Kia", model: "EV3 Long Range", year: 2026, price: 441900,
+        type: "suv", hp: 204, kwh: 81.4, zeroToHundred: 7.7, seats: 5,
+        drivetrain: "FWD", battery: "81.4 kWh", range: 601, chargeSpeed: 128,
+        length: 4300, width: 1850, height: 1560, weight: 1885, trunk: 460,
+        groundClearance: 174,
+        emoji: "⚡", color: "#3a5a40", segment: "Compact SUV"
+    },
+    {
+        id: 106, make: "Skoda", model: "Elroq 85", year: 2026, price: 440200,
+        type: "suv", hp: 286, kwh: 82, zeroToHundred: 6.6, seats: 5,
+        drivetrain: "RWD", battery: "82 kWh", range: 571, chargeSpeed: 175,
+        length: 4488, width: 1884, height: 1625, weight: 2050, trunk: 470,
+        groundClearance: 180,
+        emoji: "⚡", color: "#2d6a4f", segment: "Compact SUV"
+    },
 ];
 
 // ========== Country of origin ==========
@@ -860,7 +901,7 @@ var BRAND_COUNTRY = {
     "Skoda": "Czech Republic",
     "Toyota": "Japan", "Nissan": "Japan",
     "Renault": "France", "Peugeot": "France",
-    "NIO": "China", "Xpeng": "China", "BYD": "China", "MG": "China", "Smart": "China",
+    "NIO": "China", "Xpeng": "China", "BYD": "China", "MG": "China", "Smart": "China", "Changan": "China",
     "Cupra": "Spain", "Jaguar": "United Kingdom", "Fiat": "Italy"
 };
 var COUNTRY_FLAGS = {
