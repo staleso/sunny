@@ -125,6 +125,12 @@ const today = new Date().toISOString().slice(0, 10);
 const time = new Date().toISOString().slice(11, 16);
 const articles = loadArticles();
 
+// Planlagte kjøringer har en reservetid. Er dagens sak allerede skrevet, gjør vi ingenting.
+if (process.env.SKIP_IF_PUBLISHED_TODAY && articles.some(a => a.lang === 'nb' && a.date === today && a.time)) {
+    console.log('Dagens sak er allerede publisert – hopper over.');
+    process.exit(0);
+}
+
 try {
     for (let i = 0; i < PER_RUN; i++) {
         const published = articles.filter(a => a.lang === 'nb').slice(0, 60).map(a => a.title);

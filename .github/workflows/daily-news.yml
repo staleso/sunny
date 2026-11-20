@@ -2,8 +2,13 @@ name: AI-nyheter
 
 on:
   schedule:
-    # Én ny sak om dagen, ca. 07:40 norsk tid (UTC i cron)
+    # Én ny sak om dagen, ca. 07:40 norsk tid (UTC i cron).
+    # GitHub hopper av og til over planlagte kjøringer, så det er to reservetider.
+    # Er dagens sak allerede skrevet, avslutter de uten å bruke API-et.
     - cron: '40 5 * * *'
+    - cron: '17 9 * * *'
+    - cron: '23 13 * * *'
+    - cron: '45 13 * * *'   # 14:45 norsk tid
   workflow_dispatch:
     inputs:
       articles:
@@ -41,6 +46,7 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           ARTICLES_PER_RUN: ${{ github.event.inputs.articles || '1' }}
+          SKIP_IF_PUBLISHED_TODAY: ${{ github.event_name == 'schedule' && '1' || '' }}
 
       - name: Hent bilder (Wikimedia Commons)
         run: node scripts/fetch-images.mjs
