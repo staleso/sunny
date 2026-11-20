@@ -847,7 +847,48 @@ const CARS = [
         length: 4300, width: 1770, height: 1550, weight: 1623, trunk: 434,
         groundClearance: 174,
         emoji: "⚡", color: "#1A237E", segment: "Small SUV"
-    }
+    },
+    // ===== Nye modeller (lagt til november 2026; priser er veiledende «fra»-priser) =====
+    {
+        id: 102, make: "Toyota", model: "Urban Cruiser 49 kWh", year: 2026, price: 330100,
+        type: "suv", hp: 144, kwh: 49, zeroToHundred: 9.6, seats: 5,
+        drivetrain: "FWD", battery: "49 kWh", range: 344, chargeSpeed: 67,
+        length: 4285, width: 1800, height: 1640, weight: 1700, trunk: 306,
+        groundClearance: 180,
+        emoji: "⚡", color: "#7a1f1f", segment: "Compact SUV"
+    },
+    {
+        id: 103, make: "BYD", model: "EVO 4x4", year: 2026, price: 389900,
+        type: "suv", hp: 443, kwh: 74.8, zeroToHundred: 3.9, seats: 5,
+        drivetrain: "AWD", battery: "74.8 kWh", range: 470, chargeSpeed: 220,
+        length: 4455, width: 1875, height: 1615, weight: 1990, trunk: 490,
+        groundClearance: 175,
+        emoji: "⚡", color: "#1d3557", segment: "Compact SUV"
+    },
+    {
+        id: 104, make: "Changan", model: "Deepal S05 AWD", year: 2026, price: 389900,
+        type: "suv", hp: 435, kwh: 68.8, zeroToHundred: 5.5, seats: 5,
+        drivetrain: "AWD", battery: "68.8 kWh", range: 445, chargeSpeed: 150,
+        length: 4598, width: 1900, height: 1600, weight: 2040, trunk: 448,
+        groundClearance: 170,
+        emoji: "⚡", color: "#2b2d42", segment: "Mid-size SUV"
+    },
+    {
+        id: 105, make: "Kia", model: "EV3 Long Range", year: 2026, price: 441900,
+        type: "suv", hp: 204, kwh: 81.4, zeroToHundred: 7.7, seats: 5,
+        drivetrain: "FWD", battery: "81.4 kWh", range: 601, chargeSpeed: 128,
+        length: 4300, width: 1850, height: 1560, weight: 1885, trunk: 460,
+        groundClearance: 174,
+        emoji: "⚡", color: "#3a5a40", segment: "Compact SUV"
+    },
+    {
+        id: 106, make: "Skoda", model: "Elroq 85", year: 2026, price: 440200,
+        type: "suv", hp: 286, kwh: 82, zeroToHundred: 6.6, seats: 5,
+        drivetrain: "RWD", battery: "82 kWh", range: 571, chargeSpeed: 175,
+        length: 4488, width: 1884, height: 1625, weight: 2050, trunk: 470,
+        groundClearance: 180,
+        emoji: "⚡", color: "#2d6a4f", segment: "Compact SUV"
+    },
 ];
 
 // ========== Country of origin ==========
@@ -860,7 +901,7 @@ var BRAND_COUNTRY = {
     "Skoda": "Tsjekkia",
     "Toyota": "Japan", "Nissan": "Japan",
     "Renault": "Frankrike", "Peugeot": "Frankrike",
-    "NIO": "Kina", "Xpeng": "Kina", "BYD": "Kina", "MG": "Kina", "Smart": "Kina",
+    "NIO": "Kina", "Xpeng": "Kina", "BYD": "Kina", "MG": "Kina", "Smart": "Kina", "Changan": "Kina",
     "Cupra": "Spania", "Jaguar": "Storbritannia", "Fiat": "Italia"
 };
 var COUNTRY_FLAGS = {
@@ -959,25 +1000,25 @@ function getTrailerUnbraked(car) {
 // getCarDescription() falls back from exact model to base model.
 const CAR_DESCRIPTIONS = {
     "Porsche Taycan": "Porsche Taycan er merkets første helelektriske bil og posisjoneres i segmentet for luksus-sportssedaner. Den er bygget på en 800-volts arkitektur som gir kort DC-ladetid og muliggjør gjentatte fullgass-akselerasjoner uten merkbar ytelsestap. Rekkevidden er moderat sammenlignet med konkurrenter som Mercedes EQS og Lucid Air, mens kjøredynamikk, chassisbalanse og konsistens ved sporty kjøring regnes som modellens sterkeste sider. Bagasjeromsplass og plass i baksetet er begrenset grunnet det lave, sportslige karosseriet; Sport Turismo- og Cross Turismo-variantene tilbyr noe mer praktisk nytte. (Tekst: AI-generert)",
-    "Porsche Macan": "Porsche Macan Electric er den helelektriske versjonen av merkets bestselgende SUV. Den deler 800-volts plattform med Taycan og tilbyr dermed rask DC-lading opp mot 270 kW. Kjøreegenskapene er blant de beste i klassen for kompakte luksus-SUV-er, med lavt tyngdepunkt og adaptivt luftfjæring som standard på flere varianter. Bagasjerommet er på nivå med forgjengeren, og bilen er tilgjengelig med både bakhjulsdrift og firehjulsdrift. (Tekst: AI-generert)",
+    "Porsche Macan": "Porsche Macan Electric er den helelektriske versjonen av en av merkets mest populære SUV-er. Den deler 800-volts plattform med Taycan og tilbyr dermed rask DC-lading opp mot 270 kW. Porsche vektlegger kjøreegenskapene, med lavt tyngdepunkt og luftfjæring på flere varianter. Bagasjerommet er på nivå med forgjengeren, og bilen er tilgjengelig med både bakhjulsdrift og firehjulsdrift. (Tekst: AI-generert)",
     "Porsche Cayenne": "Porsche Cayenne Electric markerer overgangen til elektrisk drift for merkets store SUV. Bilen bygger på en ny plattform med 800-volts arkitektur og skal kombinere Porsches sportslighet med det romslighets- og komfortnivået Cayenne er kjent for. Forventet rekkevidde og ytelse plasserer den i konkurranse med BMW iX og Mercedes EQS SUV. Bilen får luftfjæring og adaptivt understell som standard. (Tekst: AI-generert)",
     "BMW iX1": "BMW iX1 er merkets mest kompakte elektriske SUV og baseres på FAAR-plattformen. Den tilbyr et praktisk interiør med godt med plass til passasjerer og bagasje i forhold til sine ytre mål. Firehjulsdrift er standard på xDrive-varianten, og rekkevidden er tilstrekkelig for de fleste daglige behov. Bilen konkurrerer direkte mot Audi Q4 e-tron og Mercedes EQA i det populære kompakt-SUV-segmentet. (Tekst: AI-generert)",
-    "BMW iX3": "BMW iX3 er en mellomklasse elektrisk SUV som kombinerer BMWs kjøredynamikk med et romslig og familievennlig interiør. Femte generasjon eDrive-teknologi gir effektiv kraftoverføring, og bilen tilbyr hurtiglading med opptil 180 kW DC. Bagasjerommet er blant de større i klassen. Bilen konkurrerer med modeller som Mercedes EQC og Audi Q6 e-tron. (Tekst: AI-generert)",
+    "BMW iX3": "BMW iX3 er en mellomklasse elektrisk SUV som kombinerer BMWs kjøredynamikk med et romslig og familievennlig interiør. Femte generasjon eDrive-teknologi gir effektiv kraftoverføring, og bilen tilbyr hurtiglading med opptil 180 kW DC. Bagasjerommet gir god plass til hverdagsbruk. Bilen konkurrerer med modeller som Mercedes EQC og Audi Q6 e-tron. (Tekst: AI-generert)",
     "BMW iX": "BMW iX er merkets elektriske flaggskip-SUV, bygget på en dedikert elbilplattform. Den bruker karbonfiberforsterket karosseri for å holde vekten nede, og tilbyr et minimalistisk interiør med store skjermer og bærekraftige materialer. Rekkevidden er konkurransedyktig i luksus-SUV-segmentet, og DC-lading støttes med opptil 200 kW. Luftfjæring og adaptivt understell gir en komfortabel kjøreopplevelse. (Tekst: AI-generert)",
-    "BMW i4": "BMW i4 er en elektrisk sedan i Gran Coupé-format som deler visuell profil med 4-serien. Den leveres med bakhjulsdrift i eDrive40-versjonen og firehjulsdrift i M-variantene. Kjøreegenskapene er blant de mest sporty i elbilsegmentet, og rekkevidden er konkurransedyktig for klassen. M50- og M60-versjonene retter seg mot entusiaster med høyere effekt og strammere understell. (Tekst: AI-generert)",
+    "BMW i4": "BMW i4 er en elektrisk sedan i Gran Coupé-format som deler visuell profil med 4-serien. Den leveres med bakhjulsdrift i eDrive40-versjonen og firehjulsdrift i M-variantene. Bilen har en sportslig profil, og rekkevidden er på nivå med flere konkurrenter i klassen. M50- og M60-versjonene retter seg mot entusiaster med høyere effekt og strammere understell. (Tekst: AI-generert)",
     "BMW i5": "BMW i5 er den elektriske versjonen av 5-serien og posisjoneres som en romslig eksekutivsedaner. Bilen tilbyr et komfortabelt interiør med god plass i baksetet og et stort bagasjerom. Teknologien inkluderer BMWs nyeste iDrive-system med buet skjermflate. Rekkevidden og ladeytelsen gjør den egnet for lengre reiser, og den konkurrerer direkte med Mercedes EQE og Audi A6 e-tron. (Tekst: AI-generert)",
     "BMW i7": "BMW i7 er merkets mest luksuriøse elbil og representerer toppmodellen i 7-serien. Den har et overdådig interiør med Theatre Screen i baksetet, massasjeseter og Bowers & Wilkins-lydanlegg som tilvalg. Rekkevidden er god til tross for bilens størrelse, og 195 kW DC-lading gir akseptable ladestopp. Bilen konkurrerer med Mercedes EQS og er primært rettet mot komfort og representasjon. (Tekst: AI-generert)",
     "BMW i3 120Ah": "BMW i3 var en av de tidligste premium-elbilene på markedet og ble produsert fra 2013 til 2022. Den har et kompakt, høyreist design med karbonfiber-karosseri som holdt vekten nede. Batteriet på 42,2 kWh gir begrenset rekkevidde etter dagens standard, men bilen fungerer godt som bybil. Interiøret bruker bærekraftige materialer og har et karakteristisk, åpent design. (Tekst: AI-generert)",
     "BMW i3 50": "Nye BMW i3 er en kompakt elektrisk sedan basert på den nye Neue Klasse-plattformen. Den representerer et generasjonsskifte i BMWs elbilstrategi med ny battericelletegnologi og forbedret effektivitet. Bilen tilbyr et moderne interiør med nytt operativsystem og et design som skiller seg fra forgjengeren. Rekkevidden og ladeytelsen er vesentlig forbedret sammenlignet med eldre BMW-elbiler. (Tekst: AI-generert)",
     "Audi Q4": "Audi Q4 e-tron er en kompakt elektrisk SUV bygget på Volkswagen-gruppens MEB-plattform. Den tilbyr et romslig interiør i forhold til ytre dimensjoner, med et bagasjerom på 520 liter. Augmented reality head-up-display er tilgjengelig som tilvalg. Bilen leveres med både bakhjulsdrift og quattro firehjulsdrift, og rekkevidden på opptil 520 km gjør den konkurransedyktig i klassen. (Tekst: AI-generert)",
     "Audi Q6": "Audi Q6 e-tron er basert på den nye PPE-plattformen utviklet sammen med Porsche, med 800-volts arkitektur som standard. Det gir DC-lading opp mot 270 kW og kort ladetid fra 10 til 80 prosent. Interiøret har et nytt digitalt cockpit-design med opptil tre skjermer. Bilen plasseres mellom Q4 og Q8 i størrelse og tilbyr god plass til familie og bagasje. (Tekst: AI-generert)",
-    "Audi Q8": "Audi Q8 e-tron er merkets store elektriske SUV og representerer en oppdatert videreføring av den opprinnelige e-tron. Den har et romslig interiør med premiummaterialer og luftfjæring som standard. Batteriet på 114 kWh gir en av de lengste rekkeviddene i klassen. DC-ladeytelsen ble forbedret i Q8-oppgraderingen til 170 kW, og bilen er tilgjengelig i både SUV- og Sportback-form. (Tekst: AI-generert)",
-    "Audi e-tron GT": "Audi e-tron GT er en firedørs Gran Turismo som deler 800-volts plattform med Porsche Taycan. Den kombinerer sportsbilytelse med Audis komfort- og kvalitetsnivå. Quattro firehjulsdrift er standard, og akselerasjonen er blant de raskeste i merkets historie. Rekkevidden er tilstrekkelig for lengre turer, men bagasjerommet er begrenset grunnet det lave taket. RS-versjonen tilbyr ytterligere ytelse og et strammere understell. (Tekst: AI-generert)",
-    "Audi A6": "Audi A6 e-tron er merkets kommende elektriske eksekutivsedaner bygget på PPE-plattformen. Med 800-volts arkitektur og opptil 270 kW DC-lading er den blant de raskeste til å lade i klassen. Det elegante designet har en svært lav luftmotstandskoeffisient som bidrar til god rekkevidde. Bilen konkurrerer direkte med BMW i5 og Mercedes EQE. (Tekst: AI-generert)",
-    "Mercedes EQA": "Mercedes EQA er merkets kompakte elektriske SUV og den mest tilgjengelige modellen i EQ-serien. Den baseres på GLA-plattformen og tilbyr et velkjent Mercedes-interiør med MBUX-infotainment. Rekkevidden er tilstrekkelig for daglig bruk, og bilen er tilgjengelig med både forhjulsdrift og 4MATIC firehjulsdrift. Kompakte ytre mål gjør den enkel å manøvrere i bymiljø. (Tekst: AI-generert)",
+    "Audi Q8": "Audi Q8 e-tron er merkets store elektriske SUV og representerer en oppdatert videreføring av den opprinnelige e-tron. Den har et romslig interiør med premiummaterialer og luftfjæring som standard. Batteriet på 114 kWh gir lang oppgitt rekkevidde. DC-ladeytelsen ble forbedret i Q8-oppgraderingen til 170 kW, og bilen er tilgjengelig i både SUV- og Sportback-form. (Tekst: AI-generert)",
+    "Audi e-tron GT": "Audi e-tron GT er en firedørs Gran Turismo som deler 800-volts plattform med Porsche Taycan. Den kombinerer sportsbilytelse med Audis komfort- og kvalitetsnivå. Quattro firehjulsdrift er standard, og akselerasjonen er sterk. Rekkevidden er tilstrekkelig for lengre turer, men bagasjerommet er begrenset grunnet det lave taket. RS-versjonen tilbyr ytterligere ytelse og et strammere understell. (Tekst: AI-generert)",
+    "Audi A6": "Audi A6 e-tron er merkets kommende elektriske eksekutivsedaner bygget på PPE-plattformen. Med 800-volts arkitektur oppgir Audi opptil 270 kW DC-lading. Det elegante designet har en svært lav luftmotstandskoeffisient som bidrar til god rekkevidde. Bilen konkurrerer direkte med BMW i5 og Mercedes EQE. (Tekst: AI-generert)",
+    "Mercedes EQA": "Mercedes EQA er merkets kompakte elektriske SUV og en av inngangsmodellene i EQ-serien. Den baseres på GLA-plattformen og tilbyr et velkjent Mercedes-interiør med MBUX-infotainment. Rekkevidden er tilstrekkelig for daglig bruk, og bilen er tilgjengelig med både forhjulsdrift og 4MATIC firehjulsdrift. Kompakte ytre mål gjør den enkel å manøvrere i bymiljø. (Tekst: AI-generert)",
     "Mercedes EQB": "Mercedes EQB skiller seg ut i kompaktklassen med sitt sjuseteralternativ, noe som er uvanlig blant elektriske SUV-er i denne størrelsen. Bilen er basert på GLB-plattformen og har et høyreist, kasseformet design som maksimerer innvendig plass. Tredje seterad passer best for barn, men gir fleksibilitet for familier. Rekkevidden og ladeytelsen er i tråd med segmentets gjennomsnitt. (Tekst: AI-generert)",
     "Mercedes EQC": "Mercedes EQC var merkets første dedikerte helelektriske SUV da den ble lansert. Bilen har et komfortabelt interiør med god støyisolering og et pent utført dashbord. Firehjulsdrift er standard, noe som gir godt veggrep under norske vinterforhold. Rekkevidden er moderat sammenlignet med nyere konkurrenter, men bilen kompenserer med høy komfort og kjørekvalitet. (Tekst: AI-generert)",
-    "Mercedes GLC": "Mercedes GLC Electric er den helelektriske versjonen av merkets bestselgende SUV-modell. Den bygger på en ny plattform som er optimalisert for elektrisk drift, med forbedret plass og effektivitet. Interiøret følger Mercedes' nyeste designspråk med stor sentralskjerm. Bilen kombinerer det praktiske formatet til GLC med utslippsfri drift og moderne elbilteknologi. (Tekst: AI-generert)",
+    "Mercedes GLC": "Mercedes GLC Electric er den helelektriske versjonen av en av merkets mest populære SUV-modeller. Den bygger på en ny plattform som er optimalisert for elektrisk drift, med forbedret plass og effektivitet. Interiøret følger Mercedes' nyeste designspråk med stor sentralskjerm. Bilen kombinerer det praktiske formatet til GLC med utslippsfri drift og moderne elbilteknologi. (Tekst: AI-generert)",
     "Mercedes EQE": "Mercedes EQE er en elektrisk eksekutivsedaner basert på den dedikerte EVA2-plattformen. Den har et strømlinjeformet design med en av de laveste luftmotstandskoeffisientene i klassen, noe som bidrar til god rekkevidde. Interiøret er romslig med Hyperscreen som tilvalg — en skjerm som dekker hele dashbordet. SUV-varianten tilbyr ekstra bakkeklaring og et mer praktisk karosseri. (Tekst: AI-generert)",
     "Mercedes EQS": "Mercedes EQS er merkets elektriske flaggskip og posisjoneres som en av de mest luksuriøse elbilene på markedet. Den har en rekkevidde på opptil 770 km (WLTP) og tilbyr et svært stillegående interiør med fremragende komfort. Hyperscreen-dashbordet er tilgjengelig som tilvalg. Luftfjæring og bakhjulsstyring er standard på de fleste varianter. SUV-versjonen gir tredje seterad og høyere bakkeklaring. (Tekst: AI-generert)",
     "Tesla Model 3": "Tesla Model 3 er en av verdens mest solgte elbiler og har vært en viktig modell for utbredelsen av elektriske biler i Norge. Den tilbyr et minimalistisk interiør med én sentralt plassert berøringsskjerm som styrer det meste av bilens funksjoner. Supercharger-nettverket gir god ladetilgang langs norske hovedveier. Long Range-varianten har konkurransedyktig rekkevidde, mens Performance-varianten retter seg mot dem som prioriterer akselerasjon og kjøreglede. (Tekst: AI-generert)",
@@ -987,7 +1028,7 @@ const CAR_DESCRIPTIONS = {
     "Volkswagen ID.3": "Volkswagen ID.3 er merkets elektriske kompaktbil og er ment som en folkelig elbil i Golf-klassen. Den er bygget på MEB-plattformen med batteriet i gulvet, noe som gir et flatt og romslig interiør. Bakhjulsdrift er standard, noe som gir god plass i kupeen. Rekkevidden varierer med batteristørrelse, og Pro S-versjonen med 77 kWh batteri tilbyr opptil 560 km. (Tekst: AI-generert)",
     "Volkswagen ID.4": "Volkswagen ID.4 er en elektrisk kompakt-SUV som er blant Norges mest solgte elbiler. Den tilbyr et familievennlig interiør med godt med plass i baksetet og et bagasjerom på 543 liter. MEB-plattformen gir et lavt tyngdepunkt og forutsigbare kjøreegenskaper. Bilen er tilgjengelig med bakhjulsdrift og GTX firehjulsdrift. (Tekst: AI-generert)",
     "Volkswagen ID.5": "Volkswagen ID.5 er en SUV-coupé basert på ID.4-plattformen, med en mer strømlinjeformet taklinje. Det skrånende taket gir marginalt mindre bagasjerom enn ID.4, men bedre aerodynamikk og noe lengre rekkevidde. GTX-versjonen har firehjulsdrift og sportligere ytelse. Interiøret er tilnærmet identisk med ID.4. (Tekst: AI-generert)",
-    "Volkswagen ID.7": "Volkswagen ID.7 er merkets elektriske storbil og den første ID-modellen i sedanformat. Med et strømlinjeformet design oppnår den en luftmotstandskoeffisient på bare 0,23, noe som bidrar til lang rekkevidde. Interiøret er romslig med god plass i baksetet, og bagasjerommet er blant de største i klassen. Bilen posisjoneres som et elektrisk alternativ til Passat. (Tekst: AI-generert)",
+    "Volkswagen ID.7": "Volkswagen ID.7 er merkets elektriske storbil og den første ID-modellen i sedanformat. Med et strømlinjeformet design oppnår den en luftmotstandskoeffisient på bare 0,23, noe som bidrar til lang rekkevidde. Interiøret er romslig med god plass i baksetet, og bagasjerommet er romslig. Bilen posisjoneres som et elektrisk alternativ til Passat. (Tekst: AI-generert)",
     "Volkswagen ID. Buzz": "Volkswagen ID. Buzz er den elektriske nyversjonen av den ikoniske VW-bussen. Den har et retro-inspirert design med moderne teknologi og er bygget på den forlengede MEB-plattformen. Interiøret er fleksibelt med skyvebare bakseter og et stort bagasjerom. Bilen tiltrekker seg kjøpere som verdsetter karakter og romlighet, og den er tilgjengelig i både standard- og langversjon. (Tekst: AI-generert)",
     "Volkswagen e-Golf": "Volkswagen e-Golf var merkets første elektriske Golf og ble produsert basert på syvende generasjon Golf. Batteriet på 35,8 kWh gir en begrenset rekkevidde etter dagens standard, men bilen er fortsatt populær på bruktmarkedet. Kjøreegenskapene er identiske med en vanlig Golf, noe mange setter pris på. DC-lading støttes med opptil 40 kW, som er vesentlig saktere enn nyere elbiler. (Tekst: AI-generert)",
     "Volvo EX30": "Volvo EX30 er merkets minste og mest prisgunstige elbil. Til tross for kompakte ytre mål tilbyr den et overraskende romslig interiør med et minimalistisk design der det meste styres via en sentralt plassert skjerm. Bilen er tilgjengelig med bakhjulsdrift og Twin Motor firehjulsdrift. EX30 bruker resirkulerte materialer i interiøret som del av Volvos bærekraftstrategi, og bilen er produsert med lavt karbonavtrykk. (Tekst: AI-generert)",
@@ -995,15 +1036,15 @@ const CAR_DESCRIPTIONS = {
     "Volvo EX40": "Volvo EX40 er Volvos elektriske kompakt-SUV, tidligere kjent som XC40 Recharge. Den bygger på CMAs plattform og tilbyr et kjent Volvo-interiør med høy sikkerhetsfølelse. Bilen har et brukervennlig Google-basert infotainmentsystem og er tilgjengelig med firehjulsdrift. Bagasjerommet suppleres med en frunk under panseret for ekstra oppbevaring. (Tekst: AI-generert)",
     "Volvo EX90": "Volvo EX90 er merkets elektriske flaggskip-SUV og erstatter XC90 som toppmodellen. Den har et romslig treseterad interiør med plass til inntil syv passasjerer. Sikkerhetsutrusning inkluderer lidar-sensor og avanserte førerassistentsystemer som standard. Batteriet på 111 kWh gir god rekkevidde, og bilen støtter toveis lading. Interiøret er preget av nordisk minimalisme med bærekraftige materialer. (Tekst: AI-generert)",
     "Volvo XC40": "Volvo XC40 Recharge var blant de første helelektriske Volvo-modellene og deler plattform med EC40/EX40. Bilen tilbyr firehjulsdrift og god bakkeklaring for norske veier. Interiøret har Volvos kjente kvalitetsfølelse med et oversiktlig dashbord. Rekkevidden er tilstrekkelig for daglig bruk, og bilen har god plass i kompaktklassen. (Tekst: AI-generert)",
-    "Hyundai Kona": "Hyundai Kona Electric er en kompakt SUV som har vært en bestselger i det norske elbilmarkedet. Den tilbyr god rekkevidde i forhold til sin størrelse og pris, og det romslige interiøret fungerer godt for småbarnsfamilier. Bilen har fått et betydelig ansiktsløft med et mer moderne design. Varmepumpe er standard, noe som bidrar til bedre rekkevidde under norske vinterforhold. (Tekst: AI-generert)",
+    "Hyundai Kona": "Hyundai Kona Electric er en kompakt SUV som har vært et populært valg i det norske elbilmarkedet. Den tilbyr god rekkevidde i forhold til sin størrelse og pris, og det romslige interiøret fungerer godt for småbarnsfamilier. Bilen har fått et betydelig ansiktsløft med et mer moderne design. Varmepumpe er standard, noe som bidrar til bedre rekkevidde under norske vinterforhold. (Tekst: AI-generert)",
     "Hyundai IONIQ 5": "Hyundai IONIQ 5 er en mellomstor crossover med et retro-futuristisk design inspirert av Hyundais Pony fra 1970-tallet. Den er bygget på E-GMP-plattformen med 800-volts arkitektur, noe som gir svært rask DC-lading på opptil 240 kW. Interiøret er romslig med flat gulvflate og skyvebare bakseter. Vehicle-to-load-funksjonen gjør det mulig å bruke bilens batteri som strømkilde for eksterne enheter. (Tekst: AI-generert)",
     "Hyundai IONIQ 6": "Hyundai IONIQ 6 er en elektrisk sedan med et strømlinjeformet design som gir en luftmotstandskoeffisient på bare 0,21. Det bidrar til lang rekkevidde som overgår mange konkurrenter i klassen. Bilen deler 800-volts E-GMP-plattform med IONIQ 5 og støtter rask DC-lading. Interiøret har et romslig baksete til tross for det kupéaktige designet, og bilen konkurrerer med Tesla Model 3 og BMW i4. (Tekst: AI-generert)",
     "Hyundai IONIQ Electric": "Hyundai IONIQ Electric var en av de første rimelige elbilene i Norge og bidro til å gjøre elektrisk kjøring tilgjengelig for mange. Batteriet på 38,3 kWh gir begrenset rekkevidde etter dagens standard, men bilen er effektiv og har lavt forbruk. Designet er konservativt og praktisk med et godt bagasjerom for klassen. Bilen er et rimelig bruktbilalternativ for dem som primært kjører kortere strekninger. (Tekst: AI-generert)",
-    "Kia Niro": "Kia Niro EV er en kompakt crossover som kombinerer praktisk størrelse med god rekkevidde. Den har et oversiktlig og brukervennlig interiør med fysiske knapper for klimaanlegg. Bagasjerommet er blant de større i kompaktklassen. Bilen er tilgjengelig med varmepumpe, noe som er gunstig for rekkevidde i kalde norske vintre. Niro EV er en populær familiebil takket være balansen mellom pris, plass og rekkevidde. (Tekst: AI-generert)",
-    "Kia EV6": "Kia EV6 er en mellomstor crossover bygget på E-GMP-plattformen med 800-volts arkitektur. Den kan lade fra 10 til 80 prosent på under 18 minutter under optimale forhold, noe som er blant de raskeste i markedet. Designet er markant og skiller seg fra tradisjonelle Kia-modeller. Bilen tilbyr god rekkevidde, romslig interiør og vehicle-to-load-funksjon som standard. GT-versjonen leverer sportslige ytelser med 585 hk. (Tekst: AI-generert)",
+    "Kia Niro": "Kia Niro EV er en kompakt crossover som kombinerer praktisk størrelse med god rekkevidde. Den har et oversiktlig og brukervennlig interiør med fysiske knapper for klimaanlegg. Bagasjerommet gir god plass for størrelsen. Bilen er tilgjengelig med varmepumpe, noe som er gunstig for rekkevidde i kalde norske vintre. Niro EV er en populær familiebil takket være balansen mellom pris, plass og rekkevidde. (Tekst: AI-generert)",
+    "Kia EV6": "Kia EV6 er en mellomstor crossover bygget på E-GMP-plattformen med 800-volts arkitektur. Den kan lade fra 10 til 80 prosent på under 18 minutter under optimale forhold, ifølge Kia. Designet er markant og skiller seg fra tradisjonelle Kia-modeller. Bilen tilbyr god rekkevidde, romslig interiør og vehicle-to-load-funksjon som standard. GT-versjonen leverer sportslige ytelser med 585 hk. (Tekst: AI-generert)",
     "Kia EV9": "Kia EV9 er en stor treseter-SUV som konkurrerer i premiumsegmentet. Den har et kantete, robust design og tilbyr romslig plass til opptil syv passasjerer. 800-volts arkitektur gir rask lading, og det store batteriet sikrer god rekkevidde til tross for bilens størrelse. Interiøret har et moderne og luftig design med to store skjermer. Bilen er et alternativ til BMW iX og Mercedes EQS SUV, men til en lavere pris. (Tekst: AI-generert)",
     "Kia e-Niro": "Kia e-Niro var blant de mest populære elbilene i Norge da den ble lansert, kjent for god rekkevidde til en fornuftig pris. Batteriet på 64 kWh gir en rekkevidde som fortsatt er tilstrekkelig for de fleste daglige behov. Bilen har et praktisk interiør med godt bagasjerom og er enkel å kjøre. DC-lading støttes med opptil 77 kW, noe som er moderat etter dagens standard. (Tekst: AI-generert)",
-    "Skoda Enyaq": "Skoda Enyaq iV er en romslig og praktisk elektrisk SUV bygget på Volkswagen-gruppens MEB-plattform. Den er kjent for å tilby mest plass per krone i sin klasse, med et generøst bagasjerom på 585 liter. Interiøret har en funksjonell, skandinavisk-inspirert stil med god materialkvalitet. Coupé-versjonen har et mer strømlinjeformet design med noe bedre rekkevidde, mens RS-varianten gir sportligere ytelse. (Tekst: AI-generert)",
+    "Skoda Enyaq": "Skoda Enyaq iV er en romslig og praktisk elektrisk SUV bygget på Volkswagen-gruppens MEB-plattform. Den tilbyr mye plass, blant annet et bagasjerom på 585 liter. Interiøret har en funksjonell, skandinavisk-inspirert stil med god materialkvalitet. Coupé-versjonen har et mer strømlinjeformet design med noe bedre rekkevidde, mens RS-varianten gir sportligere ytelse. (Tekst: AI-generert)",
     "Polestar 2": "Polestar 2 er en elektrisk sedan som konkurrerer direkte med Tesla Model 3. Den kombinerer skandinavisk design med Volvos sikkerhetstradisjoner og har et interiør med Google-basert infotainment som standard. Kjøreegenskapene er sportslige med presist styre og godt balansert chassis. Dual Motor-versjonen med firehjulsdrift er populær i Norge, og ytelsespakken Polestar Engineered gir justerbare Öhlins-dempere. (Tekst: AI-generert)",
     "Polestar 3": "Polestar 3 er merkets første SUV og er bygget på Volvos SPA2-plattform. Den har et elegant og aerodynamisk design med fokus på premiumkvalitet. Interiøret er romslig med bærekraftige materialer og avansert teknologi inkludert lidar-baserte sikkerhetssystemer. Bilen konkurrerer med BMW iX og Porsche Macan Electric i det voksende premium-elbil-SUV-segmentet. (Tekst: AI-generert)",
     "Polestar 4": "Polestar 4 er en elektrisk SUV-coupé uten tradisjonelt bakrute — i stedet brukes et kamera og skjerm for baksyn. Designet er lavt og strømlinjeformet for en SUV, noe som gir bedre aerodynamikk og lengre rekkevidde. Interiøret er romslig til tross for den kupéaktige profilen. Bilen posisjoneres mellom Polestar 2 og 3 i pris og størrelse. (Tekst: AI-generert)",
@@ -1013,21 +1054,21 @@ const CAR_DESCRIPTIONS = {
     "Toyota bZ4X": "Toyota bZ4X er merkets første dedikerte helelektriske SUV og markerer Toyotas inntreden i elbilmarkedet. Bilen er utviklet i samarbeid med Subaru og deler plattform med Subaru Solterra. Den har et karakteristisk design med lav panser og et romslig interiør med god plass i baksetet. Firehjulsdrift-varianten bruker en motor på hver aksel. Rekkevidden er konkurransedyktig i klassen, og bilen er rettet mot familier som ønsker en pålitelig og praktisk elbil. (Tekst: AI-generert)",
     "Ford Mustang": "Ford Mustang Mach-E er en elektrisk SUV som låner navn og designelementer fra den ikoniske Mustang-sportsbilen. Den har et sporty design med god bakkeklaring og et romslig interiør med en stor, stående berøringsskjerm. Bagasjerommet suppleres av en drenerbar frunk som kan brukes til oppbevaring. Extended Range-batteriet gir konkurransedyktig rekkevidde, og AWD-versjonen har god ytelse i norsk vinterklima. (Tekst: AI-generert)",
     "Ford Explorer": "Ford Explorer Electric er merkets europeisk-utviklede elbil bygget på Volkswagen-gruppens MEB-plattform. Den har et moderne design som skiller seg fra amerikanske Ford-modeller og tilbyr et ryddig, brukervennlig interiør. Rekkevidden er god for klassen, og bilen er tilgjengelig med bakhjulsdrift og firehjulsdrift. Explorer posisjoneres som et prisgunstig alternativ i kompakt-SUV-segmentet. (Tekst: AI-generert)",
-    "Xpeng G6": "Xpeng G6 er en elektrisk SUV-coupé fra den kinesiske produsenten Xpeng. Den har 800-volts arkitektur som gir rask DC-lading på opptil 280 kW, blant de raskeste i sin prisklasse. Designet er strømlinjeformet og moderne, og interiøret har en stor sentralskjerm med avansert programvare. Bilen tilbyr god rekkevidde og konkurransedyktig pris sammenlignet med europeiske rivaler i mellomklassen. (Tekst: AI-generert)",
+    "Xpeng G6": "Xpeng G6 er en elektrisk SUV-coupé fra den kinesiske produsenten Xpeng. Den har 800-volts arkitektur, og Xpeng oppgir DC-lading på opptil 280 kW. Designet er strømlinjeformet og moderne, og interiøret har en stor sentralskjerm med avansert programvare. Bilen tilbyr god rekkevidde og konkurransedyktig pris sammenlignet med europeiske rivaler i mellomklassen. (Tekst: AI-generert)",
     "Xpeng G9": "Xpeng G9 er en stor, premium elektrisk SUV med 800-volts arkitektur og svært rask lading. Interiøret er romslig med gode materialer og et avansert infotainmentsystem med store skjermer. Bilen har luftfjæring og adaptivt understell som gir komfortabel kjøring. G9 posisjonerer seg som et kinesisk alternativ til BMW iX og Audi Q8 e-tron, med konkurransedyktig pris og utstyrsnivå. (Tekst: AI-generert)",
-    "BYD Atto": "BYD Atto 3 er en kompakt elektrisk SUV fra den kinesiske produsenten BYD, som er verdens største produsent av elbiler. Bilen bruker BYDs egen Blade-batteriteknologi basert på litiumjernfosfat, som er kjent for god sikkerhet og lang levetid. Interiøret har et karakteristisk design med en roterbar sentralskjerm. Bilen tilbyr god plass og utstyrsverdi for prisen, og konkurrerer med Hyundai Kona og Kia Niro EV. (Tekst: AI-generert)",
+    "BYD Atto": "BYD Atto 3 er en kompakt elektrisk SUV fra den kinesiske produsenten BYD, som er blant verdens største produsenter av elbiler. Bilen bruker BYDs egen Blade-batteriteknologi basert på litiumjernfosfat, som er kjent for god sikkerhet og lang levetid. Interiøret har et karakteristisk design med en roterbar sentralskjerm. Bilen tilbyr god plass og utstyrsverdi for prisen, og konkurrerer med Hyundai Kona og Kia Niro EV. (Tekst: AI-generert)",
     "BYD Tang": "BYD Tang EV600 er en stor elektrisk SUV med syv seter og firehjulsdrift. Den bruker BYDs Blade-batteriteknologi og tilbyr god rekkevidde for en bil i denne størrelsen. Interiøret er utstyrt med en stor roterbar sentralskjerm og generøst med standardutstyr. Bilen konkurrerer med Kia EV9 og NIO EL7, og er et av de mer prisgunstige alternativene for familier som trenger en stor syvseters elbil. (Tekst: AI-generert)",
     "BYD Seal": "BYD Seal er en elektrisk sedan som konkurrerer direkte med Tesla Model 3. Den har et strømlinjeformet design og bruker BYDs Cell-to-Body-teknologi der batteriet er integrert i karosseristrukturen for bedre stivhet og lavere vekt. Kjøreegenskapene er gode med lavt tyngdepunkt og balansert vektfordeling. Bilen tilbyr konkurransedyktig rekkevidde og ytelse til en pris som undergraver mange europeiske konkurrenter. (Tekst: AI-generert)",
-    "Cupra Born": "Cupra Born er en sporty elektrisk kompaktbil basert på Volkswagen-gruppens MEB-plattform, og deler mye teknikk med Volkswagen ID.3. Den skiller seg ut med et mer dynamisk design, strammere understell og sportsseter. Kjøreegenskapene er blant de mest engasjerende i kompaktklassen for elbiler. Batteriet på 77 kWh gir god rekkevidde, og bilen er et godt alternativ for dem som ønsker noe mer kjøreglede enn ID.3 tilbyr. (Tekst: AI-generert)",
+    "Cupra Born": "Cupra Born er en sporty elektrisk kompaktbil basert på Volkswagen-gruppens MEB-plattform, og deler mye teknikk med Volkswagen ID.3. Den skiller seg ut med et mer dynamisk design, strammere understell og sportsseter. Cupra profilerer bilen som en sportslig kompaktbil. Batteriet på 77 kWh gir god rekkevidde, og bilen er et godt alternativ for dem som ønsker noe mer kjøreglede enn ID.3 tilbyr. (Tekst: AI-generert)",
     "Cupra Tavascan": "Cupra Tavascan er en elektrisk SUV-coupé og merkets første dedikerte elbil. Den er bygget på MEB-plattformen og har et distinkt, sporty design med Cupras karakteristiske kobberdetaljer. VZ-versjonen har firehjulsdrift med to motorer og sportlig ytelse. Interiøret er førerfokusert med gode sportsseter og et oversiktlig digitalt cockpit. (Tekst: AI-generert)",
     "Renault Megane": "Renault Megane E-Tech er en kompakt elektrisk crossover med et moderne og karakteristisk design. Den er bygget på CMF-EV-plattformen og har et av de tynneste batteripakkene i klassen, noe som gir lavere gulv og mer innvendig plass. Interiøret har to sammenhengende skjermer i et L-formet oppsett. Bilen er smidig i bymiljø takket være kompakte ytre mål og god svingradius. (Tekst: AI-generert)",
-    "Renault Scenic": "Renault Scenic E-Tech er en elektrisk kompakt-SUV som erstatter den tradisjonelle Scenic flerbruksbilen. Den har et romslig interiør med god plass i baksetet og et stort bagasjerom. Batteriet på 87 kWh gir en av de lengste rekkeviddene i kompaktklassen. Designet er moderne og robust, og bilen har fått gode sikkerhetsvurderinger i Euro NCAP-tester. (Tekst: AI-generert)",
+    "Renault Scenic": "Renault Scenic E-Tech er en elektrisk kompakt-SUV som erstatter den tradisjonelle Scenic flerbruksbilen. Den har et romslig interiør med god plass i baksetet og et stort bagasjerom. Batteriet på 87 kWh gir lang oppgitt rekkevidde for en kompaktbil. Designet er moderne og robust, og bilen har fått gode sikkerhetsvurderinger i Euro NCAP-tester. (Tekst: AI-generert)",
     "Renault ZOE": "Renault ZOE var en pioner i det europeiske elbilmarkedet og har vært tilgjengelig siden 2012. R135-versjonen har et batteri på 52 kWh som gir tilstrekkelig rekkevidde for daglig bruk. Bilen er kompakt og enkel å manøvrere i bymiljø. Ladesystemet støtter AC-lading med opptil 22 kW og valgfri DC-lading med 50 kW. ZOE er et rimelig bruktbilalternativ som egner seg godt som bybil. (Tekst: AI-generert)",
     "Smart #1": "Smart #1 representerer en fullstendig nystart for Smart-merket, nå som en kompakt elektrisk SUV utviklet i samarbeid med Geely. Bilen er vesentlig større enn tidligere Smart-modeller og tilbyr et overraskende romslig interiør. Designet er moderne og lekent med en høy kvalitetsfølelse innvendig. BRABUS-versjonen tilbyr firehjulsdrift og sportslig ytelse. (Tekst: AI-generert)",
     "Smart #3": "Smart #3 er en kompakt elektrisk SUV-coupé som posisjoneres over #1 i Smarts modellrekke. Den har et strammere, mer sporty design med skrånende taklinje. BRABUS-versjonen har firehjulsdrift med to motorer og imponerende akselerasjon for klassen. Interiøret er godt utstyrt med en stor sentralskjerm og moderne materialer. (Tekst: AI-generert)",
     "Nissan Leaf": "Nissan Leaf var verdens første masseproduserte elbil og har vært en viktig modell for utviklingen av elbilmarkedet globalt. E+-versjonen med 62 kWh batteri gir vesentlig bedre rekkevidde enn standardmodellen. Bilen har et praktisk interiør med godt bagasjerom og e-Pedal-funksjon for regenerativ bremsing med én pedal. CHAdeMO-ladesystemet er mindre utbredt enn CCS, noe som kan begrense ladetilgangen noe. (Tekst: AI-generert)",
     "Jaguar I-PACE": "Jaguar I-PACE var en av de første premium-elbilene på markedet da den ble lansert i 2018, og vant flere priser som Årets Bil. Bilen har et distinkt sportsbildesign med lavt tyngdepunkt og god vektfordeling som gir engasjerende kjøreegenskaper. Firehjulsdrift er standard med en motor på hver aksel. Interiøret er luksuriøst med gode materialer, men infotainmentsystemet regnes som noe utdatert sammenlignet med nyere konkurrenter. (Tekst: AI-generert)",
-    "MG ZS": "MG ZS EV er en av de mest prisgunstige elektriske SUV-ene på markedet og har gjort elbil tilgjengelig for mange. Long Range-versjonen har et batteri på 72,6 kWh som gir akseptabel rekkevidde. Bilen tilbyr et romslig interiør med god plass i baksetet og et bagasjerom på 448 liter. Utstyrsnivået er generøst for prisen, og bilen konkurrerer primært på verdi. (Tekst: AI-generert)",
+    "MG ZS": "MG ZS EV har vært et av de rimeligere alternativene blant elektriske SUV-er. Long Range-versjonen har et batteri på 72,6 kWh som gir akseptabel rekkevidde. Bilen tilbyr et romslig interiør med god plass i baksetet og et bagasjerom på 448 liter. Utstyrsnivået er generøst for prisen, og bilen konkurrerer primært på verdi. (Tekst: AI-generert)",
     "Opel Mokka-e": "Opel Mokka-e er en kompakt elektrisk SUV med et moderne og distinkt design. Den deler plattform med Peugeot e-2008 og Citroën ë-C4 og har det nye Vizor-frontdesignet som kjennetegner nyere Opel-modeller. Interiøret har et digitalt cockpit kalt Pure Panel med to sammenhengende skjermer. Batteriet på 50 kWh gir en rekkevidde som passer godt til daglig bykjøring og pendling. (Tekst: AI-generert)",
     "Fiat 500e": "Fiat 500e er en helelektrisk versjon av den ikoniske Fiat 500 bybilen. Den har et sjarmerende retrodesign kombinert med moderne elbilteknologi. Kompakte ytre mål og kort svingradius gjør den ideell for bykjøring og parkering. Bilen er tilgjengelig som sedan og cabriolet, og La Prima-versjonen tilbyr ekstra utstyr og premiumdetaljer. Rekkevidden er begrenset, men tilstrekkelig for urban bruk. (Tekst: AI-generert)",
     "Peugeot e-2008": "Peugeot e-2008 er en kompakt elektrisk SUV med Peugeots karakteristiske i-Cockpit-design, der et lite ratt kombineres med et høytplassert instrumentpanel. Bilen deler plattform med Opel Mokka-e og tilbyr et stilfullt interiør med gode materialer. Rekkevidden er tilstrekkelig for daglig bruk, og bilen har et praktisk bagasjerom. GT-versjonen har ekstra utstyr og sportligere detaljer. (Tekst: AI-generert)",
@@ -1337,9 +1378,25 @@ function renderNewsLinks(car) {
 }
 
 // ========== Utility ==========
-function formatPrice(price) {
-    return price.toLocaleString("nb-NO") + " kr";
+// ========== Prisklasser ==========
+// Vi viser prisklasser i stedet for eksakte priser, siden prisene endres ofte.
+// car.price brukes bare internt til å plassere bilen i riktig klasse.
+const PRICE_BANDS = [
+    { id: "b1", min: 0, max: 300000, label: "Under 300 000 kr", name: "Rimelig", desc: "Små og rimelige elbiler med fra-pris under 300 000 kroner." },
+    { id: "b2", min: 300000, max: 400000, label: "300–400 000 kr", name: "Folkebil", desc: "Mest bil for pengene – de fleste nordmenn handler her." },
+    { id: "b3", min: 400000, max: 500000, label: "400–500 000 kr", name: "Familiebil", desc: "Romslige SUV-er og stasjonsvogner med god rekkevidde." },
+    { id: "b4", min: 500000, max: 700000, label: "500–700 000 kr", name: "Premium", desc: "Bedre materialer, mer utstyr og raskere lading." },
+    { id: "b5", min: 700000, max: 1000000, label: "700 000–1 mill. kr", name: "Luksus", desc: "Store og godt utstyrte biler fra premiummerkene." },
+    { id: "b6", min: 1000000, max: 1000000000, label: "Over 1 mill. kr", name: "Toppklasse", desc: "Sportsbiler og flaggskip." }
+];
+function getBandForPrice(price) {
+    return PRICE_BANDS.find(b => price >= b.min && price < b.max) || PRICE_BANDS[PRICE_BANDS.length - 1];
 }
+function getPriceBand(car) { return getBandForPrice(car.price); }
+function formatPrice(price) {
+    return getBandForPrice(price).label;
+}
+var selectedBand = "all";
 
 function getCarById(id) {
     return CARS.find(c => c.id === id);
@@ -1431,70 +1488,30 @@ function renderCarImagePlaceholder(car) {
 }
 
 // ========== Render Car Card ==========
-function renderCarCard(car) {
+function renderCarCard(car, showBand) {
     const div = document.createElement("div");
-    div.className = "car-card";
+    div.className = "car-card car-card--compact";
     div.onclick = () => { window.location.href = 'bil.html?id=' + carSlug(car); };
-
-    const bc = BRAND_COLORS[car.make] || { primary: "#888", gradient: "linear-gradient(135deg, #888, #444)" };
-    const efficiency = (car.kwh / car.range * 100).toFixed(1);
-
+    const bc = BRAND_COLORS[car.make] || { primary: "#888" };
     var silhouette = CAR_SILHOUETTES[car.type] || CAR_SILHOUETTES['sedan'];
+    const band = getPriceBand(car);
     div.innerHTML = `
         <div class="car-card-header" style="background:linear-gradient(135deg, ${bc.primary}14, ${bc.primary}08)">
             <div class="car-card-header-icon" style="color:${bc.primary}">${silhouette}</div>
             <div class="car-card-header-brand" style="color:${bc.primary}">${car.make}</div>
         </div>
         <div class="car-card-body">
-            <div class="car-card-top">
-                <div class="car-card-info">
-                    <div class="car-card-title">${car.make} ${car.model}</div>
-                    <div class="car-card-subtitle">${car.year} · ${car.segment} · ${getCarCountryFlag(car)}</div>
-                </div>
-                <div class="car-card-price">${formatPrice(car.price)}</div>
-            </div>
-            <div class="car-card-specs">
-                <div class="spec-item">
-                    <span class="spec-value">${car.range}</span>
-                    <span class="spec-unit">km</span>
-                    <span class="spec-sub">vinter ~${getWinterRange(car)}</span>
-                </div>
-                <div class="spec-divider"></div>
-                <div class="spec-item">
-                    <span class="spec-value">${getChargeSpeed(car)}</span>
-                    <span class="spec-unit">kW DC</span>
-                    <span class="spec-sub">10-80% ~${getChargeTime10to80(car)} min</span>
-                </div>
-                <div class="spec-divider"></div>
-                <div class="spec-item">
-                    <span class="spec-value">${car.hp}</span>
-                    <span class="spec-unit">hk</span>
-                </div>
-                <div class="spec-divider"></div>
-                <div class="spec-item">
-                    <span class="spec-value">${car.zeroToHundred}</span>
-                    <span class="spec-unit">sek</span>
-                </div>
-                <div class="spec-divider"></div>
-                <div class="spec-item">
-                    <span class="spec-value">${car.kwh}</span>
-                    <span class="spec-unit">kWh</span>
-                </div>
-                ${car.trunk ? `
-                <div class="spec-divider"></div>
-                <div class="spec-item">
-                    <span class="spec-value">${car.trunk}</span>
-                    <span class="spec-unit">liter</span>
-                </div>` : ''}
+            <div class="car-card-title">${car.make} ${car.model}</div>
+            <div class="car-card-subtitle">${car.segment} · ${getCarCountryFlag(car)}</div>
+            <div class="car-facts">
+                <span><strong>${car.range}</strong> km</span>
+                <span>${car.drivetrain}</span>
+                <span>${car.seats} seter</span>
             </div>
             <div class="car-card-bottom">
-                <div class="car-card-tags">
-                    <span class="car-tag">${car.drivetrain}</span>
-                    <span class="car-tag">${car.seats} seter</span>
-                    <span class="car-tag">${efficiency} kWh/100km</span>
-                </div>
+                ${showBand === false ? "<span></span>" : `<span class="band-pill">${car.year < 2025 ? "Eldre modell" : band.label}</span>`}
                 <div class="car-card-actions">
-                    ${renderStars(car.id, 16)}
+                    ${renderStars(car.id, 14)}
                     <button class="btn-compare ${isInCompare(car.id) ? 'active-compare' : ''}"
                             onclick="toggleCompare(${car.id}, event)"
                             aria-label="${isInCompare(car.id) ? 'Fjern fra sammenligning' : 'Legg til sammenligning'}">
@@ -1508,6 +1525,71 @@ function renderCarCard(car) {
     return div;
 }
 
+// ========== Prisklasse-knapper ==========
+function renderBandChips() {
+    const wrap = document.getElementById("band-chips");
+    if (!wrap) return;
+    const opts = [{ id: "all", label: "Alle" }].concat(PRICE_BANDS.map(b => ({ id: b.id, label: b.label })));
+    wrap.innerHTML = opts.map(o => `<button type="button" class="band-chip${selectedBand === o.id ? " is-active" : ""}" data-band="${o.id}" aria-pressed="${selectedBand === o.id}">${o.label}</button>`).join("");
+    wrap.querySelectorAll(".band-chip").forEach(btn => btn.addEventListener("click", () => {
+        selectedBand = btn.dataset.band; browsePage = 1; renderBrowse();
+    }));
+}
+
+var expandedBands = {};
+var BAND_PREVIEW = 6;
+function renderGrouped(list, cars) {
+    removePagination();
+    const filtering = selectedBand !== "all";
+    let shown = 0;
+    const current = cars.filter(c => c.year >= 2025);
+    const older = cars.filter(c => c.year < 2025);
+    PRICE_BANDS.forEach(function(b) {
+        const inBand = current.filter(c => getPriceBand(c) === b);
+        if (!inBand.length) return;
+        inBand.sort((x, y) => `${x.make} ${x.model}`.localeCompare(`${y.make} ${y.model}`));
+        const open = filtering || expandedBands[b.id];
+        const sec = document.createElement("section");
+        sec.className = "band-section";
+        sec.innerHTML = `<div class="band-head"><div><h2>${b.name}</h2><p>${b.desc}</p></div><span class="band-range">${b.label} · ${inBand.length} ${inBand.length === 1 ? "bil" : "biler"}</span></div>`;
+        const grid = document.createElement("div");
+        grid.className = "band-grid";
+        (open ? inBand : inBand.slice(0, BAND_PREVIEW)).forEach(car => grid.appendChild(renderCarCard(car, false)));
+        sec.appendChild(grid);
+        if (!filtering && inBand.length > BAND_PREVIEW) {
+            const more = document.createElement("button");
+            more.className = "band-more";
+            more.textContent = open ? "Vis færre" : "Vis alle {n}".replace("{n}", inBand.length);
+            more.onclick = () => { expandedBands[b.id] = !open; renderBrowse(); if (open) sec.scrollIntoView({ block: "start" }); };
+            sec.appendChild(more);
+        }
+        list.appendChild(sec);
+        shown++;
+        if (shown === 2) {
+            const ad = document.createElement("div");
+            ad.className = "ad-inline";
+            ad.innerHTML = '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4678480487049419" data-ad-slot="2454031921" data-ad-format="auto" data-full-width-responsive="true"></ins>';
+            list.appendChild(ad);
+            try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
+        }
+    });
+    if (older.length && selectedBand === "all") {
+        older.sort((x, y) => `${x.make} ${x.model}`.localeCompare(`${y.make} ${y.model}`));
+        const sec = document.createElement("section");
+        sec.className = "band-section";
+        sec.innerHTML = `<div class="band-head"><div><h2>Eldre modeller</h2><p>Modeller som ikke selges nye lenger. Se bruktmarkedet for pris.</p></div><span class="band-range">${older.length} ${older.length === 1 ? "bil" : "biler"}</span></div>`;
+        const grid = document.createElement("div");
+        grid.className = "band-grid";
+        older.forEach(car => grid.appendChild(renderCarCard(car, false)));
+        sec.appendChild(grid);
+        list.appendChild(sec);
+    }
+    const note = document.createElement("p");
+    note.className = "band-note";
+    note.textContent = "Prisklassene er veiledende. Sjekk alltid dagens pris hos importør eller forhandler.";
+    list.appendChild(note);
+}
+
 // ========== Slider filters ==========
 const PRICE_MIN = 0, PRICE_MAX = 2000000, PRICE_STEP = 25000;
 
@@ -1518,36 +1600,12 @@ function formatPriceShort(v) {
 }
 
 function getPriceFilter() {
-    const minEl = document.getElementById("price-min");
-    const maxEl = document.getElementById("price-max");
-    if (!minEl || !maxEl) return { min: PRICE_MIN, max: PRICE_MAX, active: false };
-    let lo = parseInt(minEl.value, 10);
-    let hi = parseInt(maxEl.value, 10);
-    if (lo > hi) { const t = lo; lo = hi; hi = t; }
-    return { min: lo, max: hi, active: lo > PRICE_MIN || hi < PRICE_MAX };
+    if (selectedBand === "all") return { min: 0, max: Infinity, active: false };
+    const b = PRICE_BANDS.find(x => x.id === selectedBand);
+    return { min: b.min, max: b.max - 1, active: true };
 }
 
-function updateSliderUI() {
-    const pf = getPriceFilter();
-    const priceVal = document.getElementById("price-value");
-    const priceFill = document.getElementById("price-fill");
-    const priceWrap = priceVal && priceVal.closest(".slider-filter");
-    if (priceVal) {
-        if (!pf.active) priceVal.textContent = "Alle";
-        else priceVal.textContent = formatPriceShort(pf.min) + " – " + formatPriceShort(pf.max);
-    }
-    if (priceWrap) priceWrap.classList.toggle("is-active", pf.active);
-    const pLo = ((pf.min - PRICE_MIN) / (PRICE_MAX - PRICE_MIN)) * 100;
-    const pHi = ((pf.max - PRICE_MIN) / (PRICE_MAX - PRICE_MIN)) * 100;
-    if (priceFill) {
-        priceFill.style.left = pLo + "%";
-        priceFill.style.right = (100 - pHi) + "%";
-    }
-    const pMinBub = document.getElementById("price-min-bubble");
-    const pMaxBub = document.getElementById("price-max-bubble");
-    if (pMinBub) { pMinBub.style.left = pLo + "%"; pMinBub.textContent = formatPriceShort(pf.min); }
-    if (pMaxBub) { pMaxBub.style.left = pHi + "%"; pMaxBub.textContent = formatPriceShort(pf.max); }
-}
+function updateSliderUI() { renderBandChips(); }
 
 // ========== Browse Tab ==========
 var browsePage = 1;
@@ -1571,8 +1629,7 @@ function renderBrowse() {
     });
 
     switch (sort) {
-        case "price-low": cars.sort((a, b) => a.price - b.price); break;
-        case "price-high": cars.sort((a, b) => b.price - a.price); break;
+        case "band": break;
         case "range": cars.sort((a, b) => b.range - a.range); break;
         case "hp": cars.sort((a, b) => b.hp - a.hp); break;
         case "fast": cars.sort((a, b) => a.zeroToHundred - b.zeroToHundred); break;
@@ -1604,6 +1661,7 @@ function renderBrowse() {
         removePagination();
         return;
     }
+    if (sort === "band") { renderGrouped(list, cars); return; }
     var now = Date.now();
     var shouldRenderAds = !renderBrowse._lastAdRender || (now - renderBrowse._lastAdRender > 600);
     pageCars.forEach(function(car, i) {
@@ -1732,7 +1790,7 @@ function renderCompare() {
     // Grouped specs
     const specGroups = [
         { title: "Ytelse", specs: [
-            { label: "Pris", key: "price", format: v => formatPrice(v), best: "low" },
+            { label: "Prisklasse", key: "price", format: v => formatPrice(v), best: "low" },
             { label: "Effekt", key: "hp", format: v => v + " hk", best: "high" },
             { label: "0-100 km/t", key: "zeroToHundred", format: v => v + "s", best: "low" },
             { label: "Drivlinje", key: "drivetrain", format: v => v, best: null },

@@ -847,7 +847,48 @@ const CARS = [
         length: 4300, width: 1770, height: 1550, weight: 1623, trunk: 434,
         groundClearance: 174,
         emoji: "⚡", color: "#1A237E", segment: "Small SUV"
-    }
+    },
+    // ===== Nye modeller (lagt til november 2026; priser er veiledende «fra»-priser) =====
+    {
+        id: 102, make: "Toyota", model: "Urban Cruiser 49 kWh", year: 2026, price: 330100,
+        type: "suv", hp: 144, kwh: 49, zeroToHundred: 9.6, seats: 5,
+        drivetrain: "FWD", battery: "49 kWh", range: 344, chargeSpeed: 67,
+        length: 4285, width: 1800, height: 1640, weight: 1700, trunk: 306,
+        groundClearance: 180,
+        emoji: "⚡", color: "#7a1f1f", segment: "Compact SUV"
+    },
+    {
+        id: 103, make: "BYD", model: "EVO 4x4", year: 2026, price: 389900,
+        type: "suv", hp: 443, kwh: 74.8, zeroToHundred: 3.9, seats: 5,
+        drivetrain: "AWD", battery: "74.8 kWh", range: 470, chargeSpeed: 220,
+        length: 4455, width: 1875, height: 1615, weight: 1990, trunk: 490,
+        groundClearance: 175,
+        emoji: "⚡", color: "#1d3557", segment: "Compact SUV"
+    },
+    {
+        id: 104, make: "Changan", model: "Deepal S05 AWD", year: 2026, price: 389900,
+        type: "suv", hp: 435, kwh: 68.8, zeroToHundred: 5.5, seats: 5,
+        drivetrain: "AWD", battery: "68.8 kWh", range: 445, chargeSpeed: 150,
+        length: 4598, width: 1900, height: 1600, weight: 2040, trunk: 448,
+        groundClearance: 170,
+        emoji: "⚡", color: "#2b2d42", segment: "Mid-size SUV"
+    },
+    {
+        id: 105, make: "Kia", model: "EV3 Long Range", year: 2026, price: 441900,
+        type: "suv", hp: 204, kwh: 81.4, zeroToHundred: 7.7, seats: 5,
+        drivetrain: "FWD", battery: "81.4 kWh", range: 601, chargeSpeed: 128,
+        length: 4300, width: 1850, height: 1560, weight: 1885, trunk: 460,
+        groundClearance: 174,
+        emoji: "⚡", color: "#3a5a40", segment: "Compact SUV"
+    },
+    {
+        id: 106, make: "Skoda", model: "Elroq 85", year: 2026, price: 440200,
+        type: "suv", hp: 286, kwh: 82, zeroToHundred: 6.6, seats: 5,
+        drivetrain: "RWD", battery: "82 kWh", range: 571, chargeSpeed: 175,
+        length: 4488, width: 1884, height: 1625, weight: 2050, trunk: 470,
+        groundClearance: 180,
+        emoji: "⚡", color: "#2d6a4f", segment: "Compact SUV"
+    },
 ];
 
 // ========== Country of origin ==========
@@ -860,7 +901,7 @@ var BRAND_COUNTRY = {
     "Skoda": "Czech Republic",
     "Toyota": "Japan", "Nissan": "Japan",
     "Renault": "France", "Peugeot": "France",
-    "NIO": "China", "Xpeng": "China", "BYD": "China", "MG": "China", "Smart": "China",
+    "NIO": "China", "Xpeng": "China", "BYD": "China", "MG": "China", "Smart": "China", "Changan": "China",
     "Cupra": "Spain", "Jaguar": "United Kingdom", "Fiat": "Italy"
 };
 var COUNTRY_FLAGS = {
@@ -959,35 +1000,35 @@ function getTrailerUnbraked(car) {
 // getCarDescription() falls back from exact model to base model.
 const CAR_DESCRIPTIONS = {
     "Porsche Taycan": "The Porsche Taycan is the brand's first fully electric car, positioned in the luxury sports sedan segment. It is built on an 800-volt architecture that provides short DC charging times and enables repeated full-throttle accelerations without noticeable performance loss. Range is moderate compared to competitors such as the Mercedes EQS and Lucid Air, while driving dynamics, chassis balance, and consistency during spirited driving are considered the model's greatest strengths. Cargo space and rear seat room are limited due to the low, sporty body; the Sport Turismo and Cross Turismo variants offer somewhat more practical utility. (Text: AI-generated)",
-    "Porsche Macan": "The Porsche Macan Electric is the fully electric version of the brand's best-selling SUV. It shares the 800-volt platform with the Taycan, offering fast DC charging up to 270 kW. Driving characteristics are among the best in the compact luxury SUV class, with a low center of gravity and adaptive air suspension as standard on several variants. Cargo space is on par with the predecessor, and the car is available with both rear-wheel drive and all-wheel drive. (Text: AI-generated)",
+    "Porsche Macan": "The Porsche Macan Electric is the fully electric version of one of the brand's most popular SUVs. It shares the 800-volt platform with the Taycan, offering fast DC charging up to 270 kW. Porsche emphasises driving dynamics, with a low centre of gravity and air suspension on several variants. Cargo space is on par with the predecessor, and the car is available with both rear-wheel drive and all-wheel drive. (Text: AI-generated)",
     "Porsche Cayenne": "The Porsche Cayenne Electric marks the transition to electric power for the brand's large SUV. The car is built on a new platform with 800-volt architecture and aims to combine Porsche's sportiness with the spaciousness and comfort level the Cayenne is known for. Expected range and performance place it in competition with the BMW iX and Mercedes EQS SUV. The car comes with air suspension and adaptive chassis as standard. (Text: AI-generated)",
     "BMW iX1": "The BMW iX1 is the brand's most compact electric SUV and is based on the FAAR platform. It offers a practical interior with generous space for passengers and luggage relative to its exterior dimensions. All-wheel drive is standard on the xDrive variant, and the range is sufficient for most daily needs. The car competes directly with the Audi Q4 e-tron and Mercedes EQA in the popular compact SUV segment. (Text: AI-generated)",
-    "BMW iX3": "The BMW iX3 is a midsize electric SUV that combines BMW's driving dynamics with a spacious, family-friendly interior. Fifth-generation eDrive technology provides efficient power delivery, and the car offers fast charging at up to 180 kW DC. The cargo area is among the larger in its class. The car competes with models such as the Mercedes EQC and Audi Q6 e-tron. (Text: AI-generated)",
+    "BMW iX3": "The BMW iX3 is a midsize electric SUV that combines BMW's driving dynamics with a spacious, family-friendly interior. Fifth-generation eDrive technology provides efficient power delivery, and the car offers fast charging at up to 180 kW DC. The cargo area offers good space for everyday use. The car competes with models such as the Mercedes EQC and Audi Q6 e-tron. (Text: AI-generated)",
     "BMW iX": "The BMW iX is the brand's electric flagship SUV, built on a dedicated EV platform. It uses a carbon fiber-reinforced body to keep weight down and offers a minimalist interior with large screens and sustainable materials. Range is competitive in the luxury SUV segment, and DC charging is supported at up to 200 kW. Air suspension and adaptive chassis provide a comfortable driving experience. (Text: AI-generated)",
-    "BMW i4": "The BMW i4 is an electric sedan in Gran Coupe format that shares its visual profile with the 4 Series. It comes with rear-wheel drive in the eDrive40 version and all-wheel drive in the M variants. Driving characteristics are among the sportiest in the EV segment, and range is competitive for its class. The M50 and M60 versions target enthusiasts with higher power output and a firmer suspension. (Text: AI-generated)",
+    "BMW i4": "The BMW i4 is an electric sedan in Gran Coupe format that shares its visual profile with the 4 Series. It comes with rear-wheel drive in the eDrive40 version and all-wheel drive in the M variants. It has a sporty character, and its range is on par with several competitors in its class. The M50 and M60 versions target enthusiasts with higher power output and a firmer suspension. (Text: AI-generated)",
     "BMW i5": "The BMW i5 is the electric version of the 5 Series and is positioned as a spacious executive sedan. The car offers a comfortable interior with generous rear seat space and a large cargo area. Technology includes BMW's latest iDrive system with a curved display. Range and charging performance make it suitable for longer journeys, and it competes directly with the Mercedes EQE and Audi A6 e-tron. (Text: AI-generated)",
     "BMW i7": "The BMW i7 is the brand's most luxurious EV and represents the top model in the 7 Series. It features an opulent interior with a Theatre Screen in the rear seat, massage seats, and a Bowers & Wilkins sound system as options. Range is good despite the car's size, and 195 kW DC charging provides acceptable charging stops. The car competes with the Mercedes EQS and is primarily aimed at comfort and executive transport. (Text: AI-generated)",
     "BMW i3 120Ah": "The BMW i3 was one of the earliest premium EVs on the market and was produced from 2013 to 2022. It has a compact, tall design with a carbon fiber body that kept weight down. The 42.2 kWh battery provides limited range by today's standards, but the car works well as a city car. The interior uses sustainable materials and has a distinctive, open design. (Text: AI-generated)",
     "BMW i3 50": "The new BMW i3 is a compact electric sedan based on the new Neue Klasse platform. It represents a generational shift in BMW's EV strategy with new battery cell technology and improved efficiency. The car offers a modern interior with a new operating system and a design that differs from its predecessor. Range and charging performance are significantly improved compared to older BMW EVs. (Text: AI-generated)",
     "Audi Q4": "The Audi Q4 e-tron is a compact electric SUV built on the Volkswagen Group's MEB platform. It offers a spacious interior relative to its exterior dimensions, with a cargo area of 520 liters. An augmented reality head-up display is available as an option. The car comes with both rear-wheel drive and quattro all-wheel drive, and a range of up to 520 km makes it competitive in its class. (Text: AI-generated)",
     "Audi Q6": "The Audi Q6 e-tron is based on the new PPE platform developed together with Porsche, with 800-volt architecture as standard. This enables DC charging up to 270 kW and short charging times from 10 to 80 percent. The interior features a new digital cockpit design with up to three screens. The car slots between the Q4 and Q8 in size and offers good space for family and luggage. (Text: AI-generated)",
-    "Audi Q8": "The Audi Q8 e-tron is the brand's large electric SUV and represents an updated continuation of the original e-tron. It has a spacious interior with premium materials and air suspension as standard. The 114 kWh battery provides one of the longest ranges in its class. DC charging performance was improved in the Q8 upgrade to 170 kW, and the car is available in both SUV and Sportback form. (Text: AI-generated)",
-    "Audi e-tron GT": "The Audi e-tron GT is a four-door Gran Turismo that shares the 800-volt platform with the Porsche Taycan. It combines sports car performance with Audi's comfort and quality standards. Quattro all-wheel drive is standard, and acceleration is among the fastest in the brand's history. Range is sufficient for longer trips, but cargo space is limited due to the low roofline. The RS version offers additional performance and a firmer suspension. (Text: AI-generated)",
-    "Audi A6": "The Audi A6 e-tron is the brand's electric executive sedan built on the PPE platform. With 800-volt architecture and up to 270 kW DC charging, it is among the fastest to charge in its class. The elegant design has a very low drag coefficient that contributes to good range. The car competes directly with the BMW i5 and Mercedes EQE. (Text: AI-generated)",
-    "Mercedes EQA": "The Mercedes EQA is the brand's compact electric SUV and the most accessible model in the EQ lineup. It is based on the GLA platform and offers a familiar Mercedes interior with MBUX infotainment. Range is sufficient for daily use, and the car is available with both front-wheel drive and 4MATIC all-wheel drive. Compact exterior dimensions make it easy to maneuver in urban environments. (Text: AI-generated)",
+    "Audi Q8": "The Audi Q8 e-tron is the brand's large electric SUV and represents an updated continuation of the original e-tron. It has a spacious interior with premium materials and air suspension as standard. The 114 kWh battery provides a long stated range. DC charging performance was improved in the Q8 upgrade to 170 kW, and the car is available in both SUV and Sportback form. (Text: AI-generated)",
+    "Audi e-tron GT": "The Audi e-tron GT is a four-door Gran Turismo that shares the 800-volt platform with the Porsche Taycan. It combines sports car performance with Audi's comfort and quality standards. Quattro all-wheel drive is standard, and acceleration is strong. Range is sufficient for longer trips, but cargo space is limited due to the low roofline. The RS version offers additional performance and a firmer suspension. (Text: AI-generated)",
+    "Audi A6": "The Audi A6 e-tron is the brand's electric executive sedan built on the PPE platform. With 800-volt architecture, Audi states up to 270 kW DC charging. The elegant design has a very low drag coefficient that contributes to good range. The car competes directly with the BMW i5 and Mercedes EQE. (Text: AI-generated)",
+    "Mercedes EQA": "The Mercedes EQA is the brand's compact electric SUV and one of the entry models in the EQ lineup. It is based on the GLA platform and offers a familiar Mercedes interior with MBUX infotainment. Range is sufficient for daily use, and the car is available with both front-wheel drive and 4MATIC all-wheel drive. Compact exterior dimensions make it easy to maneuver in urban environments. (Text: AI-generated)",
     "Mercedes EQB": "The Mercedes EQB stands out in the compact class with its seven-seat option, which is unusual among electric SUVs in this size. The car is based on the GLB platform and has a tall, boxy design that maximizes interior space. The third row is best suited for children but provides flexibility for families. Range and charging performance are in line with the segment average. (Text: AI-generated)",
     "Mercedes EQC": "The Mercedes EQC was the brand's first dedicated fully electric SUV when it launched. The car has a comfortable interior with good noise insulation and a well-crafted dashboard. All-wheel drive is standard, providing good traction in winter conditions. Range is moderate compared to newer competitors, but the car compensates with high comfort and ride quality. (Text: AI-generated)",
-    "Mercedes GLC": "The Mercedes GLC Electric is the fully electric version of the brand's best-selling SUV model. It is built on a new platform optimized for electric propulsion, with improved space and efficiency. The interior follows Mercedes' latest design language with a large central screen. The car combines the practical format of the GLC with zero-emission driving and modern EV technology. (Text: AI-generated)",
+    "Mercedes GLC": "The Mercedes GLC Electric is the fully electric version of one of the brand's most popular SUV models. It is built on a new platform optimized for electric propulsion, with improved space and efficiency. The interior follows Mercedes' latest design language with a large central screen. The car combines the practical format of the GLC with zero-emission driving and modern EV technology. (Text: AI-generated)",
     "Mercedes EQE": "The Mercedes EQE is an electric executive sedan based on the dedicated EVA2 platform. It has a streamlined design with one of the lowest drag coefficients in its class, contributing to good range. The interior is spacious with the Hyperscreen available as an option — a screen that spans the entire dashboard. The SUV variant offers additional ground clearance and a more practical body style. (Text: AI-generated)",
     "Mercedes EQS": "The Mercedes EQS is the brand's electric flagship and is positioned as one of the most luxurious EVs on the market. It has a range of up to 770 km (WLTP) and offers an exceptionally quiet interior with outstanding comfort. The Hyperscreen dashboard is available as an option. Air suspension and rear-axle steering are standard on most variants. The SUV version provides a third row of seats and higher ground clearance. (Text: AI-generated)",
     "Tesla Model 3": "The Tesla Model 3 is one of the world's best-selling EVs and has been a key model in the adoption of electric cars. It offers a minimalist interior with a single centrally placed touchscreen that controls most of the car's functions. The Supercharger network provides good charging access along major highways. The Long Range variant has competitive range, while the Performance variant targets those who prioritize acceleration and driving enjoyment. (Text: AI-generated)",
-    "Tesla Model Y": "The Tesla Model Y is a compact SUV based on the Model 3 platform and is among the most popular EVs globally. It offers significantly more cargo space than the Model 3, with a flat load floor and the option for a tow hitch. The interior shares the same minimalist design as the Model 3, with a focus on simplicity. Over-the-air updates provide new features and improvements after purchase. (Text: AI-generated)",
+    "Tesla Model Y": "The Tesla Model Y is a compact SUV based on the Model 3 platform and has been among the most popular EVs in Norway. It offers significantly more cargo space than the Model 3, with a flat load floor and the option for a tow hitch. The interior shares the same minimalist design as the Model 3, with a focus on simplicity. Over-the-air updates provide new features and improvements after purchase. (Text: AI-generated)",
     "Tesla Model S": "The Tesla Model S was among the first premium EVs on the market and has been continuously updated since launch. It offers long range, fast acceleration, and a large cargo area including a frunk. The interior features a yoke steering wheel in newer versions, which is controversial among users. The Supercharger network and good charging capability make it suitable for long-distance travel. Older versions have a conventional steering wheel and somewhat lower performance. (Text: AI-generated)",
     "Tesla Model X": "The Tesla Model X is Tesla's large SUV featuring the distinctive Falcon Wing rear doors. It offers up to seven seats and a spacious interior with a panoramic roof that creates an open feel. Performance is at sports car level despite the car's size and weight. The Falcon Wing doors are practical in tight parking spaces, but the mechanism is more complex than conventional doors. (Text: AI-generated)",
     "Volkswagen ID.3": "The Volkswagen ID.3 is the brand's electric compact car, intended as an affordable EV in the Golf class. It is built on the MEB platform with the battery in the floor, resulting in a flat and spacious interior. Rear-wheel drive is standard, which allows for good cabin space. Range varies with battery size, and the Pro S version with a 77 kWh battery offers up to 560 km. (Text: AI-generated)",
     "Volkswagen ID.4": "The Volkswagen ID.4 is an electric compact SUV that is among the best-selling EVs in its market. It offers a family-friendly interior with generous rear seat space and a cargo area of 543 liters. The MEB platform provides a low center of gravity and predictable handling. The car is available with rear-wheel drive and GTX all-wheel drive. (Text: AI-generated)",
     "Volkswagen ID.5": "The Volkswagen ID.5 is an SUV coupe based on the ID.4 platform, with a more streamlined roofline. The sloping roof results in marginally less cargo space than the ID.4, but better aerodynamics and slightly longer range. The GTX version has all-wheel drive and sportier performance. The interior is nearly identical to the ID.4. (Text: AI-generated)",
-    "Volkswagen ID.7": "The Volkswagen ID.7 is the brand's electric full-size car and the first ID model in sedan format. With a streamlined design, it achieves a drag coefficient of just 0.23, contributing to long range. The interior is spacious with good rear seat room, and the cargo area is among the largest in its class. The car is positioned as an electric alternative to the Passat. (Text: AI-generated)",
+    "Volkswagen ID.7": "The Volkswagen ID.7 is the brand's electric full-size car and the first ID model in sedan format. With a streamlined design, it achieves a drag coefficient of just 0.23, contributing to long range. The interior is spacious with good rear seat room, and the cargo area is spacious. The car is positioned as an electric alternative to the Passat. (Text: AI-generated)",
     "Volkswagen ID. Buzz": "The Volkswagen ID. Buzz is the electric reincarnation of the iconic VW Bus. It features a retro-inspired design with modern technology and is built on the extended MEB platform. The interior is flexible with sliding rear seats and a large cargo area. The car appeals to buyers who value character and spaciousness, and it is available in both standard and long-wheelbase versions. (Text: AI-generated)",
     "Volkswagen e-Golf": "The Volkswagen e-Golf was the brand's first electric Golf and was produced based on the seventh-generation Golf. The 35.8 kWh battery provides limited range by today's standards, but the car remains popular on the used market. Driving characteristics are identical to a regular Golf, which many appreciate. DC charging is supported at up to 40 kW, which is significantly slower than newer EVs. (Text: AI-generated)",
     "Volvo EX30": "The Volvo EX30 is the brand's smallest and most affordable EV. Despite its compact exterior dimensions, it offers a surprisingly spacious interior with a minimalist design where most functions are controlled via a centrally placed screen. The car is available with rear-wheel drive and Twin Motor all-wheel drive. The EX30 uses recycled materials in the interior as part of Volvo's sustainability strategy, and the car is produced with a low carbon footprint. (Text: AI-generated)",
@@ -995,15 +1036,15 @@ const CAR_DESCRIPTIONS = {
     "Volvo EX40": "The Volvo EX40 is Volvo's electric compact SUV, previously known as the XC40 Recharge. It is built on the CMA platform and offers a familiar Volvo interior with a strong sense of safety. The car has a user-friendly Google-based infotainment system and is available with all-wheel drive. The cargo area is supplemented by a frunk under the hood for additional storage. (Text: AI-generated)",
     "Volvo EX90": "The Volvo EX90 is the brand's electric flagship SUV and replaces the XC90 as the top model. It has a spacious three-row interior with room for up to seven passengers. Safety equipment includes a lidar sensor and advanced driver assistance systems as standard. The 111 kWh battery provides good range, and the car supports bidirectional charging. The interior is characterized by Nordic minimalism with sustainable materials. (Text: AI-generated)",
     "Volvo XC40": "The Volvo XC40 Recharge was among the first fully electric Volvo models and shares its platform with the EC40/EX40. The car offers all-wheel drive and good ground clearance for varied road conditions. The interior has Volvo's well-known quality feel with a clear dashboard layout. Range is sufficient for daily use, and the car offers good space in the compact class. (Text: AI-generated)",
-    "Hyundai Kona": "The Hyundai Kona Electric is a compact SUV that has been a best-seller in the EV market. It offers good range relative to its size and price, and the spacious interior works well for families with young children. The car has received a significant facelift with a more modern design. A heat pump is standard, contributing to better range in cold winter conditions. (Text: AI-generated)",
+    "Hyundai Kona": "The Hyundai Kona Electric is a compact SUV that has been a popular choice in the EV market. It offers good range relative to its size and price, and the spacious interior works well for families with young children. The car has received a significant facelift with a more modern design. A heat pump is standard, contributing to better range in cold winter conditions. (Text: AI-generated)",
     "Hyundai IONIQ 5": "The Hyundai IONIQ 5 is a midsize crossover with a retro-futuristic design inspired by Hyundai's Pony from the 1970s. It is built on the E-GMP platform with 800-volt architecture, enabling very fast DC charging at up to 240 kW. The interior is spacious with a flat floor and sliding rear seats. The vehicle-to-load function allows the car's battery to be used as a power source for external devices. (Text: AI-generated)",
     "Hyundai IONIQ 6": "The Hyundai IONIQ 6 is an electric sedan with a streamlined design that achieves a drag coefficient of just 0.21. This contributes to a long range that surpasses many competitors in its class. The car shares the 800-volt E-GMP platform with the IONIQ 5 and supports fast DC charging. The interior has a spacious rear seat despite the coupe-like design, and the car competes with the Tesla Model 3 and BMW i4. (Text: AI-generated)",
     "Hyundai IONIQ Electric": "The Hyundai IONIQ Electric was one of the first affordable EVs and helped make electric driving accessible to many. The 38.3 kWh battery provides limited range by today's standards, but the car is efficient with low energy consumption. The design is conservative and practical with a good cargo area for its class. The car is an affordable used-car alternative for those who primarily drive shorter distances. (Text: AI-generated)",
-    "Kia Niro": "The Kia Niro EV is a compact crossover that combines a practical size with good range. It has a clear and user-friendly interior with physical buttons for climate control. The cargo area is among the larger in the compact class. The car is available with a heat pump, which is beneficial for range in cold winters. The Niro EV is a popular family car thanks to its balance of price, space, and range. (Text: AI-generated)",
-    "Kia EV6": "The Kia EV6 is a midsize crossover built on the E-GMP platform with 800-volt architecture. It can charge from 10 to 80 percent in under 18 minutes under optimal conditions, which is among the fastest on the market. The design is distinctive and sets it apart from traditional Kia models. The car offers good range, a spacious interior, and vehicle-to-load functionality as standard. The GT version delivers sporty performance with 585 hp. (Text: AI-generated)",
+    "Kia Niro": "The Kia Niro EV is a compact crossover that combines a practical size with good range. It has a clear and user-friendly interior with physical buttons for climate control. The cargo area offers good space for its size. The car is available with a heat pump, which is beneficial for range in cold winters. The Niro EV is a popular family car thanks to its balance of price, space, and range. (Text: AI-generated)",
+    "Kia EV6": "The Kia EV6 is a midsize crossover built on the E-GMP platform with 800-volt architecture. It can charge from 10 to 80 percent in under 18 minutes under optimal conditions, according to Kia. The design is distinctive and sets it apart from traditional Kia models. The car offers good range, a spacious interior, and vehicle-to-load functionality as standard. The GT version delivers sporty performance with 585 hp. (Text: AI-generated)",
     "Kia EV9": "The Kia EV9 is a large three-row SUV that competes in the premium segment. It has an angular, robust design and offers generous space for up to seven passengers. The 800-volt architecture enables fast charging, and the large battery ensures good range despite the car's size. The interior has a modern and airy design with two large screens. The car is an alternative to the BMW iX and Mercedes EQS SUV, but at a lower price. (Text: AI-generated)",
     "Kia e-Niro": "The Kia e-Niro was among the most popular EVs when it launched, known for good range at a sensible price. The 64 kWh battery provides a range that is still sufficient for most daily needs. The car has a practical interior with a good cargo area and is easy to drive. DC charging is supported at up to 77 kW, which is moderate by today's standards. (Text: AI-generated)",
-    "Skoda Enyaq": "The Skoda Enyaq iV is a spacious and practical electric SUV built on the Volkswagen Group's MEB platform. It is known for offering the most space per dollar in its class, with a generous cargo area of 585 liters. The interior has a functional, Scandinavian-inspired style with good material quality. The Coupe version has a more streamlined design with slightly better range, while the RS variant offers sportier performance. (Text: AI-generated)",
+    "Skoda Enyaq": "The Skoda Enyaq iV is a spacious and practical electric SUV built on the Volkswagen Group's MEB platform. It offers plenty of space, including a 585-litre cargo area. The interior has a functional, Scandinavian-inspired style with good material quality. The Coupe version has a more streamlined design with slightly better range, while the RS variant offers sportier performance. (Text: AI-generated)",
     "Polestar 2": "The Polestar 2 is an electric sedan that competes directly with the Tesla Model 3. It combines Scandinavian design with Volvo's safety traditions and features an interior with Google-based infotainment as standard. Driving characteristics are sporty with precise steering and a well-balanced chassis. The Dual Motor version with all-wheel drive is popular, and the Polestar Engineered performance package provides adjustable Ohlins dampers. (Text: AI-generated)",
     "Polestar 3": "The Polestar 3 is the brand's first SUV and is built on Volvo's SPA2 platform. It has an elegant and aerodynamic design with a focus on premium quality. The interior is spacious with sustainable materials and advanced technology including lidar-based safety systems. The car competes with the BMW iX and Porsche Macan Electric in the growing premium EV SUV segment. (Text: AI-generated)",
     "Polestar 4": "The Polestar 4 is an electric SUV coupe without a traditional rear window — instead, a camera and screen are used for rear visibility. The design is low and streamlined for an SUV, resulting in better aerodynamics and longer range. The interior is spacious despite the coupe-like profile. The car is positioned between the Polestar 2 and 3 in price and size. (Text: AI-generated)",
@@ -1013,21 +1054,21 @@ const CAR_DESCRIPTIONS = {
     "Toyota bZ4X": "The Toyota bZ4X is the brand's first dedicated fully electric SUV and marks Toyota's entry into the EV market. The car was developed in collaboration with Subaru and shares its platform with the Subaru Solterra. It has a distinctive design with a low hood and a spacious interior with good rear seat room. The all-wheel drive variant uses a motor on each axle. Range is competitive in its class, and the car is aimed at families seeking a reliable and practical EV. (Text: AI-generated)",
     "Ford Mustang": "The Ford Mustang Mach-E is an electric SUV that borrows its name and design elements from the iconic Mustang sports car. It has a sporty design with good ground clearance and a spacious interior with a large, portrait-oriented touchscreen. The cargo area is supplemented by a drainable frunk that can be used for storage. The Extended Range battery provides competitive range, and the AWD version performs well in winter conditions. (Text: AI-generated)",
     "Ford Explorer": "The Ford Explorer Electric is the brand's European-developed EV built on the Volkswagen Group's MEB platform. It has a modern design that differs from American Ford models and offers a clean, user-friendly interior. Range is good for its class, and the car is available with rear-wheel drive and all-wheel drive. The Explorer is positioned as a competitively priced option in the compact SUV segment. (Text: AI-generated)",
-    "Xpeng G6": "The Xpeng G6 is an electric SUV coupe from the Chinese manufacturer Xpeng. It has 800-volt architecture that enables fast DC charging at up to 280 kW, among the fastest in its price class. The design is streamlined and modern, and the interior features a large central screen with advanced software. The car offers good range and a competitive price compared to European rivals in the midsize segment. (Text: AI-generated)",
+    "Xpeng G6": "The Xpeng G6 is an electric SUV coupe from the Chinese manufacturer Xpeng. It has 800-volt architecture, and Xpeng states DC charging at up to 280 kW. The design is streamlined and modern, and the interior features a large central screen with advanced software. The car offers good range and a competitive price compared to European rivals in the midsize segment. (Text: AI-generated)",
     "Xpeng G9": "The Xpeng G9 is a large, premium electric SUV with 800-volt architecture and very fast charging. The interior is spacious with good materials and an advanced infotainment system with large screens. The car has air suspension and adaptive chassis that provide comfortable driving. The G9 positions itself as a Chinese alternative to the BMW iX and Audi Q8 e-tron, with competitive pricing and equipment levels. (Text: AI-generated)",
-    "BYD Atto": "The BYD Atto 3 is a compact electric SUV from the Chinese manufacturer BYD, the world's largest producer of EVs. The car uses BYD's proprietary Blade battery technology based on lithium iron phosphate, known for good safety and long lifespan. The interior has a distinctive design with a rotating central screen. The car offers good space and equipment value for its price, competing with the Hyundai Kona and Kia Niro EV. (Text: AI-generated)",
+    "BYD Atto": "The BYD Atto 3 is a compact electric SUV from the Chinese manufacturer BYD, one of the world's largest producers of EVs. The car uses BYD's proprietary Blade battery technology based on lithium iron phosphate, known for good safety and long lifespan. The interior has a distinctive design with a rotating central screen. The car offers good space and equipment value for its price, competing with the Hyundai Kona and Kia Niro EV. (Text: AI-generated)",
     "BYD Tang": "The BYD Tang EV600 is a large electric SUV with seven seats and all-wheel drive. It uses BYD's Blade battery technology and offers good range for a car of this size. The interior is equipped with a large rotating central screen and generous standard equipment. The car competes with the Kia EV9 and NIO EL7, and is one of the more affordable options for families who need a large seven-seat EV. (Text: AI-generated)",
     "BYD Seal": "The BYD Seal is an electric sedan that competes directly with the Tesla Model 3. It has a streamlined design and uses BYD's Cell-to-Body technology where the battery is integrated into the body structure for improved rigidity and lower weight. Driving characteristics are good with a low center of gravity and balanced weight distribution. The car offers competitive range and performance at a price that undercuts many European competitors. (Text: AI-generated)",
-    "Cupra Born": "The Cupra Born is a sporty electric compact car based on the Volkswagen Group's MEB platform, sharing much of its technology with the Volkswagen ID.3. It stands out with a more dynamic design, firmer suspension, and sport seats. Driving characteristics are among the most engaging in the compact EV class. The 77 kWh battery provides good range, and the car is a great option for those who want more driving enjoyment than the ID.3 offers. (Text: AI-generated)",
+    "Cupra Born": "The Cupra Born is a sporty electric compact car based on the Volkswagen Group's MEB platform, sharing much of its technology with the Volkswagen ID.3. It stands out with a more dynamic design, firmer suspension, and sport seats. Cupra positions it as a sporty compact car. The 77 kWh battery provides good range, and the car is a great option for those who want more driving enjoyment than the ID.3 offers. (Text: AI-generated)",
     "Cupra Tavascan": "The Cupra Tavascan is an electric SUV coupe and the brand's first dedicated EV. It is built on the MEB platform and has a distinctive, sporty design with Cupra's characteristic copper accents. The VZ version has all-wheel drive with two motors and sporty performance. The interior is driver-focused with quality sport seats and a clear digital cockpit. (Text: AI-generated)",
     "Renault Megane": "The Renault Megane E-Tech is a compact electric crossover with a modern and distinctive design. It is built on the CMF-EV platform and has one of the thinnest battery packs in its class, resulting in a lower floor and more interior space. The interior features two connected screens in an L-shaped layout. The car is agile in urban environments thanks to compact exterior dimensions and a good turning radius. (Text: AI-generated)",
-    "Renault Scenic": "The Renault Scenic E-Tech is an electric compact SUV that replaces the traditional Scenic MPV. It has a spacious interior with good rear seat room and a large cargo area. The 87 kWh battery provides one of the longest ranges in the compact class. The design is modern and robust, and the car has received strong safety ratings in Euro NCAP tests. (Text: AI-generated)",
+    "Renault Scenic": "The Renault Scenic E-Tech is an electric compact SUV that replaces the traditional Scenic MPV. It has a spacious interior with good rear seat room and a large cargo area. The 87 kWh battery provides a long stated range for a compact car. The design is modern and robust, and the car has received strong safety ratings in Euro NCAP tests. (Text: AI-generated)",
     "Renault ZOE": "The Renault ZOE was a pioneer in the European EV market and has been available since 2012. The R135 version has a 52 kWh battery that provides sufficient range for daily use. The car is compact and easy to maneuver in urban environments. The charging system supports AC charging at up to 22 kW and optional DC charging at 50 kW. The ZOE is an affordable used-car option that is well-suited as a city car. (Text: AI-generated)",
     "Smart #1": "The Smart #1 represents a complete fresh start for the Smart brand, now as a compact electric SUV developed in collaboration with Geely. The car is significantly larger than previous Smart models and offers a surprisingly spacious interior. The design is modern and playful with a high-quality feel inside. The BRABUS version offers all-wheel drive and sporty performance. (Text: AI-generated)",
     "Smart #3": "The Smart #3 is a compact electric SUV coupe positioned above the #1 in Smart's model lineup. It has a tighter, more sporty design with a sloping roofline. The BRABUS version has all-wheel drive with two motors and impressive acceleration for its class. The interior is well-equipped with a large central screen and modern materials. (Text: AI-generated)",
     "Nissan Leaf": "The Nissan Leaf was the world's first mass-produced EV and has been an important model for the development of the EV market globally. The e+ version with a 62 kWh battery provides significantly better range than the standard model. The car has a practical interior with a good cargo area and an e-Pedal function for one-pedal regenerative braking. The CHAdeMO charging system is less widespread than CCS, which can somewhat limit charging access. (Text: AI-generated)",
     "Jaguar I-PACE": "The Jaguar I-PACE was one of the first premium EVs on the market when it launched in 2018, winning multiple Car of the Year awards. The car has a distinctive sports car design with a low center of gravity and good weight distribution that provides engaging driving dynamics. All-wheel drive is standard with a motor on each axle. The interior is luxurious with quality materials, but the infotainment system is considered somewhat dated compared to newer competitors. (Text: AI-generated)",
-    "MG ZS": "The MG ZS EV is one of the most affordable electric SUVs on the market and has made EV ownership accessible to many. The Long Range version has a 72.6 kWh battery that provides acceptable range. The car offers a spacious interior with good rear seat room and a cargo area of 448 liters. The equipment level is generous for the price, and the car competes primarily on value. (Text: AI-generated)",
+    "MG ZS": "The MG ZS EV has been one of the more affordable electric SUVs. The Long Range version has a 72.6 kWh battery that provides acceptable range. The car offers a spacious interior with good rear seat room and a cargo area of 448 liters. The equipment level is generous for the price, and the car competes primarily on value. (Text: AI-generated)",
     "Opel Mokka-e": "The Opel Mokka-e is a compact electric SUV with a modern and distinctive design. It shares its platform with the Peugeot e-2008 and Citroën ë-C4 and features the new Vizor front design that characterizes newer Opel models. The interior has a digital cockpit called Pure Panel with two connected screens. The 50 kWh battery provides a range well-suited for daily city driving and commuting. (Text: AI-generated)",
     "Fiat 500e": "The Fiat 500e is a fully electric version of the iconic Fiat 500 city car. It has a charming retro design combined with modern EV technology. Compact exterior dimensions and a short turning radius make it ideal for city driving and parking. The car is available as a hatchback and convertible, and the La Prima version offers extra equipment and premium details. Range is limited but sufficient for urban use. (Text: AI-generated)",
     "Peugeot e-2008": "The Peugeot e-2008 is a compact electric SUV with Peugeot's distinctive i-Cockpit design, where a small steering wheel is combined with a high-mounted instrument panel. The car shares its platform with the Opel Mokka-e and offers a stylish interior with quality materials. Range is sufficient for daily use, and the car has a practical cargo area. The GT version features extra equipment and sportier details. (Text: AI-generated)",
@@ -1337,9 +1378,25 @@ function renderNewsLinks(car) {
 }
 
 // ========== Utility ==========
-function formatPrice(price) {
-    return price.toLocaleString("en") + " NOK";
+// ========== Prisklasser ==========
+// Vi viser prisklasser i stedet for eksakte priser, siden prisene endres ofte.
+// car.price brukes bare internt til å plassere bilen i riktig klasse.
+const PRICE_BANDS = [
+    { id: "b1", min: 0, max: 300000, label: "Under NOK 300k", name: "Affordable", desc: "Small, affordable EVs with starting prices under NOK 300k." },
+    { id: "b2", min: 300000, max: 400000, label: "NOK 300–400k", name: "Everyday", desc: "Most car for the money – where most Norwegians buy." },
+    { id: "b3", min: 400000, max: 500000, label: "NOK 400–500k", name: "Family", desc: "Roomy SUVs and estates with good range." },
+    { id: "b4", min: 500000, max: 700000, label: "NOK 500–700k", name: "Premium", desc: "Better materials, more kit and faster charging." },
+    { id: "b5", min: 700000, max: 1000000, label: "NOK 700k–1m", name: "Luxury", desc: "Large, well-equipped cars from premium brands." },
+    { id: "b6", min: 1000000, max: 1000000000, label: "Over NOK 1m", name: "Flagship", desc: "Sports cars and flagships." }
+];
+function getBandForPrice(price) {
+    return PRICE_BANDS.find(b => price >= b.min && price < b.max) || PRICE_BANDS[PRICE_BANDS.length - 1];
 }
+function getPriceBand(car) { return getBandForPrice(car.price); }
+function formatPrice(price) {
+    return getBandForPrice(price).label;
+}
+var selectedBand = "all";
 
 function getCarById(id) {
     return CARS.find(c => c.id === id);
@@ -1431,70 +1488,30 @@ function renderCarImagePlaceholder(car) {
 }
 
 // ========== Render Car Card ==========
-function renderCarCard(car) {
+function renderCarCard(car, showBand) {
     const div = document.createElement("div");
-    div.className = "car-card";
+    div.className = "car-card car-card--compact";
     div.onclick = () => { window.location.href = '/en/car.html?id=' + carSlug(car); };
-
-    const bc = BRAND_COLORS[car.make] || { primary: "#888", gradient: "linear-gradient(135deg, #888, #444)" };
-    const efficiency = (car.kwh / car.range * 100).toFixed(1);
-
+    const bc = BRAND_COLORS[car.make] || { primary: "#888" };
     var silhouette = CAR_SILHOUETTES[car.type] || CAR_SILHOUETTES['sedan'];
+    const band = getPriceBand(car);
     div.innerHTML = `
         <div class="car-card-header" style="background:linear-gradient(135deg, ${bc.primary}14, ${bc.primary}08)">
             <div class="car-card-header-icon" style="color:${bc.primary}">${silhouette}</div>
             <div class="car-card-header-brand" style="color:${bc.primary}">${car.make}</div>
         </div>
         <div class="car-card-body">
-            <div class="car-card-top">
-                <div class="car-card-info">
-                    <div class="car-card-title">${car.make} ${car.model}</div>
-                    <div class="car-card-subtitle">${car.year} · ${car.segment} · ${getCarCountryFlag(car)}</div>
-                </div>
-                <div class="car-card-price">${formatPrice(car.price)}</div>
-            </div>
-            <div class="car-card-specs">
-                <div class="spec-item">
-                    <span class="spec-value">${car.range}</span>
-                    <span class="spec-unit">km</span>
-                    <span class="spec-sub">vinter ~${getWinterRange(car)}</span>
-                </div>
-                <div class="spec-divider"></div>
-                <div class="spec-item">
-                    <span class="spec-value">${getChargeSpeed(car)}</span>
-                    <span class="spec-unit">kW DC</span>
-                    <span class="spec-sub">10-80% ~${getChargeTime10to80(car)} min</span>
-                </div>
-                <div class="spec-divider"></div>
-                <div class="spec-item">
-                    <span class="spec-value">${car.hp}</span>
-                    <span class="spec-unit">hp</span>
-                </div>
-                <div class="spec-divider"></div>
-                <div class="spec-item">
-                    <span class="spec-value">${car.zeroToHundred}</span>
-                    <span class="spec-unit">sec</span>
-                </div>
-                <div class="spec-divider"></div>
-                <div class="spec-item">
-                    <span class="spec-value">${car.kwh}</span>
-                    <span class="spec-unit">kWh</span>
-                </div>
-                ${car.trunk ? `
-                <div class="spec-divider"></div>
-                <div class="spec-item">
-                    <span class="spec-value">${car.trunk}</span>
-                    <span class="spec-unit">liter</span>
-                </div>` : ''}
+            <div class="car-card-title">${car.make} ${car.model}</div>
+            <div class="car-card-subtitle">${car.segment} · ${getCarCountryFlag(car)}</div>
+            <div class="car-facts">
+                <span><strong>${car.range}</strong> km</span>
+                <span>${car.drivetrain}</span>
+                <span>${car.seats} seats</span>
             </div>
             <div class="car-card-bottom">
-                <div class="car-card-tags">
-                    <span class="car-tag">${car.drivetrain}</span>
-                    <span class="car-tag">${car.seats} seter</span>
-                    <span class="car-tag">${efficiency} kWh/100km</span>
-                </div>
+                ${showBand === false ? "<span></span>" : `<span class="band-pill">${car.year < 2025 ? "Older model" : band.label}</span>`}
                 <div class="car-card-actions">
-                    ${renderStars(car.id, 16)}
+                    ${renderStars(car.id, 14)}
                     <button class="btn-compare ${isInCompare(car.id) ? 'active-compare' : ''}"
                             onclick="toggleCompare(${car.id}, event)"
                             aria-label="${isInCompare(car.id) ? 'Remove from comparison' : 'Add to comparison'}">
@@ -1508,6 +1525,71 @@ function renderCarCard(car) {
     return div;
 }
 
+// ========== Prisklasse-knapper ==========
+function renderBandChips() {
+    const wrap = document.getElementById("band-chips");
+    if (!wrap) return;
+    const opts = [{ id: "all", label: "All" }].concat(PRICE_BANDS.map(b => ({ id: b.id, label: b.label })));
+    wrap.innerHTML = opts.map(o => `<button type="button" class="band-chip${selectedBand === o.id ? " is-active" : ""}" data-band="${o.id}" aria-pressed="${selectedBand === o.id}">${o.label}</button>`).join("");
+    wrap.querySelectorAll(".band-chip").forEach(btn => btn.addEventListener("click", () => {
+        selectedBand = btn.dataset.band; browsePage = 1; renderBrowse();
+    }));
+}
+
+var expandedBands = {};
+var BAND_PREVIEW = 6;
+function renderGrouped(list, cars) {
+    removePagination();
+    const filtering = selectedBand !== "all";
+    let shown = 0;
+    const current = cars.filter(c => c.year >= 2025);
+    const older = cars.filter(c => c.year < 2025);
+    PRICE_BANDS.forEach(function(b) {
+        const inBand = current.filter(c => getPriceBand(c) === b);
+        if (!inBand.length) return;
+        inBand.sort((x, y) => `${x.make} ${x.model}`.localeCompare(`${y.make} ${y.model}`));
+        const open = filtering || expandedBands[b.id];
+        const sec = document.createElement("section");
+        sec.className = "band-section";
+        sec.innerHTML = `<div class="band-head"><div><h2>${b.name}</h2><p>${b.desc}</p></div><span class="band-range">${b.label} · ${inBand.length} ${inBand.length === 1 ? "car" : "cars"}</span></div>`;
+        const grid = document.createElement("div");
+        grid.className = "band-grid";
+        (open ? inBand : inBand.slice(0, BAND_PREVIEW)).forEach(car => grid.appendChild(renderCarCard(car, false)));
+        sec.appendChild(grid);
+        if (!filtering && inBand.length > BAND_PREVIEW) {
+            const more = document.createElement("button");
+            more.className = "band-more";
+            more.textContent = open ? "Show fewer" : "Show all {n}".replace("{n}", inBand.length);
+            more.onclick = () => { expandedBands[b.id] = !open; renderBrowse(); if (open) sec.scrollIntoView({ block: "start" }); };
+            sec.appendChild(more);
+        }
+        list.appendChild(sec);
+        shown++;
+        if (shown === 2) {
+            const ad = document.createElement("div");
+            ad.className = "ad-inline";
+            ad.innerHTML = '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4678480487049419" data-ad-slot="2454031921" data-ad-format="auto" data-full-width-responsive="true"></ins>';
+            list.appendChild(ad);
+            try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
+        }
+    });
+    if (older.length && selectedBand === "all") {
+        older.sort((x, y) => `${x.make} ${x.model}`.localeCompare(`${y.make} ${y.model}`));
+        const sec = document.createElement("section");
+        sec.className = "band-section";
+        sec.innerHTML = `<div class="band-head"><div><h2>Older models</h2><p>No longer sold new. Check the used market for prices.</p></div><span class="band-range">${older.length} ${older.length === 1 ? "car" : "cars"}</span></div>`;
+        const grid = document.createElement("div");
+        grid.className = "band-grid";
+        older.forEach(car => grid.appendChild(renderCarCard(car, false)));
+        sec.appendChild(grid);
+        list.appendChild(sec);
+    }
+    const note = document.createElement("p");
+    note.className = "band-note";
+    note.textContent = "Price bands are indicative. Always check the current price with the importer or dealer.";
+    list.appendChild(note);
+}
+
 // ========== Slider filters ==========
 const PRICE_MIN = 0, PRICE_MAX = 2000000, PRICE_STEP = 25000;
 
@@ -1518,36 +1600,12 @@ function formatPriceShort(v) {
 }
 
 function getPriceFilter() {
-    const minEl = document.getElementById("price-min");
-    const maxEl = document.getElementById("price-max");
-    if (!minEl || !maxEl) return { min: PRICE_MIN, max: PRICE_MAX, active: false };
-    let lo = parseInt(minEl.value, 10);
-    let hi = parseInt(maxEl.value, 10);
-    if (lo > hi) { const t = lo; lo = hi; hi = t; }
-    return { min: lo, max: hi, active: lo > PRICE_MIN || hi < PRICE_MAX };
+    if (selectedBand === "all") return { min: 0, max: Infinity, active: false };
+    const b = PRICE_BANDS.find(x => x.id === selectedBand);
+    return { min: b.min, max: b.max - 1, active: true };
 }
 
-function updateSliderUI() {
-    const pf = getPriceFilter();
-    const priceVal = document.getElementById("price-value");
-    const priceFill = document.getElementById("price-fill");
-    const priceWrap = priceVal && priceVal.closest(".slider-filter");
-    if (priceVal) {
-        if (!pf.active) priceVal.textContent = "Alle";
-        else priceVal.textContent = formatPriceShort(pf.min) + " – " + formatPriceShort(pf.max);
-    }
-    if (priceWrap) priceWrap.classList.toggle("is-active", pf.active);
-    const pLo = ((pf.min - PRICE_MIN) / (PRICE_MAX - PRICE_MIN)) * 100;
-    const pHi = ((pf.max - PRICE_MIN) / (PRICE_MAX - PRICE_MIN)) * 100;
-    if (priceFill) {
-        priceFill.style.left = pLo + "%";
-        priceFill.style.right = (100 - pHi) + "%";
-    }
-    const pMinBub = document.getElementById("price-min-bubble");
-    const pMaxBub = document.getElementById("price-max-bubble");
-    if (pMinBub) { pMinBub.style.left = pLo + "%"; pMinBub.textContent = formatPriceShort(pf.min); }
-    if (pMaxBub) { pMaxBub.style.left = pHi + "%"; pMaxBub.textContent = formatPriceShort(pf.max); }
-}
+function updateSliderUI() { renderBandChips(); }
 
 // ========== Browse Tab ==========
 var browsePage = 1;
@@ -1571,8 +1629,7 @@ function renderBrowse() {
     });
 
     switch (sort) {
-        case "price-low": cars.sort((a, b) => a.price - b.price); break;
-        case "price-high": cars.sort((a, b) => b.price - a.price); break;
+        case "band": break;
         case "range": cars.sort((a, b) => b.range - a.range); break;
         case "hp": cars.sort((a, b) => b.hp - a.hp); break;
         case "fast": cars.sort((a, b) => a.zeroToHundred - b.zeroToHundred); break;
@@ -1604,6 +1661,7 @@ function renderBrowse() {
         removePagination();
         return;
     }
+    if (sort === "band") { renderGrouped(list, cars); return; }
     var now = Date.now();
     var shouldRenderAds = !renderBrowse._lastAdRender || (now - renderBrowse._lastAdRender > 600);
     pageCars.forEach(function(car, i) {
@@ -1732,7 +1790,7 @@ function renderCompare() {
     // Grouped specs
     const specGroups = [
         { title: "Performance", specs: [
-            { label: "Price", key: "price", format: v => formatPrice(v), best: "low" },
+            { label: "Price band", key: "price", format: v => formatPrice(v), best: "low" },
             { label: "Power", key: "hp", format: v => v + " hp", best: "high" },
             { label: "0-100 km/h", key: "zeroToHundred", format: v => v + "s", best: "low" },
             { label: "Drivetrain", key: "drivetrain", format: v => v, best: null },

@@ -1,5 +1,5 @@
-/* Elbilvalg – nyhetsforside og nyhetsartikler */
-body.nx {
+/* Elbilvalg – felles designlag for alle sider (lastes etter styles.css) */
+:root {
     --display: 'Inter Tight', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     --card: var(--surface);
     --line: var(--border);
@@ -7,7 +7,7 @@ body.nx {
     --r: 22px;
     --volt: #c6f432;
 }
-:root[data-theme="dark"] body.nx { --shadow: 0 1px 0 rgba(255,255,255,.04) inset, 0 12px 32px -16px rgba(0,0,0,.6); }
+:root[data-theme="dark"] { --shadow: 0 1px 0 rgba(255,255,255,.04) inset, 0 12px 32px -16px rgba(0,0,0,.6); }
 
 .nx-page { max-width: 1240px; margin: 0 auto; padding: 0 16px 56px; }
 
@@ -128,3 +128,83 @@ body.nx {
 .article-hero figcaption { margin-top: 8px; font-size: 12px; color: var(--text3); line-height: 1.4; }
 .article-hero figcaption a { color: inherit; text-decoration: underline; }
 .nx-ad { margin: 36px 0 0; }
+
+/* ========== Felles design for undersider ========== */
+:root { --radius: 16px; }
+
+h1, h2, h3, .brand { font-family: var(--display); }
+h1 { letter-spacing: -0.035em; }
+h2, h3 { letter-spacing: -0.02em; }
+.brand { font-weight: 800; letter-spacing: -0.03em; }
+
+/* Faner: samme pille-stil overalt */
+.tab-bar { border-radius: 14px; }
+.tab { border-radius: 10px; font-weight: 500; }
+
+/* Kort: samme radius, kant og skygge som forsiden */
+.car-card, .article-card, .calc-column, .quiz-card, .table-wrapper, .modal-content {
+    border-radius: var(--r);
+}
+.car-card, .article-card { border: 1px solid var(--line); box-shadow: var(--shadow); transition: transform .3s, box-shadow .3s; }
+.car-card:hover, .article-card:hover { transform: translateY(-2px); box-shadow: 0 2px 4px rgba(16,24,40,.05), 0 20px 40px -18px rgba(16,24,40,.25); }
+
+/* Artikkelsider */
+.static-content { max-width: 760px; }
+.static-content h1 { font-size: clamp(32px, 6vw, 50px); line-height: 1.04; font-weight: 800; letter-spacing: -0.04em; text-wrap: balance; }
+.static-content h2 { font-size: clamp(22px, 3vw, 28px); font-weight: 700; margin-top: 36px; }
+.static-content h3 { font-weight: 700; }
+.article-category {
+    display: inline-block; padding: 5px 12px; border-radius: 999px; font-size: 12px; font-weight: 600;
+    letter-spacing: .02em; text-transform: none; color: var(--accent); background: rgba(37,99,235,.10);
+}
+.article-lead { border-left: 0 !important; padding-left: 0 !important; font-size: clamp(18px, 2.4vw, 21px); line-height: 1.5; color: var(--text); font-weight: 500; }
+.static-content table { border-radius: 14px; overflow: hidden; border: 1px solid var(--line); }
+.static-content table thead tr { background: var(--surface2); }
+
+/* Artikkelliste med bilder */
+.articles-grid:has(.nx-card) { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+
+/* «Flere saker» nederst i artikler */
+.related { margin: 48px 0 8px; padding-top: 28px; border-top: 1px solid var(--line); }
+.related h2 { margin: 0 0 16px !important; }
+.related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.related .nx-card h3 { font-size: 17px; }
+.related .nx-card p { display: none; }
+.related .nx-card-body { padding: 14px 16px 18px; gap: 8px; }
+@media (max-width: 700px) { .related-grid { grid-template-columns: 1fr; } }
+
+/* Primærknapper */
+.feedback-send, .cookie-accept, .compare-bar-btn { border-radius: 999px; }
+.static-content .nx-card, .static-content .nx-card:hover { color: inherit; text-decoration: none; }
+.static-content .nx-card h3 { margin: 0; }
+.static-content .nx-card p { margin: 0; font-size: 14px; }
+
+/* ========== Bilsiden: prisklasser ========== */
+.band-chips { display: flex; gap: 8px; overflow-x: auto; padding: 4px 0 2px; scrollbar-width: none; }
+.band-chips::-webkit-scrollbar { display: none; }
+.band-chip { flex: none; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--card);
+    color: var(--text); font: 500 13px/1 inherit; font-family: inherit; cursor: pointer; white-space: nowrap; }
+.band-chip.is-active { background: var(--text); color: var(--bg); border-color: var(--text); }
+.band-section { margin: 28px 16px 8px; }
+.band-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+.band-head h2 { font-size: clamp(24px, 4vw, 32px); font-weight: 800; letter-spacing: -0.035em; }
+.band-head p { font-size: 14px; color: var(--text2); margin-top: 2px; }
+.band-range { font-size: 13px; font-weight: 600; color: var(--text2); white-space: nowrap; }
+.band-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; }
+.band-more { display: block; margin: 14px auto 0; padding: 10px 18px; border-radius: 999px; border: 1px solid var(--line);
+    background: var(--card); color: var(--text); font: 600 14px/1 inherit; font-family: inherit; cursor: pointer; }
+.band-more:hover { border-color: var(--accent); color: var(--accent); }
+.band-note { margin: 24px 16px 8px; font-size: 12.5px; color: var(--text2); text-align: center; }
+.car-card--compact { margin: 0 !important; display: flex; flex-direction: column; overflow: hidden; cursor: pointer; }
+.car-card--compact .car-card-body { padding: 14px 16px 14px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.car-card--compact .car-card-title { font-family: var(--display); font-weight: 700; font-size: 17px; letter-spacing: -0.02em; }
+.car-card--compact .car-card-subtitle { font-size: 12.5px; color: var(--text2); }
+.car-facts { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13px; color: var(--text2); margin-top: 2px; }
+.car-facts strong { color: var(--text); font-weight: 700; }
+.car-card--compact .car-card-bottom { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: auto; padding-top: 10px; }
+.band-pill { font-size: 11.5px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: rgba(37,99,235,.10); color: var(--accent); white-space: nowrap; }
+@media (max-width: 480px) { .band-grid { grid-template-columns: 1fr; } }
+.car-card--compact .star-count { display: none; }
+.detail-price { text-align: right; }
+.detail-price-label { display: block; font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--text2); margin-bottom: 2px; }
+.dated-note { font-size: 13.5px; line-height: 1.5; color: var(--text2); background: var(--surface2); border-radius: 12px; padding: 10px 14px; margin: 12px 0 4px; }

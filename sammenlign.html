@@ -34,8 +34,9 @@
     <link rel="manifest" href="manifest.json">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Inter+Tight:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css?v=20260422">
+    <link rel="stylesheet" href="/news.css?v=20261121">
     <meta name="google-adsense-account" content="ca-pub-4678480487049419">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4678480487049419" crossorigin="anonymous"></script>
     <script>
@@ -55,9 +56,9 @@
             <h1>Elbilvalg.no – Sammenlign alle elbiler i Norge</h1>
             <p>Elbilvalg.no er en uavhengig norsk tjeneste for sammenligning av elektriske biler. Vi dekker over 100 modeller fra mer enn 20 produsenter, inkludert Tesla, BMW, Volkswagen, Audi, Mercedes, Volvo, Hyundai, Kia, Porsche, Skoda, Polestar, NIO, Toyota, Ford, Xpeng, BYD, Cupra, Renault, Smart og flere.</p>
             <h2>Sammenlign pris, rekkevidde og ytelse</h2>
-            <p>Finn den billigste elbilen, elbilen med lengst rekkevidde, beste familiebil eller raskeste sportsbil. Filtrer på merke, biltype og pris. Se detaljerte spesifikasjoner som hestekrefter, batteristørrelse, ladehastighet, bagasjerom og dimensjoner.</p>
+            <p>Finn rimelige elbiler, modeller med lang rekkevidde, familiebiler eller sportslige alternativer. Filtrer på merke, biltype og pris. Se detaljerte spesifikasjoner som hestekrefter, batteristørrelse, ladehastighet, bagasjerom og dimensjoner.</p>
             <h2>Slik velger du riktig elbil</h2>
-            <p>Det norske elbilmarkedet tilbyr i dag over 100 modeller. Rekkevidde, plass, pris og ladehastighet er de viktigste faktorene å vurdere. Under norske vinterforhold kan rekkevidden reduseres med 20–40 prosent. Biler med 800-volts arkitektur lader raskest.</p>
+            <p>Det norske elbilmarkedet tilbyr i dag over 100 modeller. Rekkevidde, plass, pris og ladehastighet er de viktigste faktorene å vurdere. Under norske vinterforhold kan rekkevidden reduseres med 20–40 prosent. Biler med 800-volts arkitektur har ofte høy ladeeffekt.</p>
             <p>For å bruke den interaktive sammenligningen kreves JavaScript. <a href="/om-oss.html">Om oss</a> · <a href="/personvern.html">Personvern</a> · <a href="/vilkaar.html">Vilkår</a></p>
         </div>
     </noscript>
@@ -82,7 +83,6 @@
             <a href="finn-din-elbil.html" class="tab tab-link">Quiz</a>
             <a href="kalkulator.html" class="tab tab-link">Kalk</a>
             <a href="tabell.html" class="tab tab-link">Tabell</a>
-            <a href="artikler.html" class="tab tab-link">Artikler</a>
             </nav>
             <div class="sticky-filters" id="sticky-filters">
                 <div class="search-bar">
@@ -94,6 +94,7 @@
                         <option value="Audi">Audi</option>
                         <option value="BMW">BMW</option>
                         <option value="BYD">BYD</option>
+                        <option value="Changan">Changan</option>
                         <option value="Cupra">Cupra</option>
                         <option value="Fiat">Fiat</option>
                         <option value="Ford">Ford</option>
@@ -126,8 +127,7 @@
                         <option value="van">Flerbruksbil</option>
                     </select>
                     <select id="filter-sort">
-                        <option value="price-high">Pris &#8595;</option>
-                        <option value="price-low">Pris &#8593;</option>
+                        <option value="band">Prisklasse</option>
                         <option value="name">A-&#197;</option>
                         <option value="range">Rekkevidde</option>
                         <option value="hp">Effekt</option>
@@ -135,57 +135,12 @@
                         <option value="rating">Vurdering</option>
                     </select>
                 </div>
-                <div class="slider-filters">
-                    <div class="slider-filter" data-filter="price">
-                        <div class="slider-head">
-                            <span class="slider-label">Pris</span>
-                            <span class="slider-value" id="price-value">0 – 1 500 000 kr</span>
-                        </div>
-                        <div class="dual-slider">
-                            <div class="slider-track"><div class="slider-fill" id="price-fill"></div></div>
-                            <div class="slider-bubble" id="price-min-bubble"></div>
-                            <div class="slider-bubble" id="price-max-bubble"></div>
-                            <input type="range" id="price-min" min="0" max="2000000" step="25000" value="0" aria-label="Minste pris">
-                            <input type="range" id="price-max" min="0" max="2000000" step="25000" value="2000000" aria-label="Største pris">
-                        </div>
-                    </div>
-                </div>
+                <div class="band-chips" id="band-chips" role="group" aria-label="Prisklasse"></div>
             </div>
         </div>
 
         <!-- Browse Tab -->
         <section id="browse-tab" class="tab-content active">
-            <!-- Articles section -->
-            <section class="articles-section">
-                <h2 class="articles-heading">Nyttig å vite om elbil</h2>
-                <div class="articles-grid">
-                    <a href="/bilsalg-mars-2026.html" class="article-card">
-                        <p class="article-card-category">Bilsalg</p>
-                        <h3 class="article-card-title">Bilsalget i mars 2026</h3>
-                        <p class="article-card-ingress">17 685 nye biler – 98,4 % var elbiler. Tesla tok én av tre biler med Model Y på topp. Her er tallene og trendene.</p>
-                        <span class="article-card-link">Les artikkelen →</span>
-                    </a>
-                    <a href="/tips-velge-elbil.html" class="article-card">
-                        <p class="article-card-category">Guide</p>
-                        <h3 class="article-card-title">10 ting å tenke på når du velger elbil</h3>
-                        <p class="article-card-ingress">Rekkevidde, lading, pris og størrelse — hva er viktigst for deg?</p>
-                        <span class="article-card-link">Les guiden &#8594;</span>
-                    </a>
-                    <a href="/forste-elbil.html" class="article-card">
-                        <p class="article-card-category">For deg som er ny</p>
-                        <h3 class="article-card-title">Det du lurer på som førstegangskjøper</h3>
-                        <p class="article-card-ingress">Lading, rekkeviddeangst, batteri og hva som overrasker nye elbileiere.</p>
-                        <span class="article-card-link">Les artikkelen &#8594;</span>
-                    </a>
-                    <a href="/nye-elbiler-2026.html" class="article-card">
-                        <p class="article-card-category">Nyheter 2026</p>
-                        <h3 class="article-card-title">Nye elbiler 2026 – modellene som kommer</h3>
-                        <p class="article-card-ingress">BMW Neue Klasse, Mercedes CLA, Porsche Cayenne Electric og flere.</p>
-                        <span class="article-card-link">Les artikkelen &#8594;</span>
-                    </a>
-                </div>
-                <a href="/artikler.html" class="articles-see-all">Se alle artikler &#8594;</a>
-            </section>
             <div id="car-list" class="car-list"></div>
         </section>
 
@@ -244,17 +199,17 @@
         <!-- SEO content -->
         <section class="seo-content" data-ai-generated="true">
             <h2>Valg av elbil i Norge</h2>
-            <p>Lurer du på hvilken elbil du skal velge? Elbilvalg.no gir deg en komplett oversikt over alle elbiler tilgjengelig i Norge. Sammenlign pris, rekkevidde, hestekrefter, bagasjerom og dimensjoner for å finne den beste elbilen for deg.</p>
-            <p>Enten du er ute etter den billigste elbilen, elbilen med lengst rekkevidde, en romslig familie-SUV eller en rask sportsbil – her kan du enkelt filtrere og sammenligne alle modeller fra Tesla, BMW, Volkswagen, Volvo, Hyundai, Kia, Mercedes, Audi, Skoda, Toyota og mange flere.</p>
+            <p>Lurer du på hvilken elbil du skal velge? Elbilvalg.no gir deg en oversikt over mer enn 100 elbiler som selges i Norge. Sammenlign pris, rekkevidde, hestekrefter, bagasjerom og dimensjoner for å finne den beste elbilen for deg.</p>
+            <p>Enten du er ute etter den billigste elbilen, elbilen med lengst rekkevidde, en romslig familie-SUV eller en rask sportsbil – her kan du filtrere og sammenligne modeller fra Tesla, BMW, Volkswagen, Volvo, Hyundai, Kia, Mercedes, Audi, Skoda, Toyota og mange flere.</p>
 
             <h2>Slik velger du riktig elbil</h2>
             <p>Det norske elbilmarkedet tilbyr i dag over 100 modeller fra mer enn 20 produsenter. Riktig valg avhenger av dine behov — rekkevidde, plass, pris og ladehastighet er de viktigste faktorene å vurdere.</p>
 
             <h3>Rekkevidde og ladehastighet</h3>
-            <p>Rekkevidden oppgis etter WLTP-standarden, men den faktiske rekkevidden varierer med temperatur, kjørestil og hastighet. Under norske vinterforhold kan rekkevidden reduseres med 20–40 prosent. Biler med varmepumpe klarer seg bedre i kulde. Hurtigladehastigheten måles i kilowatt (kW) — jo høyere effekt, desto kortere ladestopp. Biler med 800-volts arkitektur, som Hyundai IONIQ 5, Kia EV6 og Porsche Taycan, lader typisk raskest.</p>
+            <p>Rekkevidden oppgis etter WLTP-standarden, men den faktiske rekkevidden varierer med temperatur, kjørestil og hastighet. Under norske vinterforhold kan rekkevidden reduseres med 20–40 prosent. Biler med varmepumpe klarer seg bedre i kulde. Hurtigladehastigheten måles i kilowatt (kW) — jo høyere effekt, desto kortere ladestopp. Biler med 800-volts arkitektur, som Hyundai IONIQ 5, Kia EV6 og Porsche Taycan, har ofte høy ladeeffekt.</p>
 
             <h3>Pris og avgifter</h3>
-            <p>Elbiler i Norge er fritatt for merverdiavgift opp til en nybilpris på 500 000 kroner (per 2025). Over denne grensen betales 25 prosent mva. på det overskytende beløpet. Engangsavgiften baseres på bilens vekt, og tyngre elbiler betaler mer. Det er viktig å vurdere totalkostnaden — inkludert forsikring, vedlikehold og ladekostnader — ikke bare innkjøpsprisen.</p>
+            <p>Ved kjøp av ny elbil som registreres i 2026, betales det ikke merverdiavgift av de første 300 000 kronene. Av beløpet over dette betales 25 prosent mva. Regjeringen har foreslått å senke grensen til 150 000 kroner fra 2027, men dette avgjøres først når statsbudsjettet vedtas. Avgiftsreglene kan endres – sjekk alltid gjeldende regler hos Skatteetaten. Engangsavgiften baseres på bilens vekt, og tyngre elbiler betaler mer. Det er viktig å vurdere totalkostnaden — inkludert forsikring, vedlikehold og ladekostnader — ikke bare innkjøpsprisen.</p>
 
             <h3>Drivlinje og veggrep</h3>
             <p>Biler med firehjulsdrift (AWD) gir bedre veggrep på glatte veier, men bruker noe mer strøm enn biler med bakhjulsdrift. For de fleste norske kjøreforhold er firehjulsdrift en fordel, spesielt vinterstid. Bakhjulsdrevne biler kan imidlertid ha lengre rekkevidde og lavere pris.</p>
@@ -276,16 +231,16 @@
             <h3>Datakvalitet og ansvarsfraskrivelse</h3>
             <p>Informasjonen på denne nettsiden er kun ment som veiledende og uforpliktende. Alle priser, spesifikasjoner, rekkevidder og andre tekniske opplysninger er innhentet etter beste evne fra offentlig tilgjengelige kilder, inkludert produsentenes egne nettsider og offisielle spesifikasjonsark.</p>
             <p>Vi gir ingen garanti for at informasjonen er korrekt, fullstendig eller oppdatert. Faktiske verdier kan avvike avhengig av utstyrsnivå, kjøreforhold, temperatur og andre faktorer. Rekkevidde er oppgitt etter WLTP-standarden der tilgjengelig, og faktisk rekkevidde vil variere.</p>
-            <p>Priser vises som veiledende nybilpris inkludert merverdiavgift, og kan endres uten varsel. Kontakt alltid en autorisert forhandler for gjeldende priser og spesifikasjoner.</p>
+            <p>Vi viser prisklasser, ikke eksakte priser. Plasseringen i prisklasse er veiledende og bygger på importørenes oppgitte fra-priser inkludert merverdiavgift, som kan endres uten varsel. Kontakt alltid en autorisert forhandler for gjeldende pris og spesifikasjoner.</p>
 
             <h3>Brukeranmeldelser</h3>
             <p>Stjernevurderingene er basert på ekte brukeranmeldelser. Hver bruker kan gi én vurdering per bil. Vurderingene representerer brukernes personlige meninger og gjenspeiler ikke nødvendigvis redaksjonens syn.</p>
 
             <h3>Bilder</h3>
-            <p>For å unngå lisens- og opphavsrettslige utfordringer viser vi ikke faktiske bilbilder på denne nettsiden. I stedet brukes stiliserte plassholdere med merke- og modell-initialer i bilens merkefarge.</p>
+            <p>På bilsidene bruker vi stiliserte plassholdere i stedet for bilbilder. Bildene i artiklene er fritt lisensierte bilder fra Wikimedia Commons, og fotograf og lisens er oppgitt under hvert bilde.</p>
 
             <h3>Personvern og informasjonskapsler</h3>
-            <p>Vi bruker Google Analytics for å samle anonymisert besøksstatistikk og Google AdSense for å vise annonser. Disse tjenestene benytter informasjonskapsler. Ved å bruke denne nettsiden samtykker du til vår bruk av informasjonskapsler i henhold til valget du har gjort i samtykkebanneret.</p>
+            <p>Vi bruker Google Analytics for besøksstatistikk og Google AdSense for å vise annonser. Disse tjenestene bruker informasjonskapsler i tråd med valget du gjør i samtykkemeldingen. Les mer i personvernerklæringen.</p>
 
             <h3>Ansvarsbegrensning</h3>
             <p>Elbilvalg.no og dets utviklere tar ikke ansvar for eventuelle feil, mangler eller tap som direkte eller indirekte kan oppstå som følge av bruk av informasjonen på denne nettsiden. Bruk av informasjonen skjer på eget ansvar.</p>
@@ -314,7 +269,7 @@
     </div>
 
 
-    <script src="app.js?v=20260422"></script>
+    <script src="app.js?v=20261121"></script>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { getFirestore, doc, getDoc, setDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";

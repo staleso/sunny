@@ -24,8 +24,9 @@
     <meta property="og:locale" content="nb_NO">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Inter+Tight:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css?v=20260422">
+    <link rel="stylesheet" href="/news.css?v=20261121">
     <meta name="google-adsense-account" content="ca-pub-4678480487049419">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4678480487049419" crossorigin="anonymous"></script>
     <script>
@@ -382,7 +383,7 @@
                     <span id="ev-name">—</span>
                 </div>
                 <div class="calc-field">
-                    <label>Kjøpspris <span class="calc-unit">kr</span></label>
+                    <label>Kjøpspris <span class="calc-unit">kr – anslag, juster til tilbudet ditt</span></label>
                     <input type="number" id="ev-price" value="450000" step="10000">
                 </div>
                 <div class="calc-field">
@@ -413,7 +414,7 @@
                     Tilsvarende bensinbil
                 </div>
                 <div class="calc-field">
-                    <label>Kjøpspris <span class="calc-unit">kr</span></label>
+                    <label>Kjøpspris <span class="calc-unit">kr – anslag, juster til tilbudet ditt</span></label>
                     <input type="number" id="petrol-price-car" value="400000" step="10000">
                 </div>
                 <div class="calc-field">
@@ -481,7 +482,7 @@
         </nav>
     </footer>
 
-    <script src="app.js?v=20260422"></script>
+    <script src="app.js?v=20261121"></script>
     <script>
     (function() {
         var picker = document.getElementById('car-picker');
@@ -493,7 +494,7 @@
         sorted.forEach(function(car) {
             var opt = document.createElement('option');
             opt.value = car.id;
-            opt.textContent = car.make + ' ' + car.model + ' (' + car.year + ') — ' + car.price.toLocaleString('nb-NO') + ' kr';
+            opt.textContent = car.make + ' ' + car.model + ' (' + car.year + ') — ' + formatPrice(car.price);
             picker.appendChild(opt);
         });
 
@@ -501,7 +502,8 @@
             var car = CARS.find(function(c) { return c.id === parseInt(picker.value); });
             if (!car) return;
             document.getElementById('ev-name').textContent = car.make + ' ' + car.model;
-            document.getElementById('ev-price').value = car.price;
+            var band = getPriceBand(car); var top = band.max > 5000000 ? band.min * 1.3 : band.max;
+            document.getElementById('ev-price').value = Math.round((band.min + top) / 2 / 10000) * 10000; // anslag midt i prisklassen
             var consumption = (car.kwh / car.range * 100).toFixed(1);
             document.getElementById('ev-consumption').value = consumption;
             calculate();

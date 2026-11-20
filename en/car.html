@@ -23,8 +23,9 @@
     <link rel="alternate" hreflang="en" href="https://elbilvalg.no/en/car.html">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Inter+Tight:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../styles.css?v=20260422">
+    <link rel="stylesheet" href="/news.css?v=20261121">
     <meta name="google-adsense-account" content="ca-pub-4678480487049419">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4678480487049419" crossorigin="anonymous"></script>
     <script>
@@ -80,7 +81,7 @@
         </div>
     </noscript>
 
-    <script src="../app-en.js?v=20260507"></script>
+    <script src="../app-en.js?v=20261121"></script>
     <script>
     (function() {
         function addNoIndex() {
@@ -125,7 +126,7 @@
         document.title = car.make + ' ' + car.model + ' ' + car.year + ' – Price, range, specifications | Elbilvalg.no';
         var meta = document.createElement('meta');
         meta.name = 'description';
-        meta.content = car.make + ' ' + car.model + ' ' + car.year + ': Price ' + formatPrice(car.price) + ', range ' + car.range + ' km, ' + car.hp + ' hp, 0-100 in ' + car.zeroToHundred + 's. See all specifications.';
+        meta.content = car.make + ' ' + car.model + ' ' + car.year + ': Price band ' + formatPrice(car.price) + ', range ' + car.range + ' km, ' + car.hp + ' hp, 0-100 in ' + car.zeroToHundred + 's. See all specifications.';
         document.head.appendChild(meta);
 
         var og = document.createElement('meta');
@@ -152,13 +153,6 @@
                 "@type": "QuantitativeValue",
                 "value": car.zeroToHundred,
                 "unitText": "seconds 0-100 km/h"
-            },
-            "offers": {
-                "@type": "Offer",
-                "priceCurrency": "NOK",
-                "price": car.price,
-                "availability": "https://schema.org/InStock",
-                "url": "https://elbilvalg.no/en/car.html?id=" + slug
             },
             "additionalProperty": [
                 { "@type": "PropertyValue", "name": "Range (WLTP)", "value": car.range + " km" },
@@ -220,9 +214,9 @@
             + '      <h1 class="detail-title">' + car.make + ' ' + car.model + '</h1>'
             + '      <p class="detail-subtitle">' + car.year + ' · ' + car.segment + ' · ' + car.drivetrain + ' · ' + getCarCountryFlag(car) + '</p>'
             + '    </div>'
-            + '    <div class="detail-price">' + formatPrice(car.price) + '</div>'
+            + '    <div class="detail-price"><span class="detail-price-label">Price band</span>' + (car.year < 2025 ? 'Older model' : formatPrice(car.price)) + '</div>'
             + '  </div>'
-            + (src ? '  <a href="' + src.url + '" target="_blank" rel="noopener" class="detail-source">Source: ' + src.name + '</a>' : '')
+            + (src ? '  <a href="' + src.url + '" target="_blank" rel="noopener" class="detail-source">Check today\'s price at ' + src.name + ' →</a>' : '')
             + '</header>'
 
             + (function() {

@@ -34,8 +34,9 @@
     <link rel="manifest" href="../manifest.json">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Inter+Tight:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../styles.css?v=20260422">
+    <link rel="stylesheet" href="/news.css?v=20261121">
     <meta name="google-adsense-account" content="ca-pub-4678480487049419">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4678480487049419" crossorigin="anonymous"></script>
     <script>
@@ -55,9 +56,9 @@
             <h1>Elbilvalg.no – Compare all electric cars in Norway</h1>
             <p>Elbilvalg.no is an independent Norwegian service for comparing electric cars. We cover over 100 models from more than 20 manufacturers, including Tesla, BMW, Volkswagen, Audi, Mercedes, Volvo, Hyundai, Kia, Porsche, Skoda, Polestar, NIO, Toyota, Ford, Xpeng, BYD, Cupra, Renault, Smart and more.</p>
             <h2>Compare price, range and performance</h2>
-            <p>Find the cheapest electric car, the EV with the longest range, the best family car or the fastest sports car. Filter by brand, body type and price. See detailed specifications such as horsepower, battery size, charging speed, cargo space and dimensions.</p>
+            <p>Find affordable EVs, models with long range, family cars or sporty alternatives. Filter by brand, body type and price. See detailed specifications such as horsepower, battery size, charging speed, cargo space and dimensions.</p>
             <h2>How to choose the right electric car</h2>
-            <p>The Norwegian EV market currently offers over 100 models. Range, space, price and charging speed are the most important factors to consider. Under Norwegian winter conditions, range can be reduced by 20–40 percent. Cars with 800-volt architecture charge the fastest.</p>
+            <p>The Norwegian EV market currently offers over 100 models. Range, space, price and charging speed are the most important factors to consider. Under Norwegian winter conditions, range can be reduced by 20–40 percent. Cars with 800-volt architecture often have high charging power.</p>
             <p>JavaScript is required to use the interactive comparison tool. <a href="/om-oss.html">About us</a> · <a href="/personvern.html">Privacy</a> · <a href="/vilkaar.html">Terms</a></p>
         </div>
     </noscript>
@@ -93,6 +94,7 @@
                         <option value="Audi">Audi</option>
                         <option value="BMW">BMW</option>
                         <option value="BYD">BYD</option>
+                        <option value="Changan">Changan</option>
                         <option value="Cupra">Cupra</option>
                         <option value="Fiat">Fiat</option>
                         <option value="Ford">Ford</option>
@@ -125,8 +127,7 @@
                         <option value="van">MPV</option>
                     </select>
                     <select id="filter-sort">
-                        <option value="price-high">Price &#8595;</option>
-                        <option value="price-low">Price &#8593;</option>
+                        <option value="band">Price band</option>
                         <option value="name">A-Z</option>
                         <option value="range">Range</option>
                         <option value="hp">Power</option>
@@ -134,51 +135,12 @@
                         <option value="rating">Rating</option>
                     </select>
                 </div>
-                <div class="slider-filters">
-                    <div class="slider-filter" data-filter="price">
-                        <div class="slider-head">
-                            <span class="slider-label">Price</span>
-                            <span class="slider-value" id="price-value">0 – 1 500 000 kr</span>
-                        </div>
-                        <div class="dual-slider">
-                            <div class="slider-track"><div class="slider-fill" id="price-fill"></div></div>
-                            <div class="slider-bubble" id="price-min-bubble"></div>
-                            <div class="slider-bubble" id="price-max-bubble"></div>
-                            <input type="range" id="price-min" min="0" max="2000000" step="25000" value="0" aria-label="Minimum price">
-                            <input type="range" id="price-max" min="0" max="2000000" step="25000" value="2000000" aria-label="Maximum price">
-                        </div>
-                    </div>
-                </div>
+                <div class="band-chips" id="band-chips" role="group" aria-label="Price band"></div>
             </div>
         </div>
 
         <!-- Browse Tab -->
         <section id="browse-tab" class="tab-content active">
-            <!-- Articles section -->
-            <section class="articles-section">
-                <h2 class="articles-heading">Useful things to know about EVs</h2>
-                <div class="articles-grid">
-                    <a href="/en/choosing-an-ev.html" class="article-card">
-                        <p class="article-card-category">Guide</p>
-                        <h3 class="article-card-title">10 things to consider when choosing an EV</h3>
-                        <p class="article-card-ingress">Range, charging, price and size — what matters most to you?</p>
-                        <span class="article-card-link">Read the guide &#8594;</span>
-                    </a>
-                    <a href="/en/first-ev.html" class="article-card">
-                        <p class="article-card-category">For first-time buyers</p>
-                        <h3 class="article-card-title">What you need to know as a first-time EV buyer</h3>
-                        <p class="article-card-ingress">Charging, range anxiety, battery and what surprises new EV owners.</p>
-                        <span class="article-card-link">Read the article &#8594;</span>
-                    </a>
-                    <a href="/en/new-evs-2026.html" class="article-card">
-                        <p class="article-card-category">News 2026</p>
-                        <h3 class="article-card-title">New EVs in 2026 – the models coming soon</h3>
-                        <p class="article-card-ingress">BMW Neue Klasse, Mercedes CLA, Porsche Cayenne Electric and more.</p>
-                        <span class="article-card-link">Read the article &#8594;</span>
-                    </a>
-                </div>
-                <a href="/en/articles.html" class="articles-see-all">See all articles &#8594;</a>
-            </section>
             <div id="car-list" class="car-list"></div>
         </section>
 
@@ -237,20 +199,20 @@
         <!-- SEO content -->
         <section class="seo-content" data-ai-generated="true">
             <h2>Choosing an electric car in Norway</h2>
-            <p>Wondering which electric car to choose? Elbilvalg.no gives you a complete overview of all electric cars available in Norway. Compare price, range, horsepower, cargo space and dimensions to find the best electric car for you.</p>
-            <p>Whether you're looking for the cheapest electric car, the EV with the longest range, a spacious family SUV or a fast sports car – here you can easily filter and compare all models from Tesla, BMW, Volkswagen, Volvo, Hyundai, Kia, Mercedes, Audi, Skoda, Toyota and many more.</p>
+            <p>Wondering which electric car to choose? Elbilvalg.no gives you an overview of more than 100 electric cars sold in Norway. Compare price, range, horsepower, cargo space and dimensions to find the best electric car for you.</p>
+            <p>Whether you're looking for the cheapest electric car, the EV with the longest range, a spacious family SUV or a fast sports car – here you can filter and compare models from Tesla, BMW, Volkswagen, Volvo, Hyundai, Kia, Mercedes, Audi, Skoda, Toyota and many more.</p>
 
             <h2>How to choose the right electric car</h2>
             <p>The Norwegian EV market currently offers over 100 models from more than 20 manufacturers. The right choice depends on your needs — range, space, price and charging speed are the most important factors to consider.</p>
 
             <h3>Range and charging speed</h3>
-            <p>Range is stated according to the WLTP standard, but actual range varies with temperature, driving style and speed. Under Norwegian winter conditions, range can be reduced by 20–40 percent. Cars with a heat pump perform better in cold weather. Fast charging speed is measured in kilowatts (kW) — the higher the power, the shorter the charging stop. Cars with 800-volt architecture, such as Hyundai IONIQ 5, Kia EV6 and Porsche Taycan, typically charge the fastest.</p>
+            <p>Range is stated according to the WLTP standard, but actual range varies with temperature, driving style and speed. Under Norwegian winter conditions, range can be reduced by 20–40 percent. Cars with a heat pump perform better in cold weather. Fast charging speed is measured in kilowatts (kW) — the higher the power, the shorter the charging stop. Cars with 800-volt architecture, such as Hyundai IONIQ 5, Kia EV6 and Porsche Taycan, often have high charging power.</p>
 
             <h3>Price and taxes</h3>
-            <p>Electric cars in Norway are exempt from VAT up to a new car price of NOK 500,000 (as of 2025). Above this threshold, 25 percent VAT is charged on the excess amount. The one-time registration tax is based on the car's weight, and heavier EVs pay more. It is important to consider the total cost — including insurance, maintenance and charging costs — not just the purchase price.</p>
+            <p>For a new electric car registered in 2026, no VAT is charged on the first NOK 300,000 of the price. VAT of 25 percent applies to the amount above this. The government has proposed lowering the threshold to NOK 150,000 from 2027, but this is only decided when the national budget is adopted. Tax rules can change – always check the current rules with the Norwegian Tax Administration (Skatteetaten). The one-time registration tax is based on the car's weight, and heavier EVs pay more. It is important to consider the total cost — including insurance, maintenance and charging costs — not just the purchase price.</p>
 
             <h3>Drivetrain and traction</h3>
-            <p>Cars with all-wheel drive (AWD) provide better traction on slippery roads, but use somewhat more energy than rear-wheel drive cars. For most Norwegian driving conditions, all-wheel drive is an advantage, especially in winter. Rear-wheel drive cars may, however, have longer range and a lower price.</p>
+            <p>Cars with all-wheel drive (AWD) provide better traction on slippery roads, but use somewhat more energy than rear-wheel drive cars. In many Norwegian driving conditions, all-wheel drive can be an advantage, especially in winter. Rear-wheel drive cars may, however, have longer range and a lower price.</p>
 
             <h3>Space and body type</h3>
             <p>SUVs dominate the Norwegian EV market and offer good ground clearance and space. Sedans often provide better range due to lower aerodynamic drag. Station wagons are still rare among EVs, but models like the NIO ET5 Touring fill this niche. For families with more than five members, seven-seat cars like the Kia EV9, Mercedes EQB and Volvo EX90 may be worth considering.</p>
@@ -269,16 +231,16 @@
             <h3>Data quality and disclaimer</h3>
             <p>The information on this website is intended as a guide only and is non-binding. All prices, specifications, ranges and other technical data have been collected to the best of our ability from publicly available sources, including manufacturers' own websites and official specification sheets.</p>
             <p>We make no guarantees that the information is correct, complete or up to date. Actual values may vary depending on equipment level, driving conditions, temperature and other factors. Range is stated according to the WLTP standard where available, and actual range will vary.</p>
-            <p>Prices are shown as recommended new car prices including VAT, and may change without notice. Always contact an authorized dealer for current prices and specifications.</p>
+            <p>We show price bands, not exact prices. The band placement is indicative and based on importers' published starting prices including VAT, which may change without notice. Always contact an authorized dealer for the current price and specifications.</p>
 
             <h3>User reviews</h3>
             <p>Star ratings are based on genuine user reviews. Each user can submit one rating per car. The ratings represent users' personal opinions and do not necessarily reflect the editorial team's views.</p>
 
             <h3>Images</h3>
-            <p>To avoid licensing and copyright issues, we do not display actual car images on this website. Instead, stylized placeholders with brand and model initials in the brand color are used.</p>
+            <p>On the car pages we use stylized placeholders instead of car photos. Images in articles are freely licensed images from Wikimedia Commons, with photographer and licence credited under each image.</p>
 
             <h3>Privacy and cookies</h3>
-            <p>We use Google Analytics to collect anonymized visitor statistics and Google AdSense to display advertisements. These services use cookies. By using this website, you consent to our use of cookies in accordance with the choice you have made in the consent banner.</p>
+            <p>We use Google Analytics for visitor statistics and Google AdSense to display ads. These services use cookies according to the choice you make in the consent message. Read more in the privacy policy.</p>
 
             <h3>Limitation of liability</h3>
             <p>Elbilvalg.no and its developers assume no responsibility for any errors, omissions or losses that may directly or indirectly arise from the use of information on this website. Use of the information is at your own risk.</p>
@@ -307,7 +269,7 @@
     </div>
 
 
-    <script src="../app-en.js?v=20260507"></script>
+    <script src="../app-en.js?v=20261121"></script>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { getFirestore, doc, getDoc, setDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";

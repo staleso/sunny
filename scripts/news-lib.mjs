@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url';
 
 export const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const DATA_FILE = path.join(ROOT, 'data', 'articles.json');
-const CSS_VERSION = '20261120';
+const CSS_VERSION = '20261121';
 
 export const AD_SLOT = '2454031921';
 export function adUnit(cls = 'ad-container') {
@@ -61,17 +61,17 @@ const T = {
         htmlLang: 'no', locale: 'nb_NO', home: '/', compare: '/sammenlign.html', articles: '/artikler.html',
         title: 'Elbilvalg.no – Elbilnyheter fra Norge, oppdatert løpende',
         description: 'Siste nytt om elbil i Norge: bilsalg, priser, nye modeller og lading. Løpende oppdatert av AI-redaksjonen – pluss Norges enkleste elbil-sammenligning.',
-        tagline: 'Elbilnyheter fra Norge — oppdatert løpende',
-        heroTitle: 'Alt om elbil.<br>Hver dag.', live: 'Oppdateres løpende', credits: 'Bildekreditter', compareCta: 'Start sammenligningen',
+        tagline: 'Nyheter, guider og verktøy for deg som vurderer elbil i Norge',
+        heroTitle: 'Nytt om elbil.<br>Oppdatert løpende.', live: 'Oppdateres løpende', credits: 'Bildekreditter', compareCta: 'Start sammenligningen',
         latest: 'Siste', river: 'Siste nytt', more: 'Flere saker', all: 'Alle artikler',
         tools: 'Verktøy', toolsLead: 'Finn riktig elbil for deg',
         byline: 'AI-redaksjonen', read: 'Les saken',
         aiNote: 'Sakene på denne siden er skrevet av kunstig intelligens basert på offentlige kilder, med kildelenker i hver artikkel. Fant du en feil? <a href="mailto:kontakt@elbilvalg.no">Si fra</a>.',
         aiLabel: 'AI-skrevet',
         toolList: [
-            ['/sammenlign.html', 'Sammenlign elbiler', 'Pris, rekkevidde og ytelse for over 100 modeller side om side.'],
-            ['/finn-din-elbil.html', 'Finn din elbil', 'Svar på noen spørsmål og få forslag tilpasset deg.'],
-            ['/kalkulator.html', 'Kostnadskalkulator', 'Regn ut hva elbilen faktisk koster per måned.'],
+            ['/sammenlign.html', 'Sammenlign elbiler', 'Prisklasse, rekkevidde og ytelse for over 100 modeller.'],
+            ['/finn-din-elbil.html', 'Finn din elbil', 'Svar på noen spørsmål og få forslag som kan passe deg.'],
+            ['/kalkulator.html', 'Kostnadskalkulator', 'Få et anslag på hva elbilen kan koste over tid.'],
             ['/tabell.html', 'Stor tabell', 'Alle spesifikasjoner i én sorterbar tabell.'],
         ],
         nav: [['/', 'Nyheter', true], ['/sammenlign.html', 'Biler'], ['/sammenlign.html#compare', 'Vs'], ['/finn-din-elbil.html', 'Quiz'], ['/kalkulator.html', 'Kalk'], ['/tabell.html', 'Tabell']],
@@ -84,17 +84,17 @@ const T = {
         htmlLang: 'en', locale: 'en_GB', home: '/en/', compare: '/en/compare.html', articles: '/en/articles.html',
         title: 'Elbilvalg.no – Electric car news from Norway',
         description: 'The latest on electric cars in Norway: sales, prices, new models and charging – plus a simple EV comparison tool.',
-        tagline: 'Electric car news from Norway',
-        heroTitle: 'Everything EV.<br>Every day.', live: 'Updated continuously', credits: 'Image credits', compareCta: 'Start comparing',
+        tagline: 'News, guides and tools for anyone considering an EV in Norway',
+        heroTitle: 'EV news.<br>Updated continuously.', live: 'Updated continuously', credits: 'Image credits', compareCta: 'Start comparing',
         latest: 'Latest', river: 'Latest news', more: 'More stories', all: 'All articles',
         tools: 'Tools', toolsLead: 'Find the right EV for you',
         byline: 'AI newsroom', read: 'Read story',
         aiNote: 'Stories on this page are written by artificial intelligence based on public sources, with source links in every article. Spotted a mistake? <a href="mailto:kontakt@elbilvalg.no">Let us know</a>.',
         aiLabel: 'AI-written',
         toolList: [
-            ['/en/compare.html', 'Compare EVs', 'Price, range and performance for 100+ models side by side.'],
+            ['/en/compare.html', 'Compare EVs', 'Price band, range and performance for 100+ models.'],
             ['/en/quiz.html', 'Find your EV', 'Answer a few questions and get tailored suggestions.'],
-            ['/en/calculator.html', 'Cost calculator', 'Work out what an EV really costs per month.'],
+            ['/en/calculator.html', 'Cost calculator', 'Get an estimate of what an EV may cost over time.'],
             ['/en/table.html', 'Big table', 'Every spec in one sortable table.'],
         ],
         nav: [['/en/', 'News', true], ['/en/compare.html', 'Cars'], ['/en/compare.html#compare', 'Vs'], ['/en/quiz.html', 'Quiz'], ['/en/calculator.html', 'Calc'], ['/en/table.html', 'Table']],
@@ -312,13 +312,32 @@ function creditLine(img, lang) {
 
 // Erstatter innholdet i <div class="articles-grid"> på artikkelsidene.
 export function renderArticleGrid(lang, all) {
-    const t = T[lang];
-    return all.filter(a => a.lang === lang).map(a => `<a href="${esc(a.url)}" class="article-card">
-                        <p class="article-card-category">${esc(a.category)}</p>
-                        <h3 class="article-card-title">${esc(a.title)}</h3>
-                        <p class="article-card-ingress">${esc(a.ingress)}</p>
-                        <span class="article-card-link">${lang === 'nb' ? 'Les artikkelen' : 'Read the article'} &#8594;</span>
-                    </a>`).join('\n                    ');
+    return all.filter(a => a.lang === lang).map(a => card(a, lang)).join('\n                    ');
+}
+
+// «Flere saker» nederst i hver artikkel (3 nyeste andre saker på samme språk). Idempotent.
+export function updateRelated(article, all) {
+    const p = path.join(ROOT, article.url.replace(/^\//, ''));
+    if (!fs.existsSync(p)) return;
+    let s = fs.readFileSync(p, 'utf8');
+    const others = all.filter(a => a.lang === article.lang && a.url !== article.url).slice(0, 3);
+    if (!others.length) return;
+    const block = `<!-- RELATED:START -->
+            <section class="related">
+                <h2>${article.lang === 'nb' ? 'Flere saker' : 'More stories'}</h2>
+                <div class="related-grid">
+                    ${others.map(o => card(o, article.lang)).join('\n                    ')}
+                </div>
+            </section>
+            <!-- RELATED:END -->`;
+    if (s.includes('<!-- RELATED:START -->')) {
+        s = s.replace(/<!-- RELATED:START -->[\s\S]*?<!-- RELATED:END -->/, () => block);
+    } else {
+        const i = s.lastIndexOf('</article>');
+        if (i < 0) return;
+        s = s.slice(0, i) + block + '\n        ' + s.slice(i);
+    }
+    fs.writeFileSync(p, s);
 }
 
 export function updateArticleList(file, lang, all) {
@@ -374,7 +393,7 @@ export function buildAll() {
     updateArticleList('artikler.html', 'nb', all);
     updateArticleList('en/articles.html', 'en', all);
     updateSitemap(all);
-    for (const a of all) addInArticleAd(a.url);
+    for (const a of all) { addInArticleAd(a.url); updateRelated(a, all); }
     return all;
 }
 
