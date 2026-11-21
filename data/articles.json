@@ -2,6 +2,27 @@
   "articles": [
     {
       "lang": "nb",
+      "url": "/nordisk-elbilsalg-oktober-2026-fossilbiler-faller.html",
+      "title": "Fossilbilsalget falt 32 prosent i Norden i oktober – Norge på 98,8 prosent elbiler",
+      "ingress": "Nye elbiler økte med 45 prosent i Norden i oktober, mens registreringene av fossile personbiler falt med 32 prosent, ifølge OFV. I Norge var elbilandelen 98,8 prosent.",
+      "category": "Nyheter",
+      "date": "2026-11-21",
+      "time": "13:42",
+      "ai": true,
+      "image_query": "Toyota bZ4X",
+      "image": {
+        "src": "/img/news/toyota-bz4x.jpg",
+        "width": 1400,
+        "height": 816,
+        "author": "Alexander Migl",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Toyota_bZ4X_Automesse_Ludwigsburg_2022_1X7A5895.jpg",
+        "title": "Toyota bZ4X Automesse Ludwigsburg 2022 1X7A5895.jpg"
+      }
+    },
+    {
+      "lang": "nb",
       "url": "/bentley-torcal-utsolgt-for-2027.html",
       "title": "Bentleys første elbil er utsolgt for 2027 – også norske kjøpere har bestilt",
       "ingress": "Bentley Torcal er merkets første helelektriske bil. Ifølge flere norske medier er hele produksjonen for 2027 allerede fordelt, og et tosifret antall nordmenn skal ha bestilt bilen.",
