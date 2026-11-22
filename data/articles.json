@@ -2,6 +2,27 @@
   "articles": [
     {
       "lang": "nb",
+      "url": "/venstre-vil-gjore-omregistrering-av-brukte-elbiler-gratis.html",
+      "title": "Venstre vil gjøre det gratis å omregistrere brukte elbiler",
+      "ingress": "Venstre foreslår å fjerne omregistreringsavgiften for brukte elbiler og vil ha lavere elbilmoms enn regjeringen. Dette er forslag, ikke vedtatte regler.",
+      "category": "Politikk",
+      "date": "2026-11-22",
+      "time": "13:35",
+      "ai": true,
+      "image_query": "Nissan Leaf used",
+      "image": {
+        "src": "/img/news/nissan-leaf-used.jpg",
+        "width": 1400,
+        "height": 695,
+        "author": "EurovisionNim",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:2017_Nissan_LEAF_(ZE0_MY17)_hatchback_(2018-11-02)_01.jpg",
+        "title": "2017 Nissan LEAF (ZE0 MY17) hatchback (2018-11-02) 01.jpg"
+      }
+    },
+    {
+      "lang": "nb",
       "url": "/nordisk-elbilsalg-oktober-2026-fossilbiler-faller.html",
       "title": "Fossilbilsalget falt 32 prosent i Norden i oktober – Norge på 98,8 prosent elbiler",
       "ingress": "Nye elbiler økte med 45 prosent i Norden i oktober, mens registreringene av fossile personbiler falt med 32 prosent, ifølge OFV. I Norge var elbilandelen 98,8 prosent.",
