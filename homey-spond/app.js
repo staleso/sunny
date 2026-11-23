@@ -60,11 +60,11 @@ class SpondApp extends Homey.App {
     if (this.myMemberIds && Date.now() - this.myMemberIdsAt < 3600000) return;
     const profile = await client.getProfile();
     const groups = await client.getGroups();
-    const ids = new Set();
+    const ids = new Map(); // memberId -> first name
     for (const g of groups) {
       for (const m of g.members || []) {
         const mine = m.profile?.id === profile.id || (m.guardians || []).some((x) => x.profile?.id === profile.id);
-        if (mine) ids.add(m.id);
+        if (mine) ids.set(m.id, m.firstName || m.profile?.firstName || '');
       }
     }
     this.myMemberIds = ids;
@@ -75,6 +75,22 @@ class SpondApp extends Homey.App {
     if (!this.myMemberIds) return false;
     const pending = [...(e.responses?.unansweredIds || []), ...(e.responses?.unconfirmedIds || [])];
     return pending.some((id) => this.myMemberIds.has(id));
+  }
+
+  // Names of my members (me/my children) invited to the event who haven't declined.
+  whoFor(e) {
+    if (!this.myMemberIds) return '';
+    const r = e.responses || {};
+    const declined = new Set(r.declinedIds || []);
+    const invited = [
+      ...(r.acceptedIds || []), ...(r.unansweredIds || []),
+      ...(r.unconfirmedIds || []), ...(r.waitinglistIds || []),
+    ];
+    const names = [...new Set(invited)]
+      .filter((id) => !declined.has(id) && this.myMemberIds.has(id))
+      .map((id) => this.myMemberIds.get(id))
+      .filter(Boolean);
+    return joinNames([...new Set(names)]);
   }
 
   unansweredCount() {
@@ -95,6 +111,7 @@ class SpondApp extends Homey.App {
         group: e.recipients?.group?.name || '',
         location: e.location?.feature || e.location?.address || '',
         unanswered: !!e.unanswered,
+        who: e.who || '',
       }));
   }
 
@@ -116,7 +133,10 @@ class SpondApp extends Homey.App {
     try {
       this.events = await client.getEvents();
       await this.refreshMyMemberIds(client).catch(this.error);
-      for (const e of this.events) e.unanswered = this.isUnanswered(e);
+      for (const e of this.events) {
+        e.unanswered = this.isUnanswered(e);
+        e.who = this.whoFor(e);
+      }
     } catch (err) {
       this.homey.settings.set('status', `Feil: ${err.message}`);
       throw err;
@@ -154,6 +174,7 @@ function tokens(e) {
   const start = new Date(e.startTimestamp);
   return {
     title: e.heading || '',
+    who: e.who || '',
     group: e.recipients?.group?.name || '',
     start: start.toLocaleString('nb-NO', { timeZone: 'Europe/Oslo', dateStyle: 'short', timeStyle: 'short' }),
     location: e.location?.feature || e.location?.address || '',
@@ -174,9 +195,14 @@ function todaySummary(events) {
   const parts = events.map((e) => {
     const time = new Date(e.startTimestamp).toLocaleTimeString('nb-NO', { timeZone: 'Europe/Oslo', hour: '2-digit', minute: '2-digit' });
     const t = tokens(e);
-    return `Klokken ${time}: ${t.title}${t.group ? `, ${t.group}` : ''}${t.location ? `, på ${t.location}` : ''}.`;
+    return `Klokken ${time}: ${t.title}${e.who ? ` for ${e.who}` : ''}${t.group ? `, ${t.group}` : ''}${t.location ? `, på ${t.location}` : ''}.`;
   });
   return `I dag har du ${n} Spond-arrangement${n === 1 ? '' : 'er'}. ${parts.join(' ')}`;
+}
+
+function joinNames(names) {
+  if (names.length <= 1) return names[0] || '';
+  return `${names.slice(0, -1).join(', ')} og ${names[names.length - 1]}`;
 }
 
 function isToday(d) {

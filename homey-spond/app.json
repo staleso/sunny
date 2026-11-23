@@ -56,6 +56,15 @@
             "example": "Trening"
           },
           {
+            "name": "who",
+            "type": "string",
+            "title": {
+              "en": "Who",
+              "no": "Hvem"
+            },
+            "example": "Thomas"
+          },
+          {
             "name": "group",
             "type": "string",
             "title": {
@@ -108,6 +117,15 @@
               "no": "Tittel"
             },
             "example": "Kamp"
+          },
+          {
+            "name": "who",
+            "type": "string",
+            "title": {
+              "en": "Who",
+              "no": "Hvem"
+            },
+            "example": "Thomas"
           },
           {
             "name": "group",

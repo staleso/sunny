@@ -49,7 +49,7 @@
           list.innerHTML = events.map((e) => {
             const d = new Date(e.start);
             const time = d.toLocaleTimeString('nb-NO', { timeZone: tz, hour: '2-digit', minute: '2-digit' });
-            const meta = [e.group, e.location].filter(Boolean).map(esc).join(' · ');
+            const meta = [e.who, e.group, e.location].filter(Boolean).map(esc).join(' · ');
             return `<li><span class="when">${time}<span class="day">${esc(label(d))}</span></span>`
               + `<span><span class="title">${esc(e.title)}</span>${e.unanswered ? '<span class="badge">Ikke svart</span>' : ''}${meta ? `<br><span class="meta">${meta}</span>` : ''}</span></li>`;
           }).join('');
