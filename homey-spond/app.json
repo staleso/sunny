@@ -1,7 +1,7 @@
 {
   "id": "no.staleso.spond",
-  "version": "1.1.0",
-  "compatibility": ">=5.0.0",
+  "version": "1.2.0",
+  "compatibility": ">=12.1.0",
   "sdk": 3,
   "platforms": [
     "local"
@@ -233,5 +233,56 @@
     "large": "/assets/images/large.png",
     "xlarge": "/assets/images/xlarge.png"
   },
-  "brandColor": "#1F8A52"
+  "brandColor": "#1F8A52",
+  "widgets": {
+    "upcoming": {
+      "id": "upcoming",
+      "name": {
+        "en": "Spond events",
+        "no": "Spond-arrangementer"
+      },
+      "height": 240,
+      "transparent": false,
+      "settings": [
+        {
+          "id": "days",
+          "type": "dropdown",
+          "title": {
+            "en": "Show",
+            "no": "Vis"
+          },
+          "value": "7",
+          "values": [
+            {
+              "id": "1",
+              "title": {
+                "en": "Today",
+                "no": "I dag"
+              }
+            },
+            {
+              "id": "7",
+              "title": {
+                "en": "Next 7 days",
+                "no": "Neste 7 dager"
+              }
+            },
+            {
+              "id": "14",
+              "title": {
+                "en": "Next 14 days",
+                "no": "Neste 14 dager"
+              }
+            }
+          ]
+        }
+      ],
+      "api": {
+        "getEvents": {
+          "method": "GET",
+          "path": "/events"
+        }
+      }
+    }
+  }
 }

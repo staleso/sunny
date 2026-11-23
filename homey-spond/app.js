@@ -47,6 +47,22 @@ class SpondApp extends Homey.App {
     this.homey.setInterval(() => this.poll().catch(this.error), POLL_MS);
   }
 
+  // Used by the dashboard widget.
+  getUpcoming(days) {
+    const now = Date.now();
+    const limit = now + days * 86400000;
+    return this.events
+      .filter((e) => new Date(e.endTimestamp || e.startTimestamp).getTime() >= now)
+      .filter((e) => (days <= 1 ? isToday(new Date(e.startTimestamp)) : new Date(e.startTimestamp).getTime() <= limit))
+      .map((e) => ({
+        id: e.id,
+        start: e.startTimestamp,
+        title: e.heading || '',
+        group: e.recipients?.group?.name || '',
+        location: e.location?.feature || e.location?.address || '',
+      }));
+  }
+
   getClient() {
     const email = this.homey.settings.get('email');
     const password = this.homey.settings.get('password');
