@@ -38,6 +38,10 @@ class Spond {
     return res.json();
   }
 
+  getProfile() {
+    return this.request('profile');
+  }
+
   getGroups() {
     return this.request('groups/');
   }

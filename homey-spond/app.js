@@ -27,13 +27,21 @@ class SpondApp extends Homey.App {
         });
       });
 
+    this.homey.flow.getConditionCard('has_unanswered')
+      .registerRunListener(async () => this.unansweredCount() > 0);
+
     this.homey.flow.getActionCard('refresh').registerRunListener(() => this.poll());
 
     this.summaryTrigger = this.homey.flow.getTriggerCard('daily_summary');
     this.homey.flow.getActionCard('create_daily_summary').registerRunListener(async () => {
       await this.poll().catch(this.error); // fresh data; fall back to cached events on error
       const today = this.events.filter((e) => isToday(new Date(e.startTimestamp)));
-      await this.summaryTrigger.trigger({ text: summary(today), count: today.length });
+      const unanswered = this.unansweredCount();
+      await this.summaryTrigger.trigger({
+        text: summary(today, unanswered),
+        count: today.length,
+        unanswered,
+      });
     });
 
     this.homey.settings.on('set', (key) => {
@@ -45,6 +53,32 @@ class SpondApp extends Homey.App {
 
     this.poll().catch(this.error);
     this.homey.setInterval(() => this.poll().catch(this.error), POLL_MS);
+  }
+
+  // Member ids (per group) that belong to me or to someone I'm guardian for. Refreshed hourly.
+  async refreshMyMemberIds(client) {
+    if (this.myMemberIds && Date.now() - this.myMemberIdsAt < 3600000) return;
+    const profile = await client.getProfile();
+    const groups = await client.getGroups();
+    const ids = new Set();
+    for (const g of groups) {
+      for (const m of g.members || []) {
+        const mine = m.profile?.id === profile.id || (m.guardians || []).some((x) => x.profile?.id === profile.id);
+        if (mine) ids.add(m.id);
+      }
+    }
+    this.myMemberIds = ids;
+    this.myMemberIdsAt = Date.now();
+  }
+
+  isUnanswered(e) {
+    if (!this.myMemberIds) return false;
+    const pending = [...(e.responses?.unansweredIds || []), ...(e.responses?.unconfirmedIds || [])];
+    return pending.some((id) => this.myMemberIds.has(id));
+  }
+
+  unansweredCount() {
+    return this.events.filter((e) => e.unanswered).length;
   }
 
   // Used by the dashboard widget.
@@ -60,6 +94,7 @@ class SpondApp extends Homey.App {
         title: e.heading || '',
         group: e.recipients?.group?.name || '',
         location: e.location?.feature || e.location?.address || '',
+        unanswered: !!e.unanswered,
       }));
   }
 
@@ -80,6 +115,8 @@ class SpondApp extends Homey.App {
 
     try {
       this.events = await client.getEvents();
+      await this.refreshMyMemberIds(client).catch(this.error);
+      for (const e of this.events) e.unanswered = this.isUnanswered(e);
     } catch (err) {
       this.homey.settings.set('status', `Feil: ${err.message}`);
       throw err;
@@ -124,7 +161,14 @@ function tokens(e) {
   };
 }
 
-function summary(events) {
+function summary(events, unanswered = 0) {
+  const tail = unanswered
+    ? ` Du har ${unanswered} ubesvart${unanswered === 1 ? '' : 'e'} Spond-arrangement${unanswered === 1 ? '' : 'er'}.`
+    : '';
+  return todaySummary(events) + tail;
+}
+
+function todaySummary(events) {
   if (!events.length) return 'Ingen Spond-arrangementer i dag.';
   const n = events.length;
   const parts = events.map((e) => {

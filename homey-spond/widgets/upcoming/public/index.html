@@ -12,11 +12,12 @@
     .day { display: block; font-size: 11px; font-weight: 400; color: var(--homey-text-color-light, #888); }
     .title { font-weight: 500; }
     .meta { font-size: 12px; color: var(--homey-text-color-light, #888); }
+    .badge { display:inline-block; margin-left:6px; padding:1px 6px; border-radius:8px; font-size:11px; background:#E5484D; color:#fff; vertical-align:middle; }
     .empty { color: var(--homey-text-color-light, #888); padding: 6px 0; }
   </style>
 </head>
 <body>
-  <h2>Spond</h2>
+  <h2 id="head">Spond</h2>
   <ul id="list"><li class="empty">Laster…</li></ul>
 
   <script type="text/javascript">
@@ -40,6 +41,8 @@
       const days = (Homey.getSettings() || {}).days || '7';
       try {
         const events = await Homey.api('GET', `/events?days=${days}`);
+        const n = events.filter((e) => e.unanswered).length;
+        document.getElementById('head').textContent = n ? `Spond · ${n} ubesvart${n === 1 ? '' : 'e'}` : 'Spond';
         if (!events.length) {
           list.innerHTML = '<li class="empty">Ingen arrangementer</li>';
         } else {
@@ -48,7 +51,7 @@
             const time = d.toLocaleTimeString('nb-NO', { timeZone: tz, hour: '2-digit', minute: '2-digit' });
             const meta = [e.group, e.location].filter(Boolean).map(esc).join(' · ');
             return `<li><span class="when">${time}<span class="day">${esc(label(d))}</span></span>`
-              + `<span><span class="title">${esc(e.title)}</span>${meta ? `<br><span class="meta">${meta}</span>` : ''}</span></li>`;
+              + `<span><span class="title">${esc(e.title)}</span>${e.unanswered ? '<span class="badge">Ikke svart</span>' : ''}${meta ? `<br><span class="meta">${meta}</span>` : ''}</span></li>`;
           }).join('');
         }
       } catch (err) {

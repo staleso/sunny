@@ -1,6 +1,6 @@
 {
   "id": "no.staleso.spond",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "compatibility": ">=12.1.0",
   "sdk": 3,
   "platforms": [
@@ -175,6 +175,15 @@
               "no": "Antall arrangementer"
             },
             "example": 1
+          },
+          {
+            "name": "unanswered",
+            "type": "number",
+            "title": {
+              "en": "Unanswered events",
+              "no": "Ubesvarte arrangementer"
+            },
+            "example": 2
           }
         ]
       }
@@ -209,6 +218,13 @@
             }
           }
         ]
+      },
+      {
+        "id": "has_unanswered",
+        "title": {
+          "en": "There are !{{|no}} unanswered events",
+          "no": "Det finnes !{{|ingen}} ubesvarte arrangementer"
+        }
       }
     ],
     "actions": [
