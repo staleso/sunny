@@ -1,6 +1,6 @@
 {
   "id": "no.staleso.spond",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "platforms": [
@@ -146,6 +146,37 @@
             "example": "Husk drikkeflaske"
           }
         ]
+      },
+      {
+        "id": "daily_summary",
+        "title": {
+          "en": "Today's summary is ready",
+          "no": "Dagens oppsummering er klar"
+        },
+        "hint": {
+          "en": "Fires when the action 'Create today's summary' runs.",
+          "no": "Kjøres når handlingen «Lag dagens oppsummering» kjøres."
+        },
+        "tokens": [
+          {
+            "name": "text",
+            "type": "string",
+            "title": {
+              "en": "Summary",
+              "no": "Oppsummering"
+            },
+            "example": "I dag har du 1 Spond-arrangement. Klokken 18:00: Trening, G12 Fotball, på Kunstgressbanen."
+          },
+          {
+            "name": "count",
+            "type": "number",
+            "title": {
+              "en": "Number of events",
+              "no": "Antall arrangementer"
+            },
+            "example": 1
+          }
+        ]
       }
     ],
     "conditions": [
@@ -186,6 +217,13 @@
         "title": {
           "en": "Refresh Spond events",
           "no": "Oppdater Spond-arrangementer"
+        }
+      },
+      {
+        "id": "create_daily_summary",
+        "title": {
+          "en": "Create today's summary",
+          "no": "Lag dagens oppsummering"
         }
       }
     ]

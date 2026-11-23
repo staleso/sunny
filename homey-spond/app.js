@@ -29,6 +29,13 @@ class SpondApp extends Homey.App {
 
     this.homey.flow.getActionCard('refresh').registerRunListener(() => this.poll());
 
+    this.summaryTrigger = this.homey.flow.getTriggerCard('daily_summary');
+    this.homey.flow.getActionCard('create_daily_summary').registerRunListener(async () => {
+      await this.poll().catch(this.error); // fresh data; fall back to cached events on error
+      const today = this.events.filter((e) => isToday(new Date(e.startTimestamp)));
+      await this.summaryTrigger.trigger({ text: summary(today), count: today.length });
+    });
+
     this.homey.settings.on('set', (key) => {
       if (key === 'email' || key === 'password') {
         this.client = null;
@@ -99,6 +106,17 @@ function tokens(e) {
     location: e.location?.feature || e.location?.address || '',
     description: e.description || '',
   };
+}
+
+function summary(events) {
+  if (!events.length) return 'Ingen Spond-arrangementer i dag.';
+  const n = events.length;
+  const parts = events.map((e) => {
+    const time = new Date(e.startTimestamp).toLocaleTimeString('nb-NO', { timeZone: 'Europe/Oslo', hour: '2-digit', minute: '2-digit' });
+    const t = tokens(e);
+    return `Klokken ${time}: ${t.title}${t.group ? `, ${t.group}` : ''}${t.location ? `, på ${t.location}` : ''}.`;
+  });
+  return `I dag har du ${n} Spond-arrangement${n === 1 ? '' : 'er'}. ${parts.join(' ')}`;
 }
 
 function isToday(d) {
