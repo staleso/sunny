@@ -3,66 +3,198 @@
   "version": "1.0.0",
   "compatibility": ">=5.0.0",
   "sdk": 3,
-  "platforms": ["local", "cloud"],
-  "name": { "en": "Spond", "no": "Spond" },
-  "description": { "en": "Use your Spond events in Homey Flows", "no": "Bruk Spond-arrangementer i Homey Flows" },
-  "category": ["tools"],
+  "platforms": [
+    "local",
+    "cloud"
+  ],
+  "name": {
+    "en": "Spond",
+    "no": "Spond"
+  },
+  "description": {
+    "en": "Use your Spond events in Homey Flows",
+    "no": "Bruk Spond-arrangementer i Homey Flows"
+  },
+  "category": [
+    "tools"
+  ],
   "permissions": [],
-  "author": { "name": "staleso" },
+  "author": {
+    "name": "staleso"
+  },
   "flow": {
     "triggers": [
       {
         "id": "event_upcoming",
-        "title": { "en": "An event starts soon", "no": "Et arrangement starter snart" },
+        "title": {
+          "en": "An event starts soon",
+          "no": "Et arrangement starter snart"
+        },
         "titleFormatted": {
           "en": "An event starts within [[minutes]] minutes",
           "no": "Et arrangement starter innen [[minutes]] minutter"
         },
         "args": [
-          { "name": "minutes", "type": "number", "min": 5, "max": 10080, "step": 5, "placeholder": { "en": "60" } }
+          {
+            "name": "minutes",
+            "type": "number",
+            "min": 5,
+            "max": 10080,
+            "step": 5,
+            "placeholder": {
+              "en": "60"
+            }
+          }
         ],
         "tokens": [
-          { "name": "title", "type": "string", "title": { "en": "Title", "no": "Tittel" }, "example": "Trening" },
-          { "name": "group", "type": "string", "title": { "en": "Group", "no": "Gruppe" }, "example": "G12 Fotball" },
-          { "name": "start", "type": "string", "title": { "en": "Start", "no": "Start" }, "example": "24.11.2026, 18:00" },
-          { "name": "location", "type": "string", "title": { "en": "Location", "no": "Sted" }, "example": "Kunstgressbanen" },
-          { "name": "description", "type": "string", "title": { "en": "Description", "no": "Beskrivelse" }, "example": "Husk drikkeflaske" }
+          {
+            "name": "title",
+            "type": "string",
+            "title": {
+              "en": "Title",
+              "no": "Tittel"
+            },
+            "example": "Trening"
+          },
+          {
+            "name": "group",
+            "type": "string",
+            "title": {
+              "en": "Group",
+              "no": "Gruppe"
+            },
+            "example": "G12 Fotball"
+          },
+          {
+            "name": "start",
+            "type": "string",
+            "title": {
+              "en": "Start",
+              "no": "Start"
+            },
+            "example": "24.11.2026, 18:00"
+          },
+          {
+            "name": "location",
+            "type": "string",
+            "title": {
+              "en": "Location",
+              "no": "Sted"
+            },
+            "example": "Kunstgressbanen"
+          },
+          {
+            "name": "description",
+            "type": "string",
+            "title": {
+              "en": "Description",
+              "no": "Beskrivelse"
+            },
+            "example": "Husk drikkeflaske"
+          }
         ]
       },
       {
         "id": "event_new",
-        "title": { "en": "A new event was added", "no": "Et nytt arrangement er lagt til" },
+        "title": {
+          "en": "A new event was added",
+          "no": "Et nytt arrangement er lagt til"
+        },
         "tokens": [
-          { "name": "title", "type": "string", "title": { "en": "Title", "no": "Tittel" }, "example": "Kamp" },
-          { "name": "group", "type": "string", "title": { "en": "Group", "no": "Gruppe" }, "example": "G12 Fotball" },
-          { "name": "start", "type": "string", "title": { "en": "Start", "no": "Start" }, "example": "30.11.2026, 12:00" },
-          { "name": "location", "type": "string", "title": { "en": "Location", "no": "Sted" }, "example": "Bortebane" },
-          { "name": "description", "type": "string", "title": { "en": "Description", "no": "Beskrivelse" }, "example": "Husk drikkeflaske" }
+          {
+            "name": "title",
+            "type": "string",
+            "title": {
+              "en": "Title",
+              "no": "Tittel"
+            },
+            "example": "Kamp"
+          },
+          {
+            "name": "group",
+            "type": "string",
+            "title": {
+              "en": "Group",
+              "no": "Gruppe"
+            },
+            "example": "G12 Fotball"
+          },
+          {
+            "name": "start",
+            "type": "string",
+            "title": {
+              "en": "Start",
+              "no": "Start"
+            },
+            "example": "30.11.2026, 12:00"
+          },
+          {
+            "name": "location",
+            "type": "string",
+            "title": {
+              "en": "Location",
+              "no": "Sted"
+            },
+            "example": "Bortebane"
+          },
+          {
+            "name": "description",
+            "type": "string",
+            "title": {
+              "en": "Description",
+              "no": "Beskrivelse"
+            },
+            "example": "Husk drikkeflaske"
+          }
         ]
       }
     ],
     "conditions": [
       {
         "id": "has_event_today",
-        "title": { "en": "There is !{{an|no}} event today", "no": "Det er !{{et|ikke noe}} arrangement i dag" }
+        "title": {
+          "en": "There is !{{an|no}} event today",
+          "no": "Det er !{{et|ikke noe}} arrangement i dag"
+        }
       },
       {
         "id": "has_event_within",
-        "title": { "en": "There is !{{an|no}} event soon", "no": "Det er !{{et|ikke noe}} arrangement snart" },
+        "title": {
+          "en": "There is !{{an|no}} event soon",
+          "no": "Det er !{{et|ikke noe}} arrangement snart"
+        },
         "titleFormatted": {
           "en": "There is !{{an|no}} event within [[hours]] hours",
           "no": "Det er !{{et|ikke noe}} arrangement innen [[hours]] timer"
         },
         "args": [
-          { "name": "hours", "type": "number", "min": 1, "max": 336, "step": 1, "placeholder": { "en": "3" } }
+          {
+            "name": "hours",
+            "type": "number",
+            "min": 1,
+            "max": 336,
+            "step": 1,
+            "placeholder": {
+              "en": "3"
+            }
+          }
         ]
       }
     ],
     "actions": [
       {
         "id": "refresh",
-        "title": { "en": "Refresh Spond events", "no": "Oppdater Spond-arrangementer" }
+        "title": {
+          "en": "Refresh Spond events",
+          "no": "Oppdater Spond-arrangementer"
+        }
       }
     ]
-  }
+  },
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "brandColor": "#1F8A52"
 }
