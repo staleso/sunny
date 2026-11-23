@@ -11,6 +11,19 @@ class SpondApp extends Homey.App {
     this.knownIds = null; // null until first successful poll (no "new event" spam at startup)
     this.fired = new Set(); // `${eventId}:${minutes}` already triggered
 
+    // Global tags (usable in any flow, like device tags)
+    this.tags = {};
+    const tagDefs = {
+      summary: ['string', 'Spond: dagens oppsummering'],
+      reminder: ['string', 'Spond: siste påminnelse'],
+      newest: ['string', 'Spond: nyeste arrangement'],
+      unanswered: ['number', 'Spond: ubesvarte arrangementer'],
+    };
+    for (const [id, [type, title]] of Object.entries(tagDefs)) {
+      this.tags[id] = await this.homey.flow.createToken(id, { type, title, value: type === 'number' ? 0 : '' })
+        .catch((err) => { this.error(err); return null; });
+    }
+
     this.upcomingTrigger = this.homey.flow.getTriggerCard('event_upcoming');
     this.upcomingTrigger.registerRunListener(async (args, state) => args.minutes === state.minutes);
     this.newEventTrigger = this.homey.flow.getTriggerCard('event_new');
@@ -37,6 +50,7 @@ class SpondApp extends Homey.App {
       await this.poll().catch(this.error); // fresh data; fall back to cached events on error
       const today = this.events.filter((e) => isToday(new Date(e.startTimestamp)));
       const unanswered = this.unansweredCount();
+      await this.setTag('summary', summary(today, unanswered));
       await this.summaryTrigger.trigger({
         text: summary(today, unanswered),
         count: today.length,
@@ -97,6 +111,10 @@ class SpondApp extends Homey.App {
     return this.events.filter((e) => e.unanswered).length;
   }
 
+  async setTag(id, value) {
+    if (this.tags[id]) await this.tags[id].setValue(value).catch(this.error);
+  }
+
   // Used by the dashboard widget.
   getUpcoming(days) {
     const now = Date.now();
@@ -142,12 +160,16 @@ class SpondApp extends Homey.App {
       throw err;
     }
     this.homey.settings.set('status', `OK – ${this.events.length} kommende arrangement (${new Date().toLocaleString('nb-NO')})`);
+    await this.setTag('unanswered', this.unansweredCount());
 
     // New events
     const ids = new Set(this.events.map((e) => e.id));
     if (this.knownIds) {
       for (const e of this.events) {
-        if (!this.knownIds.has(e.id)) await this.newEventTrigger.trigger(tokens(e)).catch(this.error);
+        if (!this.knownIds.has(e.id)) {
+          await this.setTag('newest', `Nytt Spond-arrangement: ${describe(e)}`);
+          await this.newEventTrigger.trigger(tokens(e)).catch(this.error);
+        }
       }
     }
     this.knownIds = ids;
@@ -162,6 +184,7 @@ class SpondApp extends Homey.App {
         const key = `${e.id}:${minutes}`;
         if (until >= 0 && until <= minutes && !this.fired.has(key)) {
           this.fired.add(key);
+          await this.setTag('reminder', `Påminnelse fra Spond. ${describe(e)}`);
           await this.upcomingTrigger.trigger(tokens(e), { minutes }).catch(this.error);
         }
       }
@@ -198,6 +221,15 @@ function todaySummary(events) {
     return `Klokken ${time}: ${t.title}${e.who ? ` for ${e.who}` : ''}${t.group ? `, ${t.group}` : ''}${t.location ? `, på ${t.location}` : ''}.`;
   });
   return `I dag har du ${n} Spond-arrangement${n === 1 ? '' : 'er'}. ${parts.join(' ')}`;
+}
+
+// "Trening for Thomas i G12 Fotball, mandag 24. november klokken 18:00, på Kunstgressbanen."
+function describe(e) {
+  const d = new Date(e.startTimestamp);
+  const time = d.toLocaleTimeString('nb-NO', { timeZone: 'Europe/Oslo', hour: '2-digit', minute: '2-digit' });
+  const day = isToday(d) ? 'i dag' : d.toLocaleDateString('nb-NO', { timeZone: 'Europe/Oslo', weekday: 'long', day: 'numeric', month: 'long' });
+  const t = tokens(e);
+  return `${t.title}${e.who ? ` for ${e.who}` : ''}${t.group ? ` i ${t.group}` : ''}, ${day} klokken ${time}${t.location ? `, på ${t.location}` : ''}.`;
 }
 
 function joinNames(names) {
