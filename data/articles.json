@@ -2,6 +2,27 @@
   "articles": [
     {
       "lang": "nb",
+      "url": "/varebiler-oktober-elandel-oker-ofv.html",
+      "title": "Færre nye varebiler i oktober – men elandelen øker, melder OFV",
+      "ingress": "Ifølge OFVs pressemelding 3. november ble det registrert færre nye varebiler i oktober, mens andelen elektriske varebiler økte. Det er relevant for deg som vurderer elvarebil.",
+      "category": "Nyheter",
+      "date": "2026-11-23",
+      "time": "16:27",
+      "ai": true,
+      "image_query": "Ford E-Transit Custom",
+      "image": {
+        "src": "/img/news/ford-e-transit-custom.jpg",
+        "width": 1400,
+        "height": 777,
+        "author": "Alexander-93",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Ford_Transit_Custom_(2023)_1X7A1608.jpg",
+        "title": "Ford Transit Custom (2023) 1X7A1608.jpg"
+      }
+    },
+    {
+      "lang": "nb",
       "url": "/venstre-vil-gjore-omregistrering-av-brukte-elbiler-gratis.html",
       "title": "Venstre vil gjøre det gratis å omregistrere brukte elbiler",
       "ingress": "Venstre foreslår å fjerne omregistreringsavgiften for brukte elbiler og vil ha lavere elbilmoms enn regjeringen. Dette er forslag, ikke vedtatte regler.",
