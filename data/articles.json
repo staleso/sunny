@@ -2,6 +2,27 @@
   "articles": [
     {
       "lang": "nb",
+      "url": "/statsbudsjettet-2027-elbilmoms-ingen-utfordrer-forslaget.html",
+      "title": "Budsjettforhandlingene: Ingen støttepartier utfordrer lavere momsgrense for elbil",
+      "ingress": "Regjeringen har foreslått å senke grensen for mva. på nye elbiler til 150 000 kroner fra 1. januar 2027. Ifølge Elbil24 er det norgespris, ikke elbilmomsen, støttepartiene strides om.",
+      "category": "Politikk",
+      "date": "2026-11-24",
+      "time": "01:02",
+      "ai": true,
+      "image_query": "Stortinget Oslo",
+      "image": {
+        "src": "/img/news/stortinget-oslo.jpg",
+        "width": 1400,
+        "height": 937,
+        "author": "Maxxii",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Stortinget_stasjon_1.JPG",
+        "title": "Stortinget stasjon 1.JPG"
+      }
+    },
+    {
+      "lang": "nb",
       "url": "/varebiler-oktober-elandel-oker-ofv.html",
       "title": "Færre nye varebiler i oktober – men elandelen øker, melder OFV",
       "ingress": "Ifølge OFVs pressemelding 3. november ble det registrert færre nye varebiler i oktober, mens andelen elektriske varebiler økte. Det er relevant for deg som vurderer elvarebil.",
