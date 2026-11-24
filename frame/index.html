@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Hytte-dashboard</title>
+<!--
+  Fullskjerm-dashboard for Samsung Frame (TV-nettleser), 16:9.
+  Henter enheter fra Homey (API-nøkkel), vær fra MET/yr og kalender fra ICS.
+  Ingen hemmeligheter ligger i fila: oppsett lagres lokalt i TV-nettleseren.
+
+  Oppsett via lenke (lagres og fjernes fra adresselinja):
+    /frame/?homey=<homeyId>&key=<API-nøkkel>&lat=61.23&lon=10.45&place=Hafjell&ics=<ICS-url>
+  Valgfritt: base=<egen Homey-URL> (f.eks. lokal https-adresse), proxy=<CORS-proxy-prefiks for ICS>
+  ?setup viser oppsettskjemaet igjen.
+-->
+<style>
+:root{
+  --bg:#12110f; --panel:#1b1a17; --line:#2c2a25;
+  --text:#ece6da; --muted:#9a9384; --dim:#6b665b;
+  --accent:#e0a458; --warm:#e07a5f; --cold:#7fb2d9; --ok:#8fbf8a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);color:var(--text);overflow:hidden}
+body{font-family:"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;font-size:1.05vw;-webkit-font-smoothing:antialiased;cursor:none}
+.wrap{position:absolute;inset:0;display:grid;grid-template-columns:34% 1fr 1fr;grid-template-rows:1fr 1fr;padding:2.6vw 3vw;grid-column-gap:2vw;grid-row-gap:2vw}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:1vw;padding:1.6vw 1.8vw;overflow:hidden;position:relative}
+h2{font-size:.85vw;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:1.1vw}
+.num{font-variant-numeric:tabular-nums}
+
+/* venstre kolonne */
+.left{grid-row:1 / span 2;display:flex;flex-direction:column;justify-content:space-between;padding:1vw .5vw}
+.time{font-size:9.5vw;font-weight:200;line-height:.9;letter-spacing:-.03em}
+.date{font-size:1.9vw;color:var(--muted);margin-top:1vw;font-weight:300}
+.date::first-letter{text-transform:uppercase}
+.wnow{display:flex;align-items:center}
+.wnow svg{width:7vw;height:7vw;margin-right:1.4vw}
+.wtemp{font-size:5vw;font-weight:200;line-height:1}
+.wdesc{color:var(--muted);font-size:1.15vw;margin-top:.4vw}
+.place{font-size:.85vw;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin-bottom:.8vw}
+.hours{display:flex;margin-top:1.8vw;border-top:1px solid var(--line);padding-top:1.2vw}
+.hours div{flex:1;text-align:center}
+.hours small{display:block;color:var(--dim);font-size:.85vw}
+.hours svg{width:2.4vw;height:2.4vw;margin:.4vw 0}
+.hours b{font-weight:400;font-size:1.15vw}
+.days{margin-top:1.2vw}
+.day{display:flex;align-items:center;padding:.45vw 0;border-bottom:1px solid var(--line)}
+.day:last-child{border-bottom:0}
+.day .dn{width:5vw;color:var(--muted)}
+.day svg{width:1.9vw;height:1.9vw;margin-right:1vw}
+.day .bar{flex:1;height:.3vw;background:var(--line);border-radius:.2vw;margin:0 1vw;position:relative}
+.day .bar i{position:absolute;top:0;bottom:0;border-radius:.2vw;background:linear-gradient(90deg,var(--cold),var(--accent))}
+.day .lo{width:2.8vw;text-align:right;color:var(--muted)}
+.day .hi{width:2.8vw;text-align:right}
+.day .pr{width:3.6vw;text-align:right;color:var(--cold);font-size:.9vw}
+
+/* klima */
+.temps{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-column-gap:1.4vw}
+.t{display:flex;justify-content:space-between;align-items:baseline;padding:.55vw 0;border-bottom:1px solid var(--line)}
+.t span{color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-right:.6vw}
+.t b{font-weight:400;font-size:1.35vw;white-space:nowrap}
+.t em{font-style:normal;color:var(--dim);font-size:.85vw;margin-left:.4vw}
+
+/* strøm */
+.big{font-size:4.4vw;font-weight:200;line-height:1}
+.big small{font-size:1.4vw;color:var(--muted);margin-left:.4vw}
+.kv{display:flex;justify-content:space-between;padding:.55vw 0;border-bottom:1px solid var(--line)}
+.kv:last-child{border-bottom:0}
+.kv span{color:var(--muted)}
+.phases{display:flex;margin:1.2vw 0 .8vw}
+.ph{flex:1;margin-right:.8vw}
+.ph:last-child{margin-right:0}
+.ph small{color:var(--dim);font-size:.8vw}
+.ph .bar{height:.45vw;background:var(--line);border-radius:.3vw;margin-top:.35vw;overflow:hidden}
+.ph .bar i{display:block;height:100%;background:var(--accent)}
+.spark{width:100%;height:4vw;margin-top:.6vw}
+
+/* status */
+.chips{display:flex;flex-wrap:wrap}
+.chip{border:1px solid var(--line);border-radius:2vw;padding:.35vw .9vw;margin:0 .5vw .5vw 0;white-space:nowrap}
+.chip.on{border-color:var(--accent);color:var(--accent)}
+.chip.alert{border-color:var(--warm);color:#fff;background:rgba(224,122,95,.25)}
+.chip.good{color:var(--ok);border-color:rgba(143,191,138,.5)}
+.chip b{font-weight:600}
+
+/* kalender */
+.ev{display:flex;padding:.55vw 0;border-bottom:1px solid var(--line)}
+.ev:last-child{border-bottom:0}
+.ev .when{width:8.5vw;color:var(--muted);flex-shrink:0}
+.ev .what{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ev.today .when{color:var(--accent)}
+.empty{color:var(--dim)}
+
+.foot{position:absolute;right:3vw;bottom:.9vw;font-size:.75vw;color:var(--dim)}
+.foot.err{color:var(--warm)}
+
+/* oppsett */
+#setup{position:absolute;inset:0;background:var(--bg);display:none;align-items:center;justify-content:center;cursor:auto}
+#setup form{width:46vw;font-size:1.2vw}
+#setup h1{font-weight:300;font-size:2.4vw;margin-bottom:1.5vw}
+#setup label{display:block;color:var(--muted);margin:1vw 0 .3vw}
+#setup input{width:100%;font-size:1.3vw;padding:.6vw .8vw;background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:.5vw}
+#setup input:focus{outline:2px solid var(--accent)}
+#setup button{margin-top:1.6vw;font-size:1.3vw;padding:.7vw 2vw;background:var(--accent);color:#1b1a17;border:0;border-radius:.5vw}
+#setup p{color:var(--dim);font-size:.95vw;margin-top:.4vw}
+</style>
+</head>
+<body>
+
+<div class="wrap" id="dash">
+  <section class="left">
+    <div>
+      <div class="time num" id="time">--:--</div>
+      <div class="date" id="date"></div>
+    </div>
+    <div>
+      <div class="place" id="place"></div>
+      <div class="wnow">
+        <span id="wicon"></span>
+        <div><div class="wtemp num" id="wtemp">–</div><div class="wdesc" id="wdesc"></div></div>
+      </div>
+      <div class="hours num" id="hours"></div>
+      <div class="days num" id="days"></div>
+    </div>
+  </section>
+
+  <section class="card"><h2>Temperatur</h2><div class="temps num" id="temps"><div class="empty">Henter …</div></div></section>
+  <section class="card"><h2>Strøm</h2><div id="power"><div class="empty">Henter …</div></div></section>
+  <section class="card"><h2>Status</h2><div class="chips" id="status"><div class="empty">Henter …</div></div></section>
+  <section class="card"><h2>Kalender</h2><div id="cal"><div class="empty">Ingen kalender satt opp</div></div></section>
+</div>
+<div class="foot" id="foot"></div>
+
+<div id="setup">
+  <form id="sform">
+    <h1>Oppsett</h1>
+    <label>Homey-ID</label><input name="homey" autocomplete="off">
+    <label>Homey API-nøkkel</label><input name="key" autocomplete="off">
+    <p>Lag nøkkel i Homey-appen: Innstillinger → API-nøkler (lesetilgang til enheter og soner).</p>
+    <label>Stedsnavn, breddegrad, lengdegrad</label><input name="loc" value="Hafjell, 61.2347, 10.4466">
+    <label>Kalender (ICS-adresse, valgfritt)</label><input name="ics" autocomplete="off">
+    <button type="submit">Lagre</button>
+  </form>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------- oppsett ---------- */
+var KEYS=["homey","key","base","lat","lon","place","ics","proxy","fuse"];
+var cfg={};
+function store(k,v){try{localStorage.setItem("frame."+k,v);}catch(e){}}
+function load(k){try{return localStorage.getItem("frame."+k);}catch(e){return null;}}
+var qs=new URLSearchParams(location.search), fromUrl=false;
+KEYS.forEach(function(k){
+  if(qs.has(k)){store(k,qs.get(k));fromUrl=true;}
+  cfg[k]=load(k)||"";
+});
+if(!cfg.lat){cfg.lat="61.2347";cfg.lon="10.4466";cfg.place=cfg.place||"Hafjell";}
+if(fromUrl&&history.replaceState){history.replaceState(null,"",location.pathname);}
+
+if(qs.has("setup")||!cfg.homey||!cfg.key){
+  var f=document.getElementById("sform");
+  f.homey.value=cfg.homey; f.key.value=cfg.key; f.ics.value=cfg.ics;
+  f.loc.value=(cfg.place||"")+", "+cfg.lat+", "+cfg.lon;
+  document.getElementById("setup").style.display="flex";
+  f.onsubmit=function(e){
+    e.preventDefault();
+    var p=f.loc.value.split(",");
+    store("homey",f.homey.value.trim()); store("key",f.key.value.trim()); store("ics",f.ics.value.trim());
+    if(p.length>=3){store("place",p[0].trim());store("lat",p[1].trim());store("lon",p[2].trim());}
+    location.href=location.pathname;
+  };
+}
+
+/* ---------- hjelpere ---------- */
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+function clean(s){return String(s||"").replace(/\u0000/g,"").trim();}
+function fmt(n,d){return Number(n).toLocaleString("nb-NO",{minimumFractionDigits:d||0,maximumFractionDigits:d||0});}
+function pad(n){return n<10?"0"+n:""+n;}
+var DAYS=["søn","man","tir","ons","tor","fre","lør"];
+var errors={};
+function setErr(k,msg){if(msg)errors[k]=msg;else delete errors[k];renderFoot();}
+var lastHomey=null;
+function renderFoot(){
+  var e=Object.keys(errors).map(function(k){return errors[k];});
+  var el=$("foot");
+  el.className="foot"+(e.length?" err":"");
+  el.textContent=e.length?e.join(" · "):(lastHomey?"Oppdatert "+pad(lastHomey.getHours())+":"+pad(lastHomey.getMinutes()):"");
+}
+
+/* ---------- klokke ---------- */
+function tick(){
+  var d=new Date();
+  $("time").textContent=pad(d.getHours())+":"+pad(d.getMinutes());
+  $("date").textContent=d.toLocaleDateString("nb-NO",{weekday:"long",day:"numeric",month:"long"});
+}
+tick(); setInterval(tick,1000);
+
+/* ---------- værikoner (egne, enkle) ---------- */
+function icon(code){
+  code=code||"";
+  var night=/night|polartwilight/.test(code);
+  var sun=night
+    ?'<path d="M30 14a12 12 0 1 0 10 18A14 14 0 0 1 30 14z" fill="#c9c3b5"/>'
+    :'<circle cx="24" cy="22" r="9" fill="#e0a458"/><g stroke="#e0a458" stroke-width="2.5" stroke-linecap="round"><path d="M24 6v4M24 34v4M8 22h4M36 22h4M12.7 10.7l2.8 2.8M32.5 30.5l2.8 2.8M12.7 33.3l2.8-2.8M32.5 13.5l2.8-2.8"/></g>';
+  var cloud=function(c){return '<path d="M18 44h26a9 9 0 0 0 0-18 13 13 0 0 0-25-3 10 10 0 0 0-1 21z" fill="'+c+'"/>';};
+  var drops='<g stroke="#7fb2d9" stroke-width="2.5" stroke-linecap="round"><path d="M22 49l-2 6M31 49l-2 6M40 49l-2 6"/></g>';
+  var flakes='<g fill="#ece6da"><circle cx="21" cy="52" r="2"/><circle cx="30" cy="55" r="2"/><circle cx="39" cy="52" r="2"/></g>';
+  var bolt='<path d="M33 44l-6 9h6l-4 8 10-11h-6l4-6z" fill="#e0a458"/>';
+  var g;
+  if(/^clearsky/.test(code)) g=night?sun:'<g transform="translate(8 8)">'+sun+'</g>';
+  else if(/^fair/.test(code)) g=sun+'<g transform="translate(4 6) scale(.85)">'+cloud("#8c8677")+'</g>';
+  else if(/^partlycloudy/.test(code)) g=sun+cloud("#8c8677");
+  else if(/^fog/.test(code)) g='<g stroke="#8c8677" stroke-width="3" stroke-linecap="round"><path d="M10 26h44M14 34h36M10 42h44"/></g>';
+  else {
+    g=cloud(/heavy|thunder/.test(code)?"#6b665b":"#8c8677");
+    if(/thunder/.test(code)) g+=bolt;
+    else if(/snow/.test(code)) g+=flakes;
+    else if(/sleet/.test(code)) g+=drops.replace("M40 49l-2 6","")+'<circle cx="39" cy="52" r="2" fill="#ece6da"/>';
+    else if(/rain/.test(code)) g+=drops;
+  }
+  return '<svg viewBox="0 0 64 64" aria-hidden="true">'+g+'</svg>';
+}
+var DESC={clearsky:"Klarvær",fair:"Lettskyet",partlycloudy:"Delvis skyet",cloudy:"Skyet",fog:"Tåke",
+  lightrain:"Lett regn",rain:"Regn",heavyrain:"Kraftig regn",lightrainshowers:"Lette regnbyger",rainshowers:"Regnbyger",heavyrainshowers:"Kraftige regnbyger",
+  lightsnow:"Lett snø",snow:"Snø",heavysnow:"Kraftig snø",lightsnowshowers:"Lette snøbyger",snowshowers:"Snøbyger",heavysnowshowers:"Kraftige snøbyger",
+  lightsleet:"Lett sludd",sleet:"Sludd",heavysleet:"Kraftig sludd",sleetshowers:"Sluddbyger",lightsleetshowers:"Lette sluddbyger",heavysleetshowers:"Kraftige sluddbyger"};
+function desc(code){var k=(code||"").split("_")[0];if(/thunder/.test(k))return "Torden";return DESC[k]||"";}
+
+/* ---------- vær (MET / yr) ---------- */
+function weather(){
+  $("place").textContent=cfg.place||"";
+  fetch("https://api.met.no/weatherapi/locationforecast/2.0/compact?lat="+(+cfg.lat).toFixed(4)+"&lon="+(+cfg.lon).toFixed(4))
+  .then(function(r){if(!r.ok)throw new Error(r.status);return r.json();})
+  .then(function(j){
+    var ts=j.properties.timeseries, now=Date.now();
+    ts=ts.filter(function(t){return Date.parse(t.time)>now-3600e3;});
+    var c=ts[0], code=sym(c);
+    $("wicon").innerHTML=icon(code);
+    $("wtemp").textContent=fmt(c.data.instant.details.air_temperature)+"°";
+    var wind=c.data.instant.details.wind_speed;
+    $("wdesc").textContent=desc(code)+(wind!=null?" · vind "+fmt(wind)+" m/s":"");
+    // neste timer: hver 3. time
+    var h="";
+    for(var i=3,n=0;i<ts.length&&n<6;i+=3,n++){
+      var t=new Date(ts[i].time);
+      h+='<div><small>'+pad(t.getHours())+'</small>'+icon(sym(ts[i]))+'<b>'+fmt(ts[i].data.instant.details.air_temperature)+'°</b></div>';
+    }
+    $("hours").innerHTML=h;
+    // dager
+    var byDay={},order=[];
+    ts.forEach(function(t){
+      var d=new Date(t.time),k=d.toDateString();
+      if(!byDay[k]){byDay[k]={d:d,lo:99,hi:-99,pr:0,sym:null};order.push(k);}
+      var o=byDay[k],v=t.data.instant.details.air_temperature;
+      o.lo=Math.min(o.lo,v);o.hi=Math.max(o.hi,v);
+      var p1=t.data.next_1_hours,p6=t.data.next_6_hours;
+      if(p1&&p1.details)o.pr+=p1.details.precipitation_amount||0;
+      else if(p6&&p6.details&&d.getHours()%6===0)o.pr+=p6.details.precipitation_amount||0;
+      if(d.getHours()>=12&&!o.sym&&p6)o.sym=p6.summary.symbol_code;
+      if(!o.sym&&d.getHours()>=10&&p1)o.sym=p1.summary.symbol_code;
+    });
+    var list=order.slice(1,6).map(function(k){return byDay[k];});
+    var min=99,max=-99;list.forEach(function(o){min=Math.min(min,o.lo);max=Math.max(max,o.hi);});
+    var span=Math.max(1,max-min);
+    $("days").innerHTML=list.map(function(o){
+      var l=(o.lo-min)/span*100,w=(o.hi-o.lo)/span*100;
+      return '<div class="day"><span class="dn">'+DAYS[o.d.getDay()]+'</span>'+icon(o.sym)+
+        '<span class="lo">'+fmt(o.lo)+'°</span><span class="bar"><i style="left:'+l+'%;width:'+Math.max(w,3)+'%"></i></span>'+
+        '<span class="hi">'+fmt(o.hi)+'°</span><span class="pr">'+(o.pr>=0.5?fmt(o.pr,o.pr<10?1:0)+" mm":"")+'</span></div>';
+    }).join("");
+    setErr("w");
+  })
+  .catch(function(e){setErr("w","Vær: "+e.message);});
+}
+function sym(t){var d=t.data;return (d.next_1_hours||d.next_6_hours||{summary:{}}).summary.symbol_code;}
+
+/* ---------- Homey ---------- */
+function homeyBase(){return (cfg.base||("https://"+cfg.homey+".connect.athom.com")).replace(/\/$/,"");}
+function hget(path){
+  return fetch(homeyBase()+"/api/manager/"+path,{headers:{Authorization:"Bearer "+cfg.key}})
+    .then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.json();});
+}
+var zones={}, powerHist=[];
+function cap(d,k){var c=d.capabilitiesObj&&d.capabilitiesObj[k];return c?c.value:undefined;}
+function has(d,k){return cap(d,k)!==undefined&&cap(d,k)!==null;}
+
+function homey(){
+  if(!cfg.homey||!cfg.key)return;
+  var zp=Object.keys(zones).length?Promise.resolve(null):hget("zones/zone/");
+  Promise.all([hget("devices/device/"),zp]).then(function(res){
+    if(res[1])zones=res[1];
+    var devs=Object.keys(res[0]).map(function(k){var d=res[0][k];d.name=clean(d.name);return d;});
+    renderTemps(devs); renderPower(devs); renderStatus(devs);
+    lastHomey=new Date(); setErr("h");
+  }).catch(function(e){setErr("h","Homey: "+e.message);});
+}
+
+function renderTemps(devs){
+  // Prioriter sensorer, deretter termostater/ovner med målt temperatur. Hopp over apparater (ovn, vifter, avfukter).
+  var skip=/^(other|fan|dehumidifier|evcharger)$/;
+  var rows=devs.filter(function(d){
+    var v=cap(d,"measure_temperature");
+    return has(d,"measure_temperature")&&!skip.test(d.class)&&v>-60&&v<100&&!has(d,"forecast_time")&&!/vær|weather|smhi|yr\b/i.test(d.name);
+  });
+  var sensors=rows.filter(function(d){return d.class==="sensor";});
+  var rest=rows.filter(function(d){return d.class!=="sensor";});
+  var ute=null;
+  sensors=sensors.filter(function(d){if(!ute&&/^ute$|utendørs|outdoor|målestasjon|netatmo/i.test(d.name)){ute=d;return false;}return true;});
+  // ekstra: spa (other med target_temperature)
+  var spa=devs.filter(function(d){return /spa|boblebad|jacuzzi/i.test(d.name)&&has(d,"measure_temperature")&&d.class==="other";});
+  var list=(ute?[ute]:[]).concat(spa,sensors,rest).filter(function(d){return !/røyk|smoke/i.test(d.name);}).slice(0,12);
+  $("temps").innerHTML=list.length?list.map(function(d){
+    var v=cap(d,"measure_temperature"),hum=cap(d,"measure_humidity");
+    var extra=(d===ute&&hum)?fmt(hum)+" %":"";
+    var col=v<=0?' style="color:var(--cold)"':"";
+    return '<div class="t"><span>'+esc(d===ute?"Ute":d.name)+'</span><b'+col+'>'+fmt(v,1)+'°<em>'+extra+'</em></b></div>';
+  }).join(""):'<div class="empty">Ingen temperaturer</div>';
+}
+
+function renderPower(devs){
+  // Hovedmåler: sensor med meter_power.daily eller strøm per fase, ellers høyeste measure_power
+  var main=devs.filter(function(d){return has(d,"measure_current.l1")||has(d,"measure_current.L1")||has(d,"meter_power.daily")||/strøm|han|pulse|tibber|power ?meter/i.test(d.name)&&has(d,"measure_power");})[0];
+  function amp(i){var a=cap(main,"measure_current.l"+i);return a!=null?a:cap(main,"measure_current.L"+i);}
+  var w=main?cap(main,"measure_power"):null;
+  if(w==null){
+    w=devs.reduce(function(s,d){return s+(d.class!=="sensor"&&has(d,"measure_power")?cap(d,"measure_power"):0);},0);
+  }
+  powerHist.push(w); if(powerHist.length>120)powerHist.shift(); // ~1 time ved 30 s
+  var html='<div class="big num">'+(w>=1000?fmt(w/1000,2)+'<small>kW</small>':fmt(w)+'<small>W</small>')+'</div>';
+  if(main&&amp(1)!=null){
+    html+='<div class="phases num">'+[1,2,3].map(function(i){
+      var a=amp(i),pct=cap(main,"net_load_phase"+i+"_pct");
+      if(pct==null)pct=Math.min(100,(a||0)/(+cfg.fuse||32)*100);
+      return '<div class="ph"><small>L'+i+' · '+(a==null?"–":fmt(a,1)+' A')+'</small><div class="bar"><i style="width:'+Math.min(100,pct)+'%"></i></div></div>';
+    }).join("")+'</div>';
+  }
+  var kv=[];
+  if(main&&has(main,"meter_power.daily"))kv.push(["I dag",fmt(cap(main,"meter_power.daily"),1)+" kWh"]);
+  else if(main&&has(main,"meter_power.imported")&&has(main,"meter_power"))kv.push(["I dag",fmt(cap(main,"meter_power"),1)+" kWh"]); // Tibber Pulse: meter_power = hittil i dag
+  var guard=devs.filter(function(d){return has(d,"effektledd");})[0];
+  if(guard)kv.push(["Effekttrinn",cap(guard,"effektledd")]);
+  // største forbrukere nå
+  var top=devs.filter(function(d){return d!==main&&d!==guard&&has(d,"measure_power")&&cap(d,"measure_power")>=20&&d.class!=="sensor";})
+    .sort(function(a,b){return cap(b,"measure_power")-cap(a,"measure_power");}).slice(0,2);
+  top.forEach(function(d){kv.push([d.name,fmt(cap(d,"measure_power"))+" W"]);});
+  html+=kv.map(function(r){return '<div class="kv num"><span>'+esc(r[0])+'</span><b>'+esc(r[1])+'</b></div>';}).join("");
+  html+=spark();
+  $("power").innerHTML=html;
+}
+function spark(){
+  if(powerHist.length<3)return "";
+  var mx=Math.max.apply(null,powerHist)||1,n=powerHist.length;
+  var pts=powerHist.map(function(v,i){return (i/(n-1)*100).toFixed(1)+","+(38-v/mx*34).toFixed(1);}).join(" ");
+  return '<svg class="spark" viewBox="0 0 100 40" preserveAspectRatio="none"><polyline points="'+pts+'" fill="none" stroke="#e0a458" stroke-width="1.2" vector-effect="non-scaling-stroke"/></svg>';
+}
+
+function renderStatus(devs){
+  var chips=[];
+  function chip(cls,html){chips.push('<span class="chip '+cls+'">'+html+'</span>');}
+  // alarmer først
+  devs.forEach(function(d){
+    if(cap(d,"alarm_smoke"))chip("alert","Røyk: "+esc(d.name));
+    if(cap(d,"alarm_water")||cap(d,"alarm_fire"))chip("alert",(cap(d,"alarm_fire")?"Brann: ":"Vann: ")+esc(d.name));
+    if(cap(d,"alarm_battery"))chip("alert","Batteri: "+esc(d.name));
+    var b=cap(d,"measure_battery"); if(b!=null&&b<=15)chip("alert","Lavt batteri "+fmt(b)+" %: "+esc(d.name));
+  });
+  devs.forEach(function(d){
+    if(has(d,"garagedoor_closed"))chip(cap(d,"garagedoor_closed")?"good":"alert",esc(d.name)+": "+(cap(d,"garagedoor_closed")?"lukket":"<b>åpen</b>"));
+    if(has(d,"locked")&&d.class==="lock")chip(cap(d,"locked")?"good":"alert",esc(d.name)+": "+(cap(d,"locked")?"låst":"<b>ulåst</b>"));
+  });
+  devs.forEach(function(d){
+    if(d.class==="car"){
+      var st=cap(d,"ev_charging_state")||"",chg=/charging/.test(st)&&!/plugged_out/.test(st);
+      var t=esc(d.name)+": "+(has(d,"measure_battery")?"<b>"+fmt(cap(d,"measure_battery"))+" %</b>":"")+(has(d,"meter_range")?" · "+fmt(cap(d,"meter_range"))+" km":"");
+      if(chg)t+=" · lader"+(cap(d,"measure_power")?" "+fmt(cap(d,"measure_power")/1000,1)+" kW":"");
+      else if(cap(d,"plug_connected"))t+=" · tilkoblet";
+      if(cap(d,"locked")===false)t+=" · ulåst";
+      chip(chg?"on":"",t);
+    }
+    if(has(d,"pickup_next_date")){
+      var n=cap(d,"pickup_next_days");
+      chip(n!=null&&n<=1?"on":"","Søppel "+(n===0?"i dag":n===1?"i morgen":esc(cap(d,"pickup_next_date")))+": "+esc(cap(d,"pickup_next_fractions")||""));
+    }
+    if(has(d,"measure_co2")||has(d,"measure_radon")){
+      var bad=cap(d,"alarm_co2")||cap(d,"alarm_radon")||cap(d,"alarm_voc");
+      chip(bad?"alert":"good","Inneluft: "+(has(d,"measure_co2")?"CO₂ "+fmt(cap(d,"measure_co2"))+" ppm":"")+(has(d,"measure_radon")?" · radon "+fmt(cap(d,"measure_radon"))+" Bq":""));
+    }
+    if(d.class==="speaker"&&cap(d,"speaker_playing"))chip("on","♪ "+esc(cap(d,"speaker_track")||"")+(cap(d,"speaker_artist")?" – "+esc(cap(d,"speaker_artist")):"")+" ("+esc(d.name)+")");
+    if(has(d,"valve_open")&&!cap(d,"valve_open"))chip("alert",esc(d.name)+": <b>stengt</b>");
+  });
+  var lights=devs.filter(function(d){return d.class==="light"&&cap(d,"onoff")===true;});
+  chip(lights.length?"on":"", lights.length?"<b>"+lights.length+"</b> lys på":"Alle lys av");
+  if(lights.length<=2)lights.forEach(function(d){chip("on",esc(d.name));});
+  devs.forEach(function(d){
+    if(d.class==="evcharger"){
+      var st=cap(d,"evcharger_charging_state")||cap(d,"charger_status")||"";
+      var txt={plugged_out:"ikke tilkoblet",plugged_in:"tilkoblet",plugged_in_charging:"lader",plugged_in_paused:"pause"}[st]||String(st).toLowerCase();
+      var p=cap(d,"measure_power");
+      chip(cap(d,"evcharger_charging")?"on":"", esc(d.name)+": "+esc(txt)+(cap(d,"evcharger_charging")&&p?" · "+fmt(p/1000,1)+" kW":""));
+    }
+    var rem=cap(d,"bshc_string.remaining_time");
+    if(d.class==="other"&&cap(d,"onoff")&&rem&&/\d/.test(rem))chip("on",esc(d.name)+": "+esc(rem)+" igjen");
+    if(has(d,"WM-operation")&&!/off/i.test(cap(d,"WM-operation")))chip("on",esc(d.name)+": i gang");
+  });
+  var blinds=devs.filter(function(d){return /windowcoverings|blinds|sunshade|curtain/.test(d.class)&&has(d,"windowcoverings_state");});
+  if(blinds.length){var down=blinds.filter(function(d){return cap(d,"windowcoverings_state")==="down";}).length;
+    chip("","Gardiner: "+down+" nede, "+(blinds.length-down)+" oppe");}
+  $("status").innerHTML=chips.join("");
+}
+
+/* ---------- kalender (ICS) ---------- */
+function calendar(){
+  if(!cfg.ics)return;
+  var url=cfg.ics.replace(/^webcal:/,"https:");
+  fetch((cfg.proxy||"")+(cfg.proxy?encodeURIComponent(url):url))
+  .then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.text();})
+  .then(function(txt){
+    var evs=parseICS(txt), now=new Date(), start=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+    var end=new Date(start.getTime()+14*864e5);
+    evs=evs.filter(function(e){return (e.end||e.start)>=now&&e.start<end;}).sort(function(a,b){return a.start-b.start;}).slice(0,7);
+    $("cal").innerHTML=evs.length?evs.map(function(e){
+      var d=e.start,today=d.toDateString()===now.toDateString();
+      var tom=d.toDateString()===new Date(start.getTime()+864e5).toDateString();
+      var day=today?"I dag":tom?"I morgen":DAYS[d.getDay()]+" "+d.getDate()+".";
+      return '<div class="ev'+(today?" today":"")+'"><span class="when num">'+day+(e.allDay?"":" "+pad(d.getHours())+":"+pad(d.getMinutes()))+
+        '</span><span class="what">'+esc(e.summary)+'</span></div>';
+    }).join(""):'<div class="empty">Ingen avtaler de neste to ukene</div>';
+    setErr("c");
+  }).catch(function(e){setErr("c","Kalender: "+e.message);});
+}
+function icsDate(v){
+  var m=/^(\d{4})(\d{2})(\d{2})(?:T(\d{2})(\d{2})(\d{2})(Z)?)?/.exec(v);
+  if(!m)return null;
+  if(!m[4])return {d:new Date(+m[1],m[2]-1,+m[3]),allDay:true};
+  if(m[7])return {d:new Date(Date.UTC(+m[1],m[2]-1,+m[3],+m[4],+m[5],+m[6]))};
+  return {d:new Date(+m[1],m[2]-1,+m[3],+m[4],+m[5],+m[6])}; // antar lokal tid (TZID ignoreres)
+}
+function parseICS(txt){
+  var lines=txt.replace(/\r\n[ \t]/g,"").replace(/\n[ \t]/g,"").split(/\r?\n/),out=[],cur=null;
+  lines.forEach(function(l){
+    if(l==="BEGIN:VEVENT")cur={};
+    else if(l==="END:VEVENT"){if(cur&&cur.start)expand(cur,out);cur=null;}
+    else if(cur){
+      var i=l.indexOf(":"),k=l.slice(0,i).split(";")[0],v=l.slice(i+1);
+      if(k==="DTSTART"){var s=icsDate(v);if(s){cur.start=s.d;cur.allDay=!!s.allDay;}}
+      else if(k==="DTEND"){var e=icsDate(v);if(e)cur.end=e.d;}
+      else if(k==="SUMMARY")cur.summary=v.replace(/\\,/g,",").replace(/\\;/g,";").replace(/\\n/g," ");
+      else if(k==="RRULE")cur.rrule=v;
+    }
+  });
+  return out;
+}
+// Enkel gjentakelse: DAILY/WEEKLY/MONTHLY/YEARLY med INTERVAL/COUNT/UNTIL (uten BYDAY-varianter)
+function expand(ev,out){
+  if(!ev.rrule){out.push(ev);return;}
+  var r={};ev.rrule.split(";").forEach(function(p){var kv=p.split("=");r[kv[0]]=kv[1];});
+  var step=+(r.INTERVAL||1),count=r.COUNT?+r.COUNT:1e4,until=r.UNTIL?icsDate(r.UNTIL).d:null;
+  var limit=Date.now()+15*864e5,dur=ev.end?ev.end-ev.start:0,d=new Date(ev.start),n=0;
+  while(n<count&&d.getTime()<limit&&(!until||d<=until)){
+    if(d.getTime()+dur>=Date.now()-864e5)out.push({start:new Date(d),end:new Date(d.getTime()+dur),allDay:ev.allDay,summary:ev.summary});
+    n++;
+    if(r.FREQ==="DAILY")d.setDate(d.getDate()+step);
+    else if(r.FREQ==="WEEKLY")d.setDate(d.getDate()+7*step);
+    else if(r.FREQ==="MONTHLY")d.setMonth(d.getMonth()+step);
+    else if(r.FREQ==="YEARLY")d.setFullYear(d.getFullYear()+step);
+    else break;
+  }
+}
+
+/* ---------- start ---------- */
+weather(); homey(); calendar();
+setInterval(weather,20*60e3);
+setInterval(homey,30e3);
+setInterval(calendar,10*60e3);
+setInterval(function(){location.reload();},6*3600e3); // frisk start hver 6. time
+})();
+</script>
+</body>
+</html>
