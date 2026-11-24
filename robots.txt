@@ -1,5 +1,7 @@
 User-agent: *
 Disallow: /frame/
+Disallow: /skoyen/
+Disallow: /hafjell/
 Allow: /
 Disallow: /workout/
 Disallow: /scripts/
