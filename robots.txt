@@ -1,4 +1,5 @@
 User-agent: *
+Disallow: /frame/
 Allow: /
 Disallow: /workout/
 Disallow: /scripts/
