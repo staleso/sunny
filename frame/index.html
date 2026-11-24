@@ -56,10 +56,10 @@ h2{font-size:.85vw;font-weight:600;letter-spacing:.18em;text-transform:uppercase
 .day .pr{width:3.6vw;text-align:right;color:var(--cold);font-size:.9vw}
 
 /* klima */
-.temps{display:grid;grid-template-columns:1fr 1fr;grid-column-gap:1.4vw}
+.temps{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-column-gap:1.4vw}
 .t{display:flex;justify-content:space-between;align-items:baseline;padding:.55vw 0;border-bottom:1px solid var(--line)}
 .t span{color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-right:.6vw}
-.t b{font-weight:400;font-size:1.35vw}
+.t b{font-weight:400;font-size:1.35vw;white-space:nowrap}
 .t em{font-style:normal;color:var(--dim);font-size:.85vw;margin-left:.4vw}
 
 /* strøm */
@@ -78,7 +78,7 @@ h2{font-size:.85vw;font-weight:600;letter-spacing:.18em;text-transform:uppercase
 
 /* status */
 .chips{display:flex;flex-wrap:wrap}
-.chip{border:1px solid var(--line);border-radius:2vw;padding:.45vw 1vw;margin:0 .6vw .6vw 0;white-space:nowrap}
+.chip{border:1px solid var(--line);border-radius:2vw;padding:.35vw .9vw;margin:0 .5vw .5vw 0;white-space:nowrap}
 .chip.on{border-color:var(--accent);color:var(--accent)}
 .chip.alert{border-color:var(--warm);color:#fff;background:rgba(224,122,95,.25)}
 .chip.good{color:var(--ok);border-color:rgba(143,191,138,.5)}
@@ -149,7 +149,7 @@ h2{font-size:.85vw;font-weight:600;letter-spacing:.18em;text-transform:uppercase
 "use strict";
 
 /* ---------- oppsett ---------- */
-var KEYS=["homey","key","base","lat","lon","place","ics","proxy"];
+var KEYS=["homey","key","base","lat","lon","place","ics","proxy","fuse"];
 var cfg={};
 function store(k,v){try{localStorage.setItem("frame."+k,v);}catch(e){}}
 function load(k){try{return localStorage.getItem("frame."+k);}catch(e){return null;}}
@@ -303,11 +303,14 @@ function homey(){
 function renderTemps(devs){
   // Prioriter sensorer, deretter termostater/ovner med målt temperatur. Hopp over apparater (ovn, vifter, avfukter).
   var skip=/^(other|fan|dehumidifier|evcharger)$/;
-  var rows=devs.filter(function(d){return has(d,"measure_temperature")&&!skip.test(d.class);});
+  var rows=devs.filter(function(d){
+    var v=cap(d,"measure_temperature");
+    return has(d,"measure_temperature")&&!skip.test(d.class)&&v>-60&&v<100&&!has(d,"forecast_time")&&!/vær|weather|smhi|yr\b/i.test(d.name);
+  });
   var sensors=rows.filter(function(d){return d.class==="sensor";});
   var rest=rows.filter(function(d){return d.class!=="sensor";});
   var ute=null;
-  sensors=sensors.filter(function(d){if(/^ute$|utendørs|outdoor/i.test(d.name)){ute=d;return false;}return true;});
+  sensors=sensors.filter(function(d){if(!ute&&/^ute$|utendørs|outdoor|målestasjon|netatmo/i.test(d.name)){ute=d;return false;}return true;});
   // ekstra: spa (other med target_temperature)
   var spa=devs.filter(function(d){return /spa|boblebad|jacuzzi/i.test(d.name)&&has(d,"measure_temperature")&&d.class==="other";});
   var list=(ute?[ute]:[]).concat(spa,sensors,rest).filter(function(d){return !/røyk|smoke/i.test(d.name);}).slice(0,12);
@@ -315,33 +318,35 @@ function renderTemps(devs){
     var v=cap(d,"measure_temperature"),hum=cap(d,"measure_humidity");
     var extra=(d===ute&&hum)?fmt(hum)+" %":"";
     var col=v<=0?' style="color:var(--cold)"':"";
-    return '<div class="t"><span>'+esc(d.name)+'</span><b'+col+'>'+fmt(v,1)+'°<em>'+extra+'</em></b></div>';
+    return '<div class="t"><span>'+esc(d===ute?"Ute":d.name)+'</span><b'+col+'>'+fmt(v,1)+'°<em>'+extra+'</em></b></div>';
   }).join(""):'<div class="empty">Ingen temperaturer</div>';
 }
 
 function renderPower(devs){
   // Hovedmåler: sensor med meter_power.daily eller strøm per fase, ellers høyeste measure_power
-  var main=devs.filter(function(d){return has(d,"measure_current.l1")||has(d,"meter_power.daily")||/strøm|han|pulse|tibber|power ?meter/i.test(d.name)&&has(d,"measure_power");})[0];
+  var main=devs.filter(function(d){return has(d,"measure_current.l1")||has(d,"measure_current.L1")||has(d,"meter_power.daily")||/strøm|han|pulse|tibber|power ?meter/i.test(d.name)&&has(d,"measure_power");})[0];
+  function amp(i){var a=cap(main,"measure_current.l"+i);return a!=null?a:cap(main,"measure_current.L"+i);}
   var w=main?cap(main,"measure_power"):null;
   if(w==null){
     w=devs.reduce(function(s,d){return s+(d.class!=="sensor"&&has(d,"measure_power")?cap(d,"measure_power"):0);},0);
   }
   powerHist.push(w); if(powerHist.length>120)powerHist.shift(); // ~1 time ved 30 s
   var html='<div class="big num">'+(w>=1000?fmt(w/1000,2)+'<small>kW</small>':fmt(w)+'<small>W</small>')+'</div>';
-  if(main&&has(main,"measure_current.l1")){
+  if(main&&amp(1)!=null){
     html+='<div class="phases num">'+[1,2,3].map(function(i){
-      var a=cap(main,"measure_current.l"+i)||0,pct=cap(main,"net_load_phase"+i+"_pct");
-      if(pct==null)pct=Math.min(100,a/25*100);
-      return '<div class="ph"><small>L'+i+' · '+fmt(a,1)+' A</small><div class="bar"><i style="width:'+Math.min(100,pct)+'%"></i></div></div>';
+      var a=amp(i),pct=cap(main,"net_load_phase"+i+"_pct");
+      if(pct==null)pct=Math.min(100,(a||0)/(+cfg.fuse||32)*100);
+      return '<div class="ph"><small>L'+i+' · '+(a==null?"–":fmt(a,1)+' A')+'</small><div class="bar"><i style="width:'+Math.min(100,pct)+'%"></i></div></div>';
     }).join("")+'</div>';
   }
   var kv=[];
   if(main&&has(main,"meter_power.daily"))kv.push(["I dag",fmt(cap(main,"meter_power.daily"),1)+" kWh"]);
+  else if(main&&has(main,"meter_power.imported")&&has(main,"meter_power"))kv.push(["I dag",fmt(cap(main,"meter_power"),1)+" kWh"]); // Tibber Pulse: meter_power = hittil i dag
   var guard=devs.filter(function(d){return has(d,"effektledd");})[0];
   if(guard)kv.push(["Effekttrinn",cap(guard,"effektledd")]);
   // største forbrukere nå
   var top=devs.filter(function(d){return d!==main&&d!==guard&&has(d,"measure_power")&&cap(d,"measure_power")>=20&&d.class!=="sensor";})
-    .sort(function(a,b){return cap(b,"measure_power")-cap(a,"measure_power");}).slice(0,3);
+    .sort(function(a,b){return cap(b,"measure_power")-cap(a,"measure_power");}).slice(0,2);
   top.forEach(function(d){kv.push([d.name,fmt(cap(d,"measure_power"))+" W"]);});
   html+=kv.map(function(r){return '<div class="kv num"><span>'+esc(r[0])+'</span><b>'+esc(r[1])+'</b></div>';}).join("");
   html+=spark();
@@ -360,7 +365,7 @@ function renderStatus(devs){
   // alarmer først
   devs.forEach(function(d){
     if(cap(d,"alarm_smoke"))chip("alert","Røyk: "+esc(d.name));
-    if(cap(d,"alarm_water"))chip("alert","Vann: "+esc(d.name));
+    if(cap(d,"alarm_water")||cap(d,"alarm_fire"))chip("alert",(cap(d,"alarm_fire")?"Brann: ":"Vann: ")+esc(d.name));
     if(cap(d,"alarm_battery"))chip("alert","Batteri: "+esc(d.name));
     var b=cap(d,"measure_battery"); if(b!=null&&b<=15)chip("alert","Lavt batteri "+fmt(b)+" %: "+esc(d.name));
   });
@@ -368,9 +373,29 @@ function renderStatus(devs){
     if(has(d,"garagedoor_closed"))chip(cap(d,"garagedoor_closed")?"good":"alert",esc(d.name)+": "+(cap(d,"garagedoor_closed")?"lukket":"<b>åpen</b>"));
     if(has(d,"locked")&&d.class==="lock")chip(cap(d,"locked")?"good":"alert",esc(d.name)+": "+(cap(d,"locked")?"låst":"<b>ulåst</b>"));
   });
+  devs.forEach(function(d){
+    if(d.class==="car"){
+      var st=cap(d,"ev_charging_state")||"",chg=/charging/.test(st)&&!/plugged_out/.test(st);
+      var t=esc(d.name)+": "+(has(d,"measure_battery")?"<b>"+fmt(cap(d,"measure_battery"))+" %</b>":"")+(has(d,"meter_range")?" · "+fmt(cap(d,"meter_range"))+" km":"");
+      if(chg)t+=" · lader"+(cap(d,"measure_power")?" "+fmt(cap(d,"measure_power")/1000,1)+" kW":"");
+      else if(cap(d,"plug_connected"))t+=" · tilkoblet";
+      if(cap(d,"locked")===false)t+=" · ulåst";
+      chip(chg?"on":"",t);
+    }
+    if(has(d,"pickup_next_date")){
+      var n=cap(d,"pickup_next_days");
+      chip(n!=null&&n<=1?"on":"","Søppel "+(n===0?"i dag":n===1?"i morgen":esc(cap(d,"pickup_next_date")))+": "+esc(cap(d,"pickup_next_fractions")||""));
+    }
+    if(has(d,"measure_co2")||has(d,"measure_radon")){
+      var bad=cap(d,"alarm_co2")||cap(d,"alarm_radon")||cap(d,"alarm_voc");
+      chip(bad?"alert":"good","Inneluft: "+(has(d,"measure_co2")?"CO₂ "+fmt(cap(d,"measure_co2"))+" ppm":"")+(has(d,"measure_radon")?" · radon "+fmt(cap(d,"measure_radon"))+" Bq":""));
+    }
+    if(d.class==="speaker"&&cap(d,"speaker_playing"))chip("on","♪ "+esc(cap(d,"speaker_track")||"")+(cap(d,"speaker_artist")?" – "+esc(cap(d,"speaker_artist")):"")+" ("+esc(d.name)+")");
+    if(has(d,"valve_open")&&!cap(d,"valve_open"))chip("alert",esc(d.name)+": <b>stengt</b>");
+  });
   var lights=devs.filter(function(d){return d.class==="light"&&cap(d,"onoff")===true;});
   chip(lights.length?"on":"", lights.length?"<b>"+lights.length+"</b> lys på":"Alle lys av");
-  lights.slice(0,6).forEach(function(d){chip("on",esc(d.name));});
+  if(lights.length<=2)lights.forEach(function(d){chip("on",esc(d.name));});
   devs.forEach(function(d){
     if(d.class==="evcharger"){
       var st=cap(d,"evcharger_charging_state")||cap(d,"charger_status")||"";
@@ -381,9 +406,8 @@ function renderStatus(devs){
     var rem=cap(d,"bshc_string.remaining_time");
     if(d.class==="other"&&cap(d,"onoff")&&rem&&/\d/.test(rem))chip("on",esc(d.name)+": "+esc(rem)+" igjen");
     if(has(d,"WM-operation")&&!/off/i.test(cap(d,"WM-operation")))chip("on",esc(d.name)+": i gang");
-    if(d.class==="windowcoverings"||d.class==="blinds"){}
   });
-  var blinds=devs.filter(function(d){return /windowcoverings|blinds/.test(d.class)&&has(d,"windowcoverings_state");});
+  var blinds=devs.filter(function(d){return /windowcoverings|blinds|sunshade|curtain/.test(d.class)&&has(d,"windowcoverings_state");});
   if(blinds.length){var down=blinds.filter(function(d){return cap(d,"windowcoverings_state")==="down";}).length;
     chip("","Gardiner: "+down+" nede, "+(blinds.length-down)+" oppe");}
   $("status").innerHTML=chips.join("");
