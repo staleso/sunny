@@ -2,6 +2,27 @@
   "articles": [
     {
       "lang": "nb",
+      "url": "/elbilforeningen-momsokning-2027-37500-kroner.html",
+      "title": "Elbilforeningen: De fleste elbiler får 37 500 kroner mer i avgift etter nyttår",
+      "ingress": "Ifølge Elbilforeningen ligger det an til at toppmomsgrensen for elbil kuttes videre ved nyttår, slik at de fleste nye elbiler får 37 500 kroner mer i mva. Her er hva som er vedtatt, og hva som gjenstår.",
+      "category": "Politikk",
+      "date": "2026-11-25",
+      "time": "16:00",
+      "ai": true,
+      "image_query": "Norwegian electric car",
+      "image": {
+        "src": "/img/news/norwegian-electric-car.jpg",
+        "width": 1400,
+        "height": 1050,
+        "author": "Detectandpreserve",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Pure_Mobility_Buddy_Gen6_000_2010-0000_frontleft_2011-04-09_A.jpg",
+        "title": "Pure Mobility Buddy Gen6 000 2010-0000 frontleft 2011-04-09 A.jpg"
+      }
+    },
+    {
+      "lang": "nb",
       "url": "/statsbudsjettet-2027-elbilmoms-ingen-utfordrer-forslaget.html",
       "title": "Budsjettforhandlingene: Ingen støttepartier utfordrer lavere momsgrense for elbil",
       "ingress": "Regjeringen har foreslått å senke grensen for mva. på nye elbiler til 150 000 kroner fra 1. januar 2027. Ifølge Elbil24 er det norgespris, ikke elbilmomsen, støttepartiene strides om.",
