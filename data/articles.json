@@ -2,6 +2,27 @@
   "articles": [
     {
       "lang": "nb",
+      "url": "/ofv-per-23-november-tesla-leder-kinesiske-merker-vokser.html",
+      "title": "OFV-tall per 23. november: Tesla størst hittil i år, kinesiske merker vokser",
+      "ingress": "Ifølge OFVs oppdaterte statistikk per 23. november er Tesla største merke hittil i 2026, foran Toyota og Volkswagen. Kinesiske merker sto for 22,5 prosent av nybilsalget i oktober.",
+      "category": "Bilsalg",
+      "date": "2026-11-26",
+      "time": "15:44",
+      "ai": true,
+      "image_query": "Tesla Model Y Norway",
+      "image": {
+        "src": "/img/news/tesla-model-y-norway.jpg",
+        "width": 1400,
+        "height": 933,
+        "author": "Andrzej Otrębski",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Sandvika_Tesla_Model_Y.jpg",
+        "title": "Sandvika Tesla Model Y.jpg"
+      }
+    },
+    {
+      "lang": "nb",
       "url": "/elbilforeningen-momsokning-2027-37500-kroner.html",
       "title": "Elbilforeningen: De fleste elbiler får 37 500 kroner mer i avgift etter nyttår",
       "ingress": "Ifølge Elbilforeningen ligger det an til at toppmomsgrensen for elbil kuttes videre ved nyttår, slik at de fleste nye elbiler får 37 500 kroner mer i mva. Her er hva som er vedtatt, og hva som gjenstår.",
