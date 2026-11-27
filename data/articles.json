@@ -2,6 +2,27 @@
   "articles": [
     {
       "lang": "nb",
+      "url": "/elbilen-se-dacia-sandero-elbil-og-xiaomi-testing.html",
+      "title": "Dacia Sandero som elbil og Xiaomi-testing i Sverige: hva vet vi så langt?",
+      "ingress": "Svenske Elbilen melder at en elektrisk Dacia Sandero er på vei, og at Xiaomi tester egne elbiler i Sverige. Saken er foreløpig basert på overskrifter, ikke detaljer.",
+      "category": "Nye modeller",
+      "date": "2026-11-27",
+      "time": "15:33",
+      "ai": true,
+      "image_query": "Dacia Sandero",
+      "image": {
+        "src": "/img/news/dacia-sandero.jpg",
+        "width": 1400,
+        "height": 882,
+        "author": "Alexander Migl",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Dacia_Sandero_III_1X7A0329.jpg",
+        "title": "Dacia Sandero III 1X7A0329.jpg"
+      }
+    },
+    {
+      "lang": "nb",
       "url": "/ofv-per-23-november-tesla-leder-kinesiske-merker-vokser.html",
       "title": "OFV-tall per 23. november: Tesla størst hittil i år, kinesiske merker vokser",
       "ingress": "Ifølge OFVs oppdaterte statistikk per 23. november er Tesla største merke hittil i 2026, foran Toyota og Volkswagen. Kinesiske merker sto for 22,5 prosent av nybilsalget i oktober.",
