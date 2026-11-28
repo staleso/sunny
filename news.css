@@ -259,3 +259,43 @@ h2, h3 { letter-spacing: -0.02em; }
 .make-list a { color: var(--accent); text-decoration: none; font-weight: 500; }
 .make-list span { font-size: 12.5px; color: var(--text2); }
 @media (max-width: 560px) { .car-facts-big { grid-template-columns: repeat(2, 1fr); } .spec-table th { width: 50%; } }
+
+/* --- Ryddigere bilsider (mobil først) --- */
+.car-page { padding-bottom: 40px; }
+.car-article section { margin-top: 32px; }
+.car-head h1 { font-size: clamp(30px, 8vw, 52px); }
+.car-lead { font-size: 17px; }
+.car-band { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;
+    background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 12px 16px; margin-top: 4px; }
+.car-band-label { display: block; font-size: 11.5px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--text2); }
+.car-band strong { font-size: 17px; }
+.car-band a { font-size: 14px; }
+.spec-groups { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.spec-group { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 6px 16px 8px; }
+.spec-group h3 { font-size: 13px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--text2); padding: 10px 0 4px; font-family: inherit; }
+.spec-group dl { margin: 0; }
+.spec-group dl > div { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 9px 0; border-top: 1px solid var(--line); }
+.spec-group dl > div:first-child { border-top: 0; }
+.spec-group dt { color: var(--text2); font-size: 15px; }
+.spec-group dd { margin: 0; font-weight: 650; font-size: 15px; text-align: right; }
+.row-list { list-style: none; padding: 0; margin: 0; background: var(--card); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+.row-list li + li { border-top: 1px solid var(--line); }
+.row-list a { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 13px 16px; color: inherit; text-decoration: none; min-height: 48px; }
+.row-list a:active, .row-list a:hover { background: var(--surface2); }
+.row-main { display: flex; flex-direction: column; min-width: 0; }
+.row-main strong { font-weight: 600; font-size: 15.5px; }
+.row-main small { font-size: 13px; color: var(--text2); margin-top: 1px; }
+.row-val { flex: none; font-weight: 700; font-size: 15px; color: var(--text); }
+.row-band { font-size: 12.5px; font-weight: 600; color: var(--accent); background: rgba(37,99,235,.10); padding: 4px 9px; border-radius: 999px; }
+.make-block h2 { margin: 0 0 10px !important; }
+.car-cta { flex-direction: column; }
+.car-cta a { text-align: center; }
+@media (min-width: 640px) { .car-cta { flex-direction: row; } }
+@media (max-width: 640px) {
+    .spec-groups { grid-template-columns: 1fr; }
+    .car-facts-big { gap: 10px; margin: 18px 0 12px; }
+    .car-facts-big div { padding: 12px 14px; }
+    .rank-list li { padding: 12px 14px; gap: 10px; }
+    .rank-list a strong { font-size: 15px; }
+    .crumbs { padding-top: 16px; }
+}
