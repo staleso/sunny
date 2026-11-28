@@ -45,25 +45,46 @@ function miniCard(car) {
                 </a>`;
 }
 
-function specRows(car) {
+function specGroups(car) {
     const explicitCharge = typeof car.chargeSpeed === 'number';
-    const rows = [
-        ['Prisklasse', bandLabel(car), 'Basert på importørens fra-pris. Sjekk dagens pris hos forhandler.'],
-        ['Rekkevidde (WLTP)', `${fmt(car.range)} km`, 'Oppgitt av produsenten'],
-        ['Rekkevidde om vinteren', `ca. ${fmt(D.getWinterRange(car))} km`, 'Vårt anslag – faktisk rekkevidde varierer'],
-        ['Batteri', `${String(car.kwh).replace('.', ',')} kWh`, ''],
-        ['Hurtiglading (DC)', `${explicitCharge ? '' : 'ca. '}${D.getChargeSpeed(car)} kW`, explicitCharge ? 'Oppgitt maks ladeeffekt' : 'Vårt anslag'],
-        ['Effekt', `${fmt(car.hp)} hk`, ''],
-        ['0–100 km/t', `${String(car.zeroToHundred).replace('.', ',')} s`, ''],
-        ['Drift', DRIVE_NB[car.drivetrain] || car.drivetrain, ''],
-        ['Seter', String(car.seats), ''],
-        ['Bagasjerom', car.trunk ? `${fmt(car.trunk)} liter` : '–', ''],
-        ['Lengde × bredde × høyde', `${fmt(car.length)} × ${fmt(car.width)} × ${fmt(car.height)} mm`, ''],
-        ['Vekt', car.weight ? `ca. ${fmt(car.weight)} kg` : '–', ''],
-        ['Karosseri', `${TYPE_NB[car.type] || car.type} · ${car.segment}`, ''],
-        ['Opprinnelsesland (merke)', D.getCarCountry(car) || '–', ''],
+    const dec = v => String(v).replace('.', ',');
+    const groups = [
+        ['Rekkevidde og lading', [
+            ['Rekkevidde (WLTP)', `${fmt(car.range)} km`],
+            ['Vinterrekkevidde', `≈ ${fmt(D.getWinterRange(car))} km`],
+            ['Batteri', `${dec(car.kwh)} kWh`],
+            ['Hurtiglading', `${explicitCharge ? '' : '≈ '}${D.getChargeSpeed(car)} kW`],
+        ]],
+        ['Ytelse', [
+            ['Effekt', `${fmt(car.hp)} hk`],
+            ['0–100 km/t', `${dec(car.zeroToHundred)} s`],
+            ['Drift', DRIVE_NB[car.drivetrain] || car.drivetrain],
+        ]],
+        ['Plass og mål', [
+            ['Seter', String(car.seats)],
+            ['Bagasjerom', car.trunk ? `${fmt(car.trunk)} l` : '–'],
+            ['Lengde', `${fmt(car.length)} mm`],
+            ['Bredde', `${fmt(car.width)} mm`],
+            ['Høyde', `${fmt(car.height)} mm`],
+            ['Vekt', car.weight ? `${fmt(car.weight)} kg` : '–'],
+        ]],
+        ['Om modellen', [
+            ['Karosseri', TYPE_NB[car.type] || car.type],
+            ['Segment', car.segment],
+            ['Merkets land', D.getCarCountry(car) || '–'],
+            ['Årsmodell', String(car.year)],
+        ]],
     ];
-    return rows.map(([k, v, n]) => `<tr><th scope="row">${esc(k)}</th><td>${esc(v)}${n ? `<small>${esc(n)}</small>` : ''}</td></tr>`).join('\n                    ');
+    return groups.map(([h, rows]) => `<div class="spec-group">
+                    <h3>${esc(h)}</h3>
+                    <dl>
+                        ${rows.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('\n                        ')}
+                    </dl>
+                </div>`).join('\n                ');
+}
+
+function altRow(car) {
+    return `<li><a href="${carUrl(car)}"><span class="row-main"><strong>${esc(name(car))}</strong><small>${esc(TYPE_NB[car.type] || car.type)} · ${esc(car.drivetrain)}</small></span><span class="row-val">${fmt(car.range)} km</span></a></li>`;
 }
 
 function similar(car) {
@@ -94,15 +115,18 @@ function carPage(car) {
                     <div><strong>${fmt(car.hp)}</strong><span>hk</span></div>
                     <div><strong>${car.seats}</strong><span>seter</span></div>
                 </div>
-                <p class="car-band"><span class="band-pill">${esc(bandLabel(car))}</span>${src ? ` <a href="${esc(src.url)}" rel="noopener" target="_blank">Se dagens pris hos ${esc(src.name)} →</a>` : ''}</p>
+                <div class="car-band">
+                    <div><span class="car-band-label">Prisklasse</span><strong>${esc(bandLabel(car))}</strong></div>
+                    ${src ? `<a href="${esc(src.url)}" rel="noopener" target="_blank">Dagens pris hos ${esc(src.name)} →</a>` : ''}
+                </div>
             </header>
 
             <section>
                 <h2>Nøkkeltall</h2>
-                <table class="spec-table">
-                    ${specRows(car)}
-                </table>
-                <p class="spec-note">Tallene er hentet fra produsentens og importørens oppgitte data der det finnes. Felter merket «anslag» er våre egne beregninger. Utstyrsnivå, hjul og temperatur påvirker tallene.</p>
+                <div class="spec-groups">
+                ${specGroups(car)}
+                </div>
+                <p class="spec-note">≈ = vårt eget anslag. Øvrige tall er produsentens eller importørens oppgitte verdier. Utstyrsnivå, hjul og temperatur påvirker tallene.</p>
             </section>
 
             ${cleanDesc ? `<section>
@@ -113,9 +137,9 @@ function carPage(car) {
 
             ${sims.length ? `<section>
                 <h2>${isCurrent(car) ? 'Alternativer i samme prisklasse' : `Nye modeller fra ${esc(car.make)}`}</h2>
-                <div class="mini-grid">
-                ${sims.map(miniCard).join('\n                ')}
-                </div>
+                <ul class="row-list">
+                ${sims.map(altRow).join('\n                ')}
+                </ul>
             </section>` : ''}
 
             <section class="car-cta">
@@ -199,14 +223,14 @@ function hubPage() {
             </header>
             <section>
                 <h2>Oversikter</h2>
-                <div class="mini-grid">
-                ${LISTS.map(l => `<a class="mini-car" href="/elbiler/${l.slug}.html"><strong>${esc(l.title)}</strong><span>${esc(l.lead.split('. ')[0])}.</span></a>`).join('\n                ')}
-                </div>
+                <ul class="row-list">
+                ${LISTS.map(l => `<li><a href="/elbiler/${l.slug}.html"><span class="row-main"><strong>${esc(l.title)}</strong></span><span class="row-val">›</span></a></li>`).join('\n                ')}
+                </ul>
             </section>
             ${makes.map(m => `<section class="make-block">
                 <h2>${esc(m)}</h2>
-                <ul class="make-list">
-                    ${D.CARS.filter(c => c.make === m).sort((a, b) => a.model.localeCompare(b.model, 'nb')).map(c => `<li><a href="${carUrl(c)}">${esc(c.model)}</a> <span>${esc(bandLabel(c))}</span></li>`).join('\n                    ')}
+                <ul class="row-list">
+                    ${D.CARS.filter(c => c.make === m).sort((a, b) => a.model.localeCompare(b.model, 'nb')).map(c => `<li><a href="${carUrl(c)}"><span class="row-main"><strong>${esc(c.model)}</strong><small>${fmt(c.range)} km · ${esc(c.drivetrain)}</small></span><span class="row-val row-band">${esc(bandLabel(c))}</span></a></li>`).join('\n                    ')}
                 </ul>
             </section>`).join('\n            ')}
         </article>`;
