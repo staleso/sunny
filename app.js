@@ -1548,7 +1548,7 @@ function renderCarImagePlaceholder(car) {
 function renderCarCard(car, showBand) {
     const div = document.createElement("div");
     div.className = "car-card car-card--compact";
-    div.onclick = () => { window.location.href = 'bil.html?id=' + carSlug(car); };
+    div.onclick = () => { window.location.href = '/elbil/' + carSlug(car) + '.html'; };
     const bc = BRAND_COLORS[car.make] || { primary: "#888" };
     var silhouette = CAR_SILHOUETTES[car.type] || CAR_SILHOUETTES['sedan'];
     const band = getPriceBand(car);
@@ -1644,6 +1644,10 @@ function renderGrouped(list, cars) {
     const note = document.createElement("p");
     note.className = "band-note";
     note.textContent = "Prisklassene er veiledende. Sjekk alltid dagens pris hos importør eller forhandler.";
+    const more = document.createElement("p");
+    more.className = "band-note";
+    more.innerHTML = '<a href="/elbiler/">Se alle elbiler og oversikter – lengst rekkevidde, 7 seter, firehjulsdrift og mer →</a>';
+    list.appendChild(more);
     list.appendChild(note);
 }
 

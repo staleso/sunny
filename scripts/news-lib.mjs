@@ -72,7 +72,7 @@ const T = {
             ['/sammenlign.html', 'Sammenlign elbiler', 'Prisklasse, rekkevidde og ytelse for over 100 modeller.'],
             ['/finn-din-elbil.html', 'Finn din elbil', 'Svar på noen spørsmål og få forslag som kan passe deg.'],
             ['/kalkulator.html', 'Kostnadskalkulator', 'Få et anslag på hva elbilen kan koste over tid.'],
-            ['/tabell.html', 'Stor tabell', 'Alle spesifikasjoner i én sorterbar tabell.'],
+            ['/elbiler/', 'Alle elbiler', 'Nøkkeltall for over 100 modeller og oversikter etter rekkevidde, seter og pris.'],
         ],
         nav: [['/', 'Nyheter', true], ['/sammenlign.html', 'Biler'], ['/sammenlign.html#compare', 'Vs'], ['/finn-din-elbil.html', 'Quiz'], ['/kalkulator.html', 'Kalk'], ['/tabell.html', 'Tabell']],
         langSwitch: ['/en/', 'EN', 'English version'],
@@ -134,8 +134,9 @@ const ICONS = [
     '<path d="M3 5h18M3 12h18M3 19h18M9 5v14M15 5v14"/>',
 ];
 
-function head(t, lang) {
-    const url = `https://elbilvalg.no${t.home}`;
+function head(t, lang, o = {}) {
+    const url = `https://elbilvalg.no${o.path || t.home}`;
+    const title = o.title || t.title, description = o.description || t.description;
     return `<!DOCTYPE html>
 <html lang="${t.htmlLang}">
 <head>
@@ -154,15 +155,15 @@ function head(t, lang) {
         })();
     </script>
     <meta name="ai-content-declaration" content="${lang === 'nb' ? 'Nyhetsartiklene på denne siden er skrevet ved hjelp av kunstig intelligens.' : 'News articles on this page are written with the help of artificial intelligence.'}">
-    <title>${esc(t.title)}</title>
-    <meta name="description" content="${esc(t.description)}">
+    <title>${esc(title)}</title>
+    <meta name="description" content="${esc(description)}">
     <link rel="canonical" href="${url}">
-    <link rel="alternate" hreflang="nb" href="https://elbilvalg.no/">
-    <link rel="alternate" hreflang="en" href="https://elbilvalg.no/en/">
-    <meta property="og:title" content="${esc(t.title)}">
-    <meta property="og:description" content="${esc(t.description)}">
+${o.path ? '' : `    <link rel="alternate" hreflang="nb" href="https://elbilvalg.no/">
+    <link rel="alternate" hreflang="en" href="https://elbilvalg.no/en/">`}
+    <meta property="og:title" content="${esc(title)}">
+    <meta property="og:description" content="${esc(description)}">
     <meta property="og:url" content="${url}">
-    <meta property="og:type" content="website">
+    <meta property="og:type" content="${o.ogType || 'website'}">
     <meta property="og:locale" content="${t.locale}">
     <link rel="manifest" href="/manifest.json">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -185,8 +186,8 @@ function head(t, lang) {
 </head>`;
 }
 
-function header(t) {
-    const nav = t.nav.map(([href, label, active]) =>
+function header(t, activeHref) {
+    const nav = t.nav.map(([href, label, active]) => (activeHref !== undefined ? (active = href === activeHref) : active, [href, label, active])).map(([href, label, active]) =>
         `<a href="${href}" class="tab tab-link${active ? ' tab-current' : ''}"${active ? ' aria-current="page"' : ''}>${label}</a>`).join('\n            ');
     return `    <div class="sticky-top">
         <header class="app-header">
@@ -449,3 +450,18 @@ ${sources.map(src => `                    <li><a href="${esc(src.url)}" rel="noo
     }
     return s;
 }
+
+// Felles sideskall for statiske undersider (bilsider, oversikter).
+export function pageShell({ lang = 'nb', path: p, title, description, body, jsonld, ogType, active = '/sammenlign.html' }) {
+    const t = T[lang];
+    return `${head(t, lang, { path: p, title, description, ogType })}
+<body class="nx">
+${header(t, active)}
+
+    <main class="nx-page car-page">
+${body}
+    </main>
+${jsonld ? `    <script type="application/ld+json">${JSON.stringify(jsonld)}</script>\n` : ''}
+${footer(t)}`;
+}
+export { card as articleCard };
